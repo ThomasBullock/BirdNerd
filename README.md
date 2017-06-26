@@ -1,7 +1,10 @@
 # BirdNerd
-Photo sharing website for bird watchers
+Photo sharing website for bird watchers.
 
-## Build To Learn Exercise by Chingu Cohort Redpandas Team 6
+## Build To Learn Exercise by Chingu Cohort Redpandas Team 6.
+
+A modification of this [Pinterest Clone Project](https://www.freecodecamp.com/challenges/build-a-pinterest-clone) for Free Code Camp.
+
 
 User Stories:
 
