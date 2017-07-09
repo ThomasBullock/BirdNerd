@@ -1,0 +1,42 @@
+@mixin img-responsive() {
+	max-width: 100%;
+	height: auto;
+	display:block;
+} 
+
+@function invert-font-color($color) {
+	@if(lightness($color) > 70) {
+		@return $oil; // dark
+	} @else {
+		@return $vapor;  // light
+	}
+} 
+
+@mixin border($top, $right, $bottom, $left, $width: 1px, $color: $black ) {
+	@if $top == true {
+		border-top: solid $width $color;
+	} @else {
+		border-top: 0;
+	}
+	@if $right == true {
+		border-right: solid $width $color;
+	} @else {
+		border-right: 0;		
+	}
+	@if $bottom == true {
+		border-bottom: solid $width $color;
+	} @else {
+		border-bottom: 0;		
+	}
+	@if $left == true {
+		border-left: solid $width $color;
+	}	@else {
+		border-left: 0;		
+	}		
+}
+
+ @mixin heading($size) {
+ 	font-size: modular-scale($size);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;    	
+ }

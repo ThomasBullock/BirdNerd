@@ -8,7 +8,9 @@ import thunk from 'redux-thunk';
 import router from './router';
 //import rootSaga from 'sagas';
 //import reducer from './ducks';
+
 import registerServiceWorker from './registerServiceWorker';
+import './styles/css/index.css';
 
 //const sagaMiddleware = createSagaMiddleware();
 //export const store = createStore(reducer, applyMiddleware(sagaMiddleware, thunk));
