@@ -40,6 +40,13 @@ $instagram-purple  : #833ab4;
 $instagram-orange  : #fcaf45;
 $instagram-yellow  : #ffdc80;
 
+$wes-cyan          : #48ded4;
+$wes-magenta       : #a026bf;
+$wes-pink          : #e82c75;
+$wes-sunset        : #FFC40E;
+
+
+$tropical-gradient: linear-gradient(90deg, $wes-cyan 0%, $wes-magenta 20%, $wes-pink 60%, $wes-sunset 85%, $wes-cyan 95%);$sub-tropical-gradient: linear-gradient(90deg, transparentize(#48ded4, .2) 0%, transparentize(#a026bf, .2) 20%, transparentize(#e82c75, .2) 60%, #FFC40E 85%, #48ded4 95%);
 
 /* ================================= 
   SPACING - Already set in plugins 
