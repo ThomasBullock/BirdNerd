@@ -14,7 +14,7 @@ button, [type='button'], [type='reset'], [type='submit'] {
   padding: 0.75em 1.5em;
   text-align: center;
   text-decoration: none;
-  transition: background-color 150ms ease;
+  transition: background-color 250ms ease;
   user-select: none;
   vertical-align: middle;
   white-space: nowrap; }
@@ -62,7 +62,7 @@ textarea {
   box-sizing: border-box;
   margin-bottom: 0.75em;
   padding: 0.5em;
-  transition: border-color 150ms ease;
+  transition: border-color 250ms ease;
   width: 100%; }
   [type='color']:hover, [type='date']:hover, [type='datetime']:hover, [type='datetime-local']:hover, [type='email']:hover, [type='month']:hover, [type='number']:hover, [type='password']:hover, [type='search']:hover, [type='tel']:hover, [type='text']:hover, [type='time']:hover, [type='url']:hover, [type='week']:hover, input:not([type]):hover, textarea:hover {
     border-color: #b1b1b1; }
@@ -184,7 +184,7 @@ p {
 a {
   color: #1565c0;
   text-decoration-skip: ink;
-  transition: color 150ms ease; }
+  transition: color 250ms ease; }
   a:hover {
     color: #104c90; }
   a:focus {
@@ -205,6 +205,16 @@ hr {
   SPACING - Already set in plugins 
   folder we can overide them here
 ==================================== */
+a {
+  color: #F6F6F6;
+  text-decoration: none;
+  transition: color 250ms ease; }
+  a:hover {
+    color: #b9b9b9; }
+  a:focus {
+    outline: 3px solid rgba(21, 101, 192, 0.6);
+    outline-offset: 2px; }
+
 /* ================================= 
   BEM create element / modifier 
 ==================================== */
