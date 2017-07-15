@@ -2,18 +2,13 @@ import React from 'react';
 import '../styles/css/components/App.css';
 
 import TopBar from './TopBar';
+import Main from './Main';
 
-class App extends React.Component {
-    render() {
-        return (
-            <div>
-            	<TopBar>
-            		
-            	</TopBar>
-            	<h1 className="heading">Welcome To BirdNerd App!</h1>
-            </div>
-        );
-    }
-}
+const App = () => (
+    <div>
+        <TopBar />
+        <Main />
+    </div>
+);
 
 export default App;

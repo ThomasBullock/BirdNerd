@@ -3,6 +3,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+import apiRouter from './api';
 
 // import environmental variables from our variables.env file
 require('dotenv').config({ path: 'variables.env' });
@@ -19,7 +20,7 @@ mongoose.connect(process.env.DATABASE);
 // This object will contain key-value pairs, where the value can be a string or array (when extended is false), or any type (when extended is true).
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true})); 
-
+app.use('/api', apiRouter);
 
 //starts the server and listens for requests
 app.listen(port, function() {
