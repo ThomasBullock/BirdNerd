@@ -17,6 +17,7 @@
 .env.production.local
 variables.env
 variables.env.now
+.vscode
 
 npm-debug.log*
 yarn-debug.log*
