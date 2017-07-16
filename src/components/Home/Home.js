@@ -18,7 +18,17 @@ const Home = () => (
 	  		<BirdCard orientation="portrait"
 	  			img="http://www.blaize.net/wp-content/uploads/2011/02/Bird-3.jpg"
 	  		>
-	  		</BirdCard>	  		
+	  		</BirdCard>
+	  		<BirdCard 
+	  			orientation="landscape"
+	  			img="https://upload.wikimedia.org/wikipedia/commons/7/72/Alcedo_azurea_-_Julatten.jpg"
+	  			>
+	  		</BirdCard>
+	  		<BirdCard 
+	  			orientation="portrait"
+	  			img="https://perthzoo.wa.gov.au/sites/default/files/animal/images/Southern%20Cassowary%20Image1.jpg"
+	  			>
+	  		</BirdCard>	  			  			  		
 	  	</div>	
   	</main>
 
