@@ -1,0 +1,136 @@
+@import '../settings';
+
+
+.birdcard {
+	display: flex;
+	flex: 0 1 90%;
+	margin: 5%;
+	box-shadow: 2px 2px 5px transparentize($oil, .5);
+	// max-height: 400px;
+
+	@media all and (min-width : 768px) and (max-width : 1024px) {
+		flex: 0 1 45%;
+		margin: 2.5%;
+	}
+
+	@media all and (min-width : 1025px) {
+		flex: 0 1 25%;
+		margin: 2.5%;
+	}
+
+	@include mod('portrait') {
+		flex-direction: row;
+	}
+
+
+	@include mod('landscape') {
+		flex-direction: column;
+	}
+
+
+
+	@include elem('photo') {
+		flex: 1 1 66%;
+		position: relative;
+
+			img {
+				@include img-responsive();
+				width: 100%;
+				height: 100%;
+			}
+
+		@include mod('portrait') {
+
+		}
+	}
+
+	@include elem('stats') {
+		flex: 1 1 33%;
+		justify-content: space-between;
+		padding: $base-spacing / 2;
+		display: flex;
+
+
+
+		svg.icon {
+
+			width: 24px;
+			height: 24px;
+
+			@media all and (min-width : 1025px) {
+				width: 24px;
+			}			
+		}
+
+		@include mod('portrait') {
+			@include tropical-gradient(180deg);
+			flex-direction: column;
+			align-items: center;
+		}
+
+		@include mod('landscape') {
+			@include tropical-gradient(90deg);			
+			flex-direction: row;
+			align-items: center;
+			padding-top: $base-spacing;		
+			padding-bottom: $base-spacing;
+
+
+			@media all and (min-width : 1025px) {
+				padding-top: $base-spacing;		
+				padding-bottom: $base-spacing;				
+			}									
+		}		
+	}
+
+	@include elem('button') {
+		position: relative;
+		background: transparentize($vapor, .5);
+		border-radius: 50%;
+		padding: $base-spacing / 2;
+		height: 48px;
+		width: 48px;
+
+		&:hover {
+			background: transparentize($vapor, .1);			
+		}			
+
+		@include mod('user') {   // for the user button in top left corner
+			@include position(absolute, $base-spacing / 2 null null $base-spacing / 2)
+			// border: solid 1px $base;
+			// background-image: url('http://3.bp.blogspot.com/-dXOvZOVDhes/Ts99nTenjtI/AAAAAAAAA2A/It9Ymliw4t4/s1600/26.jpg');
+			background-position: 60% 32%;
+		}
+	}
+
+	@include elem('number') {
+		@include center();
+		color: transparentize($vapor, .3);
+		font-size: modular-scale(-1);
+	}
+
+
+}
+
+
+
+
+/* ================================= 
+  TABLET
+==================================== */
+
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+
+/* Styles */
+
+}
+
+/* ================================= 
+  DESKTOP
+==================================== */
+
+@media only screen and (min-device-width : 1024px) {
+
+/* Styles */
+
+}
