@@ -1,0 +1,98 @@
+@import '../settings';
+
+
+.birdcard {
+	display: flex;
+	flex: 0 1 90%;
+	margin: 5%;
+	// max-height: 400px;
+
+	@media all and (min-width : 768px) and (max-width : 1024px) {
+		flex: 0 1 45%;
+		margin: 2.5%;
+	}
+
+	@media all and (min-width : 1025px) {
+		flex: 0 1 25%;
+		margin: 2.5%;
+	}
+
+	@include mod('portrait') {
+		flex-direction: row;
+	}
+
+
+	@include mod('landscape') {
+		flex-direction: column;
+	}
+
+
+
+	@include elem('photo') {
+		flex: 1 1 66%;
+
+			img {
+				@include img-responsive();
+				width: 100%;
+				height: 100%;
+			}
+
+		@include mod('portrait') {
+
+		}
+	}
+
+	@include elem('stats') {
+		background: $base;
+		flex: 1 1 33%;
+		justify-content: space-between;
+		padding: $base-spacing;
+		display: flex;
+
+		svg.icon {
+			width: 24px;
+
+			@media all and (min-width : 1025px) {
+				width: 24px;
+			}			
+		}
+
+		@include mod('portrait') {
+			flex-direction: column;
+			align-items: center;
+		}
+
+		@include mod('landscape') {
+			flex-direction: row;
+			align-items: center;
+			padding-top: $base-spacing;		
+			padding-bottom: $base-spacing;
+
+
+			@media all and (min-width : 1025px) {
+				padding-top: $base-spacing;		
+				padding-bottom: $base-spacing;				
+			}									
+		}		
+	}
+}
+
+/* ================================= 
+  TABLET
+==================================== */
+
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+
+/* Styles */
+
+}
+
+/* ================================= 
+  DESKTOP
+==================================== */
+
+@media only screen and (min-device-width : 1024px) {
+
+/* Styles */
+
+}
