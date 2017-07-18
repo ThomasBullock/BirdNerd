@@ -2,10 +2,10 @@
 
 
 .birdcard {
-	display: flex;
+	//display: flex;
 	flex: 0 1 90%;
 	margin: 5%;
-	box-shadow: 2px 2px 5px transparentize($oil, .5);
+	//box-shadow: 2px 2px 5px transparentize($oil, .5);
 	// max-height: 400px;
 
 	@media all and (min-width : 768px) and (max-width : 1024px) {
