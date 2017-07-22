@@ -3,8 +3,6 @@ import Bird from '../models/bird';
 const router = express.Router();
 
 router.get('/birds', (req, res) => {
-    res.send('helloo');
-    res.end();
     /*Bird.find({}, (err, allbirds) => {
         if(err) {
             console.log(err);
@@ -13,13 +11,22 @@ router.get('/birds', (req, res) => {
             res.json({ allbirds });
         }
     });*/
+    Bird.find({})
+        .exec()
+        .then(data => {
+            res.json(data);
+        })
+        .catch(err => {
+            console.log(err);
+            res.json(err);
+        });
 });
 
 router.post('/birds', (req, res) => {
     const name = req.body.name;
-    const species = req.body.name;
-    const location = req.body.name;
-    const conservationStatus = req.body.name;
+    const species = req.body.species;
+    const location = req.body.location;
+    const conservationStatus = req.body.conservationStatus;
 
     const newBird = {
         name: name,
@@ -27,24 +34,49 @@ router.post('/birds', (req, res) => {
         location: location,
         conservationStatus: conservationStatus,
     }
-
-    Bird.create(newBird, function(err, newlyCreated) {
+    const bird = new Bird(newBird);
+    bird.save()
+        .then(data => {
+            res.json({err: false});
+        })
+        .catch(err => {
+            console.log(err);
+            res.json(err);
+        })
+    /*Bird.create(newBird, function(err, newlyCreated) {
         if(err) {
             console.log(err);
         } else {
-            console.log('hihiiii');
             console.log(newlyCreated);
+            res.send(newlyCreated);
         }
-    });
+    });*/
 });
 
 router.get('/birds/:birdId', (req, res) => {
-    let bird = {
-        birdId: req.params.birdId
-    };
-    bird.description = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text';
-    
-    res.send(bird);
+    const birdId = req.params.birdId;
+    Bird.findById(birdId)
+        .exec()
+        .then(data => {
+            res.json(data);
+        })
+        .catch(err => {
+            console.log(err);
+            res.json(err);
+        });
+});
+
+router.delete('/birds/:birdId', (req, res) => {
+    const birdId = req.params.birdId;
+    Bird.findByIdAndRemove(birdId)
+    .exec()
+    .then(data =>{
+        res.json({ err: false});
+    })
+    .catch(err => {
+        console.log(err);
+        res.json(err);
+    });
 });
 
 export default router;
