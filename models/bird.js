@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const BirdSchema = new mongoose.Schema({
     name: String,
     species: String,
-    location: String,
+    location: [String],
     conservationStatus: String,
 });
 

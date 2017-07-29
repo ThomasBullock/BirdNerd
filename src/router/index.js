@@ -10,5 +10,5 @@ import Main from '../components/Main';
 export default (
     <Router>
         <Main />
-	</Router>
+		</Router>
 );

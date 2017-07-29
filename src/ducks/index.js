@@ -1,9 +1,12 @@
 import { combineReducers } from 'redux-immutable';
 import { reducer as form } from 'redux-form/immutable';
 
+import bird from './birds';
+//import otherReducers if any
 
-const reducer = combineReducers({
- 
+const rootReducer = combineReducers({
+    bird,
+    //other reducers if any
 });
 
-export default reducer;
+export default rootReducer; 
