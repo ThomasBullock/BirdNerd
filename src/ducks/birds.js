@@ -1,46 +1,43 @@
-// widgets.js
+import { Map } from 'immutable';
 
-// Actions
-const FETCH_BIRD   = 'FETCH_BIRD';
-const CREATE_BIRD = 'CREATE_BIRD';
-const UPDATE_BIRD = 'UPDATE_BIRD';
-const REMOVE_BIRD = 'REMOVE_BIRD';
+const action = name => `birdnerd/bird/${name}`;
 
-// Reducer
-export default function reducer(state = {}, action = {}) {
-  switch (action.type) {
-    // do reducer stuff
-    case 'FETCH_BIRD': 
-    	return action.birds;
-    case 'CREATE_BIRD':
-    	return action.bird;
-    case 'UPDATE_BIRD':	
-    	return action.bird;
-    case 'REMOVE_BIRD':
-    	return action.bird;		
-    default: return state;
-  }
-}
+export const FETCH_BIRD = action('FETCH_BIRD');
+export const CREATE_BIRD = action('CREATE_BIRD');
+export const UPDATE_BIRD = action('UPDATE_BIRD');
+export const REMOVE_BIRD = action('REMOVE_BIRD');
 
 // Action Creators
-export function fetchBird() {
-  return { type: FETCH_BIRD };
-}
+export const fetchBird = () => ({ type: FETCH_BIRD });
 
-export function createBird(bird) {
-  return { type: CREATE_BIRD, bird };
-}
+export const createBird = bird => ({ type: CREATE_BIRD, bird });
 
-export function updateBird(bird) {
-  return { type: UPDATE_BIRD, bird };
-}
+export const updateBird = bird => ({ type: UPDATE_BIRD, bird });
 
-export function removeBird(bird) {
-  return { type: REMOVE_BIRD, bird };
-}
+export const removeBird = bird => ({ type: REMOVE_BIRD, bird });
 
-// side effects, only as applicable
-// e.g. thunks, epics, etc
-// export function getWidget () {
-//   return dispatch => get('/widget').then(widget => dispatch(setWidget(widget)))
-// }
+
+const initialState = Map({});
+
+// Reducer
+const bird = (state = initialState, action) => {
+  switch (action.type) {
+    // do reducer stuff
+    case FETCH_BIRD: 
+      //Todo
+    	return state;
+    case CREATE_BIRD:
+    //Todo
+    	return state;
+    case UPDATE_BIRD:
+      //Todo	
+    	return state;
+    case REMOVE_BIRD:
+      //Todo
+    	return state;		
+    default:
+      return state;
+  }
+};
+
+export default bird;

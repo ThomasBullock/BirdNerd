@@ -7,9 +7,6 @@ import rootReducer from './ducks';
 
 export const history = createHistory();
 
-const initialState = {
-  birds: {}
-};
 const enhancers = [];
 const middleware = [
   thunk,
@@ -32,7 +29,6 @@ const composedEnhancers = compose(
 
 const store = createStore(
   rootReducer,
-  initialState,
   composedEnhancers
 )
 
