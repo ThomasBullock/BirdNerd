@@ -1,0 +1,41 @@
+@import '../settings';
+
+.birdinfo {
+	width: 80%;
+	margin: $base-spacing auto;
+	display: flex;
+	flex-direction: column;
+	
+	@include elem('image-wrapper') {
+		flex: 1 1 100%;
+		
+		img {
+			@include img-responsive();
+		}
+	}
+	
+	@include elem('facts') {
+		padding: $base-spacing 0;
+		flex: 1 1 100%;
+		display: flex;
+		flex-direction: column;
+	}
+	
+	
+	
+	
+	@media all and (min-width : 1025px) {
+		// adjust image and facts to side by side arrangement on desktop
+		flex-direction: row;
+		
+		@include elem('image-wrapper') {
+			flex: 1 1 50%;
+		}
+		
+		@include elem('facts') {
+			padding: 0 $base-spacing;
+			flex: 1 1 50%;
+		}		
+
+	}	
+}

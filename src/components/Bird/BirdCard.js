@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../../styles/css/components/BirdCard.css';
-
+import { Link } from 'react-router-dom';
 import IconLocation from '../icons/IconLocation';
 import IconHeart from '../icons/IconHeart';
 import IconBubble from '../icons/IconBubble';
@@ -29,9 +29,9 @@ class BirdCard extends Component {
 							<IconBubble/>
 							<span className="birdcard__number">7</span>
 						</button>
-						<button className="birdcard__button">
+						<Link to='/bird/eagle' className="birdcard__button">
 							<IconBird/>
-						</button>					
+						</Link>					
 					</div>				
 				</div>
 			)
