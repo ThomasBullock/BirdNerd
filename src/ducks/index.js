@@ -1,9 +1,9 @@
-import { combineReducers } from 'redux-immutable';
+// import { combineReducers } from 'redux-immutable';
+import { combineReducers } from 'redux';
 import { reducer as form } from 'redux-form/immutable';
+import * as reducers from './birds';
 
 
-const reducer = combineReducers({
- 
-});
+const rootReducer = combineReducers(reducers);
 
-export default reducer;
+export default rootReducer;
