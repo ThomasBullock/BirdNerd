@@ -1,10 +1,57 @@
 @import '../settings';
 
 .birdinfo {
-	width: 80%;
+	background: $vapor;
+	box-shadow: 2px 2px 5px transparentize($oil, .5);
+
+	
+	width: 100%;
 	margin: $base-spacing auto;
-	display: flex;
-	flex-direction: column;
+
+	@include elem('header') {
+
+		&::before {
+	    content: '';
+	    display: block;
+	    background: $tropical-gradient;  // if we alter the $tropical-gradient in _variable.scss the change will be reflected throughtout the app where ever $tropical-gradient is used.
+	    height: $base-spacing / 2;
+	    width: 100%;
+			border-bottom: 2px inset transparentize($oil, .5);  // transparentize is a mixin built into sass that changes the opacity of colors    		
+		}		
+		
+    content: '';
+    display: block;
+    background: $jet;  // if we alter the $tropical-gradient in _variable.scss the change will be reflected throughtout the app where ever $tropical-gradient is used.
+    // height: 20px;
+    width: 100%;
+    // padding: $base-spacing / 2;
+		border-bottom: 2px inset transparentize($oil, .5);  // transparentize is a mixin built into sass that changes the opacity of colors    				
+	
+		h3 {
+			margin: $base-spacing / 2;
+			font-size: modular-scale(0);
+			color: $smoke;
+		}
+	}
+	
+	@include elem('heading') {
+		text-align: center;
+		padding: $base-spacing / 2;
+		width: 60%;
+		margin: $base-spacing / 2 auto;
+		background: $jet;
+		
+		h2 {
+			color: $vapor;
+			margin: 0;
+		}
+	}
+	
+	@include elem('body') {
+		display: flex;
+		flex-direction: column;
+		align-items: base-line;		
+	}
 	
 	@include elem('image-wrapper') {
 		flex: 1 1 100%;
@@ -25,16 +72,19 @@
 	
 	
 	@media all and (min-width : 1025px) {
+		width: 80%;
 		// adjust image and facts to side by side arrangement on desktop
-		flex-direction: row;
+		@include elem('body') {
+			flex-direction: row;
+		}
 		
 		@include elem('image-wrapper') {
-			flex: 1 1 50%;
+			flex: 1 1 40%;
 		}
 		
 		@include elem('facts') {
-			padding: 0 $base-spacing;
-			flex: 1 1 50%;
+			padding: $base-spacing;
+			flex: 1 1 60%;
 		}		
 
 	}	
