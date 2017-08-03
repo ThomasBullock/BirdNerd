@@ -1,52 +1,50 @@
 @import '../settings';
 
 .birdinfo {
-	background: $vapor;
-	box-shadow: 2px 2px 5px transparentize($oil, .5);
-
 	
 	width: 100%;
-	margin: $base-spacing auto;
 
-	@include elem('header') {
+	@include elem('hero') {
+		min-height: 400px;
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
 
-		&::before {
-	    content: '';
-	    display: block;
-	    background: $tropical-gradient;  // if we alter the $tropical-gradient in _variable.scss the change will be reflected throughtout the app where ever $tropical-gradient is used.
-	    height: $base-spacing / 2;
-	    width: 100%;
-			border-bottom: 2px inset transparentize($oil, .5);  // transparentize is a mixin built into sass that changes the opacity of colors    		
-		}		
-		
-    content: '';
-    display: block;
-    background: $jet;  // if we alter the $tropical-gradient in _variable.scss the change will be reflected throughtout the app where ever $tropical-gradient is used.
-    // height: 20px;
-    width: 100%;
-    // padding: $base-spacing / 2;
-		border-bottom: 2px inset transparentize($oil, .5);  // transparentize is a mixin built into sass that changes the opacity of colors    				
-	
-		h3 {
-			margin: $base-spacing / 2;
-			font-size: modular-scale(0);
-			color: $smoke;
-		}
+	@include elem('card') {
+		width: 100%;
+		margin: 0 auto;
+		background: $vapor;
+		box-shadow: 2px 2px 5px transparentize($oil, .5);		
 	}
 	
+	@include elem('wings') {
+		@include center(0%);
+		width: 420px;
+		z-index: 0;
+
+		img {
+			fill: red;
+		}
+	}
+
 	@include elem('heading') {
+		@include center(0%);
+		z-index: 100;
 		text-align: center;
 		padding: $base-spacing / 2;
-		width: 60%;
-		margin: $base-spacing / 2 auto;
+		width: 200px;
+		margin: $base-spacing / 4 auto $base-spacing;
 		background: $jet;
 		
 		h2 {
+			font-size: modular-scale(0);
 			color: $vapor;
 			margin: 0;
 		}
 	}
 	
+
+
 	@include elem('body') {
 		display: flex;
 		flex-direction: column;
@@ -62,7 +60,8 @@
 	}
 	
 	@include elem('facts') {
-		padding: $base-spacing 0;
+		position: relative;
+		padding: $base-spacing * 4 $base-spacing $base-spacing;
 		flex: 1 1 100%;
 		display: flex;
 		flex-direction: column;
@@ -72,20 +71,38 @@
 	
 	
 	@media all and (min-width : 1025px) {
-		width: 80%;
+
 		// adjust image and facts to side by side arrangement on desktop
-		@include elem('body') {
-			flex-direction: row;
+		@include elem('hero') {
+			min-height: 500px;
 		}
-		
-		@include elem('image-wrapper') {
-			flex: 1 1 40%;
+
+		@include elem('card') {
+			max-width: 800px;
+			margin: -$base-spacing auto;			
+		}
+
+		@include elem('wings') {
+			width: 700px;
+		}
+
+		@include elem('heading') { 
+			width: 400px;
+
+			h2 {
+				font-size: modular-scale(1);				
+			}
 		}
 		
 		@include elem('facts') {
-			padding: $base-spacing;
+			padding: $base-spacing * 4 $base-spacing $base-spacing;
 			flex: 1 1 60%;
 		}		
 
 	}	
+}
+
+.birdwings {
+	// fill: url(#MyGradient);
+	width: 100%;
 }

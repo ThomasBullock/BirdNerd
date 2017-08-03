@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import '../../styles/css/components/BirdInfo.css';
+// import BirdWings from '../../img/BirdWings.svg';
+import BirdWings from '../icons/BirdWings';
 
 class BirdInfo extends Component {
 
@@ -10,17 +12,23 @@ class BirdInfo extends Component {
 			species: 'Aquila audax',
 			locations: ['Australia', 'Papua New Guinea'],
 			conservationStatus: 'Least Concern',
-			image: 'http://www.richardhallphotography.com/wp-content/uploads/galleries/post-1432/full/2013-09-30_IMG_7547_Wedge-tailed_Eagle_WEB_1200px.jpg',
+			image: 'http://cdn.natgeotv.com.au/factsheets/thumbnails/wedgetailedeagle_wedgetailedeagle.jpg?v=27&azure=false&scale=both&width=1024&height=560&mode=crop',
 			uploads: []
 		}
 		const locations = birdInfo.locations.join(', ') 
+		const heroImg = `url(${birdInfo.image})`;
+		console.log(heroImg);
 		return(
 			<div className="birdinfo">
-				<div className="birdinfo__hero">
+				<div className="birdinfo__hero" style={{'backgroundImage': `url(${birdInfo.image})`}}>
 					
 				</div>
 				<div className="birdinfo__card">
 					<div className="birdinfo__facts">
+						<div className="birdinfo__wings">
+							{/*	<img src={BirdWings} alt="Bird Wings"/> */}
+						<BirdWings /> 
+						</div>
 						<div className="birdinfo__heading">
 							<h2>{birdInfo.name}</h2>							
 						</div>

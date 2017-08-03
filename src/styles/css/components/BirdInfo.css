@@ -219,34 +219,42 @@ a {
   BEM create element / modifier 
 ==================================== */
 .birdinfo {
-  background: #F6F6F6;
-  box-shadow: 2px 2px 5px rgba(51, 51, 51, 0.5);
-  width: 100%;
-  margin: 1.5em auto; }
-  .birdinfo__header {
-    content: '';
-    display: block;
-    background: #222222;
+  width: 100%; }
+  .birdinfo__hero {
+    min-height: 400px;
+    background-size: cover;
+    background-repeat: no-repeat; }
+  .birdinfo__card {
     width: 100%;
-    border-bottom: 2px inset rgba(51, 51, 51, 0.5); }
-    .birdinfo__header::before {
-      content: '';
-      display: block;
-      background: linear-gradient(90deg, #48ded4 0%, #a026bf 20%, #e82c75 60%, #FFC40E 85%, #48ded4 95%);
-      height: 0.75em;
-      width: 100%;
-      border-bottom: 2px inset rgba(51, 51, 51, 0.5); }
-    .birdinfo__header h3 {
-      margin: 0.75em;
-      font-size: 1em;
-      color: #EEEEEE; }
+    margin: 0 auto;
+    background: #F6F6F6;
+    box-shadow: 2px 2px 5px rgba(51, 51, 51, 0.5); }
+  .birdinfo__wings {
+    text-align: center;
+    z-index: 100;
+    position: absolute;
+    left: 50%;
+    top: 0%;
+    transform: translate(-50%, -50%);
+    width: 420px;
+    z-index: 0; }
+    .birdinfo__wings img {
+      fill: red; }
   .birdinfo__heading {
     text-align: center;
+    z-index: 100;
+    position: absolute;
+    left: 50%;
+    top: 0%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    text-align: center;
     padding: 0.75em;
-    width: 60%;
-    margin: 0.75em auto;
+    width: 200px;
+    margin: 0.375em auto 1.5em;
     background: #222222; }
     .birdinfo__heading h2 {
+      font-size: 1em;
       color: #F6F6F6;
       margin: 0; }
   .birdinfo__body {
@@ -260,17 +268,26 @@ a {
       height: auto;
       display: block; }
   .birdinfo__facts {
-    padding: 1.5em 0;
+    position: relative;
+    padding: 6em 1.5em 1.5em;
     flex: 1 1 100%;
     display: flex;
     flex-direction: column; }
   @media all and (min-width: 1025px) {
-    .birdinfo {
-      width: 80%; }
-      .birdinfo__body {
-        flex-direction: row; }
-      .birdinfo__image-wrapper {
-        flex: 1 1 40%; }
-      .birdinfo__facts {
-        padding: 1.5em;
-        flex: 1 1 60%; } }
+    .birdinfo__hero {
+      min-height: 500px; }
+    .birdinfo__card {
+      max-width: 800px;
+      margin: -1.5em auto; }
+    .birdinfo__wings {
+      width: 700px; }
+    .birdinfo__heading {
+      width: 400px; }
+      .birdinfo__heading h2 {
+        font-size: 1.25em; }
+    .birdinfo__facts {
+      padding: 6em 1.5em 1.5em;
+      flex: 1 1 60%; } }
+
+.birdwings {
+  width: 100%; }
