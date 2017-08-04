@@ -1,6 +1,20 @@
 import express from 'express';
+import multer from 'multer';
+import cloudinary from 'cloudinary';
+
 import Bird from '../models/bird';
+import fileUploadMiddleware from '../middleware/fileUploadMiddleware'; 
 const router = express.Router();
+
+cloudinary.config({
+  cloud_name: 'faiz',
+  api_key: '367398423823381',
+  api_secret: 'gxxN134xgkXHVEa7hmJkTjB9Xts',
+});
+
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
 router.get('/birds', (req, res) => {
     /*Bird.find({}, (err, allbirds) => {
@@ -22,7 +36,9 @@ router.get('/birds', (req, res) => {
         });
 });
 
-router.post('/birds', (req, res) => {
+router.post('/birds', upload.single('file'), fileUploadMiddleware);
+
+/* router.post('/birds', (req, res) => {
     const name = req.body.name;
     const species = req.body.species;
     const location = req.body.location;
@@ -43,15 +59,7 @@ router.post('/birds', (req, res) => {
             console.log(err);
             res.json(err);
         })
-    /*Bird.create(newBird, function(err, newlyCreated) {
-        if(err) {
-            console.log(err);
-        } else {
-            console.log(newlyCreated);
-            res.send(newlyCreated);
-        }
-    });*/
-});
+}); */
 
 router.get('/birds/:birdId', (req, res) => {
     const birdId = req.params.birdId;
