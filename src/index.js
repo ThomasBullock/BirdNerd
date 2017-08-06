@@ -9,13 +9,13 @@ import thunk from 'redux-thunk';
 import registerServiceWorker from './registerServiceWorker';
 
 import store, { history } from './store';
-import App from './components/App';
+import Main from './components/Main';
 import './styles/css/index.css';
 
 const router = (
 	<Provider store={store}>
     <ConnectedRouter history={history}>
-        <Route path='/' component={App} />
+        <Route path='/' component={Main} />
     </ConnectedRouter>
    </Provider> 
 )

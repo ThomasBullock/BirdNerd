@@ -6,6 +6,7 @@ import bird from './birds';
 
 const rootReducer = combineReducers({
     bird,
+    form,
     //other reducers if any
 });
 

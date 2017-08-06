@@ -36,9 +36,9 @@ router.get('/birds', (req, res) => {
         });
 });
 
-router.post('/birds', upload.single('file'), fileUploadMiddleware);
+//router.post('/birds', upload.single('file'), fileUploadMiddleware);
 
-/* router.post('/birds', (req, res) => {
+ router.post('/birds', (req, res) => {
     const name = req.body.name;
     const species = req.body.species;
     const location = req.body.location;
@@ -59,7 +59,7 @@ router.post('/birds', upload.single('file'), fileUploadMiddleware);
             console.log(err);
             res.json(err);
         })
-}); */
+}); 
 
 router.get('/birds/:birdId', (req, res) => {
     const birdId = req.params.birdId;
