@@ -1,0 +1,108 @@
+@import '../settings';
+
+.birdinfo {
+	
+	width: 100%;
+
+	@include elem('hero') {
+		min-height: 400px;
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+
+	@include elem('card') {
+		width: 100%;
+		margin: 0 auto;
+		background: $vapor;
+		box-shadow: 2px 2px 5px transparentize($oil, .5);		
+	}
+	
+	@include elem('wings') {
+		@include center(0%);
+		width: 420px;
+		z-index: 0;
+
+		img {
+			fill: red;
+		}
+	}
+
+	@include elem('heading') {
+		@include center(0%);
+		z-index: 100;
+		text-align: center;
+		padding: $base-spacing / 2;
+		width: 200px;
+		margin: $base-spacing / 4 auto $base-spacing;
+		background: $jet;
+		
+		h2 {
+			font-size: modular-scale(0);
+			color: $vapor;
+			margin: 0;
+		}
+	}
+	
+
+
+	@include elem('body') {
+		display: flex;
+		flex-direction: column;
+		align-items: base-line;		
+	}
+	
+	@include elem('image-wrapper') {
+		flex: 1 1 100%;
+		
+		img {
+			@include img-responsive();
+		}
+	}
+	
+	@include elem('facts') {
+		position: relative;
+		padding: $base-spacing * 4 $base-spacing $base-spacing;
+		flex: 1 1 100%;
+		display: flex;
+		flex-direction: column;
+	}
+	
+	
+	
+	
+	@media all and (min-width : 1025px) {
+
+		// adjust image and facts to side by side arrangement on desktop
+		@include elem('hero') {
+			min-height: 500px;
+		}
+
+		@include elem('card') {
+			max-width: 800px;
+			margin: -$base-spacing auto;			
+		}
+
+		@include elem('wings') {
+			width: 700px;
+		}
+
+		@include elem('heading') { 
+			width: 400px;
+
+			h2 {
+				font-size: modular-scale(1);				
+			}
+		}
+		
+		@include elem('facts') {
+			padding: $base-spacing * 4 $base-spacing $base-spacing;
+			flex: 1 1 60%;
+		}		
+
+	}	
+}
+
+.birdwings {
+	// fill: url(#MyGradient);
+	width: 100%;
+}

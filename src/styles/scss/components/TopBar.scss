@@ -9,7 +9,7 @@
     content: '';
     display: block;
     background: $tropical-gradient;  // if we alter the $tropical-gradient in _variable.scss the change will be reflected throughtout the app where ever $tropical-gradient is used.
-    height: 20px;
+    height: $base-spacing;
     width: 100%;
 		border-bottom: 2px inset transparentize($oil, .5);  // transparentize is a mixin built into sass that changes the opacity of colors    		
 	}
