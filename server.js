@@ -19,7 +19,13 @@ mongoose.connect(process.env.DATABASE, { useMongoClient: true, });
 // converts raw requests into usable properties on req.body
 // This object will contain key-value pairs, where the value can be a string or array (when extended is false), or any type (when extended is true).
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true})); 
+app.use(bodyParser.urlencoded({ extended: true}));
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.use('/api', apiRouter);
 app.get('/', (req, res) => {
   res.writeHead(200, {'Content-Type': 'text/plain'});

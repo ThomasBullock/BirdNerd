@@ -27,8 +27,7 @@ const renderDropzoneInput = (field) => {
   );
 }
 
-const BirdForm = props => {
-  const { handleSubmit, createBird } = props;
+const BirdForm = ({ handleSubmit, createBird }) => {
   return (
     <form onSubmit={handleSubmit((vals) => createBird(vals))}>
       <div>

@@ -5,6 +5,10 @@ const BirdSchema = new mongoose.Schema({
     species: String,
     location: String,
     conservationStatus: String,
+    imageUrl: String,
+    created_at: Date,
+    bytes: Number,
+    format: String
 });
 
 export default mongoose.model('Bird', BirdSchema);

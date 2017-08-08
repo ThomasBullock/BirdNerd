@@ -1,5 +1,5 @@
 //const baseUrl = PRODUCTION ? 'https://api.birdnerd.com/api/' : 'https://testing.birdnerd.com/api/';
-const baseUrl = 'http://localhost:3000/api/';
+const baseUrl = 'http://localhost:3001/api/';
 
 export const GET = (url) => {
   return fetch(baseUrl + url, {
@@ -12,6 +12,11 @@ export const GET = (url) => {
 export const POST = (url, body) => {
   return fetch(baseUrl + url, {
     method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      //Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify(body),
   })
   .then(res => res.json())
@@ -21,6 +26,11 @@ export const POST = (url, body) => {
 export const PUT = (url, body) => {
   return fetch(baseUrl + url, {
     method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      //Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify(body),
   })
   .then(res => res.json())
@@ -33,3 +43,18 @@ export const DELETE = (url) => {
   })
   .then(res => res)
 };
+
+export const POSTBIRD = (body) => {
+  return fetch('https://api.cloudinary.com/v1_1/faiz/image/upload', {
+    method: 'POST',
+    headers: {
+      "X-Requested-With": "XMLHttpRequest"
+    },
+    body: body
+  })
+  .then(res => res.json())
+  .then(res =>  {
+    console.log(res);
+    return res;
+  })
+}

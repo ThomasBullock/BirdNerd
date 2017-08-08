@@ -6,7 +6,7 @@ import {
   createBird,
   updateBird,
   removeBird
-} from '../../ducks/birds';
+} from '../../ducks/bird';
 
 import BirdForm from '../../components/Bird/BirdForm';
 
