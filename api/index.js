@@ -1,9 +1,14 @@
 import express from 'express';
+import jwt from 'jsonwebtoken';  
+import crypto from 'crypto';
 
+import { requireAuth } from '../middleware/auth';
+import User from '../models/user';
 import Bird from '../models/bird';
+
 const router = express.Router();
 
-router.get('/birds', (req, res) => {
+router.get('/birds', requireAuth, (req, res) => {
     Bird.find({})
         .exec()
         .then(data => {
@@ -15,7 +20,7 @@ router.get('/birds', (req, res) => {
         });
 });
 
- router.post('/birds', (req, res) => {
+router.post('/birds', requireAuth, (req, res) => {
     const bird = new Bird(req.body);
     bird.save()
         .then(data => {
@@ -27,7 +32,7 @@ router.get('/birds', (req, res) => {
         })
 }); 
 
-router.get('/birds/:birdId', (req, res) => {
+router.get('/birds/:birdId', requireAuth, (req, res) => {
     const birdId = req.params.birdId;
     Bird.findById(birdId)
         .exec()
@@ -40,7 +45,7 @@ router.get('/birds/:birdId', (req, res) => {
         });
 });
 
-router.delete('/birds/:birdId', (req, res) => {
+router.delete('/birds/:birdId', requireAuth, (req, res) => {
     const birdId = req.params.birdId;
     Bird.findByIdAndRemove(birdId)
     .exec()
