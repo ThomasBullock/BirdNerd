@@ -27,7 +27,7 @@ class BirdInfo extends Component {
 					<div className="birdinfo__facts">
 						<div className="birdinfo__wings">
 							{/*	<img src={BirdWings} alt="Bird Wings"/> */}
-						<BirdWings /> 
+							<BirdWings /> 
 						</div>
 						<div className="birdinfo__heading">
 							<h2>{birdInfo.name}</h2>							
