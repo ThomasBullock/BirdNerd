@@ -16,6 +16,9 @@ router.get('/birds', (req, res) => {
 });
 
  router.post('/birds', (req, res) => {
+    console.log(req.body)
+    const locations = req.body.location.split(',').map( (item) => item.trim() );
+    req.body.locations = locations;
     const bird = new Bird(req.body);
     bird.save()
         .then(data => {
