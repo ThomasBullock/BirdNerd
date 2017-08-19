@@ -1,0 +1,64 @@
+@import '../settings';
+
+.form {
+	@include container(600px, $base-spacing);
+	background: $gainsboro;
+	position: relative;
+	padding: $base-spacing;
+	border-radius: $base-border-radius;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	
+	@include mod('wide') {
+		// want a wider form specify it in this modifier
+	}
+	
+	@include elem('title') {
+		color: $vapor;
+		margin-bottom: $base-spacing;
+		background: $oil;
+		width: 100%;
+		flex: 1 1 100%;
+		padding: $base-spacing / 2;
+		border-radius: $base-border-radius;		
+		
+		h2 {
+			text-align: center;
+			margin: 0 auto;
+		}
+	}
+	
+	@include elem('input') {
+		flex: 1 1 100%;
+	
+		@include mod('half') { /// for 1/2 width form elements 
+			flex: 0 1 50%;
+		}
+	}
+	
+	@include elem('dropzone') {
+		flex: 1 1 100%;
+		
+				
+	}
+	
+	@include elem('dropzone-box') {
+		width: 100%;
+		background: red;
+		
+				
+	}	
+	
+	@include elem('submit') {
+		flex: 1 1 100%;
+		align-self: center;
+		
+		button {
+			width: 100%;
+			&:hover {
+				// @include tropical-gradient(90deg)
+			}
+		}
+	}
+}
