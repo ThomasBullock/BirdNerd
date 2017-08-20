@@ -2,7 +2,7 @@ import React from 'react';
 
 const BirdWings = () => (
 <svg className="birdwings" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-	 width="3019.781px" height="856.859px" viewBox="0 0 3019.781 856.859" enable-background="new 0 0 3019.781 856.859">     " }} />
+	 width="3019.781px" height="856.859px" viewBox="0 0 3019.781 856.859" enableBackground="new 0 0 3019.781 856.859">     " }} />
       <defs>
 		<linearGradient id="linear-gradient" gradientUnits="userSpaceOnUse" x1="0" y1="169.485" x2="3019.9301" y2="169.485" >
 	      <stop offset="0%" stopColor="#48ded4" stopOpacity="100%"/>

@@ -6,6 +6,22 @@ import BirdWings from '../icons/BirdWings';
 
 const FILE_FIELD_NAME = 'files';
 
+const validate = values => {
+  // IMPORTANT: values is an Immutable.Map here!
+  const errors = {}
+  if (!values.get('name')) {
+    errors.name = 'Required'
+  } else if (values.get('name').length > 60) {
+    errors.name = 'Must be 60 characters or less'
+  }
+  if (!values.get('species')) {
+    errors.species = 'Required'
+  } else if (values.get('species').length > 60) {
+    errors.species = 'Must be 60 characters or less'
+  }
+  return errors
+}
+
 const renderDropzoneInput = (field) => {
   const files = field.input.value;
   return (
@@ -104,5 +120,6 @@ const BirdForm = ({ handleSubmit, createBird }) => {
 
 
 export default reduxForm({
-    form: 'birdForm'
+    form: 'birdForm',
+    validate
 })(BirdForm);
