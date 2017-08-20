@@ -21,6 +21,11 @@
 	}
 } 
 
+@mixin container($width, $vert-margin) {
+	width: $width;
+	margin: $vert-margin auto;
+}
+
 @mixin border($top, $right, $bottom, $left, $width: 1px, $color: $black ) {
 	@if $top == true {
 		border-top: solid $width $color;

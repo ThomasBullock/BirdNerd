@@ -1,8 +1,26 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form/immutable';
 import Dropzone from 'react-dropzone';
+import '../../styles/css/components/Forms.css';
+import BirdWings from '../icons/BirdWings';
 
 const FILE_FIELD_NAME = 'files';
+
+const validate = values => {
+  // IMPORTANT: values is an Immutable.Map here!
+  const errors = {}
+  if (!values.get('name')) {
+    errors.name = 'Required'
+  } else if (values.get('name').length > 60) {
+    errors.name = 'Must be 60 characters or less'
+  }
+  if (!values.get('species')) {
+    errors.species = 'Required'
+  } else if (values.get('species').length > 60) {
+    errors.species = 'Must be 60 characters or less'
+  }
+  return errors
+}
 
 const renderDropzoneInput = (field) => {
   const files = field.input.value;
@@ -29,63 +47,79 @@ const renderDropzoneInput = (field) => {
 
 const BirdForm = ({ handleSubmit, createBird }) => {
   return (
-    <form onSubmit={handleSubmit((vals) => createBird(vals))}>
-      <div>
-        <label>Name</label>
-        <div>
-          <Field
-            name="name"
-            component="input"
-            type="text"
-            placeholder="Name"
-          />
+    <div>
+      <form className="form" onSubmit={handleSubmit((vals) => createBird(vals))}>
+        <div className="form__title">
+          <h2>Add New Bird</h2>
+        </div>  
+        <div className="form__input--half">
+          <label>Name</label>
+          <div>
+            <Field
+              name="name"
+              component="input"
+              type="text"
+              placeholder="Name"
+            />
+          </div>
         </div>
-      </div>
-      <div>
-        <label>Species</label>
-        <div>
-          <Field
-            name="species"
-            component="input"
-            type="text"
-            placeholder="Species"
-          />
+        <div className="form__input--half">
+          <label>Species</label>
+          <div>
+            <Field
+              name="species"
+              component="input"
+              type="text"
+              placeholder="Species"
+            />
+          </div>
         </div>
-      </div>
-      <div>
-        <label>Location</label>
-        <div>
-          <Field
-            name="location"
-            component="input"
-            type="text"
-            placeholder="Location"
-          />
+        <div className="form__input">
+          <label>Locations</label>
+          <div>
+            <Field
+              name="location"
+              component="input"
+              type="text"
+              placeholder="Seperate multiple locations with comma"
+            />
+          </div>
         </div>
-      </div>
-      <div>
-        <label>Conservation Status</label>
-        <div>
-          <Field name="conservationStatus" component="textarea" />
+        <div className="form__input">
+          <label>Conservation Status</label>
+          <div>
+            <Field name="conservationStatus" component="select" >
+              <option />
+              <option value="Least Concern">Least Concern</option>
+              <option value="Conservation Dependent">Conservation Dependent</option>
+              <option value="Near Threatened">Near Threatened</option>
+              <option value="Vulnerable">Vulnerable</option>
+              <option value="Endangered">Endangered</option>
+              <option value="Critically Endangered">Critically Endangered</option>
+              <option value="Extinct in the Wild">Extinct in the Wild</option>                                   
+            </Field>
+          </div>
         </div>
-      </div>
-        <div>
+        <div className="form__dropzone">
             <label htmlFor={FILE_FIELD_NAME}>Files</label>
             <Field
+                className="form__dropzone-box"
                 name={FILE_FIELD_NAME}
                 component={renderDropzoneInput}
             />
         </div>
-      <div>
-        <button type="submit">
-          Submit
-        </button>
-      </div>
-    </form>
+        <div className="form__submit">
+          <button type="submit">
+            Submit
+          </button>
+        </div> 
+      </form>
+    </div>  
   )
 }
 
 
 export default reduxForm({
-    form: 'birdForm'
+    form: 'birdForm',
+    validate
 })(BirdForm);

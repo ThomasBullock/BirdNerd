@@ -16,9 +16,12 @@ router.get('/birds', (req, res) => {
 });
 
  router.post('/birds', (req, res) => {
+    // const locations = req.body.location.split(',').map( (item) => item.trim() );  // moved to client
+    // req.body.locations = locations;
     const bird = new Bird(req.body);
     bird.save()
         .then(data => {
+            console.log(data)
             res.json({err: false});
         })
         .catch(err => {
