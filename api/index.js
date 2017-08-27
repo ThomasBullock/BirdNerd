@@ -1,9 +1,19 @@
 import express from 'express';
+import jwt from 'jsonwebtoken';  
+import crypto from 'crypto';
 
+import { requireAuth } from '../middleware/auth';
+import User from '../models/user';
 import Bird from '../models/bird';
+
 const router = express.Router();
 
-router.get('/birds', (req, res) => {
+// Test protected route
+router.get('/protected', requireAuth, (req, res) => {
+    res.send({ content: 'The protected test route is functional!' });
+});
+
+router.get('/birds', requireAuth, (req, res) => {
     Bird.find({})
         .exec()
         .then(data => {
@@ -15,9 +25,7 @@ router.get('/birds', (req, res) => {
         });
 });
 
- router.post('/birds', (req, res) => {
-    // const locations = req.body.location.split(',').map( (item) => item.trim() );  // moved to client
-    // req.body.locations = locations;
+router.post('/birds', requireAuth, (req, res) => {
     const bird = new Bird(req.body);
     bird.save()
         .then(data => {
@@ -30,7 +38,7 @@ router.get('/birds', (req, res) => {
         })
 }); 
 
-router.get('/birds/:birdId', (req, res) => {
+router.get('/birds/:birdId', requireAuth, (req, res) => {
     const birdId = req.params.birdId;
     Bird.findById(birdId)
         .exec()
@@ -43,7 +51,7 @@ router.get('/birds/:birdId', (req, res) => {
         });
 });
 
-router.delete('/birds/:birdId', (req, res) => {
+router.delete('/birds/:birdId', requireAuth, (req, res) => {
     const birdId = req.params.birdId;
     Bird.findByIdAndRemove(birdId)
     .exec()

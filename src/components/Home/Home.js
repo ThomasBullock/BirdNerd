@@ -1,10 +1,33 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import TopBar from '../TopBar';
+import { protectedTest } from '../../ducks/auth';
 
-const Home = () => (
-  <div>
-  	<h2>This is the home page</h2>
-  </div>
-)
+class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.props.protectedTest();
+  }
 
-export default Home;
+  renderContent() {
+    if(this.props.content) {
+      return (
+        <p>{this.props.content}</p>
+      );
+    }
+  }
+  render() {
+    return (
+      <div>
+        { this.renderContent()}
+      </div>
+    );
+  }
+}
+
+function mapStateToProps(state) {
+  return { content: state.getIn(['auth', 'content']) };
+}
+
+export default connect(mapStateToProps, { protectedTest })(Home);

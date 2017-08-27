@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Route,
   Switch
 } from 'react-router-dom';
@@ -8,7 +8,7 @@ import {
 import Main from '../components/Main';
 
 export default (
-    <Router>
+    <BrowserRouter>
         <Main />
-		</Router>
+	  </BrowserRouter>
 );
