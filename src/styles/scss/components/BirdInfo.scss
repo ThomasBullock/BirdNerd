@@ -13,6 +13,7 @@
 	@include elem('card') {
 		width: 100%;
 		margin: 0 auto;
+		border-radius: $base-border-radius;
 		background: $vapor;
 		box-shadow: 2px 2px 5px transparentize($oil, .5);		
 	}
@@ -31,6 +32,7 @@
 		@include center(0%);
 		z-index: 100;
 		text-align: center;
+				border-radius: $base-border-radius;
 		padding: $base-spacing / 2;
 		width: 200px;
 		margin: $base-spacing / 4 auto $base-spacing;

@@ -29,6 +29,7 @@ router.post('/birds', requireAuth, (req, res) => {
     const bird = new Bird(req.body);
     bird.save()
         .then(data => {
+            console.log(data)
             res.json({err: false});
         })
         .catch(err => {
