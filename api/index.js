@@ -8,6 +8,11 @@ import Bird from '../models/bird';
 
 const router = express.Router();
 
+// Test protected route
+router.get('/protected', requireAuth, (req, res) => {
+    res.send({ content: 'The protected test route is functional!' });
+});
+
 router.get('/birds', requireAuth, (req, res) => {
     Bird.find({})
         .exec()

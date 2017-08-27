@@ -2,20 +2,25 @@
 const baseUrl = 'http://localhost:3001/api/';
 
 export const GET = (url) => {
+  const token = window.sessionStorage.getItem('token');
   return fetch(baseUrl + url, {
     method: 'GET',
+    headers: {
+      Authorization: token,
+    }
   })
   .then(res => res.json())
   .then(res => res)
 };
 
 export const POST = (url, body) => {
+  const token = window.sessionStorage.getItem('token');
   return fetch(baseUrl + url, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      //Authorization: `Bearer ${token}`,
+      Authorization: token
     },
     body: JSON.stringify(body),
   })
@@ -24,12 +29,13 @@ export const POST = (url, body) => {
 };
 
 export const PUT = (url, body) => {
+  const token = window.sessionStorage.getItem('token');
   return fetch(baseUrl + url, {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      //Authorization: `Bearer ${token}`,
+      Authorization: token
     },
     body: JSON.stringify(body),
   })
@@ -38,6 +44,7 @@ export const PUT = (url, body) => {
 };
 
 export const DELETE = (url) => {
+  const token = window.sessionStorage.getItem('token');
   return fetch(baseUrl + url, {
     method: 'DELETE',
   })
