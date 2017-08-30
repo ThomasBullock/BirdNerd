@@ -22,31 +22,42 @@ const renderField = ({ input, label, type, meta: { touched, error } }) =>
 let Register = props => {
   const { error, handleSubmit, pristine, reset, submitting, register } = props;
   return (
-    <form onSubmit={handleSubmit((vals) => register(vals))}>
-      <Field
-        name="email"
-        type="email"
-        component={renderField}
-        label="Email"
-      />
-      <Field
-        name="firstName"
-        type="text"
-        component={renderField}
-        label="First Name"
-      />
-      <Field
-        name="lastName"
-        type="text"
-        component={renderField}
-        label="Last Name"
-      />
-      <Field
-        name="password"
-        type="password"
-        component={renderField}
-        label="Password"
-      />
+    <form className="form" onSubmit={handleSubmit((vals) => register(vals))}>
+      <div className="form__title">
+        <h2>Register with BirdNerd</h2>
+      </div>
+      <div className="form__input--half">  
+        <Field
+          name="firstName"
+          type="text"
+          component={renderField}
+          label="First Name"
+        />
+      </div>
+      <div className="form__input--half">    
+        <Field
+          name="lastName"
+          type="text"
+          component={renderField}
+          label="Last Name"
+        />
+      </div>          
+      <div className="form__input">
+        <Field
+          name="email"
+          type="email"
+          component={renderField}
+          label="Email"
+        />
+      </div>
+      <div className="form__input">
+        <Field
+          name="password"
+          type="password"
+          component={renderField}
+          label="Password"
+        />
+      </div>  
       {error &&
         <strong>
           {error}

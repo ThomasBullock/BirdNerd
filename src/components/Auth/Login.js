@@ -47,19 +47,26 @@ const renderField = ({ input, label, type, meta: { touched, error } }) =>
 let Login = props => {
   const { error, handleSubmit, pristine, reset, submitting, login } = props
   return (
-    <form onSubmit={handleSubmit((vals) => login(vals))}>
-      <Field
-        name="email"
-        type="email"
-        component={renderField}
-        label="Email"
-      />
-      <Field
-        name="password"
-        type="password"
-        component={renderField}
-        label="Password"
-      />
+    <form className="form" onSubmit={handleSubmit((vals) => login(vals))}>
+      <div className="form__title">
+        <h2>Welcome Back!</h2>
+      </div>
+      <div className="form__input">          
+        <Field
+          name="email"
+          type="email"
+          component={renderField}
+          label="Email"
+        />
+      </div>
+      <div className="form__input">          
+        <Field
+          name="password"
+          type="password"
+          component={renderField}
+          label="Password"
+        />
+      </div>        
       {error &&
         <strong>
           {error}
