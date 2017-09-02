@@ -3,9 +3,21 @@ import slugs from 'slugs';
 import { call, put, select, fork } from 'redux-saga/effects';
 import * as api from '../api';
 import * as actions from '../ducks/bird';
+import history from '../history';
+
+function* fetchBird() {
+  try {
+    console.log('fetchBird!!! in Saga!')
+    yield call(api.GET, 'birds/red-backed-kookaburra');        
+  } catch(error) {
+    yield console.log(error);
+  }
+
+}
 
 function* createBird(action) {
   try {  
+    console.log('creatting bird!')
     const birdImage = action.bird.get('files')[0];
     const formData = new FormData();
     formData.append("file", birdImage);
@@ -30,6 +42,7 @@ function* createBird(action) {
     // console.log(birdInfo);
     yield call(api.POST, 'birds', birdInfo);
     yield put(actions.createBirdSuccess(birdInfo));
+    history.push(`/bird/${birdInfo.slug}`)
   } catch (error) {
     yield console.log(error);
   }
@@ -40,5 +53,8 @@ export function* watchCreateBird() {
 }
 
 export default function* rootSaga() {
-  yield [fork(watchCreateBird)];
+  yield [
+    fork(fetchBird),
+    fork(watchCreateBird) 
+  ];
 }

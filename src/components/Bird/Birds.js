@@ -5,7 +5,7 @@ import FullBird from './FullBird';
 import BirdCard from './BirdCard';
 import BirdFormContainer from '../../containers/Bird/BirdFormContainer';
 import BirdForm from './BirdForm';
-import BirdInfo from './BirdInfo';
+import BirdProfileContainer from '../../containers/Bird/BirdProfileContainer';
 import RequireAuth from '../Auth/RequireAuth';
 
 const Birds = () => (
@@ -14,7 +14,7 @@ const Birds = () => (
     <Route exact path='/bird/new' component={RequireAuth(BirdFormContainer)}/>
 
     {/* <Route path='/bird/:birdId' component={BirdCard}/> */}
-    <Route path='/bird/:birdId' component={BirdInfo}/>
+    <Route path='/bird/:birdSlug' component={BirdProfileContainer}/>
   </Switch>
 );
 
