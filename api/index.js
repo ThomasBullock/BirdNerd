@@ -38,11 +38,13 @@ router.post('/birds', requireAuth, (req, res) => {
         })
 }); 
 
-router.get('/birds/:birdId', requireAuth, (req, res) => {
-    const birdId = req.params.birdId;
-    Bird.findById(birdId)
+router.get('/birds/:birdSlug', (req, res) => {  // removed requireAuth,
+    const birdSlug = req.params.birdSlug;
+    console.log(birdSlug)    
+    Bird.findOne( { slug: birdSlug } ) 
         .exec()
         .then(data => {
+            console.log(data)
             res.json(data);
         })
         .catch(err => {
