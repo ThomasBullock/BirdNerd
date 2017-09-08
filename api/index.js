@@ -40,11 +40,11 @@ router.post('/birds', requireAuth, (req, res) => {
 
 router.get('/birds/:birdSlug', (req, res) => {  // removed requireAuth,
     const birdSlug = req.params.birdSlug;
-    console.log(birdSlug)    
+    // console.log(birdSlug)    
     Bird.findOne( { slug: birdSlug } ) 
         .exec()
         .then(data => {
-            console.log(data)
+            // console.log(data)
             res.json(data);
         })
         .catch(err => {

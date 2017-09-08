@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import {
-  fetchBird,
+  requestBird,
   createBird,
   updateBird,
   removeBird
@@ -33,7 +33,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchBird: () => dispatch(fetchBird()),
+    requestBird: () => dispatch(requestBird()),
     createBird: (bird) => dispatch(createBird(bird)),
     updateBird: (bird) => dispatch(updateBird(bird)),
     removeBird: (bird) => dispatch(removeBird(bird))

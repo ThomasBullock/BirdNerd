@@ -5,19 +5,17 @@ import * as api from '../api';
 import * as actions from '../ducks/bird';
 import history from '../history';
 
-function* fetchBird() {
+function* fetchBird(action) {
   try {
-    console.log('fetchBird!!! in Saga!')
-    yield call(api.GET, 'birds/red-backed-kookaburra');        
+    const bird = yield call(api.GET, `birds/${action.bird}`);
+    yield put(actions.receiveBird(bird))
   } catch(error) {
     yield console.log(error);
   }
-
 }
 
 function* createBird(action) {
   try {  
-    console.log('creatting bird!')
     const birdImage = action.bird.get('files')[0];
     const formData = new FormData();
     formData.append("file", birdImage);
@@ -34,6 +32,7 @@ function* createBird(action) {
       species: action.bird.get('species'),
       location: action.bird.get('location').split(',').map( (item) => item.trim() ),      
       conservationStatus: action.bird.get('conservationStatus'),
+      comments: action.bird.get('comments'),
       created_at: birdImageRes.created_at,
       bytes: birdImageRes.bytes,
       format: birdImageRes.format,
@@ -52,9 +51,13 @@ export function* watchCreateBird() {
   yield takeLatest(actions.CREATE_BIRD, createBird);
 }
 
+export function* watchFetchBird() {
+  yield takeLatest(actions.REQUEST_BIRD, fetchBird);
+}
+
 export default function* rootSaga() {
   yield [
-    fork(fetchBird),
+    fork(watchFetchBird),
     fork(watchCreateBird) 
   ];
 }

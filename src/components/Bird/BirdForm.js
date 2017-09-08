@@ -100,6 +100,17 @@ const BirdForm = ({ handleSubmit, createBird }) => {
             </Field>
           </div>
         </div>
+        <div className="form__input">
+          <label>Comments</label>
+          <div>
+            <Field
+              name="comments"
+              component="textarea"
+              type="text"
+              placeholder="Infomation about this bird"
+            />
+          </div>
+        </div>        
         <div className="form__dropzone">
             <label htmlFor={FILE_FIELD_NAME}>Files</label>
             <Field

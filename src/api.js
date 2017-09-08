@@ -52,6 +52,7 @@ export const DELETE = (url) => {
 };
 
 export const POSTBIRD = (body) => {
+  console.log(body);
   return fetch('https://api.cloudinary.com/v1_1/faiz/image/upload', {
     method: 'POST',
     headers: {
