@@ -28,8 +28,7 @@ class BirdProfileContainer extends Component {
 	}
 	
 	render() {
-		
-		const birdInfo = (this.state.mounted) ? this.props.bird.get('1') : null;
+		const birdInfo = (this.state.mounted) ? this.props.bird.last() : null;
 		return (
 			<div>
 			{birdInfo ? (

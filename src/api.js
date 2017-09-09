@@ -52,7 +52,7 @@ export const DELETE = (url) => {
 };
 
 export const POSTBIRD = (body) => {
-  console.log(body);
+  // console.log(body);
   return fetch('https://api.cloudinary.com/v1_1/faiz/image/upload', {
     method: 'POST',
     headers: {
@@ -66,3 +66,16 @@ export const POSTBIRD = (body) => {
     return res;
   })
 }
+
+// export const RESIZE = (file) => {
+//   const token = window.sessionStorage.getItem('token');
+//   return fetch(baseUrl + url, {
+//     method: 'POST',
+//     headers: {
+//       Accept: 'application/json',
+//       'Content-Type': 'application/json',
+//       Authorization: token
+//     },
+//     body: JSON.stringify(body),
+//   })  
+// }

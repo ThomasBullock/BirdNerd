@@ -20,7 +20,8 @@ export default function fileUploadMiddleware(req, res) {
   console.log('uploading bird in cloudinary')
   console.log(req.body);
 
-  cloudinary.uploader.upload("my_picture.jpg", function(result) { 
+  cloudinary.uploader.upload("my_picture.jpg", function(result) {
+    console.log('we did it!') 
     console.log(result) 
   });
 }

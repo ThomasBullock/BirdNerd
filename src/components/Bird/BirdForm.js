@@ -74,18 +74,44 @@ const BirdForm = ({ handleSubmit, createBird }) => {
             />
           </div>
         </div>
-        <div className="form__input">
-          <label>Locations</label>
+        <div className="form__input--half">
+          <label>Bird Group (Order)</label>
           <div>
-            <Field
-              name="location"
-              component="input"
-              type="text"
-              placeholder="Seperate multiple locations with comma"
-            />
+            <Field name="group" component="select">
+              <option value="Not Sure">Not Sure</option>
+              <option value="Procellariiformes">Albatrosses and Petrels (Order Procellariiformes)</option>
+              <option value="Falconiformes">Birds of Prey (Order Falconiformes)</option>
+              <option value="Turniciformes">Buttonquails (Order Turniciformes)</option>
+              <option value="Casuariiformes">Cassowaries and Emus (Order Casuariiformes)</option>
+              <option value="Gruiformes">Cranes, Coots and Rails (Order Gruiformes)</option>
+              <option value="Cuculiformes">Cuckoos and Turacos (Order Cuculiformes)</option>
+              <option value="Phoenicopteriformes">Flamingos (Order Phoenicopteriformes)</option>
+              <option value="Galliformes">Gamebirds (Order Galliformes)</option> 
+              <option value="Podicipediformes">Grebes (Order Podicipediformes)</option> 
+              <option value="Ciconiiformes">Herons and Storks (Order Ciconiiformes)</option> 
+              <option value="Apodiformes">Hummingbirds and Swifts (Order Apodiformes)</option> 
+              <option value="Coraciiformes">Kingfishers (Order Coraciiformes)</option>
+              <option value="Apterygiformes">Kiwis (Order Apterygiformes)</option>
+              <option value="Gaviiformes">Loons (Order Gaviiformes)</option>
+              <option value="Coliiformes">Mousebirds (Order Coliiformes)</option>
+              <option value="Caprimulgiformes">Nightjars and Frogmouths (Order Caprimulgiformes)</option>
+              <option value="Struthioniformes">The Ostrich (Order Struthioniformes)</option>
+              <option value="Strigiformes">Owls (Order Strigiformes)</option> 
+              <option value="Psittaciformes">Parrots and Cockatoos (Order Psittaciformes)</option> 
+              <option value="Pelecaniformes">Pelicans, Cormorants and Frigatebirds (Order Pelecaniformes)</option> 
+              <option value="Sphenisciformes">Penguins (Order Sphenisciformes)</option> 
+              <option value="Passeriformes">Perching Birds (Order Passeriformes)</option>
+              <option value="Columbiformes">Pigeons and Doves (Order Columbiformes)</option>
+              <option value="Rheiformes">Rheas (Order Rheiformes)</option> 
+              <option value="Pteroclidiformes">Sandgrouses (Order Pteroclidiformes)</option> 
+              <option value="Tinamiformes">Tinamous (Order Tinamiformes)</option> 
+              <option value="Trogoniformes">Trogons and Quetzals (Order Trogoniformes)</option> 
+              <option value="Anseriformes">Waterfowl (Order Anseriformes)</option>
+              <option value="Piciformes">Woodpeckers and Toucans (Order Piciformes)</option>                                                                                                                           
+            </Field>
           </div>
         </div>
-        <div className="form__input">
+        <div className="form__input--half">
           <label>Conservation Status</label>
           <div>
             <Field name="conservationStatus" component="select" >
@@ -99,7 +125,19 @@ const BirdForm = ({ handleSubmit, createBird }) => {
               <option value="Extinct in the Wild">Extinct in the Wild</option>                                   
             </Field>
           </div>
+        </div>                
+        <div className="form__input">
+          <label>Locations</label>
+          <div>
+            <Field
+              name="location"
+              component="input"
+              type="text"
+              placeholder="Seperate multiple locations with comma"
+            />
+          </div>
         </div>
+
         <div className="form__input">
           <label>Comments</label>
           <div>
