@@ -1,0 +1,23 @@
+@import '../settings';
+
+.birdlist {
+	width: 600px;
+	margin: $base-spacing auto;
+	display: flex;
+	flex-direction: column;
+	
+	@include elem('title') {
+		align-self: center;
+	}
+	
+	@include elem('item') {
+		padding: $base-spacing / 4;
+		background: $vapor;
+		border: solid 1px $jumbo;
+		border-radius: $base-border-radius;
+	}
+	
+	@include elem('link') {
+		color: $oil;
+	}	
+}

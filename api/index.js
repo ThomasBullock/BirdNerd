@@ -27,9 +27,9 @@ router.get('/birds', requireAuth, (req, res) => {
 
 router.post('/birds', requireAuth, (req, res) => {
     const bird = new Bird(req.body);
+    console.log(bird)
     bird.save()
         .then(data => {
-            console.log(data)
             res.json({err: false});
         })
         .catch(err => {
@@ -38,9 +38,9 @@ router.post('/birds', requireAuth, (req, res) => {
         })
 }); 
 
-router.get('/birds/:birdId', requireAuth, (req, res) => {
-    const birdId = req.params.birdId;
-    Bird.findById(birdId)
+router.get('/birds/:birdSlug', (req, res) => {  // removed requireAuth,
+    const birdSlug = req.params.birdSlug;   
+    Bird.findOne( { slug: birdSlug } ) 
         .exec()
         .then(data => {
             res.json(data);
@@ -63,5 +63,9 @@ router.delete('/birds/:birdId', requireAuth, (req, res) => {
         res.json(err);
     });
 });
+
+// router.post('/birds/resize', requireAuth, (req, res) => {
+    
+// })
 
 export default router;
