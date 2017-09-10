@@ -17,12 +17,13 @@ function* fetchBird(action) {
 function* createBird(action) {
   try {  
     const birdImage = action.bird.get('files')[0];
-    /// use jimp locally to resize file!
+    /// use jimp locally to resize file!???
+    // const resizedPhoto = yield call(api.RESIZE, birdImage);
     const formData = new FormData();
     formData.append("file", birdImage);
     //formData.append("tags", `codeinfuse, medium, gist`);
-    formData.append("upload_preset", "yywnnb3e"); 
-    formData.append("api_key", "367398423823381"); 
+    formData.append("upload_preset", "ueut3dbz"); 
+    formData.append("api_key", process.env.CLOUDINARY_API_KEY); 
     formData.append("timestamp", (Date.now() / 1000) | 0);
     console.log(formData)
     //const [birdRes, birdImageRes] = yield [call(api.POST, 'birds', action.bird.toJS()), call(api.POSTBIRD, formData)];
@@ -58,14 +59,9 @@ export function* watchFetchBird() {
   yield takeLatest(actions.REQUEST_BIRD, fetchBird);
 }
 
-// export function* watchFetchBirdList() {
-//   yield takeLatest(actions.REQUEST_BIRD_LIST, fetchBirdList);
-// }
-
 export default function* rootSaga() {
   yield [
     fork(watchFetchBird),
-    // fork(watchFetchBirdList),
     fork(watchCreateBird) 
   ];
 }
