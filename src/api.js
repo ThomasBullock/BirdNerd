@@ -53,7 +53,7 @@ export const DELETE = (url) => {
 
 export const POSTBIRD = (body) => {
   // console.log(body);
-  return fetch('https://api.cloudinary.com/v1_1/faiz/image/upload', {
+  return fetch('https://api.cloudinary.com/v1_1/birdnerd/image/upload', {
     method: 'POST',
     headers: {
       "X-Requested-With": "XMLHttpRequest"
@@ -69,13 +69,13 @@ export const POSTBIRD = (body) => {
 
 // export const RESIZE = (file) => {
 //   const token = window.sessionStorage.getItem('token');
-//   return fetch(baseUrl + url, {
+//   return fetch(`${baseUrl}resize`, {
 //     method: 'POST',
 //     headers: {
 //       Accept: 'application/json',
 //       'Content-Type': 'application/json',
 //       Authorization: token
 //     },
-//     body: JSON.stringify(body),
+//     body: file,
 //   })  
 // }
