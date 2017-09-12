@@ -32,8 +32,8 @@ function* createBird(action) {
     const birdInfo = {
       name: action.bird.get('name'),
       slug: slugs(action.bird.get('name')),
+      order: action.bird.get('order'),      
       species: action.bird.get('species'),
-      group: action.bird.get('group'),
       location: action.bird.get('location').split(',').map( (item) => item.trim() ),      
       conservationStatus: action.bird.get('conservationStatus'),
       comments: action.bird.get('comments'),

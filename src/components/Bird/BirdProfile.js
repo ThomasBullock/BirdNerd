@@ -12,8 +12,10 @@ const BirdProfile = (birdInfo) => {
 		}
 		return(
 			<div className="birdinfo">
-				<div className="birdinfo__hero" style={{'backgroundImage': `url(${birdInfo.birdInfo.get('imageUrl')})`}}>
-					
+				<div className="birdinfo__hero">
+					<div className="birdinfo__gradient birdinfo__gradient--left"></div>
+					<div className="birdinfo__hero-img" style={{'backgroundImage': `url(${birdInfo.birdInfo.get('imageUrl')})`}}></div>
+					<div className="birdinfo__gradient birdinfo__gradient--right"></div>
 				</div>
 				<div className="birdinfo__card">
 					<div className="birdinfo__facts">
@@ -25,6 +27,10 @@ const BirdProfile = (birdInfo) => {
 							<h2>{birdInfo.birdInfo.get('name')}</h2>							
 						</div>
 						<p><strong>Species: </strong>{birdInfo.birdInfo.get('species')}</p>
+						{birdInfo.birdInfo.get('order') !== 'false' &&
+							
+						<p><strong>Order: </strong>{birdInfo.birdInfo.get('order')}</p>
+						}						
 						<p>
 							<strong>Locations: </strong>
 							{locations}

@@ -5,9 +5,18 @@
 	width: 100%;
 
 	@include elem('hero') {
+		position: relative;
+		
+		img {
+			@include img-responsive();
+		}
+	}
+
+	@include elem('hero-img') {
 		min-height: 400px;
 		background-size: cover;
-		background-repeat: no-repeat;
+		background-position: 0 10%; 
+		background-repeat: no-repeat;		
 	}
 
 	@include elem('card') {
@@ -76,7 +85,32 @@
 
 		// adjust image and facts to side by side arrangement on desktop
 		@include elem('hero') {
+
+		}
+
+		@include elem('hero-img') {
+			width: 75%;
+			margin: 0 auto;
 			min-height: 500px;
+		}
+
+		@include elem('gradient') {
+			position: absolute;
+			min-height: 500px;
+			width: 20%;
+			// z-index: 100;
+						
+			@include mod('left') {
+				left: 0;
+				top: 0;
+				background: linear-gradient(90deg, $black 75%, transparentize($black, .999) 100%);
+			} 
+
+			@include mod('right') {
+				right: 0;
+				top: 0;
+				background: linear-gradient(270deg, $black 75%, transparentize($black, .999) 100%);		
+			} 			
 		}
 
 		@include elem('card') {

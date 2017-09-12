@@ -77,8 +77,8 @@ const BirdForm = ({ handleSubmit, createBird }) => {
         <div className="form__input--half">
           <label>Bird Group (Order)</label>
           <div>
-            <Field name="group" component="select">
-              <option value="Not Sure">Not Sure</option>
+            <Field name="order" component="select">
+              <option value="false">Not Sure</option>
               <option value="Procellariiformes">Albatrosses and Petrels (Order Procellariiformes)</option>
               <option value="Falconiformes">Birds of Prey (Order Falconiformes)</option>
               <option value="Turniciformes">Buttonquails (Order Turniciformes)</option>
