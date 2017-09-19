@@ -218,6 +218,10 @@ a {
 /* ================================= 
   BEM create element / modifier 
 ==================================== */
+.button--upload {
+  background: #a026bf;
+  margin: 1.5em auto; }
+
 .birdcard {
   display: flex;
   flex: 0 1 90%;

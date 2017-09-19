@@ -2,7 +2,6 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form/immutable';
 import Dropzone from 'react-dropzone';
 import '../../styles/css/components/Forms.css';
-import BirdWings from '../icons/BirdWings';
 
 const FILE_FIELD_NAME = 'files';
 

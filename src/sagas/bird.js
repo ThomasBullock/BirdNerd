@@ -28,6 +28,8 @@ function* createBird(action) {
     console.log(formData)
     //const [birdRes, birdImageRes] = yield [call(api.POST, 'birds', action.bird.toJS()), call(api.POSTBIRD, formData)];
     const birdImageRes = yield call(api.POSTBIRD, formData);
+    
+    console.log(birdImageRes);
   
     const birdInfo = {
       name: action.bird.get('name'),

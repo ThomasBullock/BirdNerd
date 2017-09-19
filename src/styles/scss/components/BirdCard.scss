@@ -1,6 +1,13 @@
 @import '../settings';
 
 
+.button {
+	@include mod('upload') {
+		background: $wes-magenta;
+		margin: $base-spacing auto;
+	}
+}
+
 .birdcard {
 	display: flex;
 	flex: 0 1 90%;
