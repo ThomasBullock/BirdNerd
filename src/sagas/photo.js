@@ -1,6 +1,6 @@
 import { takeLatest } from 'redux-saga';
 import { call, put, select, fork } from 'redux-saga/effects';
-
+import slugs from 'slugs';
 import * as api from '../api';
 import * as actions from '../ducks/photo';
 import history from '../history';
@@ -29,20 +29,25 @@ function* uploadPhoto(action) {
         console.log(formData);
         
         const birdImageRes = yield call(api.POSTBIRD, formData);
-        
         console.log(birdImageRes); 
+        const bird = yield call(api.GET, `birds/${slugs(action.photo.get('name'))}`);
+        console.log(bird);
+
         
         const photoInfo = {
-            name: action.photo.get('name'),
+            birdName: action.photo.get('name'),
+            birdId: bird._id,
             location: action.photo.get('location'),
             imageAspect: aspectCalculator(birdImageRes),
+            camera: action.photo.get('camera'),
             created_at: birdImageRes.created_at,
             bytes: birdImageRes.bytes,
             format: birdImageRes.format,        
             imageUrl: birdImageRes.secure_url,
                         
         }   
-        console.log(photoInfo);    	
+        console.log(photoInfo); 
+        yield call(api.POST, 'photo', photoInfo);   	
 	} catch(error) {
     	yield console.log(error);		
 	}

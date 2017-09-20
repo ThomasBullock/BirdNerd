@@ -67,15 +67,3 @@ export const POSTBIRD = (body) => {
   })
 }
 
-// export const RESIZE = (file) => {
-//   const token = window.sessionStorage.getItem('token');
-//   return fetch(`${baseUrl}resize`, {
-//     method: 'POST',
-//     headers: {
-//       Accept: 'application/json',
-//       'Content-Type': 'application/json',
-//       Authorization: token
-//     },
-//     body: file,
-//   })  
-// }

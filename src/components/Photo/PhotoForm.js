@@ -106,7 +106,18 @@ const PhotoForm = ({ handleSubmit, birdList, uploadPhoto, location, handleChange
               type="text"
            />
           </div>          
-        </div>                
+        </div>
+        <div className="form__input">
+          <label>Camera Model</label>
+          <div>
+            <Field
+              name="camera"
+              component="input"
+              placeholder="Camera used to take the photo"              
+              type="text"
+           />
+          </div>          
+        </div>                           
         <div className="form__dropzone">
             <label htmlFor={FILE_FIELD_NAME}>Files</label>
             <Field

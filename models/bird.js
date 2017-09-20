@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const BirdSchema = new mongoose.Schema({
-    name: String,
+    bird_name: String,
     slug: String,
     species: String,
     order: String,   // bird category or order

@@ -35,7 +35,7 @@ class PlaceField extends Component {
 				<PlacesAutocomplete
 					inputProps={inputProps}
 					typeAhead={false}
-					inputName='Address'
+					name='location'
 					autocompleteItem={AutocompleteItem}
 				/>
 		);		
