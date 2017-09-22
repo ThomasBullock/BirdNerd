@@ -235,9 +235,9 @@ a {
     .birdcard {
       flex: 0 1 25%;
       margin: 2.5%; } }
-  .birdcard--portrait {
+  .birdcard--Portrait {
     flex-direction: row; }
-  .birdcard--landscape {
+  .birdcard--Landscape {
     flex-direction: column; }
   .birdcard__photo {
     flex: 1 1 66%;
@@ -259,18 +259,18 @@ a {
       @media all and (min-width: 1025px) {
         .birdcard__stats svg.icon {
           width: 24px; } }
-    .birdcard__stats--portrait {
+    .birdcard__stats--Portrait {
       background: linear-gradient(180deg, #48ded4 0%, #a026bf 20%, #e82c75 60%, #FFC40E 85%, #48ded4 95%);
       flex-direction: column;
       align-items: center; }
-    .birdcard__stats--landscape {
+    .birdcard__stats--Landscape {
       background: linear-gradient(90deg, #48ded4 0%, #a026bf 20%, #e82c75 60%, #FFC40E 85%, #48ded4 95%);
       flex-direction: row;
       align-items: center;
       padding-top: 1.5em;
       padding-bottom: 1.5em; }
       @media all and (min-width: 1025px) {
-        .birdcard__stats--landscape {
+        .birdcard__stats--Landscape {
           padding-top: 1.5em;
           padding-bottom: 1.5em; } }
   .birdcard__button {

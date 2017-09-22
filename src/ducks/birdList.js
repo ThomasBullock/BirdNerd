@@ -6,7 +6,6 @@ export const REQUEST_BIRD_LIST = action('REQUEST_BIRD_LIST'); // need to create 
 export const RECEIVE_BIRD_LIST = action('RECEIVE_BIRD_LIST');
 
 export const requestBirdList = () => ({ type: REQUEST_BIRD_LIST }); 
-
 export const receiveBirdList = (birdList) => ( { type: RECEIVE_BIRD_LIST, birdList });
 
 const initialState = fromJS([

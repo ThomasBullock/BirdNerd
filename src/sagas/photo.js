@@ -37,6 +37,7 @@ function* uploadPhoto(action) {
         const photoInfo = {
             birdName: action.photo.get('name'),
             birdId: bird._id,
+            birdSlug: slugs(action.photo.get('name')),
             location: action.photo.get('location'),
             imageAspect: aspectCalculator(birdImageRes),
             camera: action.photo.get('camera'),
@@ -59,6 +60,6 @@ export function* watchUploadPhoto() {
 
 export default function* rootSaga() {
   yield [
-    fork(watchUploadPhoto)
+    fork(watchUploadPhoto) 
   ];
 }

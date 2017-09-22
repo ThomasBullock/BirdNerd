@@ -12,8 +12,7 @@ export const UPDATE_LOCATION = action('UPDATE_LOCATION');
 // Action Creators
 
 export const uploadPhoto = (photo) => ({ type: UPLOAD_PHOTO, photo});
-export const updateLocation = (location) => ({ type: UPDATE_LOCATION, location})
-
+export const updateLocation = (location) => ({ type: UPDATE_LOCATION, location});
 
 const initialState = fromJS([
   {

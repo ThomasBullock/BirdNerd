@@ -81,6 +81,20 @@ router.delete('/birds/:birdId', requireAuth, (req, res) => {
     });
 });
 
+// photo
+
+router.get('/myphotos', requireAuth, (req, res) => {
+    console.log('request myPhotos API')
+    Photo.find({ user: req.user._id })
+        .then(data => {
+            res.json(data);
+        })
+        .catch(err => {
+            console.log(err);
+            res.json(err);
+        });    
+}) 
+
 router.post('/photo', requireAuth, (req, res) => { 
     // console.log(req);
     req.body.user = req.user._id;
