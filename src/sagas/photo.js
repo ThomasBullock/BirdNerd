@@ -19,7 +19,7 @@ const aspectCalculator = (data) => {
 function* uploadPhoto(action) {
 	try {
 		const userPhoto = action.photo.get('files')[0];  //'action' is not defined  no-undef
-        console.log(userPhoto);
+        console.log(action.photo);
         const formData = new FormData();
         formData.append("file", userPhoto);
         //formData.append("tags", `codeinfuse, medium, gist`);
@@ -48,7 +48,8 @@ function* uploadPhoto(action) {
                         
         }   
         console.log(photoInfo); 
-        yield call(api.POST, 'photo', photoInfo);   	
+        yield call(api.POST, 'photo', photoInfo);
+        history.push('/mybirds/');   	
 	} catch(error) {
     	yield console.log(error);		
 	}

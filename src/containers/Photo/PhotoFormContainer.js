@@ -15,18 +15,18 @@ class PhotoFormContainer extends Component {
         super(props);
         
         this.state = {
-            location: 'Brisbane',
+            location: '',
         }
         
-        this.handleChange = this.handleChange.bind(this);
+        // this.handleChange = this.handleChange.bind(this);
     }
     
-    handleChange(value) {
-        console.log('change in container!');
-        this.setState({
-            location: value
-        })
-    }
+    // handleChange(value) {
+    //     console.log('change in container!');
+    //     this.setState({
+    //         location: value
+    //     })
+    // }
     
     componentDidMount() {
         this.props.requestBirdList();

@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import MyPhotos from '../../components/Photo/MyPhotos';
 
 import {
-    requestMyPhotos
-} from '../../ducks/myPhotos';
+    requestPhotos
+} from '../../ducks/photos';
 
 
 
@@ -14,12 +14,11 @@ class MyPhotosContainer extends Component {
 	}
 	
   componentDidMount() {
-      console.log('mounted and requesting photos')
-      this.props.requestMyPhotos();
+      this.props.requestPhotos('user');
   }	
 
   render() {
-    const myPhotos = (this.props.myPhotos.get('1')) ? this.props.myPhotos.get('1') : null;
+    const myPhotos = (this.props.photos.get('1')) ? this.props.photos.get('1') : null;
     console.log(myPhotos); 
   	return(
       <div >
@@ -33,13 +32,13 @@ class MyPhotosContainer extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-	   myPhotos: state.get('myPhotos'),
+	   photos: state.get('photos'),
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return{
-        requestMyPhotos: () => dispatch(requestMyPhotos())  		
+        requestPhotos: (query) => dispatch(requestPhotos(query))  		
 	}
 }
 

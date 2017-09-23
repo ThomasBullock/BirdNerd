@@ -11,7 +11,20 @@ const PhotoSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'bird'     
     },
-    location: String,
+    location: {
+        type: {
+            type: String,
+            default: 'Point'
+        },
+        coordinates: [{
+            type: Number
+            // required: 'You must supply coordinates!'
+        }],
+        address: {
+            type: 'String'
+            // required: 'You must supply a city!'
+        }
+    },
     likes: Number,
     comments: [String],
     camera: String, // brand/model od camera used to take the photo 

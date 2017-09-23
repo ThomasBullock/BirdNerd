@@ -8,6 +8,10 @@ import {
   removeBird
 } from '../../ducks/bird';
 
+import {
+	requestPhotos
+} from '../../ducks/photos';
+
 import BirdProfile from '../../components/Bird/BirdProfile';
 
 class BirdProfileContainer extends Component {
@@ -22,6 +26,7 @@ class BirdProfileContainer extends Component {
 	componentDidMount() {
 		const slug = this.props.match.params.birdSlug;
 		this.props.requestBird(slug);
+		this.props.requestPhotos(slug);
 		this.setState({
 			mounted: true
 		})			
@@ -29,10 +34,12 @@ class BirdProfileContainer extends Component {
 	
 	render() {
 		const birdInfo = (this.state.mounted) ? this.props.bird.last() : null;
+		const photos = (this.state.mounted) ? this.props.photos.last() : null;
+		// console.log(photos)
 		return (
 			<div>
-			{birdInfo ? (
-				<BirdProfile birdInfo={birdInfo}/>
+			{birdInfo && photos ? (
+				<BirdProfile birdInfo={birdInfo} photos={photos} />
 			) :  (
 				<h2>Loading</h2>
 			)
@@ -45,7 +52,8 @@ class BirdProfileContainer extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		bird: state.get('bird')
+		bird: state.get('bird'),
+		photos: state.get('photos')
 	}
 }
 
@@ -55,7 +63,8 @@ const mapDispatchToProps = (dispatch) => {
     requestBird: (bird) => dispatch(requestBird(bird)),
     createBird: (bird) => dispatch(createBird(bird)),
     updateBird: (bird) => dispatch(updateBird(bird)),
-    removeBird: (bird) => dispatch(removeBird(bird))
+    removeBird: (bird) => dispatch(removeBird(bird)),
+    requestPhotos: (query) => dispatch(requestPhotos(query))
   }; // here we're mapping actions to props	
 }
 

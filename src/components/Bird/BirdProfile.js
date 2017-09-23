@@ -2,8 +2,25 @@ import React, { Component } from 'react';
 import '../../styles/css/components/BirdInfo.css';
 // import BirdWings from '../../img/BirdWings.svg';
 import BirdWings from '../icons/BirdWings';
+import BirdCard from './BirdCard';
 
 const BirdProfile = (birdInfo) => {
+		const photoCards = birdInfo.photos.map( (item, i) => {
+			console.log(item)
+			return(
+				<BirdCard 
+	        	key={i}
+	        	id={item && item._id}
+		  			orientation={item && item.imageAspect}
+		  			slug={item && item.birdSlug}
+		  			likes={item && item.likes}
+		  			comments={item && item.comments.length}
+		  			img={item && item.imageUrl}
+				/>
+			)
+		})
+	
+		console.log(birdInfo)
 		let locations= '';
 		if(birdInfo.birdInfo.get('location')) {
 			birdInfo.birdInfo.get('location').forEach((val, key) => {
@@ -39,8 +56,11 @@ const BirdProfile = (birdInfo) => {
 						<p>{birdInfo.birdInfo.get('comments')}</p>
 					</div>
 				</div>				
-				<div className="birdinfo__body">		
-
+				<div className="birdinfo__body">
+					<h2>Photos of {birdInfo.birdInfo.get('name')+'s'}</h2>
+					<div className="container">		
+					{photoCards}
+					</div>
 				</div>	
 			</div>
 		)
