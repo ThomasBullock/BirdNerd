@@ -14,7 +14,7 @@ export const UPDATE_LOCATION = action('UPDATE_LOCATION');
 export const uploadPhoto = (photo) => ({ type: UPLOAD_PHOTO, photo});
 export const updateLocation = (location) => ({ type: UPDATE_LOCATION, location});
 
-const initialState = fromJS([
+const initialState = fromJS(
   {
   	user: null,
     name: null,
@@ -29,7 +29,7 @@ const initialState = fromJS([
     bytes: null,
     format: null
   }
-]);
+);
 
 // Reducers
 
@@ -38,7 +38,8 @@ const photo = (state = initialState, action) => {
 		case UPLOAD_PHOTO: 
 			return state;
 		case UPDATE_LOCATION:
-			state.location
+		console.log('Action location :====', action.location);
+			return state.set('location', fromJS(action.location));
 		default:
 			return state;		
 	} 

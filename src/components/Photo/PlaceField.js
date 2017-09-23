@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import { Field, reduxForm } from 'redux-form/immutable';
+import { connect } from 'react-redux';
+import { updateLocation } from '../../ducks/photo';
 
 const AutocompleteItem = ({ formattedSuggestion }) => (
 	<div>
@@ -32,7 +34,8 @@ class PlaceField extends Component {
     geocodeByAddress(address)
       .then((results) => getLatLng(results[0]))
       .then(({ lat, lng }) => {
-        console.log('Success Yay', { lat, lng })
+        console.log('Success Yay', { lat, lng });
+        this.props.dispatch(updateLocation({lat, lng}));
         this.setState({
           geocodeResults: this.renderGeocodeSuccess(lat, lng),
           loading: false
@@ -144,7 +147,7 @@ class PlaceField extends Component {
 // 	}
 // }
 
-export default PlaceField;
+export default connect()(PlaceField);
 
 // export const PlaceField = ({ input, placeholder, meta: { touched, error }, ...rest }) => {
 // 	console.log(input)

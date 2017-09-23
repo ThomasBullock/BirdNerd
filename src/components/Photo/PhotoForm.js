@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Field, reduxForm } from 'redux-form/immutable';
 import Dropzone from 'react-dropzone';
+import { connect } from 'react-redux';
 import PlaceField from './PlaceField';
 import PlacesAutocomplete from 'react-places-autocomplete';
 
@@ -51,7 +52,7 @@ const renderDropzoneInput = (field) => {
   );
 }
 
-const PhotoForm = ({ handleSubmit, birdList, uploadPhoto, location, handleChange }) => {
+let PhotoForm = ({ handleSubmit, birdList, uploadPhoto, location, handleChange }) => {
   // console.log(handleChange);
   const props = {
     location: location, // `value` is required
@@ -88,7 +89,7 @@ const PhotoForm = ({ handleSubmit, birdList, uploadPhoto, location, handleChange
           <label>Location Lat</label>
           <div>
             <Field
-              name="latitude"
+              name="lat"
               component="input"
               type="text"
            />
@@ -98,7 +99,7 @@ const PhotoForm = ({ handleSubmit, birdList, uploadPhoto, location, handleChange
           <label>Location Lng</label>
           <div>
             <Field
-              name="longitude"
+              name="lng"
               component="input"
               type="text"
            />
@@ -133,7 +134,17 @@ const PhotoForm = ({ handleSubmit, birdList, uploadPhoto, location, handleChange
 	)
 }
 
-export default reduxForm({
+PhotoForm = reduxForm({
     form: 'uploadPhotoForm',
     validate
 })(PhotoForm); 
+
+// You have to connect() to any reducers that you wish to connect to yourself
+PhotoForm = connect(
+  state => ({
+    initialValues: state.getIn(['photo', 'location']), // pull initial values from account reducer
+    enableReinitialize: true,
+  })
+)(PhotoForm)
+
+export default PhotoForm;
