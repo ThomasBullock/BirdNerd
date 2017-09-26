@@ -33,19 +33,26 @@ function* uploadPhoto(action) {
         const bird = yield call(api.GET, `birds/${slugs(action.photo.get('name'))}`);
         console.log(bird);
 
+        const photoLocation = {
+            type: 'Point',
+            coordinates: [
+                action.photo.get('lng'),
+                action.photo.get('lat')
+            ],
+            address: action.photo.get('address')
+        }
         
         const photoInfo = {
             birdName: action.photo.get('name'),
             birdId: bird._id,
             birdSlug: slugs(action.photo.get('name')),
-            location: action.photo.get('location'),
+            location: photoLocation,
             imageAspect: aspectCalculator(birdImageRes),
             camera: action.photo.get('camera'),
             created_at: birdImageRes.created_at,
             bytes: birdImageRes.bytes,
             format: birdImageRes.format,        
-            imageUrl: birdImageRes.secure_url,
-                        
+            imageUrl: birdImageRes.secure_url,               
         }   
         console.log(photoInfo); 
         yield call(api.POST, 'photo', photoInfo);

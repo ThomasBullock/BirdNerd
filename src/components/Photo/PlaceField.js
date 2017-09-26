@@ -34,8 +34,8 @@ class PlaceField extends Component {
     geocodeByAddress(address)
       .then((results) => getLatLng(results[0]))
       .then(({ lat, lng }) => {
-        console.log('Success Yay', { lat, lng });
-        this.props.dispatch(updateLocation({lat, lng}));
+        console.log('Success Yay', { lat, lng, address });
+        this.props.dispatch(updateLocation({lat, lng, address}));
         this.setState({
           geocodeResults: this.renderGeocodeSuccess(lat, lng),
           loading: false
@@ -81,12 +81,6 @@ class PlaceField extends Component {
       autocompleteContainer: 'Demo__autocomplete-container',
     }
 
-    // const AutocompleteItem = ({ formattedSuggestion }) => (
-    //   <div className="Demo__suggestion-item">
-    //     <i className='fa fa-map-marker Demo__suggestion-icon'/>
-    //     <strong>{formattedSuggestion.mainText}</strong>{' '}
-    //     <small className="text-muted">{formattedSuggestion.secondaryText}</small>
-    //   </div>)
 
     const inputProps = {
       type: "text",
@@ -109,69 +103,9 @@ class PlaceField extends Component {
             classNames={cssClasses}
             inputProps={inputProps}
           />
-          {this.state.loading ? <div><i className="fa fa-spinner fa-pulse fa-3x fa-fw Demo__spinner" /></div> : null}
-          {!this.state.loading && this.state.geocodeResults ?
-            <div className='geocoding-results'>{this.state.geocodeResults}</div> :
-          null}
       </div>
     )
   }
 }
 
-// 	render() {
-// 		console.log(this.props)
-// 		console.log(this.value);
-// 		const inputProps = {
-// 		  value: this.props.location, // `value` is required
-// 		  onChange: (value) => {
-// 		    console.log('change!')
-// 		    this.props.handleChange()
-// 		  }, // `onChange` is required
-// 		  onBlur: () => {
-// 		    console.log('blur!')
-// 		  },
-// 		  type: 'search',
-// 		  placeholder: this.props.placeholder,
-// 		  autoFocus: true,
-// 		}
-
-
-// 		return (
-// 				<PlacesAutocomplete
-// 					inputProps={inputProps}
-// 					typeAhead={false}
-// 					name='location'
-// 					autocompleteItem={AutocompleteItem}
-// 				/>
-// 		);		
-// 	}
-// }
-
 export default connect()(PlaceField);
-
-// export const PlaceField = ({ input, placeholder, meta: { touched, error }, ...rest }) => {
-// 	console.log(input)
-// 	console.log(rest)
-// 	// const hasError = touched && error;
-// 	const inputProps = {
-// 	  value: input.value, // `value` is required
-// 	  onChange: () => {
-// 	    console.log('change!')
-// 	  }, // `onChange` is required
-// 	  onBlur: () => {
-// 	    console.log('blur!')
-// 	  },
-// 	  type: 'search',
-// 	  placeholder: 'Search Places...',
-// 	  autoFocus: true,
-// 	}
-
-// 	return (
-// 			<PlacesAutocomplete
-// 				inputProps={inputProps}
-// 				typeAhead={false}
-// 				inputName={input.name}
-// 				autocompleteItem={AutocompleteItem}
-// 			/>
-// 	);
-// }

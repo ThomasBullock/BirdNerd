@@ -14,9 +14,6 @@ class PhotoFormContainer extends Component {
     constructor(props) {
         super(props);
         
-        this.state = {
-            location: '',
-        }
         
         // this.handleChange = this.handleChange.bind(this);
     }
@@ -41,7 +38,6 @@ class PhotoFormContainer extends Component {
     		<PhotoForm 
                 uploadPhoto={uploadPhoto}
                 birdList={birdList}
-                location={this.state.location}
                 handleChange={this.handleChange}
             />
     	)
