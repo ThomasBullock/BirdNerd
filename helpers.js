@@ -9,3 +9,6 @@ export  const setUserInfo = (request) => {
   
     return getUserInfo;
   };
+  
+
+	
