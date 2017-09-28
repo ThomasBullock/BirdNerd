@@ -225,6 +225,8 @@ a {
   flex-direction: column; }
   .birdlist__title {
     align-self: center; }
+  .birdlist__group {
+    margin-bottom: 3em; }
   .birdlist__item {
     padding: 0.375em;
     background: #F6F6F6;
