@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import { Field, reduxForm } from 'redux-form/immutable';
 import { connect } from 'react-redux';
-import { updateLocation } from '../../ducks/photo';
+import { updateLocation } from '../../ducks/location';
 
 const AutocompleteItem = ({ formattedSuggestion }) => (
 	<div>

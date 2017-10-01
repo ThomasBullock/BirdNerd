@@ -142,7 +142,7 @@ PhotoForm = reduxForm({
 // You have to connect() to any reducers that you wish to connect to yourself
 PhotoForm = connect(
   state => ({
-    initialValues: state.getIn(['photo', 'location']), // pull initial values from account reducer
+    initialValues: state.getIn(['location', 'currentLocation']), // pull initial values from account reducer
     enableReinitialize: true,
   })
 )(PhotoForm)

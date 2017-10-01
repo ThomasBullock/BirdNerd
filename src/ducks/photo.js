@@ -7,12 +7,10 @@ const action = (name) => `birdnerd/photo/${name}`;
 
 
 export const UPLOAD_PHOTO = action('UPLOAD_PHOTO');
-export const UPDATE_LOCATION = action('UPDATE_LOCATION');
 
 // Action Creators
 
-export const uploadPhoto = (photo) => ({ type: UPLOAD_PHOTO, photo});
-export const updateLocation = (location) => ({ type: UPDATE_LOCATION, location});
+//export const uploadPhoto = (photo) => ({ type: UPLOAD_PHOTO, photo});
 
 const initialState = fromJS(
   {
@@ -37,9 +35,6 @@ const photo = (state = initialState, action) => {
 	switch (action.type) {
 		case UPLOAD_PHOTO: 
 			return state;
-		case UPDATE_LOCATION:
-		console.log('Action location :====', action.location);
-			return state.set('location', fromJS(action.location));
 		default:
 			return state;		
 	} 

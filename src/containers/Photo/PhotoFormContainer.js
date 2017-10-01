@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import {
     uploadPhoto
-} from '../../ducks/photo';
+} from '../../ducks/photos';
 import {
     requestBirdList
 } from '../../ducks/birdList';
