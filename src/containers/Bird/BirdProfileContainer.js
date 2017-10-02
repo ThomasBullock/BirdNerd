@@ -27,19 +27,21 @@ class BirdProfileContainer extends Component {
 		const slug = this.props.match.params.birdSlug;
 		this.props.requestBird(slug);
 		this.props.requestPhotos(slug);
-		this.setState({
-			mounted: true
-		})			
+		// this.setState({
+		// 	mounted: true
+		// })			
 	}
 	
 	render() {
-		const birdInfo = (this.state.mounted) ? this.props.bird.last() : null;
-		const photos = (this.state.mounted) ? this.props.photos.last() : null;
+		//const birdInfo = (this.state.mounted) ? this.props.bird.last() : null;
+		//const photos = (this.state.mounted) ? this.props.photos.last() : null;
+
 		// console.log(photos)
+		console.log('Birds : ', this.props.birds);
 		return (
 			<div>
-			{birdInfo && photos ? (
-				<BirdProfile birdInfo={birdInfo} photos={photos} />
+			{this.props.bird && this.props.photos} ? (
+				<BirdProfile birdInfo={this.props.bird} photos={this.props.photos} />
 			) :  (
 				<h2>Loading</h2>
 			)

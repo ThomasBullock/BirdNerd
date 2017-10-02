@@ -53,6 +53,21 @@ function* createBird(action) {
   }
 }
 
+function* fetchBirdList(action) {
+  console.log('fetch birdList generator')
+  try {
+    const birdList = yield call(api.GET, `birds/`)
+    console.log(birdList)
+    yield put(actions.receiveBirdList(birdList))
+  } catch(error) {
+    console.log(error)
+  }
+}
+
+export function* watchFetchBirdList() {
+  yield takeLatest(actions.REQUEST_BIRD_LIST, fetchBirdList);
+}
+
 export function* watchCreateBird() {
   yield takeLatest(actions.CREATE_BIRD, createBird);
 }
@@ -64,6 +79,7 @@ export function* watchFetchBird() {
 export default function* rootSaga() {
   yield [
     fork(watchFetchBird),
-    fork(watchCreateBird) 
+    fork(watchCreateBird),
+    fork(watchFetchBirdList),
   ];
 }

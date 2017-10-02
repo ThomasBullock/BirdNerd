@@ -9,6 +9,9 @@ export const UPDATE_BIRD = action('UPDATE_BIRD');
 export const REMOVE_BIRD = action('REMOVE_BIRD');
 export const CREATE_BIRD_SUCCESS = action('CREATE_BIRD_SUCCESS');
 
+export const REQUEST_BIRD_LIST = action('REQUEST_BIRD_LIST'); 
+export const RECEIVE_BIRD_LIST = action('RECEIVE_BIRD_LIST');
+
 // Action Creators
 export const requestBird = (bird) => ({ type: REQUEST_BIRD, bird }); 
 
@@ -21,6 +24,9 @@ export const updateBird = bird => ({ type: UPDATE_BIRD, bird });
 export const removeBird = bird => ({ type: REMOVE_BIRD, bird });
 
 export const createBirdSuccess = bird => ({ type: CREATE_BIRD_SUCCESS, bird });
+
+export const requestBirdList = () => ({ type: REQUEST_BIRD_LIST }); 
+export const receiveBirdList = (birdList) => ( { type: RECEIVE_BIRD_LIST, birdList });
 
 const initialState = fromJS([
   {
@@ -42,10 +48,10 @@ const bird = (state = initialState, action) => {
   // console.log(action)
   switch (action.type) {
     // do reducer stuff
-    case RECEIVE_BIRD: 
-      //Todo
-      console.log(action.data)
-      return state.push(fromJS(action.data));      
+    // case RECEIVE_BIRD: 
+    //   //Todo
+    //   console.log(action.data)
+    //   return state.push(fromJS(action.data));      
     case CREATE_BIRD_SUCCESS:
     	return state.push(action.bird);
     case UPDATE_BIRD:
@@ -53,7 +59,9 @@ const bird = (state = initialState, action) => {
     	return state;
     case REMOVE_BIRD:
       //Todo
-    	return state;		
+      return state;	
+    case RECEIVE_BIRD_LIST: 
+      return state.update(list => fromJS(action.birdList)); 	
     default:
       return state;
   }

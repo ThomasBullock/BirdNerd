@@ -10,7 +10,7 @@ import auth from './auth';
 
 const rootReducer = combineReducers({
     bird,
-    birdList,
+    //birdList,
     //photo,
     photos,
     location,

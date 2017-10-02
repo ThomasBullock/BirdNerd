@@ -4,7 +4,7 @@ import { birdGroups } from '../../clientHelpers';
 
 import {
   requestBirdList,
-} from '../../ducks/birdList';
+} from '../../ducks/bird';
 
 import BirdList from '../../components/Bird/BirdList';
 
@@ -39,15 +39,16 @@ class BirdListContainer extends Component {
 	}
 	
 	render() {
-		const birdList = (this.props.birdList.get('1')) ? this.buildBirdList(this.props.birdList.get('1')) : null;
+
+		//const birdList = (this.props.birdList.get('1')) ? this.buildBirdList(this.props.birdList.get('1')) : null;
 		// if(birdList) {
 		// 	this.buildBirdList(birdList);	
 		// }
-		console.log(birdList)
+		
 		return(
 			<div>
-			{birdList ? (
-					<BirdList birdList={birdList}/>
+			{this.props.birdList ? (
+					<BirdList birdList={this.props.birdList}/>
 				) : (
 					<h2>Loading</h2>
 				)
@@ -61,7 +62,7 @@ class BirdListContainer extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		birdList: state.get('birdList')
+		birdList: state.get('bird')
 	}
 }
 

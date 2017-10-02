@@ -2,11 +2,11 @@ import { fromJS } from 'immutable';
 
 const action = name => `birdnerd/bird/${name}`;
 
-export const REQUEST_BIRD_LIST = action('REQUEST_BIRD_LIST'); // need to create request and receive
+export const REQUEST_BIRD_LIST = action('REQUEST_BIRD_LIST'); 
 export const RECEIVE_BIRD_LIST = action('RECEIVE_BIRD_LIST');
 
-export const requestBirdList = () => ({ type: REQUEST_BIRD_LIST }); 
-export const receiveBirdList = (birdList) => ( { type: RECEIVE_BIRD_LIST, birdList });
+//export const requestBirdList = () => ({ type: REQUEST_BIRD_LIST }); 
+//export const receiveBirdList = (birdList) => ( { type: RECEIVE_BIRD_LIST, birdList });
 
 const initialState = fromJS([
   {

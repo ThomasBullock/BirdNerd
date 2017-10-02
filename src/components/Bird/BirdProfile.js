@@ -6,7 +6,6 @@ import BirdCard from './BirdCard';
 
 const BirdProfile = (birdInfo) => {
 		const photoCards = birdInfo.photos.map( (item, i) => {
-			console.log(item)
 			return(
 				<BirdCard 
 	        	key={i}
@@ -14,13 +13,12 @@ const BirdProfile = (birdInfo) => {
 		  			orientation={item && item.imageAspect}
 		  			slug={item && item.birdSlug}
 		  			likes={item && item.likes}
-		  			comments={item && item.comments.length}
+		  			//comments={item && item.comments.length}
 		  			img={item && item.imageUrl}
 				/>
 			)
 		})
 	
-		console.log(birdInfo)
 		let locations= '';
 		if(birdInfo.birdInfo.get('location')) {
 			birdInfo.birdInfo.get('location').forEach((val, key) => {

@@ -9,7 +9,7 @@ import authSaga from './auth';
 export default function* rootSaga() {
   yield [
     fork(birdSaga),
-    fork(birdListSaga),
+    //fork(birdListSaga),
     //fork(photoSaga),
     fork(photosSaga),    
     fork(authSaga),

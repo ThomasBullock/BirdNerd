@@ -6,7 +6,7 @@ import {
 } from '../../ducks/photos';
 import {
     requestBirdList
-} from '../../ducks/birdList';
+} from '../../ducks/bird';
 
 import PhotoForm from '../../components/Photo/PhotoForm';
 
