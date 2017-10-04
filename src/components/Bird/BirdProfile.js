@@ -35,7 +35,6 @@ const BirdProfile = (birdInfo) => {
 				<div className="birdinfo__card">
 					<div className="birdinfo__facts">
 						<div className="birdinfo__wings">
-							{/*	<img src={BirdWings} alt="Bird Wings"/> */}
 							<BirdWings /> 
 						</div>
 						<div className="birdinfo__heading">

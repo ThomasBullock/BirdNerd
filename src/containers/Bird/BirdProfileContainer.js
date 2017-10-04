@@ -33,16 +33,16 @@ class BirdProfileContainer extends Component {
 	}
 	
 	render() {
-		//const birdInfo = (this.state.mounted) ? this.props.bird.last() : null;
-		//const photos = (this.state.mounted) ? this.props.photos.last() : null;
+		// const birdInfo = (this.state.mounted) ? this.props.bird.last() : null;
+		// const photos = (this.state.mounted) ? this.props.photos.last() : null;
 
-		// console.log(photos)
-		console.log('Birds : ', this.props.birds);
+		// console.log(birdInfo)
+		console.log('Birds : ', this.props.bird);
 		return (
 			<div>
-			{this.props.bird && this.props.photos} ? (
+			{this.props.bird && this.props.photos ? (
 				<BirdProfile birdInfo={this.props.bird} photos={this.props.photos} />
-			) :  (
+			) : (
 				<h2>Loading</h2>
 			)
 				
@@ -51,6 +51,7 @@ class BirdProfileContainer extends Component {
 		)
 	}
 }
+
 
 const mapStateToProps = (state) => {
 	return {

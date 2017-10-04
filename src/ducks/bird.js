@@ -48,10 +48,12 @@ const bird = (state = initialState, action) => {
   // console.log(action)
   switch (action.type) {
     // do reducer stuff
-    // case RECEIVE_BIRD: 
+    case RECEIVE_BIRD: 
     //   //Todo
     //   console.log(action.data)
-    //   return state.push(fromJS(action.data));      
+      const bird = fromJS(action.data)
+      console.log(bird)    
+      return state.update(list => fromJS(action.data));    
     case CREATE_BIRD_SUCCESS:
     	return state.push(action.bird);
     case UPDATE_BIRD:
@@ -60,7 +62,8 @@ const bird = (state = initialState, action) => {
     case REMOVE_BIRD:
       //Todo
       return state;	
-    case RECEIVE_BIRD_LIST: 
+    case RECEIVE_BIRD_LIST:
+      console.log(action.birdList) 
       return state.update(list => fromJS(action.birdList)); 	
     default:
       return state;
