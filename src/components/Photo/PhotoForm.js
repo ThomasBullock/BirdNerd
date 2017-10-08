@@ -14,11 +14,11 @@ const validate = values => {
   return errors;
 }    
 
-const birdSelect = (birdList) => {
-  const options = birdList.map( (item, i) => {
+const birdSelect = (bird) => {
+  const options = bird && bird.map( (item, i) => {
     if(item !== null) {
       return(
-        <option value={item.name} key={i}>{item.name} ({item.species})</option>
+        <option value={item.get('name')} key={i}>{item.get('name')} ({item.get('species')})</option>
       )      
     }
   })
@@ -52,8 +52,7 @@ const renderDropzoneInput = (field) => {
   );
 }
 
-let PhotoForm = ({ handleSubmit, birdList, uploadPhoto, location, handleChange }) => {
-  // console.log(handleChange);
+let PhotoForm = ({ handleSubmit, bird, uploadPhoto, location, handleChange }) => {
   const props = {
     location: location, // `value` is required
     onChange: handleChange, // `onChange` is required
@@ -70,7 +69,7 @@ let PhotoForm = ({ handleSubmit, birdList, uploadPhoto, location, handleChange }
         <div className="form__input">
         	<label>Name</label>
         	<div>
-            {birdSelect(birdList)}
+            {birdSelect(bird)}
         	</div>
       	</div>
         <div className="form__input">

@@ -4,29 +4,25 @@ import { Link } from 'react-router-dom';
 
 import BirdCard from '../Bird/BirdCard';
 
-const MyPhotos = (myPhotos) => {
-		console.log(myPhotos)
-		const photos = myPhotos.myPhotos.map( (item, i) => {
-			console.log(item)
+const MyPhotos = ({ photos }) => {
+		const birdPhotos = photos.map( (item, i) => {
 			return (
-	        <BirdCard 
-	        	key={i}
-	        	id={item._id}
-		  			orientation={item.imageAspect}
-		  			slug={item.birdSlug}
-		  			likes={item.likes}
-		  			comments={item.comments.length}
-		  			img={item.imageUrl}
-		  			>
-		  		</BirdCard>		
+				<BirdCard 
+					key={i}
+					id={item.get('_id')}
+					orientation={item.get('imageAspect')}
+					slug={item.get('birdSlug')}
+					likes={item.get('likes')}
+					comments={item.get('comments').length}
+					img={item.get('imageUrl')}
+				/>	
 			)
 		})
-	
     return (
     	<div className="container">
-    		<button className="button--upload"><Link to={`/mybirds/new`}>Submit Photo</Link></button>
+    		<button className="button--upload"><Link to={`/bird/mybirds/new`}>Submit Photo</Link></button>
     		<div className="container">
-    			{photos}
+    			{birdPhotos}
 	  		</div>	  	  			  		
 	  	</div>	
     );

@@ -46,7 +46,7 @@ class TopBar extends Component {
 							<li className="topbar__link-item"><Link to='/'>Home</Link></li>
 							<li className="topbar__link-item"><Link to='/bird'>Birds</Link></li>
 							<li className="topbar__link-item"><Link to='/bird/new'>Submit Bird</Link></li>
-							<li className="topbar__link-item"><Link to='/mybirds'>My Birds</Link></li>
+							<li className="topbar__link-item"><Link to='/bird/mybirds'>My Birds</Link></li>
 						</ul>) }
 					</div>
 					<div className="topbar__nav-component topbar__nav-component--search">

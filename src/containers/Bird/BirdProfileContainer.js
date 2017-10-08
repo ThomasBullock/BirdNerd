@@ -2,48 +2,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import {
-  requestBird,
   createBird,
   updateBird,
   removeBird
 } from '../../ducks/bird';
 
-import {
-	requestPhotos
-} from '../../ducks/photos';
-
 import BirdProfile from '../../components/Bird/BirdProfile';
 
 class BirdProfileContainer extends Component {
-	constructor(props) {
-		super(props);
-		
-		this.state = {
-			mounted: null
-		}
-	}
-	
-	componentDidMount() {
-		const slug = this.props.match.params.birdSlug;
-		this.props.requestBird(slug);
-		this.props.requestPhotos(slug);
-		// this.setState({
-		// 	mounted: true
-		// })			
-	}
-	
 	render() {
-		// const birdInfo = (this.state.mounted) ? this.props.bird.last() : null;
-		// const photos = (this.state.mounted) ? this.props.photos.last() : null;
-
-		// console.log(birdInfo)
-		console.log('Birds : ', this.props.bird);
+		const birdSlug = this.props.match.params.birdSlug;
 		return (
 			<div>
-			{this.props.bird && this.props.photos ? (
-				<BirdProfile birdInfo={this.props.bird} photos={this.props.photos} />
+			{this.props.birdInfo && this.props.photos ? (
+				<BirdProfile birdInfo={this.props.birdInfo} photos={this.props.photos} />
 			) : (
-				<h2>Loading</h2>
+				<h2>Loading...</h2>
 			)
 				
 			}
@@ -53,21 +27,19 @@ class BirdProfileContainer extends Component {
 }
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, props) => {
 	return {
-		bird: state.get('bird'),
-		photos: state.get('photos')
+		birdInfo: state.get('bird').filter(birdInfo => birdInfo.get('slug') === props.match.params.birdSlug).get(0),
+		photos: state.get('photos').filter(photoInfo => photoInfo.get('birdSlug') === props.match.params.birdSlug)
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 	// console.log(dispatch);
   return {
-    requestBird: (bird) => dispatch(requestBird(bird)),
     createBird: (bird) => dispatch(createBird(bird)),
     updateBird: (bird) => dispatch(updateBird(bird)),
     removeBird: (bird) => dispatch(removeBird(bird)),
-    requestPhotos: (query) => dispatch(requestPhotos(query))
   }; // here we're mapping actions to props	
 }
 

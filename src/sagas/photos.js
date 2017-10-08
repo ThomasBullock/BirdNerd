@@ -5,11 +5,12 @@ import * as api from '../api';
 import * as actions from '../ducks/photos';
 import history from '../history';
 
+//selector
+const getBirdInfo = (state, birdName) => state.get('bird').filter(bird => bird.get('name') === birdName).get(0);
+
 function* fetchPhotos(action) {
     try {
-        console.log('fetchPhotos in saga!')
         const myPhotos = yield call(api.GET, `photos/${action.query}`);
-        // console.log(myPhotos);
         yield put(actions.receivePhotos(myPhotos))
     } catch(error) {
         console.log(error)
@@ -28,21 +29,17 @@ const aspectCalculator = (data) => {
 
 function* uploadPhoto(action) {
 	try {
+        debugger;
 		const userPhoto = action.photo.get('files')[0];  //'action' is not defined  no-undef
-        console.log(action.photo);
         const formData = new FormData();
         formData.append("file", userPhoto);
         //formData.append("tags", `codeinfuse, medium, gist`);
         formData.append("upload_preset", "ueut3dbz"); 
         formData.append("api_key", process.env.CLOUDINARY_API_KEY); 
         formData.append("timestamp", (Date.now() / 1000) | 0);
-        console.log(formData);
-        
-        const birdImageRes = yield call(api.POSTBIRD, formData);
-        console.log(birdImageRes); 
-        const bird = yield call(api.GET, `birds/${slugs(action.photo.get('name'))}`);
-        console.log(bird);
-
+        const birdImageRes = yield call(api.POSTBIRD, formData); //Post bird on cloudinary
+        //get a bird info from redux store
+        const birdInfo = yield select(getBirdInfo, action.photo.get('name'));
         const photoLocation = {
             type: 'Point',
             coordinates: [
@@ -54,7 +51,7 @@ function* uploadPhoto(action) {
         
         const photoInfo = {
             birdName: action.photo.get('name'),
-            birdId: bird._id,
+            birdId: birdInfo.get('_id'),
             birdSlug: slugs(action.photo.get('name')),
             location: photoLocation,
             imageAspect: aspectCalculator(birdImageRes),
@@ -64,7 +61,6 @@ function* uploadPhoto(action) {
             format: birdImageRes.format,        
             imageUrl: birdImageRes.secure_url,               
         }   
-        console.log(photoInfo); 
         yield call(api.POST, 'photo', photoInfo);
         history.push('/mybirds/');   	
 	} catch(error) {

@@ -13,7 +13,7 @@ export const REQUEST_BIRD_LIST = action('REQUEST_BIRD_LIST');
 export const RECEIVE_BIRD_LIST = action('RECEIVE_BIRD_LIST');
 
 // Action Creators
-export const requestBird = (bird) => ({ type: REQUEST_BIRD, bird }); 
+//export const requestBird = (bird) => ({ type: REQUEST_BIRD, bird }); 
 
 export const receiveBird = (data) => ( { type: RECEIVE_BIRD, data });
 
@@ -49,8 +49,6 @@ const bird = (state = initialState, action) => {
   switch (action.type) {
     // do reducer stuff
     case RECEIVE_BIRD: 
-    //   //Todo
-    //   console.log(action.data)
       const bird = fromJS(action.data)
       console.log(bird)    
       return state.update(list => fromJS(action.data));    
@@ -63,8 +61,7 @@ const bird = (state = initialState, action) => {
       //Todo
       return state;	
     case RECEIVE_BIRD_LIST:
-      console.log(action.birdList) 
-      return state.update(list => fromJS(action.birdList)); 	
+      return fromJS(action.birdList);	
     default:
       return state;
   }

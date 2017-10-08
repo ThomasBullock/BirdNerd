@@ -7,8 +7,8 @@ import history from '../history';
 
 function* fetchBird(action) {
   try {
-    const bird = yield call(api.GET, `birds/${action.bird}`);
-    yield put(actions.receiveBird(bird))
+    //const bird = yield call(api.GET, `birds/${action.bird}`);
+    //yield put(actions.receiveBird(bird))
   } catch(error) {
     yield console.log(error);
   }
@@ -54,11 +54,10 @@ function* createBird(action) {
 }
 
 function* fetchBirdList(action) {
-  console.log('fetch birdList generator')
   try {
-    const birdList = yield call(api.GET, `birds/`)
-    console.log(birdList)
-    yield put(actions.receiveBirdList(birdList))
+    const birdList = yield call(api.GET, `birds`)
+    console.log("BirdList in saga : ",birdList)
+    yield put(actions.receiveBirdList(birdList));
   } catch(error) {
     console.log(error)
   }

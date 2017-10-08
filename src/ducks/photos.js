@@ -15,18 +15,30 @@ export const receivePhotos = (photos) => ({ type: RECEIVE_PHOTOS, photos });
 export const uploadPhoto = (photo) => ({ type: UPLOAD_PHOTO, photo});
 
 const initialState = fromJS([
-  {
-  	photos: null,
-  }
+	{
+		birdName: null,
+		birdSlug: null,
+		camera: null,
+		created_at: null,
+		bytes: null,
+		user: null,
+		imageAspect: null,
+		comments: [], 
+		imageUrl: null,
+		birdId: null,
+		location: {},
+		format: null,
+		_id: null,
+		likes: null,
+	}
 ]);
 
 // Reducers
 
 const photos = (state = initialState, action) => {
 	switch (action.type) {
-    case RECEIVE_PHOTOS: 
-    	console.log(action)
-      return state.push(action.photos);   
+    case RECEIVE_PHOTOS:
+      return fromJS(action.photos);   
 		default:
 			return state;		
 	} 

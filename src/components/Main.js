@@ -6,7 +6,7 @@ import Home from './Home/Home';
 import Register from './Auth/Register';  
 import Login from './Auth/Login'; 
 import Birds from './Bird/Birds';
-import Photos from './Photo/Photos';
+
 import RequireAuth from './Auth/RequireAuth';
 
 const Main = () => (
@@ -16,8 +16,7 @@ const Main = () => (
       <Route exact path='/' component={RequireAuth(Home)}/>
       <Route path="/register" component={Register} />
       <Route path="/login" component={Login} />
-      <Route path='/bird' component={Birds}/>
-      <Route path='/mybirds' component={Photos}/> 
+      <Route path='/bird' component={Birds}/> 
     </Switch>
   </main>
 );

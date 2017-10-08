@@ -127,6 +127,7 @@ router.post('/photo', requireAuth, (req, res) => {
     req.body.comments = [];
     const photo = new Photo(req.body);
     // console.log(req)
+    console.log('Photo Data : ===========', photo);
     photo.save()
         .then(data => {
             res.json({err: false});
