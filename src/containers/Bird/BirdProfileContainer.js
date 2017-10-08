@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import {
-  requestBird,
   createBird,
   updateBird,
   removeBird
@@ -11,30 +10,14 @@ import {
 import BirdProfile from '../../components/Bird/BirdProfile';
 
 class BirdProfileContainer extends Component {
-	constructor(props) {
-		super(props);
-		
-		this.state = {
-			mounted: null
-		}
-	}
-	
-	componentDidMount() {
-		const slug = this.props.match.params.birdSlug;
-		this.props.requestBird(slug);
-		this.setState({
-			mounted: true
-		})			
-	}
-	
 	render() {
-		const birdInfo = (this.state.mounted) ? this.props.bird.last() : null;
+		const birdSlug = this.props.match.params.birdSlug;
 		return (
 			<div>
-			{birdInfo ? (
-				<BirdProfile birdInfo={birdInfo}/>
-			) :  (
-				<h2>Loading</h2>
+			{this.props.birdInfo && this.props.photos ? (
+				<BirdProfile birdInfo={this.props.birdInfo} photos={this.props.photos} />
+			) : (
+				<h2>Loading...</h2>
 			)
 				
 			}
@@ -43,19 +26,20 @@ class BirdProfileContainer extends Component {
 	}
 }
 
-const mapStateToProps = (state) => {
+
+const mapStateToProps = (state, props) => {
 	return {
-		bird: state.get('bird')
+		birdInfo: state.get('bird').filter(birdInfo => birdInfo.get('slug') === props.match.params.birdSlug).get(0),
+		photos: state.get('photos').filter(photoInfo => photoInfo.get('birdSlug') === props.match.params.birdSlug)
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 	// console.log(dispatch);
   return {
-    requestBird: (bird) => dispatch(requestBird(bird)),
     createBird: (bird) => dispatch(createBird(bird)),
     updateBird: (bird) => dispatch(updateBird(bird)),
-    removeBird: (bird) => dispatch(removeBird(bird))
+    removeBird: (bird) => dispatch(removeBird(bird)),
   }; // here we're mapping actions to props	
 }
 

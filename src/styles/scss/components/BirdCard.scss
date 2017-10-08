@@ -1,6 +1,13 @@
 @import '../settings';
 
 
+.button {
+	@include mod('upload') {
+		background: $wes-magenta;
+		margin: $base-spacing auto;
+	}
+}
+
 .birdcard {
 	display: flex;
 	flex: 0 1 90%;
@@ -19,12 +26,12 @@
 		margin: 2.5%;
 	}
 
-	@include mod('portrait') {
+	@include mod('Portrait') {
 		flex-direction: row;
 	}
 
 
-	@include mod('landscape') {
+	@include mod('Landscape') {
 		flex-direction: column;
 	}
 
@@ -40,7 +47,7 @@
 				height: 100%;
 			}
 
-		@include mod('portrait') {
+		@include mod('Portrait') {
 
 		}
 	}
@@ -63,13 +70,13 @@
 			}			
 		}
 
-		@include mod('portrait') {
+		@include mod('Portrait') {
 			@include tropical-gradient(180deg);
 			flex-direction: column;
 			align-items: center;
 		}
 
-		@include mod('landscape') {
+		@include mod('Landscape') {
 			@include tropical-gradient(90deg);			
 			flex-direction: row;
 			align-items: center;

@@ -7,8 +7,8 @@ import history from '../history';
 
 function* fetchBird(action) {
   try {
-    const bird = yield call(api.GET, `birds/${action.bird}`);
-    yield put(actions.receiveBird(bird))
+    //const bird = yield call(api.GET, `birds/${action.bird}`);
+    //yield put(actions.receiveBird(bird))
   } catch(error) {
     yield console.log(error);
   }
@@ -28,6 +28,8 @@ function* createBird(action) {
     console.log(formData)
     //const [birdRes, birdImageRes] = yield [call(api.POST, 'birds', action.bird.toJS()), call(api.POSTBIRD, formData)];
     const birdImageRes = yield call(api.POSTBIRD, formData);
+    
+    console.log(birdImageRes);
   
     const birdInfo = {
       name: action.bird.get('name'),
@@ -51,6 +53,20 @@ function* createBird(action) {
   }
 }
 
+function* fetchBirdList(action) {
+  try {
+    const birdList = yield call(api.GET, `birds`)
+    console.log("BirdList in saga : ",birdList)
+    yield put(actions.receiveBirdList(birdList));
+  } catch(error) {
+    console.log(error)
+  }
+}
+
+export function* watchFetchBirdList() {
+  yield takeLatest(actions.REQUEST_BIRD_LIST, fetchBirdList);
+}
+
 export function* watchCreateBird() {
   yield takeLatest(actions.CREATE_BIRD, createBird);
 }
@@ -62,6 +78,7 @@ export function* watchFetchBird() {
 export default function* rootSaga() {
   yield [
     fork(watchFetchBird),
-    fork(watchCreateBird) 
+    fork(watchCreateBird),
+    fork(watchFetchBirdList),
   ];
 }

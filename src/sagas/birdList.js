@@ -2,7 +2,7 @@ import { takeLatest } from 'redux-saga';
 import { call, put, select, fork } from 'redux-saga/effects';
 
 import * as api from '../api';
-import * as actions from '../ducks/birdList';
+import * as actions from '../ducks/bird';
 
 function* fetchBirdList(action) {
   console.log('fetch birdList generator')

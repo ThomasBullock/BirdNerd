@@ -23,13 +23,13 @@ class BirdCard extends Component {
 						</button>
 						<button className="birdcard__button">
 							<IconHeart/>
-							<span className="birdcard__number">3</span>
+							<span className="birdcard__number">{this.props.likes}</span>
 						</button>
 						<button className="birdcard__button">
 							<IconBubble/>
-							<span className="birdcard__number">7</span>
+							<span className="birdcard__number">{this.props.comments}</span>
 						</button>
-						<Link to='/bird/eagle' className="birdcard__button">
+						<Link to={`/bird/${this.props.slug}`} className="birdcard__button">
 							<IconBird/>
 						</Link>					
 					</div>				

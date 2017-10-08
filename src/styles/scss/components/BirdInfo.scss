@@ -59,7 +59,12 @@
 	@include elem('body') {
 		display: flex;
 		flex-direction: column;
-		align-items: base-line;		
+		align-items: base-line;
+		
+		h2 {
+			margin-top: $base-spacing * 2;
+			text-align: center;
+		}		
 	}
 	
 	@include elem('image-wrapper') {

@@ -1,25 +1,42 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-import {
-  requestBirdList,
-} from '../../ducks/birdList';
+import { birdGroups } from '../../clientHelpers';
 
 import BirdList from '../../components/Bird/BirdList';
 
 class BirdListContainer extends Component {
+	constructor(props) {
+		super(props)
+		this.buildBirdList = this.buildBirdList.bind(this);
+	}
 	
-	componentDidMount() {
-		this.props.requestBirdList();
+	buildBirdList(birds) {
+		const groups = {};
+		for (var prop in birdGroups) {
+			groups[prop] = [];
+		}
+		console.log(birds)
+		
+		birds.map( (bird) => {  // convert list/map to proper javascript :) !!!
+			const order = bird.get('order');
+			if(groups[`${order}`]) {
+				console.log(bird)
+				groups[`${order}`].push(
+					Array.from(bird).reduce((obj, [key, value]) => (
+					  Object.assign(obj, { [key]: value }) // Be careful! Maps can have non-String keys; object literals can't.
+					), {})
+					)
+								
+			}
+		});
+		return groups;
 	}
 	
 	render() {
-		const birdList = (this.props.birdList.get('1')) ? this.props.birdList.get('1') : null;
-
 		return(
 			<div>
-			{birdList ? (
-					<BirdList birdList={birdList}/>
+			{this.props.birdList.size > 2 ? (
+					<BirdList birdList={this.buildBirdList(this.props.birdList)}/>
 				) : (
 					<h2>Loading</h2>
 				)
@@ -33,14 +50,9 @@ class BirdListContainer extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		birdList: state.get('birdList')
+		birdList: state.get('bird')
 	}
 }
 
-const mapDispatchtoProps = (dispatch) => {
-	return {
-		requestBirdList: () => dispatch(requestBirdList())
-	}
-}
 
-export default connect(mapStateToProps, mapDispatchtoProps)(BirdListContainer)
+export default connect(mapStateToProps)(BirdListContainer);
