@@ -25,11 +25,8 @@ function* createBird(action) {
     formData.append("upload_preset", "ueut3dbz"); 
     formData.append("api_key", process.env.CLOUDINARY_API_KEY); 
     formData.append("timestamp", (Date.now() / 1000) | 0);
-    console.log(formData)
     //const [birdRes, birdImageRes] = yield [call(api.POST, 'birds', action.bird.toJS()), call(api.POSTBIRD, formData)];
     const birdImageRes = yield call(api.POSTBIRD, formData);
-    
-    console.log(birdImageRes);
   
     const birdInfo = {
       name: action.bird.get('name'),
@@ -44,7 +41,6 @@ function* createBird(action) {
       format: birdImageRes.format,
       imageUrl: birdImageRes.secure_url
     };
-    // console.log(birdInfo);
     yield call(api.POST, 'birds', birdInfo);
     yield put(actions.createBirdSuccess(birdInfo));
     history.push(`/bird/${birdInfo.slug}`)
