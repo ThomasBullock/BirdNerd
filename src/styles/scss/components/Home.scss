@@ -1,0 +1,24 @@
+@import '../settings';
+
+.nav-tabs {
+	width: 100%;
+	margin-top: $base-spacing;
+	display: flex;
+	justify-content: center;
+	
+	
+	
+	@include elem('link') {
+    // background-color: $jumbo;
+    margin: $base-spacing;
+    border-top: 1px solid $base;
+    border-left: 1px solid $base;
+    border-right: 1px solid $base;        
+    border-radius: $base-border-radius;
+    color: $oil;
+    display: block;
+    padding: $base-spacing / 2;
+    text-decoration: none;		
+	}
+} 
+

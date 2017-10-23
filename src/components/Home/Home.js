@@ -1,33 +1,18 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import TopBar from '../TopBar';
-import { protectedTest } from '../../ducks/auth';
+import HomeContainer from '../../containers/Home/HomeContainer';
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.props.protectedTest();
-  }
-
-  renderContent() {
-    if(this.props.content) {
-      return (
-        <p>{this.props.content}</p>
-      );
-    }
-  }
   render() {
-    return (
-      <div>
-        { this.renderContent()}
-      </div>
-    );
+    return(
+      <Switch>
+        <Route exact path='/' component={HomeContainer}/>
+      </Switch>
+    )
   }
 }
 
-function mapStateToProps(state) {
-  return { content: state.getIn(['auth', 'content']) };
-}
 
-export default connect(mapStateToProps, { protectedTest })(Home);
+export default connect( )(Home);
