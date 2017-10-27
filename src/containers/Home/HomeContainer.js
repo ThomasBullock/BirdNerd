@@ -3,31 +3,37 @@ import { connect } from 'react-redux';
 
 // import TopBar from '../TopBar';
 import { protectedTest } from '../../ducks/auth';
-import { requestPhotos } from '../../ducks/photos';
+import { requestPhotos, sortNewest, sortOldest, sortPopular } from '../../ducks/photos';
 import HomePage from '../../components/Home/HomePage';
 
 class HomeContainer extends Component {
   constructor(props) {
     super(props);
     // this.props.protectedTest(); // do we need this?
-    this.orderBirdCards = this.orderBirdCards.bind(this);
+    this.handleSort = this.handleSort.bind(this);
   }
 
   componentDidMount() {
     console.log('we\'ll get a bunch of photos');
-    // if props.params.path === '/' get recent 
-    console.log(this.props.match.path);
-    if(this.props.match.path === '/') {
-      this.props.getRecent('recent');
-    } else {
-      this.props.getRecent('recent');
-    }
-    
-    // otherwise get props.params.path
+    this.props.requestPhotos();
+    // this.props.sortNewest();
+
   }
   
-  orderBirdCards(query) {
-    this.props.getRecent(query)
+  handleSort(sort) {
+    switch(sort) {
+      case 'Newest': 
+        this.props.sortNewest();
+        break;
+      case 'Oldest':
+        this.props.sortOldest();
+        break;
+      case 'Popular': 
+        this.props.sortPopular();
+        break;       
+      default:
+        this.props.sortNewest();
+    }
   }
 
   renderContent() {
@@ -41,7 +47,7 @@ class HomeContainer extends Component {
     const { photos } = this.props;
     return (
       <div >
-        {photos ? (<HomePage photos={photos} sort={this.orderBirdCards}/>) : (
+        {photos ? (<HomePage photos={photos} sort={this.handleSort} />) : (
           <h2>Loading</h2>
         )}
       </div>
@@ -58,9 +64,12 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  console.log(dispatch);
+  // console.log(dispatch);
   return {
-    getRecent: (query) => dispatch(requestPhotos(query))
+    requestPhotos: (query) => dispatch(requestPhotos(query)),
+    sortNewest: () => dispatch(sortNewest()),
+    sortOldest: () => dispatch(sortOldest()),
+    sortPopular: () => dispatch(sortPopular())
   }; // here we're mapping actions to props 
 }
 

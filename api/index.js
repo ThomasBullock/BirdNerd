@@ -83,6 +83,17 @@ router.delete('/birds/:birdId', requireAuth, (req, res) => {
 
 // photo
 
+router.get('/photos', requireAuth, (req, res) => {
+    Photo.find({})
+    .then(data => {
+        res.json(data)
+    }).catch(err => {
+        console.log(err);
+        res.json(err);        
+    })
+})
+
+
 router.get('/photos/:query', requireAuth, (req, res) => {
     console.log(`request ${req.params.query} API`);
     const query = req.params.query;
@@ -137,18 +148,6 @@ router.get('/photos/:query', requireAuth, (req, res) => {
             });               
     }
   
-}) 
-
-router.get('/birdphotos/:slug', requireAuth, (req, res) => {
-    console.log('request birdphotos API')
-    Photo.find({ slug: req.params.slug })
-        .then(data => {
-            res.json(data);
-        })
-        .catch(err => {
-            console.log(err);
-            res.json(err);
-        });    
 }) 
 
 router.post('/photo', requireAuth, (req, res) => { 
