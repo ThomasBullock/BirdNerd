@@ -14,7 +14,7 @@ export const LOGIN_REQUEST = action('LOGIN_REQUEST');
 export const SIGN_UP_REQUEST = action('SIGN_UP_REQUEST');
 export const LOGIN_FAILURE = action('LOGIN_FAILURE');
 
-export const authUser = () => ({ type: AUTH_USER });
+export const authUser = (user) => ({ type: AUTH_USER, user });
 export const unAuthUser = () => ({ type: UNAUTH_USER });
 export const protectedTest = () => ({ type: PROTECTED_TEST });
 export const protectedTestSuccess = (payload) => ({ type: PROTECTED_TEST_SUCCESS, payload }) 
@@ -29,6 +29,7 @@ const INITIAL_STATE = Map({
   message: '',
   content: '',
   authenticated: false,
+  user: null
 });
 
 let decoded;
@@ -36,7 +37,8 @@ let decoded;
 const auth = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case AUTH_USER:
-      return state.merge({ error: '', message: '', authenticated: true });
+      console.log(action)
+      return state.merge({ error: '', message: '', authenticated: true, user: action.user });
     case UNAUTH_USER:
       console.log('Action is : ', action);
       return state.merge({ authenticated: false });
