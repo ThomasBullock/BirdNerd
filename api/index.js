@@ -28,8 +28,8 @@ router.get('/birds', (req, res) => { // removed requireAuth,
 
 router.post('/birds', requireAuth, (req, res) => {
     const bird = new Bird(req.body);
-    // console.log(req)
-    bird.save()
+    if(req.user.profile.role === 'moderator') {
+        bird.save()
         .then(data => {
             res.json({err: false});
         })
@@ -37,6 +37,9 @@ router.post('/birds', requireAuth, (req, res) => {
             console.log(err);
             res.json(err);
         })
+    } else {
+        return res.status(403).send({ error: 'You are not authorized' });
+    }
 }); 
 
 router.get('/birds/:birdSlug', (req, res) => {  // removed requireAuth,
