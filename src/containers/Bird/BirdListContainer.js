@@ -35,7 +35,7 @@ class BirdListContainer extends Component {
 	render() {
 		return(
 			<div>
-			{this.props.birdList.size > 2 ? (
+			{this.props.birdList.size > 0 ? (
 					<BirdList birdList={this.buildBirdList(this.props.birdList)}/>
 				) : (
 					<h2>Loading</h2>
