@@ -14,7 +14,7 @@ router.get('/protected', requireAuth, (req, res) => {
     res.send({ content: 'The protected test route is functional!' });
 });
 
-router.get('/birds', requireAuth, (req, res) => {
+router.get('/birds', (req, res) => { // removed requireAuth,
     Bird.find({})
         .exec()
         .then(data => {
@@ -83,8 +83,19 @@ router.delete('/birds/:birdId', requireAuth, (req, res) => {
 
 // photo
 
+router.get('/photos', requireAuth, (req, res) => {
+    Photo.find({})
+    .then(data => {
+        res.json(data)
+    }).catch(err => {
+        console.log(err);
+        res.json(err);        
+    })
+})
+
+
 router.get('/photos/:query', requireAuth, (req, res) => {
-    console.log('request myPhotos API')
+    console.log(`request ${req.params.query} API`);
     const query = req.params.query;
     if(query === 'user') {
         Photo.find({ user: req.user._id })
@@ -95,7 +106,38 @@ router.get('/photos/:query', requireAuth, (req, res) => {
                 console.log(err);
                 res.json(err);
             });          
-        } else {
+    } else if(query === 'recent') {
+        Photo.find({}).sort( { created_at: -1} ).limit(12)
+        .then(data => {
+            // console.log(data)
+           res.json(data); 
+        })
+        .catch(err => {
+            console.log(err);
+            res.json(err);
+        });         
+    } else if(query === 'oldest') {
+        Photo.find({}).sort( { created_at: 1} ).limit(12)
+        .then(data => {
+            // console.log(data)
+           res.json(data); 
+        })        
+        .catch(err => {
+            console.log(err);
+            res.json(err);
+        });              
+    } else if(query === 'popular') {
+        Photo.find({}).sort( { likes: -1} ).limit(12)
+        .then(data => {
+            // console.log(data)
+           res.json(data); 
+        })        
+        .catch(err => {
+            console.log(err);
+            res.json(err);
+        });
+    
+    } else {
         Photo.find({ birdSlug: query })
             .then(data => {
                 res.json(data);
@@ -104,20 +146,8 @@ router.get('/photos/:query', requireAuth, (req, res) => {
                 console.log(err);
                 res.json(err);
             });               
-        }
+    }
   
-}) 
-
-router.get('/birdphotos/:slug', requireAuth, (req, res) => {
-    console.log('request birdphotos API')
-    Photo.find({ slug: req.params.slug })
-        .then(data => {
-            res.json(data);
-        })
-        .catch(err => {
-            console.log(err);
-            res.json(err);
-        });    
 }) 
 
 router.post('/photo', requireAuth, (req, res) => { 

@@ -28,6 +28,7 @@ class BirdProfileContainer extends Component {
 
 
 const mapStateToProps = (state, props) => {
+	console.log(props.match.params.birdSlug)
 	return {
 		birdInfo: state.get('bird').filter(birdInfo => birdInfo && birdInfo.get('slug') === props.match.params.birdSlug).get(0),
 		photos: state.get('photos').filter(photoInfo => photoInfo.get('birdSlug') === props.match.params.birdSlug)

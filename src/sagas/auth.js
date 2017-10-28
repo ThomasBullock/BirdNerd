@@ -37,12 +37,14 @@ function* signUpRequest(action) {
 }
 
 function* loginRequest(action) {
+  console.log(action)
   try {
     const response = yield call(authFetch, 'login', action.user);
     if (response.status >= 200 && response.status < 300) {
       const user = yield response.json();
+      console.log(user)
       yield window.sessionStorage.setItem('token', user.token);
-      yield put(actions.authUser());
+      yield put(actions.authUser(user.user._id));
       history.push('/');
     } else {
       throw response;

@@ -10,6 +10,7 @@ const MyPhotos = ({ photos }) => {
 				<BirdCard 
 					key={i}
 					id={item.get('_id')}
+					name={item.get('birdName')}					
 					orientation={item.get('imageAspect')}
 					slug={item.get('birdSlug')}
 					likes={item.get('likes')}

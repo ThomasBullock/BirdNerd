@@ -10,7 +10,7 @@ const getBirdInfo = (state, birdName) => state.get('bird').filter(bird => bird.g
 
 function* fetchPhotos(action) {
     try {
-        const myPhotos = yield call(api.GET, `photos/${action.query}`);
+        const myPhotos = yield call(api.GET, `photos/`);
         yield put(actions.receivePhotos(myPhotos))
     } catch(error) {
         console.log(error)

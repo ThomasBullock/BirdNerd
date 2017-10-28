@@ -15,8 +15,9 @@ import { requestPhotos } from '../../ducks/photos';
 
 class Birds extends Component {
   componentDidMount() {
+    console.log('getting birdList and myPhotos')
     this.props.dispatch(requestBirdList());
-    this.props.dispatch(requestPhotos('user'));
+    this.props.dispatch(requestPhotos());  // problem when on birdprofile this means on only users birdphotos are available
   }
   render() {
     return (

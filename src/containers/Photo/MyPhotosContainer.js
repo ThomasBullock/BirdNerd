@@ -16,8 +16,11 @@ class MyPhotosContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state.getIn(['auth', 'user']))
 	return {
-	   photos: state.get('photos'),
+     // state.get('photos').filter(photoInfo => photoInfo.get('birdSlug') === props.match.params.birdSlug)
+
+	   photos: state.get('photos').filter(photoInfo => photoInfo.get('user') === state.getIn(['auth', 'user']) ),
 	}
 }
 

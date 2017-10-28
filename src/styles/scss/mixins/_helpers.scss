@@ -1,3 +1,5 @@
+// mixiins
+
 @mixin img-responsive() {
 	max-width: 100%;
 	height: auto;
@@ -58,3 +60,11 @@
  @mixin tropical-gradient($deg) {
  		background: linear-gradient($deg, $wes-cyan 0%, $wes-magenta 20%, $wes-pink 60%, $wes-sunset 85%, $wes-cyan 95%);$sub-tropical-gradient: linear-gradient(90deg, transparentize(#48ded4, .2) 0%, transparentize(#a026bf, .2) 20%, transparentize(#e82c75, .2) 60%, #FFC40E 85%, #48ded4 95%);
  }
+ 
+ // classes
+ 
+ .container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}

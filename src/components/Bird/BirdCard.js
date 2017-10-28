@@ -15,7 +15,7 @@ class BirdCard extends Component {
 				<div className={`birdcard birdcard--${orientation}`}>
 					<div className={`birdcard__photo birdcard__photo--${orientation}`}>
 						<button style={{'backgroundImage': `url(${userImg})`}} className="birdcard__button birdcard__button--user"></button>
-						<img src={this.props.img} alt="bird name!!!"/>
+						<img src={this.props.img} alt={this.props.name}/>
 					</div>
 					<div className={`birdcard__stats birdcard__stats--${orientation}`}>
 						<button className="birdcard__button">

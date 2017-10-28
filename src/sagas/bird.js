@@ -52,7 +52,7 @@ function* createBird(action) {
 function* fetchBirdList(action) {
   try {
     const birdList = yield call(api.GET, `birds`)
-    console.log("BirdList in saga : ",birdList)
+    // console.log("BirdList in saga : ",birdList)
     yield put(actions.receiveBirdList(birdList));
   } catch(error) {
     console.log(error)
