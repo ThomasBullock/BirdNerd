@@ -7,6 +7,7 @@ export const UNAUTH_USER = action('UNAUTH_USER');
 export const AUTH_ERROR = action('AUTH_ERROR');
 export const FORGOT_PASSWORD_REQUEST = action('FORGOT_PASSWORD_REQUEST');
 export const RESET_PASSWORD_REQUEST = action('RESET_PASSWORD_REQUEST');
+export const CHANGE_PASSWORD = action('CHANGE_PASSWORD');
 export const PROTECTED_TEST = action('PROTECTED_TEST');
 export const PROTECTED_TEST_SUCCESS = action('PROTECTED_TEST_SUCCESS');
 export const LOGIN_REQUEST = action('LOGIN_REQUEST');
@@ -20,6 +21,9 @@ export const protectedTestSuccess = (payload) => ({ type: PROTECTED_TEST_SUCCESS
 export const signUpRequest = user => ({ type: SIGN_UP_REQUEST, user });
 export const loginRequest = user => ({ type: LOGIN_REQUEST, user });
 export const loginFail = error => ({ type: LOGIN_FAILURE, error });
+export const forgotPasswordRequest = (user) => ({ type: FORGOT_PASSWORD_REQUEST, user });
+export const resetPasswordRequest = (token) => ({ type: RESET_PASSWORD_REQUEST, token });
+export const changePassword = (password, user) => ({ type: CHANGE_PASSWORD, password, user });
 
 const INITIAL_STATE = Map({
   error: '',
