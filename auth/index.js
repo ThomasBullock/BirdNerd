@@ -151,9 +151,9 @@ router.post('/reset', (req, res) => {
 
 router.post('/changepassword', (req, res, next) => {
   
-  console.log(req.body.password)
+  console.log(req.body.password.password)
   const updates = {
-    password: req.body.password,
+    password: req.body.password.password,
     resetPasswordToken: undefined,
     resetPasswordExpires: undefined
   }
