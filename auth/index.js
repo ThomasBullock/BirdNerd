@@ -95,7 +95,8 @@ router.post('/forgot', (req, res) => {
       user.resetPasswordToken = crypto.randomBytes(20).toString('hex');
       user.resetPasswordExpires = Date.now() + 3600000; // 1 hour from now
       user.save();
-      const resetURL = `http://${req.headers.host}/account/reset/${user.resetPasswordToken}`
+      const baseUrl = 'localhost:3000' // ${req.headers.host}
+      const resetURL = `http://${baseUrl}/account/reset/${user.resetPasswordToken}`
       
       const transport = nodemailer.createTransport({
         host: process.env.MAIL_HOST,
@@ -152,15 +153,23 @@ router.post('/reset', (req, res) => {
 router.post('/changepassword', (req, res, next) => {
   
   console.log(req.body.password.password)
+  // const encryptPassword = bcrypt.hashSync(req.body.password.password, 5);
   const updates = {
     password: req.body.password.password,
     resetPasswordToken: undefined,
     resetPasswordExpires: undefined
   }
   
-  User.findByIdAndUpdate( req.body.user._id, { $set: updates }, function(err, user) {
+  User.findOne( { _id: req.body.user._id }, function(err, user) {
     if (err) { return next(err); }
     
+    if(user) {
+      user.password = req.body.password.password;
+      user.resetPasswordToken = undefined;
+      user.resetPasswordExpires = undefined;
+      user.save()      
+      return res.status(200)
+    }
     console.log(user) 
   })
   
