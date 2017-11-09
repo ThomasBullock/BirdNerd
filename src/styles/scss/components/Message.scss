@@ -1,0 +1,27 @@
+@import '../settings'; 
+
+.message {
+	
+	
+	@include elem('panel') {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		margin: $base-spacing * 2 auto;
+		width: 80%;
+		padding: $base-spacing;
+		background: $silver;
+		border-radius: $base-border-radius;
+	}
+	
+	@include elem('heading') {
+		align-self: center;
+		color: $spotify-green;
+		
+	}
+	
+	@include elem('text') {
+		align-self: center;
+		
+	}
+}

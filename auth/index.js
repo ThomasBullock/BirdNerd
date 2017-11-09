@@ -122,7 +122,7 @@ router.post('/forgot', (req, res) => {
       })      
       
       console.log(resetURL)
-      res.status(200)
+      res.status(200).end()
     }   
   })
 });
@@ -168,9 +168,8 @@ router.post('/changepassword', (req, res, next) => {
       user.resetPasswordToken = undefined;
       user.resetPasswordExpires = undefined;
       user.save()      
-      return res.status(200)
+      return res.status(200).end();
     }
-    console.log(user) 
   })
   
 })

@@ -59,6 +59,9 @@ function* forgotPasswordRequest(action) {
    console.log(action.user)
    try {
       const response = yield call(authFetch, 'forgot', action.user);
+      if(response.status >= 200 && response.status < 300) {
+        yield put(actions.forgotPasswordSuccess(action.user));
+      }      
    } catch (error) {
      yield console.log(error);
    }
@@ -88,6 +91,10 @@ function* changePassword(action) {
   try {
     console.log('we will update teh password');
     const response = yield call(authFetch, `changepassword`, action)
+    console.log(response.status)
+    if(response.status >= 200 && response.status < 300) {
+      yield put(actions.changePasswordSuccess(action.user));    
+    }
   } catch(error) {
     yield console.log(error)
   }

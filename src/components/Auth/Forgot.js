@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
 
 import { forgotPasswordRequest } from '../../ducks/auth';
-
+import Message from '../Message';
 
 const renderField = ({ input, label, type, meta: { touched, error } }) =>
   <div>
@@ -21,28 +21,35 @@ const renderField = ({ input, label, type, meta: { touched, error } }) =>
   </div>
 
 let Forgot = props => {
-  const { error, handleSubmit, pristine, reset, submitting, forgotPassword } = props
-  return(
-  	<form className="form" onSubmit={handleSubmit((vals) => forgotPassword(vals))}>
-      <div className="form__input">
-        <Field
-          name="email"
-          type="email"
-          component={renderField}
-          label="Email"
-        />
-      </div>
-      {error &&
-        <strong>
-          {error}
-        </strong>}
-      <div>
-        <button type="submit" disabled={submitting}>
-          Reset Password
-        </button>
-      </div>        	
-  	</form>
-  )	
+  const { error, handleSubmit, pristine, reset, submitting, forgotPassword, message, submitSucceeded } = props
+  if(submitSucceeded && message ==='password reset email sent') {
+    return(
+      <Message heading="Email Sent" text="A reset link has been sent to your email address" />
+    )
+  } else {
+    return(
+      <form className="form" onSubmit={handleSubmit((vals) => forgotPassword(vals))}>
+        <div className="form__input">
+          <Field
+            name="email"
+            type="email"
+            component={renderField}
+            label="Email"
+          />
+        </div>
+        {error &&
+          <strong>
+            {error}
+          </strong>}
+        <div>
+          <button type="submit" disabled={submitting}>
+            Reset Password
+          </button>
+        </div>          
+      </form>
+    )     
+  }
+
 }
 
 Forgot = reduxForm({
@@ -52,7 +59,10 @@ Forgot = reduxForm({
 
 
 
-const mapStateToProps = state => ({ error: state.getIn(['auth', 'error']) });
+const mapStateToProps = state => ({ 
+  error: state.getIn(['auth', 'error']),
+  message: state.getIn(['auth', 'message']) 
+});
 
 const mapDispatchToProps = dispatch => ({
     forgotPassword: (user) => dispatch(forgotPasswordRequest(user.toJS()))
