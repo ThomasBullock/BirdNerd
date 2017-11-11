@@ -1,5 +1,4 @@
 import { Map } from 'immutable';
-//import jwtDecode from 'jwt-decode';
 
 const action = name => `birdnerd/auth/${name}`;
 
@@ -21,8 +20,6 @@ export const protectedTestSuccess = (payload) => ({ type: PROTECTED_TEST_SUCCESS
 export const signUpRequest = user => ({ type: SIGN_UP_REQUEST, user });
 export const loginRequest = user => ({ type: LOGIN_REQUEST, user });
 export const loginFail = error => ({ type: LOGIN_FAILURE, error });
-// export const loginSuccess = token => ({ type: LOGIN_SUCCESS, token });
-// export const logout = () => ({ type: LOGOUT });
 
 const INITIAL_STATE = Map({
   error: '',
@@ -37,32 +34,17 @@ let decoded;
 const auth = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case AUTH_USER:
-      console.log(action)
       return state.merge({ error: '', message: '', authenticated: true, user: action.user });
     case UNAUTH_USER:
-      console.log('Action is : ', action);
       return state.merge({ authenticated: false });
     case AUTH_ERROR:
       return state.merge({ error: action.payload });
     case PROTECTED_TEST_SUCCESS:
       return state.merge({ content: action.payload });
-    // case LOGIN_SUCCESS || SIGN_UP_SUCCESS:
-    //   decoded = jwtDecode(action.token);
-    //   console.log(action.token);
-    //   return state.merge({
-    //     authenticated: true,
-    //     token: action.token,
-    //     id: decoded._id,
-    //     role: decoded.role,
-    //     organisation: decoded.organisation,
-    //   });
 
     case LOGIN_FAILURE:
       console.log(action.error);
       return state.set('error', action.error);
-
-    // case LOGOUT:
-    //   return state.clear();
 
     default:
       return state;

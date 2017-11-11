@@ -6,6 +6,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
+import jwtDecode from 'jwt-decode';
 import registerServiceWorker from './registerServiceWorker';
 
 import store from './store';
@@ -16,7 +17,8 @@ import './styles/css/index.css';
 
 const token = window.sessionStorage.getItem('token');
 if (token) {
-    store.dispatch(authUser());
+    const decoded = jwtDecode(token);
+    store.dispatch(authUser(decoded));
 }
 const router = (
 	<Provider store={store}>

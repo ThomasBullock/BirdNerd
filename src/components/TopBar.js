@@ -33,21 +33,25 @@ class TopBar extends Component {
 	}
 
 	render() {
-		const { authenticated } = this.props;
+		const { authenticated, role } = this.props;
+		const notLoginLeft = <ul className="topbar__menu">
+			<li className="topbar__link-item"><Link to='/dashboard'>BIRDNERD</Link></li>
+			<li className="topbar__link-item"><Link to='/bird'>Birds</Link></li>
+		</ul>;
+
+		const loginLeft = <ul className="topbar__menu">
+			<li className="topbar__link-item"><Link to='/dashboard'>BIRDNERD</Link></li>
+			<li className="topbar__link-item"><Link to='/'>Home</Link></li>
+			<li className="topbar__link-item"><Link to='/bird'>Birds</Link></li>
+			{role === 'moderator' && <li className="topbar__link-item"><Link to='/bird/new'>Submit Bird</Link></li>}
+			<li className="topbar__link-item"><Link to='/bird/mybirds'>My Birds</Link></li>
+		</ul>;
+
 		return(
 			<header className="topbar">
 				<nav className="topbar__nav">
 					<div className="topbar__nav-component topbar__nav-component--menu">
-						{ !authenticated ? (<ul className="topbar__menu">
-							<li className="topbar__link-item"><Link to='/dashboard'>BIRDNERD</Link></li>
-							<li className="topbar__link-item"><Link to='/bird'>Birds</Link></li>
-						</ul>) : (<ul className="topbar__menu">
-							<li className="topbar__link-item"><Link to='/dashboard'>BIRDNERD</Link></li>
-							<li className="topbar__link-item"><Link to='/'>Home</Link></li>
-							<li className="topbar__link-item"><Link to='/bird'>Birds</Link></li>
-							<li className="topbar__link-item"><Link to='/bird/new'>Submit Bird</Link></li>
-							<li className="topbar__link-item"><Link to='/bird/mybirds'>My Birds</Link></li>
-						</ul>) }
+						{ !authenticated ? (notLoginLeft) : (loginLeft) }
 					</div>
 					<div className="topbar__nav-component topbar__nav-component--search">
 						<form className="topbar__search-form">
@@ -78,6 +82,7 @@ class TopBar extends Component {
 const mapStateToProps = (state) => {
 	return ({
 		authenticated: state.getIn(['auth', 'authenticated']),
+		role: state.getIn(['auth', 'user', 'role']),
 	});
 }
 
