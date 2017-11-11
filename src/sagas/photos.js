@@ -29,7 +29,6 @@ const aspectCalculator = (data) => {
 
 function* uploadPhoto(action) {
 	try {
-        debugger;
 		const userPhoto = action.photo.get('files')[0];  //'action' is not defined  no-undef
         const formData = new FormData();
         formData.append("file", userPhoto);
@@ -38,6 +37,7 @@ function* uploadPhoto(action) {
         formData.append("api_key", process.env.CLOUDINARY_API_KEY); 
         formData.append("timestamp", (Date.now() / 1000) | 0);
         const birdImageRes = yield call(api.POSTBIRD, formData); //Post bird on cloudinary
+        console.log('Cloudinary Res : ', birdImageRes);
         //get a bird info from redux store
         const birdInfo = yield select(getBirdInfo, action.photo.get('name'));
         const photoLocation = {
@@ -59,13 +59,25 @@ function* uploadPhoto(action) {
             created_at: birdImageRes.created_at,
             bytes: birdImageRes.bytes,
             format: birdImageRes.format,        
-            imageUrl: birdImageRes.secure_url,               
+            imageUrl: birdImageRes.secure_url, 
+            public_id: birdImageRes.public_id,              
         }   
         yield call(api.POST, 'photo', photoInfo);
-        history.push('/mybirds/');   	
+        history.push('/bird/mybirds');   	
 	} catch(error) {
     	yield console.log(error);		
 	}
+}
+
+function* deletePhoto(action) {
+    try {
+        const res = yield call(api.DELETE, 'photo', action.public_id);
+        if(!res.err) {
+            yield put(actions.deletePhotoSuccess(action.public_id))
+        }
+    } catch(error) {
+        console.log(error);
+    }
 }
 
 export function* watchUploadPhoto() {
@@ -76,9 +88,14 @@ export function* watchGetPhotos() {
     yield takeLatest(actions.REQUEST_PHOTOS, fetchPhotos);
 }
 
+export function* watchDeletePhoto() {
+    yield takeLatest(actions.DELETE_PHOTO, deletePhoto);
+}
+
 export default function* rootSaga() {
   yield [
     fork(watchGetPhotos),
     fork(watchUploadPhoto),
+    fork(watchDeletePhoto),
   ];
 }

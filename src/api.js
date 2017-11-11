@@ -43,10 +43,16 @@ export const PUT = (url, body) => {
   .then(res => res)
 };
 
-export const DELETE = (url) => {
+export const DELETE = (url, body) => {
   const token = window.sessionStorage.getItem('token');
   return fetch(baseUrl + url, {
     method: 'DELETE',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: token
+    },
+    body: JSON.stringify(body),
   })
   .then(res => res)
 };

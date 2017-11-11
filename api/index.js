@@ -6,6 +6,13 @@ import { requireAuth } from '../middleware/auth';
 import User from '../models/user';
 import Bird from '../models/bird';
 import Photo from '../models/photo';
+var cloudinary = require('cloudinary');
+
+cloudinary.config({ 
+    cloud_name: 'birdnerd', 
+    api_key: '926417793976924', 
+    api_secret: 'Q1YrfEjVO_WujCKhAZYElT8tffo' 
+});
 
 const router = express.Router();
 
@@ -171,6 +178,50 @@ router.post('/photo', requireAuth, (req, res) => {
             console.log(err);
             res.json(err);
         })          
+});
+
+router.delete('/photo', requireAuth, (req, res) => {
+    console.log('user : ', req.user);
+    if(req.user.profile.role === 'moderator') {
+        Photo.findOneAndRemove({'public_id' : req.body.public_id}, function (err, photo) {
+            console.log('userId : ', photo.user);
+            if(err){
+                throw err;
+            }
+            if(photo){
+                cloudinary.v2.uploader.destroy(req.body.public_id, function(error, result){
+                    if(error) {
+                        console.log(error);
+                    }
+                    console.log(result);
+                });
+                console.log('photo found and removed');
+                res.json({ err: false, msg: 'photo found and removed'});
+            }else{
+                console.log('No photo found');
+                res.json({ err: true, msg: 'No photo found'});
+            }
+        });
+    } else {
+        Photo.findOneAndRemove({'public_id': req.body.public_id, 'user': req.user._id}, function (err, photo) {
+            if(err){
+                throw err;
+            }
+            if(photo){
+                cloudinary.v2.uploader.destroy(req.body.public_id, function(error, result){
+                    if(error) {
+                        console.log(error);
+                    }
+                    console.log(result);
+                });
+                console.log('photo found and removed');
+                res.json({ err: false, msg: 'photo found and removed'});
+            }else{
+                console.log('No photo found');
+                res.json({ err: true, msg: 'No photo found'});
+            }
+        });
+    }
 });
 
 // router.post('/birds/resize', requireAuth, (req, res) => {
