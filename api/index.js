@@ -27,8 +27,8 @@ router.get('/birds', (req, res) => { // removed requireAuth,
 });
 
 router.post('/birds', requireAuth, (req, res) => {
-    const bird = new Bird(req.body);
     if(req.user.profile.role === 'moderator') {
+        const bird = new Bird(req.body);
         bird.save()
         .then(data => {
             res.json({err: false});
@@ -72,16 +72,20 @@ router.get('/birds/:birdSlug', (req, res) => {  // removed requireAuth,
 // });
 
 router.delete('/birds/:birdId', requireAuth, (req, res) => {
-    const birdId = req.params.birdId;
-    Bird.findByIdAndRemove(birdId)
-    .exec()
-    .then(data =>{
-        res.json({ err: false});
-    })
-    .catch(err => {
-        console.log(err);
-        res.json(err);
-    });
+    if(req.user.profile.role === 'moderator') {
+        const birdId = req.params.birdId;
+        Bird.findByIdAndRemove(birdId)
+        .exec()
+        .then(data =>{
+            res.json({ err: false});
+        })
+        .catch(err => {
+            console.log(err);
+            res.json(err);
+        });
+    } else {
+        return res.status(403).send({ error: 'You are not authorized' });
+    }
 });
 
 // photo
@@ -159,8 +163,6 @@ router.post('/photo', requireAuth, (req, res) => {
     req.body.likes = 0;
     req.body.comments = [];
     const photo = new Photo(req.body);
-    // console.log(req)
-    console.log('Photo Data : ===========', photo);
     photo.save()
         .then(data => {
             res.json({err: false});
