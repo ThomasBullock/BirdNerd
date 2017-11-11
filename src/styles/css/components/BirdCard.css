@@ -232,6 +232,12 @@ a {
   flex: 0 1 90%;
   margin: 5%;
   box-shadow: 2px 2px 5px rgba(51, 51, 51, 0.5); }
+  .birdcard svg.icon {
+    width: 24px;
+    height: 24px; }
+    @media all and (min-width: 1025px) {
+      .birdcard svg.icon {
+        width: 24px; } }
   @media all and (min-width: 768px) and (max-width: 1024px) {
     .birdcard {
       flex: 0 1 45%;
@@ -258,12 +264,6 @@ a {
     justify-content: space-between;
     padding: 0.75em;
     display: flex; }
-    .birdcard__stats svg.icon {
-      width: 24px;
-      height: 24px; }
-      @media all and (min-width: 1025px) {
-        .birdcard__stats svg.icon {
-          width: 24px; } }
     .birdcard__stats--Portrait {
       background: linear-gradient(180deg, #48ded4 0%, #a026bf 20%, #e82c75 60%, #FFC40E 85%, #48ded4 95%);
       flex-direction: column;
@@ -291,6 +291,11 @@ a {
       position: absolute;
       top: 0.75em;
       left: 0.75em;
+      background-position: 60% 32%; }
+    .birdcard__button--delete {
+      position: absolute;
+      top: 0.75em;
+      right: 0.75em;
       background-position: 60% 32%; }
   .birdcard__number {
     text-align: center;

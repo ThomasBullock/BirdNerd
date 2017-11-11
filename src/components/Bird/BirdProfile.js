@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import '../../styles/css/components/BirdInfo.css';
 // import BirdWings from '../../img/BirdWings.svg';
 import BirdWings from '../icons/BirdWings';
+import DeleteIcon from '../icons/IconCross';
+import EditIcon from '../icons/IconFeather';
 import BirdCard from './BirdCard';
 
-const BirdProfile = ({birdInfo, photos}) => {
+const BirdProfile = ({birdInfo, photos, user}) => {
+		const userRole = user.get('role');
+		console.log(userRole);
 		const photoCards = photos && photos.map( (item, i) => {
 			return(
 				<BirdCard 
@@ -15,6 +19,7 @@ const BirdProfile = ({birdInfo, photos}) => {
 					likes={item.get('likes')}
 					comments={item.get('comments').length}
 					img={item.get('imageUrl')}
+					user={userRole}
 				/>
 			)
 		})
@@ -36,9 +41,22 @@ const BirdProfile = ({birdInfo, photos}) => {
 						<div className="birdinfo__wings">
 							<BirdWings /> 
 						</div>
-						<div className="birdinfo__heading">
-							<h2>{birdInfo.get('name')}</h2>							
+						<div className="birdinfo__header">
+							{userRole === 'moderator' && <div className="birdinfo__btn">
+								<EditIcon className="birdinfo__edit"/>
+							</div>
+							}			
+							<div className="birdinfo__heading">
+								<h2>{birdInfo.get('name')}</h2>							
+							</div>
+							{ userRole === 'moderator' && <div className="birdinfo__btn">
+								<DeleteIcon />
+							</div>	
+								
+							}
+						
 						</div>
+
 						<p><strong>Species: </strong>{birdInfo.get('species')}</p>
 						{birdInfo.get('order') !== 'false' &&
 							

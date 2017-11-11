@@ -37,14 +37,23 @@
 		}
 	}
 
-	@include elem('heading') {
+	@include elem('header') {
 		@include center(0%);
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin: $base-spacing / 4 auto $base-spacing;		
+		
+	}
+
+	@include elem('heading') {
+
 		z-index: 100;
 		text-align: center;
-				border-radius: $base-border-radius;
+		border-radius: $base-border-radius;
 		padding: $base-spacing / 2;
 		width: 200px;
-		margin: $base-spacing / 4 auto $base-spacing;
+
 		background: $jet;
 		
 		h2 {
@@ -52,6 +61,29 @@
 			color: $vapor;
 			margin: 0;
 		}
+	}
+	
+	@include elem('btn') {
+		fill: $vapor;
+		background: $jet;
+		border-radius: $base-border-radius;
+		padding: $base-spacing / 4;
+		max-height: 48px;
+		margin: 0 $base-spacing / 4;
+  	transition: fill $base-duration $base-timing;		
+  	
+		&:hover {
+			fill: $wes-cyan;
+		}
+	}	
+	
+	@include elem('edit') {
+		// fill: $vapor;
+		// background: $jet;
+	}
+	
+	@include elem('delete') {
+		
 	}
 	
 

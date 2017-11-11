@@ -16,6 +16,16 @@
 	box-shadow: 2px 2px 5px transparentize($oil, .5);
 	// max-height: 400px;
 
+	svg.icon {
+
+		width: 24px;
+		height: 24px;
+
+		@media all and (min-width : 1025px) {
+			width: 24px;
+		}			
+	}
+
 	@media all and (min-width : 768px) and (max-width : 1024px) {
 		flex: 0 1 45%;
 		margin: 2.5%;
@@ -58,18 +68,6 @@
 		padding: $base-spacing / 2;
 		display: flex;
 
-
-
-		svg.icon {
-
-			width: 24px;
-			height: 24px;
-
-			@media all and (min-width : 1025px) {
-				width: 24px;
-			}			
-		}
-
 		@include mod('Portrait') {
 			@include tropical-gradient(180deg);
 			flex-direction: column;
@@ -109,6 +107,12 @@
 			// background-image: url('http://3.bp.blogspot.com/-dXOvZOVDhes/Ts99nTenjtI/AAAAAAAAA2A/It9Ymliw4t4/s1600/26.jpg');
 			background-position: 60% 32%;
 		}
+		@include mod('delete') {   // for the user button in top left corner
+			@include position(absolute, $base-spacing / 2 $base-spacing / 2 null null )
+			// border: solid 1px $base;
+			// background-image: url('http://3.bp.blogspot.com/-dXOvZOVDhes/Ts99nTenjtI/AAAAAAAAA2A/It9Ymliw4t4/s1600/26.jpg');
+			background-position: 60% 32%;
+		}		
 	}
 
 	@include elem('number') {
