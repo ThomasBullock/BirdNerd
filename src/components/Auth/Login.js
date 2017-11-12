@@ -26,6 +26,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
+import { Link } from 'react-router-dom';
 
 import { loginRequest } from '../../ducks/auth';
 
@@ -47,6 +48,7 @@ const renderField = ({ input, label, type, meta: { touched, error } }) =>
 let Login = props => {
   const { error, handleSubmit, pristine, reset, submitting, login } = props
   return (
+    <div>
     <form className="form" onSubmit={handleSubmit((vals) => login(vals))}>
       <div className="form__title">
         <h2>Welcome Back!</h2>
@@ -77,6 +79,10 @@ let Login = props => {
         </button>
       </div>
     </form>
+      <div className="reset__panel">
+        <p>Forgotten your password? <Link to='/forgot'>Reset your password</Link></p>
+      </div>
+    </div>
   )
 }
 

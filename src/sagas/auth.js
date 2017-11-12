@@ -55,6 +55,51 @@ function* loginRequest(action) {
   }
 }
 
+function* forgotPasswordRequest(action) {
+   console.log(action.user)
+   try {
+      const response = yield call(authFetch, 'forgot', action.user);
+      if(response.status >= 200 && response.status < 300) {
+        yield put(actions.forgotPasswordSuccess(action.user));
+      }      
+   } catch (error) {
+     yield console.log(error);
+   }
+}
+
+function* resetPasswordRequest(action) {
+   console.log(action.token)
+   try {
+    const response = yield call(authFetch, `reset`, action);
+    console.log(response.status);
+    if(response.status >= 200 && response.status < 300) {
+      const user = yield response.json();
+      yield put(actions.authUser(user.user));      
+      console.log(user)      
+    } else {
+      history.push('/404');
+    }
+
+   } catch (error) {
+    yield console.log(error)
+   } 
+}
+
+function* changePassword(action) {
+  console.log(action)
+  console.log(action.user.get('_id'))
+  try {
+    console.log('we will update teh password');
+    const response = yield call(authFetch, `changepassword`, action)
+    console.log(response.status)
+    if(response.status >= 200 && response.status < 300) {
+      yield put(actions.changePasswordSuccess(action.user));    
+    }
+  } catch(error) {
+    yield console.log(error)
+  }
+}
+
 function* protectedTest(action) {
   console.log('Protectedtest in saga');
   try {
@@ -75,10 +120,29 @@ export function* watchLoginRequest() {
   yield takeLatest(actions.LOGIN_REQUEST, loginRequest);
 }
 
+export function* watchForgotPasswordRequest() {
+  yield takeLatest(actions.FORGOT_PASSWORD_REQUEST, forgotPasswordRequest);
+}
+
+export function* watchResetPasswordRequest() {
+  yield takeLatest(actions.RESET_PASSWORD_REQUEST, resetPasswordRequest);
+}
+
+export function* watchChangePassword() {
+  yield takeLatest(actions.CHANGE_PASSWORD, changePassword);
+}
+
 export function* watchProtectedTest() {
   yield takeLatest(actions.PROTECTED_TEST, protectedTest);
 }
 
 export default function* rootSaga() {
-  yield [fork(watchProtectedTest), fork(watchLoginRequest), fork(watchSignUpRequest)];
+  yield [
+    fork(watchProtectedTest), 
+    fork(watchLoginRequest), 
+    fork(watchSignUpRequest), 
+    fork(watchForgotPasswordRequest), 
+    fork(watchResetPasswordRequest),
+    fork(watchChangePassword)
+  ];
 }
