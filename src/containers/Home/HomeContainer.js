@@ -47,7 +47,7 @@ class HomeContainer extends Component {
     const { photos } = this.props;
     return (
       <div >
-        {photos ? (<HomePage photos={photos} sort={this.handleSort} />) : (
+        {photos ? (<HomePage photos={photos} sort={this.handleSort} user={this.props.user}/>) : (
           <h2>Loading</h2>
         )}
       </div>
@@ -58,7 +58,8 @@ class HomeContainer extends Component {
 function mapStateToProps(state) {
   return { 
     content: state.getIn(['auth', 'content']),
-    photos: state.get('photos') 
+    photos: state.get('photos'),
+    user: state.getIn(['auth', 'user']) 
     
   };
 }

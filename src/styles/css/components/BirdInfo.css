@@ -253,24 +253,38 @@ a {
     z-index: 0; }
     .birdinfo__wings img {
       fill: red; }
-  .birdinfo__heading {
+  .birdinfo__header {
     text-align: center;
     z-index: 100;
     position: absolute;
     left: 50%;
     top: 0%;
     transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.375em auto 1.5em; }
+  .birdinfo__heading {
     z-index: 100;
     text-align: center;
     border-radius: 3px;
     padding: 0.75em;
     width: 200px;
-    margin: 0.375em auto 1.5em;
     background: #222222; }
     .birdinfo__heading h2 {
       font-size: 1em;
       color: #F6F6F6;
       margin: 0; }
+  .birdinfo__btn {
+    fill: #F6F6F6;
+    background: #222222;
+    border-radius: 3px;
+    padding: 0.375em;
+    max-height: 48px;
+    margin: 0 0.375em;
+    transition: fill 250ms ease; }
+    .birdinfo__btn:hover {
+      fill: #48ded4; }
   .birdinfo__body {
     display: flex;
     flex-direction: column;

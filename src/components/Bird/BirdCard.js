@@ -5,6 +5,7 @@ import IconLocation from '../icons/IconLocation';
 import IconHeart from '../icons/IconHeart';
 import IconBubble from '../icons/IconBubble';
 import IconBird from '../icons/IconBird';
+import DeleteIcon from '../icons/IconCross';
 
 class BirdCard extends Component {
     //console.log(props.match.params);
@@ -15,6 +16,10 @@ class BirdCard extends Component {
 				<div className={`birdcard birdcard--${orientation}`}>
 					<div className={`birdcard__photo birdcard__photo--${orientation}`}>
 						<button style={{'backgroundImage': `url(${userImg})`}} className="birdcard__button birdcard__button--user"></button>
+						{this.props.user === 'moderator' && <button className="birdcard__button birdcard__button--delete">
+							<DeleteIcon />
+						</button>
+						}
 						<img src={this.props.img} alt={this.props.name}/>
 					</div>
 					<div className={`birdcard__stats birdcard__stats--${orientation}`}>

@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 
 import BirdCard from '../Bird/BirdCard';
 
-const HomePage = ({ photos, sort }) => {
+const HomePage = ({ photos, sort, user }) => {
+		console.log(user)
+		const userRole = user.get('role');
 		const birdPhotos = photos.map( (item, i) => {
 			return (
 				<BirdCard 
@@ -16,6 +18,7 @@ const HomePage = ({ photos, sort }) => {
 					likes={item.get('likes')}
 					comments={item.get('comments').length}
 					img={item.get('imageUrl')}
+					user={userRole} 
 				/>	
 			)
 		})

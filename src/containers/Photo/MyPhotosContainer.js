@@ -7,7 +7,7 @@ class MyPhotosContainer extends Component {
     const { photos } = this.props;
   	return(
       <div >
-  		  {photos ? (<MyPhotos photos={photos}/>) : (
+  		  {photos ? (<MyPhotos photos={photos} user={this.props.user}/>) : (
           <h2>Loading</h2>
         )}
       </div>
@@ -20,7 +20,8 @@ const mapStateToProps = (state) => {
 	return {
      // state.get('photos').filter(photoInfo => photoInfo.get('birdSlug') === props.match.params.birdSlug)
 
-	   photos: state.get('photos').filter(photoInfo => photoInfo.get('user') === state.getIn(['auth', 'user']) ),
+	   photos: state.get('photos').filter(photoInfo => photoInfo.get('user') === state.getIn(['auth', 'user', '_id']) ),
+     user: state.getIn(['auth', 'user'])
 	}
 }
 

@@ -15,7 +15,7 @@ class BirdProfileContainer extends Component {
 		return (
 			<div>
 			{this.props.birdInfo && this.props.photos ? (
-				<BirdProfile birdInfo={this.props.birdInfo} photos={this.props.photos} />
+				<BirdProfile birdInfo={this.props.birdInfo} photos={this.props.photos} user={this.props.user}/>
 			) : (
 				<h2>Loading...</h2>
 			)
@@ -31,7 +31,8 @@ const mapStateToProps = (state, props) => {
 	console.log(props.match.params.birdSlug)
 	return {
 		birdInfo: state.get('bird').filter(birdInfo => birdInfo && birdInfo.get('slug') === props.match.params.birdSlug).get(0),
-		photos: state.get('photos').filter(photoInfo => photoInfo.get('birdSlug') === props.match.params.birdSlug)
+		photos: state.get('photos').filter(photoInfo => photoInfo.get('birdSlug') === props.match.params.birdSlug),
+		user: state.getIn(['auth', 'user'])
 	}
 }
 
