@@ -3,6 +3,7 @@ import { call, put, select, fork } from 'redux-saga/effects';
 import slugs from 'slugs';
 import * as api from '../api';
 import * as actions from '../ducks/photos';
+import Immutable from 'immutable';
 import history from '../history';
 
 //selector
@@ -41,7 +42,12 @@ function* createPhoto(action) {
         const birdImageRes = yield call(api.POSTBIRD, formData); //Post bird on cloudinary
         console.log('Cloudinary Res : ', birdImageRes);
         //get a bird info from redux store
-        const birdInfo = yield select(getBirdInfo, action.photo.get('name'));
+        
+        const birdInfo = ( action.photo.get('name') === 'Unknown' ) ? 
+        Immutable.Map( { _id: null } )
+        : yield select(getBirdInfo, action.photo.get('name'));
+        // const birdInfo = yield select(getBirdInfo, action.photo.get('name'));
+        console.log(birdInfo)
         const photoLocation = {
             type: 'Point',
             coordinates: [

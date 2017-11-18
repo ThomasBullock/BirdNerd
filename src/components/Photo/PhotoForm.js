@@ -11,20 +11,32 @@ const FILE_FIELD_NAME = 'files';
 const validate = values => {
   // IMPORTANT: values is an Immutable.Map here!
     const errors = {};
+  if (!values.get('name')) {
+    errors.name = 'Required'; 
+  }   
   return errors;
 }    
 
+const notSure = () => {
+  return(
+    <option value='Unknown' key={-1}>Not Sure</option>
+  )
+}
+
 const birdSelect = (bird) => {
-  const options = bird && bird.map( (item, i) => {
+  let options = bird && bird.map( (item, i) => {
     if(item !== null) {
       return(
         <option value={item.get('name')} key={i}>{item.get('name')} ({item.get('species')})</option>
       )      
     }
   })
+  const optionsWithNotSure = options.insert(0, notSure())
+  console.log(options)
+  
   return(
     <Field name="name" component="select">
-      {options}
+      {optionsWithNotSure}
     </Field>
   )
 }
@@ -67,12 +79,6 @@ let PhotoForm = ({ handleSubmit, bird, createPhoto, location, handleChange }) =>
           <h2>Upload a Bird Photo</h2>
         </div>
         <div className="form__input">
-        	<label>Name</label>
-        	<div>
-            {birdSelect(bird)}
-        	</div>
-      	</div>
-        <div className="form__input">
           <label>Location</label>
           <div>
             <Field
@@ -83,7 +89,13 @@ let PhotoForm = ({ handleSubmit, bird, createPhoto, location, handleChange }) =>
               props={props}
            />
           </div>          
-        </div>
+        </div>        
+        <div className="form__input">
+        	<label>Name</label>
+        	<div>
+            {birdSelect(bird)}
+        	</div>
+      	</div>
         <div className="form__input--half">
           <label>Location Lat</label>
           <div>
