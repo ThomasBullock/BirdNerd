@@ -3,11 +3,13 @@ import { call, put, select, fork } from 'redux-saga/effects';
 import slugs from 'slugs';
 import * as api from '../api';
 import * as actions from '../ducks/photos';
+import { load, loaded } from '../ducks/loading';
 import Immutable from 'immutable';
 import history from '../history';
 
 //selector
 const getBirdInfo = (state, birdName) => state.get('bird').filter(bird => bird.get('name') === birdName).get(0);
+const getUser = (state) => state.getIn(['auth', 'user', '_id']);
 
 function* fetchPhotos(action) {
     try {
@@ -38,7 +40,8 @@ function* createPhoto(action) {
         formData.append("upload_preset", "ueut3dbz"); 
         formData.append("api_key", process.env.CLOUDINARY_API_KEY); 
         formData.append("timestamp", (Date.now() / 1000) | 0);
-        yield put(actions.createPhotoUpload()); 
+        //yield put(actions.createPhotoUpload()); 
+        yield put(load());
         const birdImageRes = yield call(api.POSTBIRD, formData); //Post bird on cloudinary
         console.log('Cloudinary Res : ', birdImageRes);
         //get a bird info from redux store
@@ -48,6 +51,7 @@ function* createPhoto(action) {
         : yield select(getBirdInfo, action.photo.get('name'));
         // const birdInfo = yield select(getBirdInfo, action.photo.get('name'));
         console.log(birdInfo)
+        const user = yield select(getUser);
         const photoLocation = {
             type: 'Point',
             coordinates: [
@@ -69,11 +73,12 @@ function* createPhoto(action) {
             bytes: birdImageRes.bytes,
             format: birdImageRes.format,        
             imageUrl: birdImageRes.secure_url, 
-            public_id: birdImageRes.public_id,              
+            public_id: birdImageRes.public_id,
+            user: user,             
         }   
         yield call(api.POST, 'photo', photoInfo);
         yield put(actions.createPhotoSuccess(photoInfo));
-        console.log('now push to mybirds')        
+        yield put(loaded());      
         history.push('/bird/mybirds');   	
 	} catch(error) {
     	yield console.log(error);		
@@ -82,7 +87,8 @@ function* createPhoto(action) {
 
 function* deletePhoto(action) {
     try {
-        const res = yield call(api.DELETE, 'photo', action.public_id);
+        const public_id = { public_id: action.public_id}
+        const res = yield call(api.DELETE, 'photo', public_id);
         if(!res.err) {
             yield put(actions.deletePhotoSuccess(action.public_id))
         }

@@ -166,7 +166,7 @@ router.get('/photos/:query', requireAuth, (req, res) => {
 
 router.post('/photo', requireAuth, (req, res) => { 
     // console.log(req);
-    req.body.user = req.user._id;
+    //req.body.user = req.user._id;
     req.body.likes = 0;
     req.body.comments = [];
     const photo = new Photo(req.body);
@@ -181,21 +181,17 @@ router.post('/photo', requireAuth, (req, res) => {
 });
 
 router.delete('/photo', requireAuth, (req, res) => {
-    console.log('user : ', req.user);
     if(req.user.profile.role === 'moderator') {
         Photo.findOneAndRemove({'public_id' : req.body.public_id}, function (err, photo) {
-            console.log('userId : ', photo.user);
             if(err){
                 throw err;
             }
             if(photo){
                 cloudinary.v2.uploader.destroy(req.body.public_id, function(error, result){
                     if(error) {
-                        console.log(error);
+                        console.log('Cloudinary Error:====', error);
                     }
-                    console.log(result);
                 });
-                console.log('photo found and removed');
                 res.json({ err: false, msg: 'photo found and removed'});
             }else{
                 console.log('No photo found');
@@ -214,7 +210,6 @@ router.delete('/photo', requireAuth, (req, res) => {
                     }
                     console.log(result);
                 });
-                console.log('photo found and removed');
                 res.json({ err: false, msg: 'photo found and removed'});
             }else{
                 console.log('No photo found');

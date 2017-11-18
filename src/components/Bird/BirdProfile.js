@@ -8,7 +8,6 @@ import BirdCard from './BirdCard';
 
 const BirdProfile = ({birdInfo, photos, user}) => {
 		const userRole = user.get('role');
-		console.log(userRole);
 		const photoCards = photos && photos.map( (item, i) => {
 			return(
 				<BirdCard 
@@ -19,6 +18,7 @@ const BirdProfile = ({birdInfo, photos, user}) => {
 					likes={item.get('likes')}
 					comments={item.get('comments').length}
 					img={item.get('imageUrl')}
+					public_id={item.get('public_id')}
 					user={userRole}
 				/>
 			)

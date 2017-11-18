@@ -18,6 +18,7 @@ const HomePage = ({ photos, sort, user }) => {
 					likes={item.get('likes')}
 					comments={item.get('comments').length}
 					img={item.get('imageUrl')}
+					public_id={item.get('public_id')}
 					user={userRole} 
 				/>	
 			)

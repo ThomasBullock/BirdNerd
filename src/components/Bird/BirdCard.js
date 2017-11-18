@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
 import '../../styles/css/components/BirdCard.css';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import IconLocation from '../icons/IconLocation';
 import IconHeart from '../icons/IconHeart';
 import IconBubble from '../icons/IconBubble';
 import IconBird from '../icons/IconBird';
 import DeleteIcon from '../icons/IconCross';
+import { deletePhoto } from  '../../ducks/photos';
 
 class BirdCard extends Component {
-    //console.log(props.match.params);
+		constructor(props) {
+			super(props);
+			this.handleDelete = this.handleDelete.bind(this);
+		}
+
+		handleDelete() {
+			this.props.dispatch(deletePhoto(this.props.public_id));
+		}
 		render() {
 			const userImg = 'http://3.bp.blogspot.com/-dXOvZOVDhes/Ts99nTenjtI/AAAAAAAAA2A/It9Ymliw4t4/s1600/26.jpg';
 			const orientation = this.props.orientation;
@@ -16,7 +25,7 @@ class BirdCard extends Component {
 				<div className={`birdcard birdcard--${orientation}`}>
 					<div className={`birdcard__photo birdcard__photo--${orientation}`}>
 						<button style={{'backgroundImage': `url(${userImg})`}} className="birdcard__button birdcard__button--user"></button>
-						{this.props.user === 'moderator' && <button className="birdcard__button birdcard__button--delete">
+						{this.props.user === 'moderator' && <button onClick={this.handleDelete} className="birdcard__button birdcard__button--delete">
 							<DeleteIcon />
 						</button>
 						}
@@ -43,4 +52,4 @@ class BirdCard extends Component {
 		}
 }
 
-export default BirdCard;
+export default connect()(BirdCard);

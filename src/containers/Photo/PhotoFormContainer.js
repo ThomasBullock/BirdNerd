@@ -11,12 +11,12 @@ import PhotoForm from '../../components/Photo/PhotoForm';
 
 class PhotoFormContainer extends Component {
     render() {
-    const { createPhoto, location, bird } = this.props;
-    const last = this.props.photos.get(-1);
-    const uploading = (last.uploading) ? true : false;
+    const { createPhoto, location, bird, loading } = this.props;
+    //const last = this.props.photos.get(-1);
+    //const uploading = (last.uploading) ? true : false;
     return(
       <div>
-        {uploading ? (
+        {loading ? (
           <div className="loader" >
             <h2 className="loader__heading">Uploading Image</h2>
             <img src={Loader}/>
@@ -41,8 +41,9 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
 	return {
-	  photos: state.get('photos'),
-    bird: state.get('bird'),
+        photos: state.get('photos'),
+        bird: state.get('bird'),
+        loading: state.getIn(['loading', 'currentState']),
 	}
 }
 

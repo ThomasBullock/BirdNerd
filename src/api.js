@@ -43,12 +43,12 @@ export const PUT = (url, body) => {
   .then(res => res)
 };
 
+// fetch('http://httpbin.org/delete', { method: 'DELETE', body: JSON.stringify(payload), credentials: false, headers:"'Content-Type': 'application/json','Content-Length':" + payload.length})
 export const DELETE = (url, body) => {
   const token = window.sessionStorage.getItem('token');
   return fetch(baseUrl + url, {
     method: 'DELETE',
     headers: {
-      Accept: 'application/json',
       'Content-Type': 'application/json',
       Authorization: token
     },
@@ -56,6 +56,7 @@ export const DELETE = (url, body) => {
   })
   .then(res => res)
 };
+
 
 export const POSTBIRD = (body) => {
   // console.log(body);

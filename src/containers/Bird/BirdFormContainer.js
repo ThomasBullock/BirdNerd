@@ -18,12 +18,12 @@ class BirdFormContainer extends Component {
     }
 
     render() {
-        const { createBird } = this.props;
-        const last = this.props.birds.get(-1);
-        const uploading = (last.uploading) ? true : false;
+        const { createBird, loading } = this.props;
+        //const last = this.props.birds.get(-1);
+        //const uploading = (last.uploading) ? true : false;
         return (
           <div>
-            {uploading ? (
+            {loading ? (
               <div className="loader" >
                 <h2 className="loader__heading">Uploading Image</h2>
                 <img src={Loader}/>
@@ -40,6 +40,7 @@ class BirdFormContainer extends Component {
 const mapStateToProps = (state) => {
   return {
     birds: state.get('bird'),
+    loading: state.getIn(['loading', 'currentState']),
   }
 }
 

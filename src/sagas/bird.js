@@ -3,6 +3,7 @@ import slugs from 'slugs';
 import { call, put, select, fork } from 'redux-saga/effects';
 import * as api from '../api';
 import * as actions from '../ducks/bird';
+import { load, loaded } from '../ducks/loading';
 import history from '../history';
 
 function* fetchBird(action) {
@@ -29,7 +30,8 @@ function* createBird(action) {
     formData.append("api_key", process.env.CLOUDINARY_API_KEY); 
     formData.append("timestamp", (Date.now() / 1000) | 0);
     //const [birdRes, birdImageRes] = yield [call(api.POST, 'birds', action.bird.toJS()), call(api.POSTBIRD, formData)];
-    yield put(actions.createBirdUpload());    
+    //yield put(actions.createBirdUpload()); 
+    yield put(load());   
     const birdImageRes = yield call(api.POSTBIRD, formData);
   
     const birdInfo = {
@@ -47,6 +49,7 @@ function* createBird(action) {
     }; 
     yield call(api.POST, 'birds', birdInfo);
     yield put(actions.createBirdSuccess(birdInfo));
+    yield put(loaded());
     history.push(`/bird/${birdInfo.slug}`)
   } catch (error) {
     yield console.log(error);
