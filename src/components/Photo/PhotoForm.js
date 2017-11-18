@@ -19,7 +19,7 @@ const validate = values => {
 
 const notSure = () => {
   return(
-    <option value='Unknown' key={-1}>Not Sure</option>
+    <option value='Unknown' key={-1}>Other or Not Sure</option>
   )
 }
 
