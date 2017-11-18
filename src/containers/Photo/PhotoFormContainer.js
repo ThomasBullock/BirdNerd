@@ -1,37 +1,48 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Loader from '../../img/Ellipsis.svg';
+import '../../styles/css/components/Loader.css';
 
 import {
-    uploadPhoto
+    createPhoto
 } from '../../ducks/photos';
 
 import PhotoForm from '../../components/Photo/PhotoForm';
 
 class PhotoFormContainer extends Component {
     render() {
-        //const birdList = this.props.birdList.last();
-        const { uploadPhoto, location, bird } = this.props;
-
-    	return(
-    		<PhotoForm 
-                uploadPhoto={uploadPhoto}
-                bird={bird}
-                //handleChange={this.handleChange}
-            />
+    const { createPhoto, location, bird } = this.props;
+    const last = this.props.photos.get(-1);
+    const uploading = (last.uploading) ? true : false;
+    return(
+      <div>
+        {uploading ? (
+          <div className="loader" >
+            <h2 className="loader__heading">Uploading Image</h2>
+            <img src={Loader}/>
+          </div>        
+        ) : (
+          <PhotoForm 
+              createPhoto={createPhoto}
+              bird={bird}
+              //handleChange={this.handleChange}
+          />
+          )}
+      </div>                     
     	)
     }	
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return{
-        uploadPhoto: (photo) => dispatch(uploadPhoto(photo)),		
+    createPhoto: (photo) => dispatch(createPhoto(photo)),		
 	}
 }
 
 const mapStateToProps = (state) => {
 	return {
-	   photo: state.get('photo'),
-       bird: state.get('bird'),
+	  photos: state.get('photos'),
+    bird: state.get('bird'),
 	}
 }
 

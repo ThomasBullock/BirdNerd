@@ -6,7 +6,7 @@ import BirdCard from '../Bird/BirdCard';
 
 const HomePage = ({ photos, sort, user }) => {
 		console.log(user)
-		const userRole = user.get('role') || null;
+		const userRole = user && user.get('role') || null;
 		const birdPhotos = photos.map( (item, i) => {
 			return (
 				<BirdCard 

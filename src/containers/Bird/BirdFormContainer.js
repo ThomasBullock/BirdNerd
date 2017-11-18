@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Loader from '../../img/Ellipsis.svg';
+import '../../styles/css/components/Loader.css';
 
 import {
   //requestBird,
@@ -17,17 +19,27 @@ class BirdFormContainer extends Component {
 
     render() {
         const { createBird } = this.props;
+        const last = this.props.birds.get(-1);
+        const uploading = (last.uploading) ? true : false;
         return (
-            <BirdForm 
-                createBird={createBird}
-            />
+          <div>
+            {uploading ? (
+              <div className="loader" >
+                <h2 className="loader__heading">Uploading Image</h2>
+                <img src={Loader}/>
+              </div>  
+            
+            ) : (
+              <BirdForm createBird={createBird}/>
+            )}
+          </div>
         );
     }
 }
 
 const mapStateToProps = (state) => {
   return {
-    birds: state.get('birds'),
+    birds: state.get('bird'),
   }
 }
 

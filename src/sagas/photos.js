@@ -27,7 +27,8 @@ const aspectCalculator = (data) => {
     }
 }
 
-function* uploadPhoto(action) {
+function* createPhoto(action) {
+        console.log(action)
 	try {
 		const userPhoto = action.photo.get('files')[0];  //'action' is not defined  no-undef
         const formData = new FormData();
@@ -36,6 +37,7 @@ function* uploadPhoto(action) {
         formData.append("upload_preset", "ueut3dbz"); 
         formData.append("api_key", process.env.CLOUDINARY_API_KEY); 
         formData.append("timestamp", (Date.now() / 1000) | 0);
+        yield put(actions.createPhotoUpload()); 
         const birdImageRes = yield call(api.POSTBIRD, formData); //Post bird on cloudinary
         console.log('Cloudinary Res : ', birdImageRes);
         //get a bird info from redux store
@@ -55,6 +57,7 @@ function* uploadPhoto(action) {
             birdSlug: slugs(action.photo.get('name')),
             location: photoLocation,
             imageAspect: aspectCalculator(birdImageRes),
+            comments: [],
             camera: action.photo.get('camera'),
             created_at: birdImageRes.created_at,
             bytes: birdImageRes.bytes,
@@ -63,6 +66,8 @@ function* uploadPhoto(action) {
             public_id: birdImageRes.public_id,              
         }   
         yield call(api.POST, 'photo', photoInfo);
+        yield put(actions.createPhotoSuccess(photoInfo));
+        console.log('now push to mybirds')        
         history.push('/bird/mybirds');   	
 	} catch(error) {
     	yield console.log(error);		
@@ -80,8 +85,8 @@ function* deletePhoto(action) {
     }
 }
 
-export function* watchUploadPhoto() {
-	yield takeLatest(actions.UPLOAD_PHOTO, uploadPhoto);
+export function* watchCreatePhoto() {
+	yield takeLatest(actions.CREATE_PHOTO, createPhoto);
 }
 
 export function* watchGetPhotos() {
@@ -95,7 +100,7 @@ export function* watchDeletePhoto() {
 export default function* rootSaga() {
   yield [
     fork(watchGetPhotos),
-    fork(watchUploadPhoto),
+    fork(watchCreatePhoto),
     fork(watchDeletePhoto),
   ];
 }

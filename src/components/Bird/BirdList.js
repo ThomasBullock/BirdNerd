@@ -13,7 +13,6 @@ const BirdList = (birdList) => {
 	const birdsByGroup = () => {
 		
 		return Object.keys(birdList.birdList).map( (group, i) => {
-			console.log(birdList.birdList[group].length)
 			return(
 				<div key={i}>
 					<section className="birdlist__group">

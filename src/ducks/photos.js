@@ -6,7 +6,9 @@ const action = (name) => `birdnerd/photos/${name}`;
 
 export const REQUEST_PHOTOS = action('REQUEST_PHOTOS');
 export const RECEIVE_PHOTOS = action('RECEIVE_PHOTOS');
-export const UPLOAD_PHOTO = action('UPLOAD_PHOTO');
+export const CREATE_PHOTO = action('CREATE_PHOTO');
+export const CREATE_PHOTO_UPLOAD = action('CREATE_PHOTO_UPLOAD');
+export const CREATE_PHOTO_SUCCESS = action('CREATE_PHOTO_SUCCESS');
 export const DELETE_PHOTO = action('DELETE_PHOTO');
 export const DELETE_PHOTO_SUCCESS = action('DELETE_PHOTO_SUCCESS');
 export const SORT_NEWEST = action('SORT_NEWEST');
@@ -17,7 +19,9 @@ export const SORT_POPULAR = action('SORT_POPULAR');
 
 export const requestPhotos = (query) => ({ type: REQUEST_PHOTOS, query});
 export const receivePhotos = (photos) => ({ type: RECEIVE_PHOTOS, photos });
-export const uploadPhoto = (photo) => ({ type: UPLOAD_PHOTO, photo});
+export const createPhoto = (photo) => ({ type: CREATE_PHOTO, photo});
+export const createPhotoUpload = () => ({ type: CREATE_PHOTO_UPLOAD });
+export const createPhotoSuccess = (photo) => ({ type: CREATE_PHOTO_SUCCESS, photo});
 export const deletePhoto = public_id => ({ type: DELETE_PHOTO, public_id});
 export const deletePhotoSuccess = public_id => ({ type: DELETE_PHOTO_SUCCESS, public_id});
 export const sortNewest = () => ({ type: SORT_NEWEST});
@@ -48,6 +52,11 @@ const initialState = fromJS([
 
 const photos = (state = initialState, action) => {
 	switch (action.type) {
+    case CREATE_PHOTO_UPLOAD:
+      console.log('uploading in photo ducks!') 
+      return state.push({ uploading: true });
+    case CREATE_PHOTO_SUCCESS: 
+    	return state.set(-1, fromJS(action.photo));  		
     case RECEIVE_PHOTOS:
     	const photos = fromJS(action.photos)
       return photos.sortBy(item => item.created_at).reverse(); // default the order of photos to be newest first - do we need to??

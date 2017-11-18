@@ -1,0 +1,13 @@
+@import '../settings';
+
+.loader {
+	padding: $base-spacing;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	
+	@include elem('heading') {
+		margin-top: $base-spacing;
+		margin-bottom: $base-spacing * -2;
+	}
+}

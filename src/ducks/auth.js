@@ -15,6 +15,8 @@ export const PROTECTED_TEST_SUCCESS = action('PROTECTED_TEST_SUCCESS');
 export const LOGIN_REQUEST = action('LOGIN_REQUEST');
 export const SIGN_UP_REQUEST = action('SIGN_UP_REQUEST');
 export const LOGIN_FAILURE = action('LOGIN_FAILURE');
+export const UPLOADING_IMAGE = action('UPLOADING_IMAGE');
+export const UPLOAD_COMPLETE = action('UPLOAD_COMPLETE');
 
 
 export const authUser = (user) => ({ type: AUTH_USER, user });
@@ -29,13 +31,17 @@ export const forgotPasswordSuccess =  (user) => ({ type: FORGOT_PASSWORD_SUCCESS
 export const resetPasswordRequest = (token) => ({ type: RESET_PASSWORD_REQUEST, token });
 export const changePassword = (password, user) => ({ type: CHANGE_PASSWORD, password, user });
 export const changePasswordSuccess = (user) => ({ type: CHANGE_PASSWORD_SUCCESS, user});
+export const uploadingImage = () => ({ type: UPLOADING_IMAGE });
+export const uploadComplete = () => ({ type: UPLOAD_COMPLETE })
+
 
 const INITIAL_STATE = Map({
   error: '',
   message: '',
   content: '',
   authenticated: false,
-  user: null
+  user: null,
+  uploading: false
 });
 
 let decoded;
@@ -58,6 +64,10 @@ const auth = (state = INITIAL_STATE, action) => {
       return state.merge({ error: '', message: 'password reset email sent', authenticated: false, user: null });    
     case CHANGE_PASSWORD_SUCCESS: 
       return state.merge({ error: '', message: 'Password succesfully updated', authenticated: true, user: action.user });      
+    case UPLOADING_IMAGE: 
+      return state.merge({ uploading: true });    
+    case UPLOAD_COMPLETE: 
+      return state.merge({ uploading: false });  
     default:
       return state;
   }

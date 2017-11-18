@@ -7,6 +7,7 @@ export const RECEIVE_BIRD = action('RECEIVE_BIRD');
 export const CREATE_BIRD = action('CREATE_BIRD');
 export const UPDATE_BIRD = action('UPDATE_BIRD');
 export const REMOVE_BIRD = action('REMOVE_BIRD');
+export const CREATE_BIRD_UPLOAD = action('CREATE_BIRD_UPLOAD');
 export const CREATE_BIRD_SUCCESS = action('CREATE_BIRD_SUCCESS');
 
 export const REQUEST_BIRD_LIST = action('REQUEST_BIRD_LIST'); 
@@ -23,6 +24,7 @@ export const updateBird = bird => ({ type: UPDATE_BIRD, bird });
 
 export const removeBird = bird => ({ type: REMOVE_BIRD, bird });
 
+export const createBirdUpload = () => ({ type: CREATE_BIRD_UPLOAD });
 export const createBirdSuccess = bird => ({ type: CREATE_BIRD_SUCCESS, bird });
 
 export const requestBirdList = () => ({ type: REQUEST_BIRD_LIST }); 
@@ -38,22 +40,25 @@ const initialState = fromJS([
     comments: null,
     created_at: null,
     bytes: null,
-    imageUrl: null,
+    imageUrl: null
   }
 ]);
 
 
 // Reducer
 const bird = (state = initialState, action) => {
-  // console.log(action)
+  // console.log(state)
   switch (action.type) {
     // do reducer stuff
     case RECEIVE_BIRD: 
       const bird = fromJS(action.data)
       console.log(bird)    
       return state.update(list => fromJS(action.data));    
+    case CREATE_BIRD_UPLOAD:
+      console.log('uploading in bird ducks!') 
+      return state.push({ uploading: true });
     case CREATE_BIRD_SUCCESS:
-    	return state.push(fromJS(action.bird));
+    	return state.set(-1, fromJS(action.bird));
     case UPDATE_BIRD:
       //Todo	
     	return state;

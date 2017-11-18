@@ -16,6 +16,9 @@ function* fetchBird(action) {
 
 function* createBird(action) {
   try {  
+    console.log(action.bird.get('name'))
+    console.log(action.bird.get('species'))
+    console.log(action.bird.get('files'))    
     const birdImage = action.bird.get('files')[0];
     /// use jimp locally to resize file!???
     // const resizedPhoto = yield call(api.RESIZE, birdImage);
@@ -26,6 +29,7 @@ function* createBird(action) {
     formData.append("api_key", process.env.CLOUDINARY_API_KEY); 
     formData.append("timestamp", (Date.now() / 1000) | 0);
     //const [birdRes, birdImageRes] = yield [call(api.POST, 'birds', action.bird.toJS()), call(api.POSTBIRD, formData)];
+    yield put(actions.createBirdUpload());    
     const birdImageRes = yield call(api.POSTBIRD, formData);
   
     const birdInfo = {
@@ -40,7 +44,7 @@ function* createBird(action) {
       bytes: birdImageRes.bytes,
       format: birdImageRes.format,
       imageUrl: birdImageRes.secure_url
-    };
+    }; 
     yield call(api.POST, 'birds', birdInfo);
     yield put(actions.createBirdSuccess(birdInfo));
     history.push(`/bird/${birdInfo.slug}`)

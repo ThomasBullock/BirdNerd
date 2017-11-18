@@ -52,7 +52,7 @@ const renderDropzoneInput = (field) => {
   );
 }
 
-let PhotoForm = ({ handleSubmit, bird, uploadPhoto, location, handleChange }) => {
+let PhotoForm = ({ handleSubmit, bird, createPhoto, location, handleChange }) => {
   const props = {
     location: location, // `value` is required
     onChange: handleChange, // `onChange` is required
@@ -62,7 +62,7 @@ let PhotoForm = ({ handleSubmit, bird, uploadPhoto, location, handleChange }) =>
   }
 	return(
 		<div>
-			<form className="form" onSubmit={handleSubmit((vals) => uploadPhoto(vals))}>
+			<form className="form" onSubmit={handleSubmit((vals) => createPhoto(vals))}>
 			  <div className="form__title">
           <h2>Upload a Bird Photo</h2>
         </div>
