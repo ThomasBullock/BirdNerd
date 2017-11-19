@@ -8,7 +8,7 @@ import { requireLogin } from '../middleware/auth';
 import bcrypt from 'bcrypt-nodejs';
 
 // import  mail } from '../config/mail'; 
-
+const postmark = require("postmark");
 const nodemailer = require('nodemailer');
 const router = express.Router();
 
@@ -98,17 +98,26 @@ router.post('/forgot', (req, res) => {
       const baseUrl = 'localhost:3000' // ${req.headers.host}
       const resetURL = `http://${baseUrl}/account/reset/${user.resetPasswordToken}`
       
+      // const transport = nodemailer.createTransport({
+      //   host: process.env.MAILTRAP_HOST,
+      //   port: process.env.MAILTRAP_PORT,
+      //   auth: {
+      //     user: process.env.MAILTRAP_USER,
+      //     pass: process.env.MAILTRAP_PASS
+      //   }
+      // });
+      
       const transport = nodemailer.createTransport({
-        host: process.env.MAIL_HOST,
-        port: process.env.MAIL_PORT,
+        host: process.env.POSTMARK_HOST,
+        port: process.env.POSTMARK_PORT,
         auth: {
-          user: process.env.MAIL_USER,
-          pass: process.env.MAIL_PASS
+          user: process.env.POSTMARK_USER,
+          pass: process.env.POSTMARK_PASS
         }
-      });
+      });      
       
       const mailOptions = {
-        from: 'Owen Paul <80hurtz@gmail.com>', 
+        from: 'BirdNerd <talk@tbullock.net>', 
         to: user.email,
         subject: 'Reset your BirdNerd password',
         text: resetURL  
