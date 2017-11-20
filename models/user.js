@@ -1,5 +1,6 @@
 import mongoose, { Schema } from 'mongoose';    
 import bcrypt from 'bcrypt-nodejs';
+const md5 = require('md5'); // for gravatar
 
 const UserSchema = new Schema({  
     email: {
@@ -54,5 +55,12 @@ UserSchema.methods.comparePassword = function(candidatePassword, cb) {
       cb(null, isMatch);
     });
 }
+
+UserSchema.virtual('gravatar').get(function(){
+  
+  const hash = md5(this.email);
+  
+  return `https://gravatar.com/avatar/${hash}?s=200`;
+})
 
 export default mongoose.model('User', UserSchema);
