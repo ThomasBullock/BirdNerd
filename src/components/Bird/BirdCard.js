@@ -25,7 +25,7 @@ class BirdCard extends Component {
 				<div className={`birdcard birdcard--${orientation}`}>
 					<div className={`birdcard__photo birdcard__photo--${orientation}`}>
 						<button style={{'backgroundImage': `url(${userImg})`}} className="birdcard__button birdcard__button--user"></button>
-						{this.props.user === 'moderator' && <button onClick={this.handleDelete} className="birdcard__button birdcard__button--delete">
+						{this.props.user && <button onClick={this.handleDelete} className="birdcard__button birdcard__button--delete">
 							<DeleteIcon />
 						</button>
 						}
