@@ -1,5 +1,5 @@
 export const birdGroups = {
-	           Procellariiformes: 'Albatrosses and Petrels',
+	       Procellariiformes: 'Albatrosses and Petrels',
              Falconiformes: 'Birds of Prey',
              Turniciformes: 'Buttonquails',
              Casuariiformes: 'Cassowaries and Emus',
