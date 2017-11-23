@@ -12,7 +12,7 @@ const userPermission = (user, photo) => {
 	console.log(photo);
 	if(user && user.get('role') === 'moderator') {
 		return true;
-	} else if (photo.get('user') === user.get('_id')) {
+	} else if (photo.getIn(['user', '_id']) === user.get('_id')) {
 		return true;
 	} else {
 		return false;
@@ -32,7 +32,9 @@ const BirdProfile = ({birdInfo, photos, user}) => {
 					comments={item.get('comments').length}
 					img={item.get('imageUrl')}
 					public_id={item.get('public_id')}
-					user={userPermission(user, item)} // would it be more efficient to pass _id's directly rather then maps??
+					owner={userPermission(user, item)} // would it be more efficient to pass _id's directly rather then maps??
+					userID={item.getIn(['user', '_id'])}
+					gravatar={item.getIn(['user', 'gravatar'])}								
 				/>
 			)
 		})

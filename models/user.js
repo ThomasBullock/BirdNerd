@@ -16,7 +16,8 @@ const UserSchema = new Schema({
     profile: {
       firstName: { type: String },
       lastName: { type: String },
-      role: { type: String, default: 'user' }
+      role: { type: String, default: 'user' },
+      gravatar: { type: String }
     },
     resetPasswordToken: { type: String },
     resetPasswordExpires: { type: Date }
@@ -59,7 +60,6 @@ UserSchema.methods.comparePassword = function(candidatePassword, cb) {
 UserSchema.virtual('gravatar').get(function(){
   
   const hash = md5(this.email);
-  console.log(`https://gravatar.com/avatar/${hash}?s=200`);
   return `https://gravatar.com/avatar/${hash}?s=200`;
 })
 
