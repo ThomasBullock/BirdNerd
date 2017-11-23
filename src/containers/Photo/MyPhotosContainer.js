@@ -20,7 +20,7 @@ const mapStateToProps = (state) => {
 	return {
      // state.get('photos').filter(photoInfo => photoInfo.get('birdSlug') === props.match.params.birdSlug)
 
-	   photos: state.get('photos').filter(photoInfo => photoInfo.get('user') === state.getIn(['auth', 'user', '_id']) ),
+	   photos: state.get('photos').filter(photoInfo => photoInfo.getIn(['user', '_id']) === state.getIn(['auth', 'user', '_id']) ),
      user: state.getIn(['auth', 'user'])
 	}
 }

@@ -10,6 +10,7 @@ import history from '../history';
 //selector
 const getBirdInfo = (state, birdName) => state.get('bird').filter(bird => bird.get('name') === birdName).get(0);
 const getUser = (state) => state.getIn(['auth', 'user', '_id']);
+const getGravatar = (state) => state.getIn(['auth', 'user', 'gravatar']);
 
 function* fetchPhotos(action) {
     try {
@@ -51,7 +52,13 @@ function* createPhoto(action) {
         : yield select(getBirdInfo, action.photo.get('name'));
         // const birdInfo = yield select(getBirdInfo, action.photo.get('name'));
         console.log(birdInfo)
-        const user = yield select(getUser);
+        const userId = yield select(getUser);
+        const userGravatar = yield select(getGravatar);        
+        const user = {
+            _id: userId,
+            gravatar: userGravatar
+        } 
+        console.log(user);       
         const photoLocation = {
             type: 'Point',
             coordinates: [
@@ -60,6 +67,8 @@ function* createPhoto(action) {
             ],
             address: action.photo.get('address')
         }
+        
+
         
         const photoInfo = {
             birdName: action.photo.get('name'),
@@ -76,6 +85,7 @@ function* createPhoto(action) {
             public_id: birdImageRes.public_id,
             user: user,             
         }   
+        console.log(photoInfo)
         yield call(api.POST, 'photo', photoInfo);
         yield put(actions.createPhotoSuccess(photoInfo));
         yield put(loaded());      
@@ -86,6 +96,7 @@ function* createPhoto(action) {
 }
 
 function* deletePhoto(action) {
+    console.log(action)
     try {
         const public_id = { public_id: action.public_id}
         const res = yield call(api.DELETE, 'photo', public_id);

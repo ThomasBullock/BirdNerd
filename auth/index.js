@@ -7,10 +7,12 @@ import { setUserInfo } from '../helpers';
 import { requireLogin } from '../middleware/auth';
 import bcrypt from 'bcrypt-nodejs';
 
+
 // import  mail } from '../config/mail'; 
 const postmark = require("postmark");
 const nodemailer = require('nodemailer');
 const router = express.Router();
+const md5 = require('md5'); // for gravatar
 
 function generateToken(user) {  
     return jwt.sign(user, process.env.SECRET, {
@@ -23,6 +25,7 @@ router.post('/register', (req, res, next) => {
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const password = req.body.password;
+    const gravatar =`https://gravatar.com/avatar/${md5(email)}?s=200`;
   
     // Return error if no email provided
     if (!email) {
@@ -51,7 +54,7 @@ router.post('/register', (req, res, next) => {
         let user = new User({
           email: email,
           password: password,
-          profile: { firstName: firstName, lastName: lastName }
+          profile: { firstName: firstName, lastName: lastName, gravatar: gravatar }
         });
   
         user.save(function(err, user) {

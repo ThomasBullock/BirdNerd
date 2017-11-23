@@ -2,8 +2,11 @@ import mongoose from 'mongoose';
 
 const PhotoSchema = new mongoose.Schema({
     user: {
-        type: mongoose.Schema.ObjectId,
-        ref: 'user'
+        _id: {
+            type: mongoose.Schema.ObjectId,
+            ref: 'user'
+        },
+        gravatar: String
     },
     birdName: String, // comes from select or search input in submit photo form and is used to query db to get bird
     birdSlug: String,  

@@ -5,11 +5,9 @@ import { Link } from 'react-router-dom';
 import BirdCard from '../Bird/BirdCard';
 
 const userPermission = (user, photo) => {
-	console.log(photo.get('user'))
-	console.log(photo);
 	if(user && user.get('role') === 'moderator') {
 		return true;
-	} else if (photo.get('user') === user.get('_id')) {
+	} else if (photo.getIn(['user', '_id']) === user.get('_id')) {
 		return true;
 	} else {
 		return false;
@@ -18,14 +16,9 @@ const userPermission = (user, photo) => {
 
 
 const HomePage = ({ photos, sort, user }) => {
-		console.log(user)
-		// let userPermission = false;
-		// if(user && user.get('role')) {
-		// 	userPermission = true;
-		// } else if( )
-		// const userPermission = user && user.get('role') || null;
+		// console.log(user)
+
 		const birdPhotos = photos.map( (item, i) => {
-			console.log(user)
 			return (
 				<BirdCard 
 					key={i}
@@ -37,7 +30,9 @@ const HomePage = ({ photos, sort, user }) => {
 					comments={item.get('comments').length}
 					img={item.get('imageUrl')}
 					public_id={item.get('public_id')}
-					user={userPermission(user, item)} // would it be more efficient to pass _id's directly rather then maps??
+					owner={userPermission(user, item)} // would it be more efficient to pass _id's directly rather then maps??
+					userID={item.getIn(['user', '_id'])}
+					gravatar={item.getIn(['user', 'gravatar'])}			
 				/>	
 			)
 		})
