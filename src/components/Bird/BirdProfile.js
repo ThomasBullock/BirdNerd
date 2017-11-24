@@ -8,8 +8,6 @@ import BirdCard from './BirdCard';
 
 // Duplicate code also in Homepage to be improved!
 const userPermission = (user, photo) => {
-	console.log(photo.get('user'))
-	console.log(photo);
 	if(user && user.get('role') === 'moderator') {
 		return true;
 	} else if (photo.getIn(['user', '_id']) === user.get('_id')) {
@@ -20,7 +18,7 @@ const userPermission = (user, photo) => {
 }
 
 const BirdProfile = ({birdInfo, photos, user}) => {
-		const userRole = user.get('role');
+		const userRole = (user) ? user.get('role') : null;
 		const photoCards = photos && photos.map( (item, i) => {
 			return(
 				<BirdCard 
