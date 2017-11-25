@@ -27,7 +27,7 @@ const MyPhotos = ({ photos, user }) => {
 					name={item.get('birdName')}					
 					orientation={item.get('imageAspect')}
 					slug={item.get('birdSlug')}
-					likes={item.get('likes')}
+					likes={item.get('likes').size}
 					comments={item.get('comments').length}
 					img={item.get('imageUrl')}
 					public_id={item.get('public_id')}

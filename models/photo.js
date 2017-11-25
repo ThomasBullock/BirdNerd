@@ -28,7 +28,10 @@ const PhotoSchema = new mongoose.Schema({
             // required: 'You must supply a city!'
         }
     },
-    likes: Number,
+    likes: [{
+            type: mongoose.Schema.ObjectId,
+            ref: 'user'
+        }],
     comments: [String],
     camera: String, // brand/model od camera used to take the photo 
     imageAspect: String, // Portrait or Landscape    

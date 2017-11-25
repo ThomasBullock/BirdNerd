@@ -35,7 +35,7 @@ class BirdCard extends Component {
 						<button className="birdcard__button">
 							<IconLocation/>
 						</button>
-						<button className="birdcard__button">
+						<button className="birdcard__button" onClick={ () => this.props.likeHandler(this.props.userID, this.props.id)}>
 							<IconHeart/>
 							<span className="birdcard__number">{this.props.likes}</span>
 						</button>

@@ -13,6 +13,7 @@ export const DELETE_PHOTO_SUCCESS = action('DELETE_PHOTO_SUCCESS');
 export const SORT_NEWEST = action('SORT_NEWEST');
 export const SORT_OLDEST = action('SORT_OLDEST');
 export const SORT_POPULAR = action('SORT_POPULAR');
+export const LIKE_PHOTO = action('LIKE_PHOTO');
 
 // Action creators
 
@@ -25,6 +26,7 @@ export const deletePhotoSuccess = public_id => ({ type: DELETE_PHOTO_SUCCESS, pu
 export const sortNewest = () => ({ type: SORT_NEWEST});
 export const sortOldest = () => ({ type: SORT_OLDEST});
 export const sortPopular = () => ({ type: SORT_POPULAR});
+export const likePhoto = (user, photo) => ({ type: LIKE_PHOTO, user, photo});
 
 const initialState = fromJS([
 	{
@@ -41,7 +43,7 @@ const initialState = fromJS([
 		location: {},
 		format: null,
 		_id: null,
-		likes: null,
+		likes: [],
 		public_id: null,
 	}
 ]);

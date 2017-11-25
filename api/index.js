@@ -219,6 +219,14 @@ router.delete('/photo', requireAuth, (req, res) => {
     }
 });
 
+router.post('/like', requireAuth, (req, res) => {
+    console.log(req.body)
+    // get the photo from the db with ID
+    // Photo.findOne({ _id: req.body.photo}, function (err, photo))
+    
+    res.end()
+});
+
 // router.post('/birds/resize', requireAuth, (req, res) => {
     
 // })
