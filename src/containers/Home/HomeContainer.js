@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 // import TopBar from '../TopBar';
 import { protectedTest } from '../../ducks/auth';
-import { requestPhotos, sortNewest, sortOldest, sortPopular } from '../../ducks/photos';
+import { requestPhotos, sortNewest, sortOldest, sortPopular, likePhoto } from '../../ducks/photos';
 import HomePage from '../../components/Home/HomePage';
 
 class HomeContainer extends Component {
@@ -47,7 +47,7 @@ class HomeContainer extends Component {
     const { photos } = this.props;
     return (
       <div >
-        {photos ? (<HomePage photos={photos} sort={this.handleSort} user={this.props.user}/>) : (
+        {photos ? (<HomePage photos={photos} sort={this.handleSort} user={this.props.user} likeHandler={this.props.likePhoto}/>) : (
           <h2>Loading</h2>
         )}
       </div>
@@ -70,7 +70,8 @@ const mapDispatchToProps = (dispatch) => {
     requestPhotos: (query) => dispatch(requestPhotos(query)),
     sortNewest: () => dispatch(sortNewest()),
     sortOldest: () => dispatch(sortOldest()),
-    sortPopular: () => dispatch(sortPopular())
+    sortPopular: () => dispatch(sortPopular()),
+    likePhoto: (photo) => dispatch(likePhoto(photo))
   }; // here we're mapping actions to props 
 }
 

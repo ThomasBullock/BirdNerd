@@ -13,6 +13,8 @@ export const DELETE_PHOTO_SUCCESS = action('DELETE_PHOTO_SUCCESS');
 export const SORT_NEWEST = action('SORT_NEWEST');
 export const SORT_OLDEST = action('SORT_OLDEST');
 export const SORT_POPULAR = action('SORT_POPULAR');
+export const LIKE_PHOTO = action('LIKE_PHOTO');
+export const LIKE_PHOTO_SUCCESS = action('LIKE_PHOTO_SUCCESS');
 
 // Action creators
 
@@ -25,6 +27,8 @@ export const deletePhotoSuccess = public_id => ({ type: DELETE_PHOTO_SUCCESS, pu
 export const sortNewest = () => ({ type: SORT_NEWEST});
 export const sortOldest = () => ({ type: SORT_OLDEST});
 export const sortPopular = () => ({ type: SORT_POPULAR});
+export const likePhoto = (photo) => ({ type: LIKE_PHOTO, photo});
+export const likePhotoSuccess = (photo) => ({type: LIKE_PHOTO_SUCCESS, photo})
 
 const initialState = fromJS([
 	{
@@ -41,7 +45,7 @@ const initialState = fromJS([
 		location: {},
 		format: null,
 		_id: null,
-		likes: null,
+		likes: [],
 		public_id: null,
 	}
 ]);
@@ -49,6 +53,7 @@ const initialState = fromJS([
 // Reducers
 
 const photos = (state = initialState, action) => {
+	console.log(action)
 	switch (action.type) {
     case CREATE_PHOTO_SUCCESS: 
     	return state.unshift(fromJS(action.photo));  		
@@ -60,9 +65,12 @@ const photos = (state = initialState, action) => {
     case SORT_OLDEST:
     	return state.sort( (a, b) => Date.parse(a.get('created_at')) - Date.parse(b.get('created_at')) );
     case SORT_POPULAR:
-		return state.sort( (a, b) => a.get('likes') - b.get('likes')).reverse();
+		return state.sort( (a, b) => a.get('likes').size - b.get('likes').size).reverse();
 	case DELETE_PHOTO_SUCCESS:
 		return state.update((photoList) => photoList.filter(photoObj => photoObj.get('public_id') !== action.public_id));
+	case LIKE_PHOTO_SUCCESS:
+		return state.update((photoList) => photoList
+			.map(photoObj => (photoObj.get('_id') === action.photo.get('_id')) ? photoObj.set('likes', action.photo.get('likes')) : photoObj ))	
 		default:
 			return state;		
 	} 

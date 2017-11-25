@@ -4,13 +4,15 @@ import slugs from 'slugs';
 import * as api from '../api';
 import * as actions from '../ducks/photos';
 import { load, loaded } from '../ducks/loading';
-import Immutable from 'immutable';
+import Immutable, { fromJS } from 'immutable';
 import history from '../history';
+
 
 //selector
 const getBirdInfo = (state, birdName) => state.get('bird').filter(bird => bird.get('name') === birdName).get(0);
 const getUser = (state) => state.getIn(['auth', 'user', '_id']);
 const getGravatar = (state) => state.getIn(['auth', 'user', 'gravatar']);
+const getPhoto = (state, photoID ) => state.get('photos').filter(photo => photo.get('_id') === photoID).get(0);
 
 function* fetchPhotos(action) {
     try {
@@ -108,6 +110,23 @@ function* deletePhoto(action) {
     }
 }
 
+function* likePhoto(action) {
+    console.log(action.photo)
+    
+    try {
+        const photo = yield select(getPhoto, action.photo);
+        const userId = yield select(getUser);
+        // are we liking are unliking?
+       
+        const operator = (photo.get('likes').includes(userId)) ? '$pull' : '$addToSet';
+        console.log(operator)
+        const updatePhotoLikes = yield call(api.POST, 'like', {user: userId, photo: action.photo, operator: operator })
+        yield put(actions.likePhotoSuccess(Immutable.fromJS(updatePhotoLikes)))
+    } catch(error) {
+        console.log()
+    }
+}
+
 export function* watchCreatePhoto() {
 	yield takeLatest(actions.CREATE_PHOTO, createPhoto);
 }
@@ -120,10 +139,15 @@ export function* watchDeletePhoto() {
     yield takeLatest(actions.DELETE_PHOTO, deletePhoto);
 }
 
+export function* watchLikePhoto() {
+    yield takeLatest(actions.LIKE_PHOTO, likePhoto);
+}
+
 export default function* rootSaga() {
   yield [
     fork(watchGetPhotos),
     fork(watchCreatePhoto),
     fork(watchDeletePhoto),
+    fork(watchLikePhoto)
   ];
 }
