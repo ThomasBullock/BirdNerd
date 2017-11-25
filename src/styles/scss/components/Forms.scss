@@ -1,6 +1,11 @@
 @import '../settings';
 
 .form {
+
+	&:disabled {
+		background-color: red;
+	}
+
 	@include container(600px, $base-spacing);
 	background: $gainsboro;
 	position: relative;
@@ -61,4 +66,27 @@
 			}
 		}
 	}
+
+	@include elem('reset-panel') {
+		@include container(600px, $base-spacing);
+		padding: $base-spacing;
+		border-radius: $base-border-radius;						
+		background: $silver;
+		text-align: center;
+		color: $jumbo;
+
+		p {
+			margin-bottom: 0;
+		}
+
+		a {
+			color: $wes-cyan;
+
+
+			&:hover {
+				color: $oil;
+			}
+		}
+	}
 }
+

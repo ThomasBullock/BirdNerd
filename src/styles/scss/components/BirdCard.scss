@@ -45,6 +45,10 @@
 		flex-direction: column;
 	}
 
+		@include mod('Square') {
+		flex-direction: column;
+	}
+
 
 
 	@include elem('photo') {
@@ -86,7 +90,11 @@
 				padding-top: $base-spacing;		
 				padding-bottom: $base-spacing;				
 			}									
-		}		
+		}
+
+		@include mod('Square') {
+			@include tropical-gradient(90deg);					
+		}				
 	}
 
 	@include elem('button') {

@@ -79,8 +79,8 @@ let Login = props => {
         </button>
       </div>
     </form>
-      <div className="reset__panel">
-        <p>Forgotten your password? <Link to='/forgot'>Reset your password</Link></p>
+      <div className="form__reset-panel">
+        <p>Forgotten your password? <Link to='/forgot'>Reset your password.</Link></p>
       </div>
     </div>
   )
