@@ -87,7 +87,6 @@ function* createPhoto(action) {
             public_id: birdImageRes.public_id,
             user: user,             
         }   
-        console.log(photoInfo)
         yield call(api.POST, 'photo', photoInfo);
         yield put(actions.createPhotoSuccess(photoInfo));
         yield put(loaded());      
