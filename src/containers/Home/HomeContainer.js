@@ -71,7 +71,7 @@ const mapDispatchToProps = (dispatch) => {
     sortNewest: () => dispatch(sortNewest()),
     sortOldest: () => dispatch(sortOldest()),
     sortPopular: () => dispatch(sortPopular()),
-    likePhoto: (user, photo) => dispatch(likePhoto(user, photo))
+    likePhoto: (photo) => dispatch(likePhoto(photo))
   }; // here we're mapping actions to props 
 }
 

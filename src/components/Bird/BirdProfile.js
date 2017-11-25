@@ -17,7 +17,7 @@ const userPermission = (user, photo) => {
 	}
 }
 
-const BirdProfile = ({birdInfo, photos, user}) => {
+const BirdProfile = ({birdInfo, photos, user, likeHandler}) => {
 		const userRole = (user) ? user.get('role') : null;
 		const photoCards = photos && photos.map( (item, i) => {
 			return(
@@ -26,13 +26,14 @@ const BirdProfile = ({birdInfo, photos, user}) => {
 					id={item.get('_id')}
 					orientation={item.get('imageAspect')}
 					slug={item.get('birdSlug')}
-					likes={item.get('likes')}
+					likes={item.get('likes').size}
 					comments={item.get('comments').length}
 					img={item.get('imageUrl')}
 					public_id={item.get('public_id')}
 					owner={userPermission(user, item)} // would it be more efficient to pass _id's directly rather then maps??
 					userID={item.getIn(['user', '_id'])}
-					gravatar={item.getIn(['user', 'gravatar'])}								
+					gravatar={item.getIn(['user', 'gravatar'])}
+					likeHandler={likeHandler}								
 				/>
 			)
 		})

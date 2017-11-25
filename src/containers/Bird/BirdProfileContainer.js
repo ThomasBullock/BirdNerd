@@ -7,6 +7,8 @@ import {
   removeBird
 } from '../../ducks/bird';
 
+import { likePhoto } from '../../ducks/photos';
+
 import BirdProfile from '../../components/Bird/BirdProfile';
 
 class BirdProfileContainer extends Component {
@@ -15,7 +17,7 @@ class BirdProfileContainer extends Component {
 		return (
 			<div>
 			{this.props.birdInfo && this.props.photos ? (
-				<BirdProfile birdInfo={this.props.birdInfo} photos={this.props.photos} user={this.props.user}/>
+				<BirdProfile birdInfo={this.props.birdInfo} photos={this.props.photos} user={this.props.user} likeHandler={this.props.likePhoto}/>
 			) : (
 				<h2>Loading...</h2>
 			)
@@ -42,6 +44,7 @@ const mapDispatchToProps = (dispatch) => {
     createBird: (bird) => dispatch(createBird(bird)),
     updateBird: (bird) => dispatch(updateBird(bird)),
     removeBird: (bird) => dispatch(removeBird(bird)),
+    likePhoto: (photo) => dispatch(likePhoto(photo))
   }; // here we're mapping actions to props	
 }
 

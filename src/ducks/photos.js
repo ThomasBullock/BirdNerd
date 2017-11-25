@@ -27,7 +27,7 @@ export const deletePhotoSuccess = public_id => ({ type: DELETE_PHOTO_SUCCESS, pu
 export const sortNewest = () => ({ type: SORT_NEWEST});
 export const sortOldest = () => ({ type: SORT_OLDEST});
 export const sortPopular = () => ({ type: SORT_POPULAR});
-export const likePhoto = (user, photo) => ({ type: LIKE_PHOTO, user, photo});
+export const likePhoto = (photo) => ({ type: LIKE_PHOTO, photo});
 export const likePhotoSuccess = (photo) => ({type: LIKE_PHOTO_SUCCESS, photo})
 
 const initialState = fromJS([
