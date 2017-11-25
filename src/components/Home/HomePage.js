@@ -19,7 +19,7 @@ const HomePage = ({ photos, sort, user, likeHandler }) => {
 		// console.log(user)
 
 		const birdPhotos = photos.map( (item, i) => {
-			console.log(item.get('likes'))
+			// console.log(item.get('likes'))
 			return (
 				<BirdCard 
 					key={i}

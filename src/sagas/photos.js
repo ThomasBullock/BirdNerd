@@ -4,8 +4,9 @@ import slugs from 'slugs';
 import * as api from '../api';
 import * as actions from '../ducks/photos';
 import { load, loaded } from '../ducks/loading';
-import Immutable from 'immutable';
+import Immutable, { fromJS } from 'immutable';
 import history from '../history';
+
 
 //selector
 const getBirdInfo = (state, birdName) => state.get('bird').filter(bird => bird.get('name') === birdName).get(0);
@@ -114,11 +115,13 @@ function* likePhoto(action) {
     
     try {
         const photo = yield select(getPhoto, action.photo);
+        const userId = yield select(getUser);
         // are we liking are unliking?
        
-        const operator = (photo.get('likes').includes(action.user)) ? '$pull' : '$addToSet';
+        const operator = (photo.get('likes').includes(userId)) ? '$pull' : '$addToSet';
         console.log(operator)
-        const res = yield call(api.POST, 'like', {user: action.user, photo: action.photo })
+        const updatePhotoLikes = yield call(api.POST, 'like', {user: userId, photo: action.photo, operator: operator })
+        yield put(actions.likePhotoSuccess(Immutable.fromJS(updatePhotoLikes)))
     } catch(error) {
         console.log()
     }

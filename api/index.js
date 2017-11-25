@@ -223,8 +223,16 @@ router.post('/like', requireAuth, (req, res) => {
     console.log(req.body)
     // get the photo from the db with ID
     // Photo.findOne({ _id: req.body.photo}, function (err, photo))
-    
-    res.end()
+    // Photo.find({_id: req.body.photo},  function(err, photo) {
+
+    Photo.findByIdAndUpdate(req.body.photo, 
+        { [req.body.operator] : { likes: req.body.user }},
+        { new : true }, function(err, photo) {
+      console.log(photo);
+      if (err) return handleError(err);
+      res.send(photo);
+    })
+
 });
 
 // router.post('/birds/resize', requireAuth, (req, res) => {
