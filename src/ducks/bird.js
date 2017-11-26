@@ -61,7 +61,7 @@ const bird = (state = initialState, action) => {
       console.log('uploading in bird ducks!') 
       return state.push({ uploading: true });
     case CREATE_BIRD_SUCCESS:
-    	return state.set(-1, fromJS(action.bird));
+    	return state.push(fromJS(action.bird));
     case UPDATE_BIRD:
       //Todo	
     	return state;
