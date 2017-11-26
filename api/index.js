@@ -78,22 +78,47 @@ router.get('/birds/:birdSlug', (req, res) => {  // removed requireAuth,
 //         });
 // });
 
-router.delete('/birds/:birdId', requireAuth, (req, res) => {
+// router.delete('/birds/:birdId', requireAuth, (req, res) => {
+//     if(req.user.profile.role === 'moderator') {
+//         const birdId = req.params.birdId;
+//         Bird.findByIdAndRemove(birdId)
+//         .exec()
+//         .then(data =>{
+//             res.json({ err: false});
+//         })
+//         .catch(err => {
+//             console.log(err);
+//             res.json(err);
+//         });
+//     } else {
+//         return res.status(403).send({ error: 'You are not authorized' });
+//     }
+// });
+
+router.delete('/bird', requireAuth, (req, res) => {
     if(req.user.profile.role === 'moderator') {
-        const birdId = req.params.birdId;
-        Bird.findByIdAndRemove(birdId)
-        .exec()
-        .then(data =>{
-            res.json({ err: false});
+        console.log(req.body)
+        Bird.findOneAndRemove({ _id: req.body._id}, (err, bird) => {
+            if(err){
+                throw err;
+            } 
+            if(bird){
+                console.log(bird)
+                cloudinary.v2.uploader.destroy(bird.public_id, function(error, result){
+                    if(error) {
+                        console.log('Cloudinary Error:====', error);
+                    }
+                });
+                res.json({ err: false, msg: 'bird found and removed'});
+            }else{
+                console.log('No bird profile photo found');
+                res.json({ err: true, msg: 'No bird profile photo found'});
+            }         
         })
-        .catch(err => {
-            console.log(err);
-            res.json(err);
-        });
     } else {
         return res.status(403).send({ error: 'You are not authorized' });
     }
-});
+})
 
 // photo
 
@@ -179,6 +204,39 @@ router.post('/photo', requireAuth, (req, res) => {
             res.json(err);
         })          
 });
+
+
+router.post('/updatephotos', requireAuth, (req, res) => {
+    console.log(req.body);
+    // console.log(req.user);
+    if(req.user.profile.role === 'moderator') {
+        // Photo.find( { [req.body.field] : req.body.value })
+        // .then(data => {
+        //     console.log(data);
+        // })
+        // Photo.find( { [req.body.field] : req.body.value }, function(err, photos) {
+        //     if(err){
+        //         throw err;
+        //     }            
+        //     // console.log(photos)
+        //     if(photos) {
+        //         photos.forEach(photo => {
+        //             console.log(photo)
+        //             photo
+        //         })
+        //     }
+        // })
+        Photo.update({[req.body.field] : req.body.value }, req.body.updates, {multi: true}, function(err, raw) {
+            if(err){
+                throw err;
+            }
+            console.log('The raw response from Mongo was ', raw);
+            res.json({ err: false, msg: 'photos updated'});
+        }) 
+                
+    }
+
+})
 
 router.delete('/photo', requireAuth, (req, res) => {
     if(req.user.profile.role === 'moderator') {

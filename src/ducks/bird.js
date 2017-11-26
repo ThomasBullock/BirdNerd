@@ -6,7 +6,8 @@ export const REQUEST_BIRD = action('REQUEST_BIRD'); // need to create request an
 export const RECEIVE_BIRD = action('RECEIVE_BIRD');
 export const CREATE_BIRD = action('CREATE_BIRD');
 export const UPDATE_BIRD = action('UPDATE_BIRD');
-export const REMOVE_BIRD = action('REMOVE_BIRD');
+export const DELETE_BIRD = action('DELETE_BIRD');
+export const DELETE_BIRD_SUCCESS = action('DELETE_BIRD_SUCCESS');
 export const CREATE_BIRD_UPLOAD = action('CREATE_BIRD_UPLOAD');
 export const CREATE_BIRD_SUCCESS = action('CREATE_BIRD_SUCCESS');
 
@@ -22,7 +23,8 @@ export const createBird = bird => ({ type: CREATE_BIRD, bird });
 
 export const updateBird = bird => ({ type: UPDATE_BIRD, bird });
 
-export const removeBird = bird => ({ type: REMOVE_BIRD, bird });
+export const deleteBird = (_id) => ({ type: DELETE_BIRD, _id });
+export const deleteBirdSuccess = (_id) => ({ type: DELETE_BIRD_SUCCESS, _id });
 
 export const createBirdUpload = () => ({ type: CREATE_BIRD_UPLOAD });
 export const createBirdSuccess = bird => ({ type: CREATE_BIRD_SUCCESS, bird });
@@ -40,7 +42,8 @@ const initialState = fromJS([
     comments: null,
     created_at: null,
     bytes: null,
-    imageUrl: null
+    imageUrl: null,
+    public_id: null,    
   }
 ]);
 
@@ -62,9 +65,8 @@ const bird = (state = initialState, action) => {
     case UPDATE_BIRD:
       //Todo	
     	return state;
-    case REMOVE_BIRD:
-      //Todo
-      return state;	
+    case DELETE_BIRD_SUCCESS:
+      return state.update((birdList) => birdList.filter(birdObj => birdObj.get('_id') !== action._id));
     case RECEIVE_BIRD_LIST:
       return fromJS(action.birdList);	
     default:

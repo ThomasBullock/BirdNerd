@@ -17,8 +17,9 @@ const userPermission = (user, photo) => {
 	}
 }
 
-const BirdProfile = ({birdInfo, photos, user, likeHandler}) => {
+const BirdProfile = ({birdInfo, photos, user, likeHandler, deleteBird}) => {
 		const userRole = (user) ? user.get('role') : null;
+		console.log(birdInfo.get('public_id'))
 		const photoCards = photos && photos.map( (item, i) => {
 			return(
 				<BirdCard 
@@ -26,7 +27,7 @@ const BirdProfile = ({birdInfo, photos, user, likeHandler}) => {
 					id={item.get('_id')}
 					orientation={item.get('imageAspect')}
 					slug={item.get('birdSlug')}
-					likes={item.get('likes').size}
+					likes={item.get('likes') ? item.get('likes').size : 0 }
 					comments={item.get('comments').length}
 					img={item.get('imageUrl')}
 					public_id={item.get('public_id')}
@@ -63,10 +64,10 @@ const BirdProfile = ({birdInfo, photos, user, likeHandler}) => {
 							<div className="birdinfo__heading">
 								<h2>{birdInfo.get('name')}</h2>							
 							</div>
-							{ userRole === 'moderator' && <div className="birdinfo__btn">
-								<DeleteIcon />
-							</div>	
-								
+							{ userRole === 'moderator' &&
+								<button className="birdinfo__btn" onClick={() => deleteBird(birdInfo.get('_id'))}>
+										<DeleteIcon />
+								</button>			
 							}
 						
 						</div>

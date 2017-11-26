@@ -39,13 +39,14 @@ function* createBird(action) {
       slug: slugs(action.bird.get('name')),
       order: action.bird.get('order'),      
       species: action.bird.get('species'),
-      location: action.bird.get('location').split(',').map( (item) => item.trim() ),      
+      location: action.bird.get('location') && action.bird.get('location').split(',').map( (item) => item.trim() ),      
       conservationStatus: action.bird.get('conservationStatus'),
       comments: action.bird.get('comments'),
       created_at: birdImageRes.created_at,
       bytes: birdImageRes.bytes,
       format: birdImageRes.format,
-      imageUrl: birdImageRes.secure_url
+      imageUrl: birdImageRes.secure_url,
+      public_id: birdImageRes.public_id,      
     }; 
     yield call(api.POST, 'birds', birdInfo);
     yield put(actions.createBirdSuccess(birdInfo));
@@ -59,8 +60,34 @@ function* createBird(action) {
 function* fetchBirdList(action) {
   try {
     const birdList = yield call(api.GET, `birds`)
-    // console.log("BirdList in saga : ",birdList)
     yield put(actions.receiveBirdList(birdList));
+  } catch(error) {
+    console.log(error)
+  }
+}
+
+function* deleteBird(action) {
+  try {
+    console.log(action)
+    const _id = { _id: action._id}
+    const removeBird = yield call(api.DELETE, 'bird', _id);
+    console.log(removeBird)
+    if(!removeBird.err) {
+      const updates = {
+        field: 'birdId',
+        value: action._id,
+        updates: {
+          birdId: null,
+          birdSlug: null
+        }
+      }
+      // this updates the birdId entry in all of the photos because the bird has been deleted
+      // it doesn't update state yet
+      const updatePhotos = yield call(api.POST, 'updatePhotos', updates );
+      yield put(actions.deleteBirdSuccess(action._id)) 
+      history.push('/bird');     
+      
+    }
   } catch(error) {
     console.log(error)
   }
@@ -78,10 +105,15 @@ export function* watchFetchBird() {
   yield takeLatest(actions.REQUEST_BIRD, fetchBird);
 }
 
+export function* watchDeleteBird() {
+  yield takeLatest(actions.DELETE_BIRD, deleteBird);
+}
+
 export default function* rootSaga() {
   yield [
     fork(watchFetchBird),
     fork(watchCreateBird),
     fork(watchFetchBirdList),
+    fork(watchDeleteBird),
   ];
 }

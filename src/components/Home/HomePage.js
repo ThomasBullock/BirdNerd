@@ -27,7 +27,7 @@ const HomePage = ({ photos, sort, user, likeHandler }) => {
 					name={item.get('birdName')}					
 					orientation={item.get('imageAspect')}
 					slug={item.get('birdSlug')}
-					likes={item.get('likes').size}
+					likes={item.get('likes') ? item.get('likes').size : 0 }
 					comments={item.get('comments').length}
 					img={item.get('imageUrl')}
 					public_id={item.get('public_id')}

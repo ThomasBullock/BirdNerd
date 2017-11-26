@@ -284,7 +284,8 @@ a {
     margin: 0 0.375em;
     transition: fill 250ms ease; }
     .birdinfo__btn:hover {
-      fill: #48ded4; }
+      fill: #48ded4;
+      background: #333333; }
   .birdinfo__body {
     display: flex;
     flex-direction: column;

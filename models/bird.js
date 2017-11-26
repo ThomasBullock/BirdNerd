@@ -11,7 +11,8 @@ const BirdSchema = new mongoose.Schema({
     comments: String,
     created_at: Date,
     bytes: Number,
-    format: String
+    format: String,
+    public_id: String,
 });
 
 export default mongoose.model('Bird', BirdSchema);
