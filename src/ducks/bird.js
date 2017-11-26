@@ -23,8 +23,8 @@ export const createBird = bird => ({ type: CREATE_BIRD, bird });
 
 export const updateBird = bird => ({ type: UPDATE_BIRD, bird });
 
-export const deleteBird = (public_id) => ({ type: DELETE_BIRD, public_id });
-export const deleteBirdSuccess = (public_id) => ({ type: DELETE_BIRD_SUCCESS, public_id });
+export const deleteBird = (_id) => ({ type: DELETE_BIRD, _id });
+export const deleteBirdSuccess = (_id) => ({ type: DELETE_BIRD_SUCCESS, _id });
 
 export const createBirdUpload = () => ({ type: CREATE_BIRD_UPLOAD });
 export const createBirdSuccess = bird => ({ type: CREATE_BIRD_SUCCESS, bird });
@@ -66,8 +66,7 @@ const bird = (state = initialState, action) => {
       //Todo	
     	return state;
     case DELETE_BIRD_SUCCESS:
-      //Todo
-      return state;	
+      return state.update((birdList) => birdList.filter(birdObj => birdObj.get('_id') !== action._id));
     case RECEIVE_BIRD_LIST:
       return fromJS(action.birdList);	
     default:

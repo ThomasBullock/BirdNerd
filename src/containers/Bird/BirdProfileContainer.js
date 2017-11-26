@@ -49,7 +49,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     createBird: (bird) => dispatch(createBird(bird)),
     updateBird: (bird) => dispatch(updateBird(bird)),
-    deleteBird: (bird) => dispatch(deleteBird(bird)),
+    deleteBird: (_id) => dispatch(deleteBird(_id)),
     likePhoto: (photo) => dispatch(likePhoto(photo))
   }; // here we're mapping actions to props	
 }

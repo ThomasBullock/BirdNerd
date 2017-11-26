@@ -71,7 +71,7 @@ function* createPhoto(action) {
         }
         
 
-        
+        console.log(birdInfo.get('_id'));
         const photoInfo = {
             birdName: action.photo.get('name'),
             birdId: birdInfo.get('_id'),
@@ -86,7 +86,8 @@ function* createPhoto(action) {
             imageUrl: birdImageRes.secure_url, 
             public_id: birdImageRes.public_id,
             user: user,             
-        }   
+        } 
+        console.log(photoInfo);  
         yield call(api.POST, 'photo', photoInfo);
         yield put(actions.createPhotoSuccess(photoInfo));
         yield put(loaded());      

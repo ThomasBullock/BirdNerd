@@ -6,8 +6,6 @@ import BirdCard from '../Bird/BirdCard';
 
 // Duplicate code also in Homepage to be improved!
 const userPermission = (user, photo) => {
-	console.log(photo.get('user'))
-	console.log(photo);
 	if(user && user.get('role') === 'moderator') {
 		return true;
 	} else if (photo.getIn(['user', '_id']) === user.get('_id')) {

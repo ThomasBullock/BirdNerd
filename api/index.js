@@ -98,7 +98,7 @@ router.get('/birds/:birdSlug', (req, res) => {  // removed requireAuth,
 router.delete('/bird', requireAuth, (req, res) => {
     if(req.user.profile.role === 'moderator') {
         console.log(req.body)
-        Bird.findOneAndRemove({_id: req.body._id}, (err, bird) => {
+        Bird.findOneAndRemove({ _id: req.body._id}, (err, bird) => {
             if(err){
                 throw err;
             } 
@@ -204,6 +204,39 @@ router.post('/photo', requireAuth, (req, res) => {
             res.json(err);
         })          
 });
+
+
+router.post('/updatephotos', requireAuth, (req, res) => {
+    console.log(req.body);
+    // console.log(req.user);
+    if(req.user.profile.role === 'moderator') {
+        // Photo.find( { [req.body.field] : req.body.value })
+        // .then(data => {
+        //     console.log(data);
+        // })
+        // Photo.find( { [req.body.field] : req.body.value }, function(err, photos) {
+        //     if(err){
+        //         throw err;
+        //     }            
+        //     // console.log(photos)
+        //     if(photos) {
+        //         photos.forEach(photo => {
+        //             console.log(photo)
+        //             photo
+        //         })
+        //     }
+        // })
+        Photo.update({[req.body.field] : req.body.value }, req.body.updates, {multi: true}, function(err, raw) {
+            if(err){
+                throw err;
+            }
+            console.log('The raw response from Mongo was ', raw);
+            res.json({ err: false, msg: 'photos updated'});
+        }) 
+                
+    }
+
+})
 
 router.delete('/photo', requireAuth, (req, res) => {
     if(req.user.profile.role === 'moderator') {

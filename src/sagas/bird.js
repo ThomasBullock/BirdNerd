@@ -69,14 +69,25 @@ function* fetchBirdList(action) {
 function* deleteBird(action) {
   try {
     console.log(action)
-    const public_id = { public_id: action.public_id}
-    const res = yield call(api.DELETE, 'bird', public_id);
-    console.log(res)
-    if(!res.err) {
+    const _id = { _id: action._id}
+    const removeBird = yield call(api.DELETE, 'bird', _id);
+    console.log(removeBird)
+    if(!removeBird.err) {
+      const updates = {
+        field: 'birdId',
+        value: action._id,
+        updates: {
+          birdId: null,
+          birdSlug: null
+        }
+      }
+      // this updates the birdId entry in all of the photos because the bird has been deleted
+      // it doesn't update state yet
+      const updatePhotos = yield call(api.POST, 'updatePhotos', updates );
+      yield put(actions.deleteBirdSuccess(action._id)) 
+      history.push('/bird');     
       
-      console.log(res.bird)
     }
-    console.log(res.body)
   } catch(error) {
     console.log(error)
   }

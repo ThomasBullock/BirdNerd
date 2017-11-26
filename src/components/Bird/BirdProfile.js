@@ -27,7 +27,7 @@ const BirdProfile = ({birdInfo, photos, user, likeHandler, deleteBird}) => {
 					id={item.get('_id')}
 					orientation={item.get('imageAspect')}
 					slug={item.get('birdSlug')}
-					likes={item.get('likes').size}
+					likes={item.get('likes') ? item.get('likes').size : 0 }
 					comments={item.get('comments').length}
 					img={item.get('imageUrl')}
 					public_id={item.get('public_id')}
@@ -64,12 +64,10 @@ const BirdProfile = ({birdInfo, photos, user, likeHandler, deleteBird}) => {
 							<div className="birdinfo__heading">
 								<h2>{birdInfo.get('name')}</h2>							
 							</div>
-							{ userRole === 'moderator' && <div className="birdinfo__btn">
-								<button onClick={() => deleteBird(birdInfo.get('_id'))} >
-									<DeleteIcon />
-								</button>	
-							</div>	
-								
+							{ userRole === 'moderator' &&
+								<button className="birdinfo__btn" onClick={() => deleteBird(birdInfo.get('_id'))}>
+										<DeleteIcon />
+								</button>			
 							}
 						
 						</div>
