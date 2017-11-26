@@ -43,13 +43,13 @@ const HomePage = ({ photos, sort, user, likeHandler }) => {
     		<ul className="nav-tabs">
 				  <li className="tab-header-and-content">
 				    { /* <a href="#" className="nav-tabs__link">Newest Photos</a> */}
-				    <button className="button--upload" onClick={() => sort('Newest')}>Newest Photos</button>
+				    <button className="nav-tabs__button" onClick={() => sort('Newest')}>Newest Photos</button>
 				  </li>
 				  <li className="tab-header-and-content">
-				    <button className="button--upload" onClick={() => sort('Oldest')}>Oldest Photos</button>
+				    <button className="nav-tabs__button" onClick={() => sort('Oldest')}>Oldest Photos</button>
 				  </li>
 				  <li className="tab-header-and-content">
-				    <button className="button--upload" onClick={() => sort('Popular')}>Most Popular</button>
+				    <button className="nav-tabs__button" onClick={() => sort('Popular')}>Most Popular</button>
 				  </li>
 				</ul>
     		

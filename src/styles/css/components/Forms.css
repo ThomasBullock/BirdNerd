@@ -71,7 +71,7 @@ textarea {
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06), 0 0 5px rgba(21, 101, 192, 0.7);
     outline: none; }
   [type='color']:disabled, [type='date']:disabled, [type='datetime']:disabled, [type='datetime-local']:disabled, [type='email']:disabled, [type='month']:disabled, [type='number']:disabled, [type='password']:disabled, [type='search']:disabled, [type='tel']:disabled, [type='text']:disabled, [type='time']:disabled, [type='url']:disabled, [type='week']:disabled, input:not([type]):disabled, textarea:disabled {
-    background-color: #f2f2f2;
+    background-color: #a6a6a6;
     cursor: not-allowed; }
     [type='color']:disabled:hover, [type='date']:disabled:hover, [type='datetime']:disabled:hover, [type='datetime-local']:disabled:hover, [type='email']:disabled:hover, [type='month']:disabled:hover, [type='number']:disabled:hover, [type='password']:disabled:hover, [type='search']:disabled:hover, [type='tel']:disabled:hover, [type='text']:disabled:hover, [type='time']:disabled:hover, [type='url']:disabled:hover, [type='week']:disabled:hover, input:not([type]):disabled:hover, textarea:disabled:hover {
       border: 1px solid #ddd; }
@@ -233,6 +233,8 @@ a {
   display: flex;
   flex-wrap: wrap;
   justify-content: center; }
+  .form:disabled {
+    background-color: red; }
   .form__title {
     color: #F6F6F6;
     margin-bottom: 1.5em;
@@ -258,3 +260,17 @@ a {
     align-self: center; }
     .form__submit button {
       width: 100%; }
+  .form__reset-panel {
+    width: 600px;
+    margin: 1.5em auto;
+    padding: 1.5em;
+    border-radius: 3px;
+    background: #EFEFEF;
+    text-align: center;
+    color: #888888; }
+    .form__reset-panel p {
+      margin-bottom: 0; }
+    .form__reset-panel a {
+      color: #48ded4; }
+      .form__reset-panel a:hover {
+        color: #333333; }

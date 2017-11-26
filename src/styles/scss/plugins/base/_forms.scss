@@ -51,7 +51,7 @@ textarea {
   }
 
   &:disabled {
-    background-color: shade($base-background-color, 5%);
+    background-color: shade($base-background-color, 35%);
     cursor: not-allowed;
 
     &:hover {

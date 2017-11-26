@@ -20,5 +20,10 @@
     padding: $base-spacing / 2;
     text-decoration: none;		
 	}
+
+    @include elem('button') {
+        background: $lorikeet-blue;
+        margin: 0 $base-spacing / 2;
+    }
 } 
 

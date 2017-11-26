@@ -55,7 +55,7 @@ class TopBar extends Component {
 					</div>
 					<div className="topbar__nav-component topbar__nav-component--search">
 						<form className="topbar__search-form">
-							<input type="text" placeholder="search..."/>
+							<input type="text" placeholder="search..." disabled/>
 							<button className="topbar__search-btn" type="submit">
             		<img src={search} alt="Search Icon"/>
           		</button> 
