@@ -39,13 +39,14 @@ function* createBird(action) {
       slug: slugs(action.bird.get('name')),
       order: action.bird.get('order'),      
       species: action.bird.get('species'),
-      location: action.bird.get('location').split(',').map( (item) => item.trim() ),      
+      location: action.bird.get('location') && action.bird.get('location').split(',').map( (item) => item.trim() ),      
       conservationStatus: action.bird.get('conservationStatus'),
       comments: action.bird.get('comments'),
       created_at: birdImageRes.created_at,
       bytes: birdImageRes.bytes,
       format: birdImageRes.format,
-      imageUrl: birdImageRes.secure_url
+      imageUrl: birdImageRes.secure_url,
+      public_id: birdImageRes.public_id,      
     }; 
     yield call(api.POST, 'birds', birdInfo);
     yield put(actions.createBirdSuccess(birdInfo));
@@ -65,6 +66,22 @@ function* fetchBirdList(action) {
   }
 }
 
+function* deleteBird(action) {
+  try {
+    console.log(action)
+    const public_id = { public_id: action.public_id}
+    const res = yield call(api.DELETE, 'bird', public_id);
+    console.log(res)
+    if(!res.err) {
+      
+      console.log(res.bird)
+    }
+    console.log(res.body)
+  } catch(error) {
+    console.log(error)
+  }
+}
+
 export function* watchFetchBirdList() {
   yield takeLatest(actions.REQUEST_BIRD_LIST, fetchBirdList);
 }
@@ -77,10 +94,15 @@ export function* watchFetchBird() {
   yield takeLatest(actions.REQUEST_BIRD, fetchBird);
 }
 
+export function* watchDeleteBird() {
+  yield takeLatest(actions.DELETE_BIRD, deleteBird);
+}
+
 export default function* rootSaga() {
   yield [
     fork(watchFetchBird),
     fork(watchCreateBird),
     fork(watchFetchBirdList),
+    fork(watchDeleteBird),
   ];
 }

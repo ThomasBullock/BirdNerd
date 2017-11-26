@@ -53,7 +53,7 @@ const initialState = fromJS([
 // Reducers
 
 const photos = (state = initialState, action) => {
-	console.log(action)
+	// console.log(action)
 	switch (action.type) {
     case CREATE_PHOTO_SUCCESS: 
     	return state.unshift(fromJS(action.photo));  		

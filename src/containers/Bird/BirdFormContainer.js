@@ -7,7 +7,6 @@ import {
   //requestBird,
   createBird,
   updateBird,
-  removeBird
 } from '../../ducks/bird';
 
 import BirdForm from '../../components/Bird/BirdForm';
@@ -48,8 +47,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     //requestBird: () => dispatch(requestBird()),
     createBird: (bird) => dispatch(createBird(bird)),
-    updateBird: (bird) => dispatch(updateBird(bird)),
-    removeBird: (bird) => dispatch(removeBird(bird))
+    updateBird: (bird) => dispatch(updateBird(bird))
   }; // here we're mapping actions to props
 }
 

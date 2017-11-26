@@ -54,7 +54,10 @@ export const DELETE = (url, body) => {
     },
     body: JSON.stringify(body),
   })
-  .then(res => res)
+  .then((res) => {
+    console.log(res)
+    return res
+  })
 };
 
 

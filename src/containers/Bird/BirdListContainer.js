@@ -15,12 +15,11 @@ class BirdListContainer extends Component {
 		for (var prop in birdGroups) {
 			groups[prop] = [];
 		}
-		console.log(birds)
 		
 		birds.map( (bird) => {  // convert list/map to proper javascript :) !!!
 			const order = bird.get('order');
 			if(groups[`${order}`]) {
-				console.log(bird)
+				// console.log(bird)
 				groups[`${order}`].push(
 					Array.from(bird).reduce((obj, [key, value]) => (
 					  Object.assign(obj, { [key]: value }) // Be careful! Maps can have non-String keys; object literals can't.

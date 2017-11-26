@@ -17,8 +17,9 @@ const userPermission = (user, photo) => {
 	}
 }
 
-const BirdProfile = ({birdInfo, photos, user, likeHandler}) => {
+const BirdProfile = ({birdInfo, photos, user, likeHandler, deleteBird}) => {
 		const userRole = (user) ? user.get('role') : null;
+		console.log(birdInfo.get('public_id'))
 		const photoCards = photos && photos.map( (item, i) => {
 			return(
 				<BirdCard 
@@ -64,7 +65,9 @@ const BirdProfile = ({birdInfo, photos, user, likeHandler}) => {
 								<h2>{birdInfo.get('name')}</h2>							
 							</div>
 							{ userRole === 'moderator' && <div className="birdinfo__btn">
-								<DeleteIcon />
+								<button onClick={() => deleteBird(birdInfo.get('_id'))} >
+									<DeleteIcon />
+								</button>	
 							</div>	
 								
 							}

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {
   createBird,
   updateBird,
-  removeBird
+  deleteBird
 } from '../../ducks/bird';
 
 import { likePhoto } from '../../ducks/photos';
@@ -17,7 +17,13 @@ class BirdProfileContainer extends Component {
 		return (
 			<div>
 			{this.props.birdInfo && this.props.photos ? (
-				<BirdProfile birdInfo={this.props.birdInfo} photos={this.props.photos} user={this.props.user} likeHandler={this.props.likePhoto}/>
+				<BirdProfile 
+					birdInfo={this.props.birdInfo} 
+					photos={this.props.photos} 
+					user={this.props.user} 
+					likeHandler={this.props.likePhoto}
+					deleteBird={this.props.deleteBird}
+				/>
 			) : (
 				<h2>Loading...</h2>
 			)
@@ -43,7 +49,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     createBird: (bird) => dispatch(createBird(bird)),
     updateBird: (bird) => dispatch(updateBird(bird)),
-    removeBird: (bird) => dispatch(removeBird(bird)),
+    deleteBird: (bird) => dispatch(deleteBird(bird)),
     likePhoto: (photo) => dispatch(likePhoto(photo))
   }; // here we're mapping actions to props	
 }
