@@ -5,11 +5,11 @@ const BirdWings = () => (
 	 width="3019.781px" height="856.859px" viewBox="0 0 3019.781 856.859" enableBackground="new 0 0 3019.781 856.859">     " }} />
       <defs>
 		<linearGradient id="linear-gradient" gradientUnits="userSpaceOnUse" x1="0" y1="169.485" x2="3019.9301" y2="169.485" >
-	      <stop offset="0%" stopColor="#48ded4" stopOpacity="100%"/>
+	      <stop offset="0%" stopColor="#38aeF4" stopOpacity="100%"/>
 	      <stop offset="20%" stopColor="#a026bf" stopOpacity="100%"/>
 	      <stop offset="60%" stopColor="#e82c75" stopOpacity="100%"/>
-	      <stop offset="85%" stopColor="#FFC40E" stopOpacity="100%"/>
-	      <stop offset="95%" stopColor="#48ded4" stopOpacity="100%"/>        
+	      <stop offset="85%" stopColor="#FCEE21" stopOpacity="100%"/>
+	      <stop offset="95%" stopColor="#38aeF4" stopOpacity="100%"/>        
       	</linearGradient>
       </defs>
 <g>

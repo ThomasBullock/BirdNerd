@@ -229,7 +229,7 @@ a {
   .topbar::before {
     content: '';
     display: block;
-    background: linear-gradient(90deg, #38aeF4 0%, #FFC40E 30%, #e82c75 60%, #a026bf 85%, #48ded4 97%);
+    background: linear-gradient(90deg, #38aeF4 0%, #FFE340 30%, #e82c75 60%, #a026bf 85%, #38aeF4 97%);
     height: 1.5em;
     width: 100%;
     border-bottom: 2px inset rgba(51, 51, 51, 0.5); }
