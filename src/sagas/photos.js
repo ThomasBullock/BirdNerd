@@ -34,7 +34,6 @@ const aspectCalculator = (data) => {
 }
 
 function* createPhoto(action) {
-        console.log(action)
 	try {
 		const userPhoto = action.photo.get('files')[0];  //'action' is not defined  no-undef
         const formData = new FormData();
@@ -46,21 +45,19 @@ function* createPhoto(action) {
         //yield put(actions.createPhotoUpload()); 
         yield put(load());
         const birdImageRes = yield call(api.POSTBIRD, formData); //Post bird on cloudinary
-        console.log('Cloudinary Res : ', birdImageRes);
         //get a bird info from redux store
         
         const birdInfo = ( action.photo.get('name') === 'Unknown' ) ? 
         Immutable.Map( { _id: null } )
         : yield select(getBirdInfo, action.photo.get('name'));
         // const birdInfo = yield select(getBirdInfo, action.photo.get('name'));
-        console.log(birdInfo)
+        console.log('BirdInfo=======',birdInfo)
         const userId = yield select(getUser);
         const userGravatar = yield select(getGravatar);        
         const user = {
             _id: userId,
             gravatar: userGravatar
-        } 
-        console.log(user);       
+        }      
         const photoLocation = {
             type: 'Point',
             coordinates: [
@@ -71,7 +68,6 @@ function* createPhoto(action) {
         }
         
 
-        console.log(birdInfo.get('_id'));
         const photoInfo = {
             birdName: action.photo.get('name'),
             birdId: birdInfo.get('_id'),
@@ -87,7 +83,7 @@ function* createPhoto(action) {
             public_id: birdImageRes.public_id,
             user: user,             
         } 
-        console.log(photoInfo);  
+        console.log('PhotoInfo : =====', photoInfo);  
         yield call(api.POST, 'photo', photoInfo);
         yield put(actions.createPhotoSuccess(photoInfo));
         yield put(loaded());      

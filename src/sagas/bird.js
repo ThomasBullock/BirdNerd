@@ -16,10 +16,7 @@ function* fetchBird(action) {
 }
 
 function* createBird(action) {
-  try {  
-    console.log(action.bird.get('name'))
-    console.log(action.bird.get('species'))
-    console.log(action.bird.get('files'))    
+  try {    
     const birdImage = action.bird.get('files')[0];
     /// use jimp locally to resize file!???
     // const resizedPhoto = yield call(api.RESIZE, birdImage);
@@ -48,8 +45,8 @@ function* createBird(action) {
       imageUrl: birdImageRes.secure_url,
       public_id: birdImageRes.public_id,      
     }; 
-    yield call(api.POST, 'birds', birdInfo);
-    yield put(actions.createBirdSuccess(birdInfo));
+    const res = yield call(api.POST, 'birds', birdInfo);
+    yield put(actions.createBirdSuccess(res.data));
     yield put(loaded());
     history.push(`/bird/${birdInfo.slug}`)
   } catch (error) {
