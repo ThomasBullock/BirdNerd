@@ -233,6 +233,9 @@ a {
   display: flex;
   flex-wrap: wrap;
   justify-content: center; }
+  .form button {
+    margin-top: 0.75em;
+    background: #38aeF4; }
   .form:disabled {
     background-color: red; }
   .form__title {
@@ -271,6 +274,6 @@ a {
     .form__reset-panel p {
       margin-bottom: 0; }
     .form__reset-panel a {
-      color: #48ded4; }
+      color: rgba(232, 44, 117, 0.6); }
       .form__reset-panel a:hover {
         color: #333333; }

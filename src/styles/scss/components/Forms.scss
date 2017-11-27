@@ -1,6 +1,14 @@
 @import '../settings';
 
+
+
+
 .form {
+
+	button {
+		margin-top: $base-spacing / 2;
+		background: $lorikeet-blue;
+	}
 
 	&:disabled {
 		background-color: red;
@@ -80,7 +88,7 @@
 		}
 
 		a {
-			color: $wes-cyan;
+			color: transparentize($wes-pink, .4);
 
 
 			&:hover {
