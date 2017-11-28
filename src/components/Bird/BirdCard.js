@@ -25,8 +25,6 @@ class BirdCard extends Component {
 			const image = (orientation === 'Portrait') ? 
 				this.props.img && cloudinaryUrlModify(this.props.img.split('/'), 'w_640') :
 				this.props.img && cloudinaryUrlModify(this.props.img.split('/'), 'w_720')
-				
-			console.log(image)
 			return(
 				<div className={`birdcard birdcard--${orientation}`}>
 					<div className={`birdcard__photo birdcard__photo--${orientation}`}>

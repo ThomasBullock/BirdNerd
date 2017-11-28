@@ -56,7 +56,7 @@ const BirdProfile = ({birdInfo, photos, user, likeHandler, deleteBird}) => {
 				<div className="birdinfo__card">
 					<div className="birdinfo__facts">
 						<div className="birdinfo__wings">
-							<BirdWings /> 
+							<BirdWings className="birdinfo__svg"/> 
 						</div>
 						<div className="birdinfo__header">
 							{userRole === 'moderator' && <div className="birdinfo__btn">

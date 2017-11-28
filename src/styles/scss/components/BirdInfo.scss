@@ -32,10 +32,11 @@
 		width: 420px;
 		z-index: 0;
 
-		img {
-			fill: red;
-		}
 	}
+
+	// @include elem('svg') {
+	// 	-webkit-svg-shadow: 0 0 7px #53BE12;
+	// }
 
 	@include elem('header') {
 		@include center(0%);

@@ -251,8 +251,6 @@ a {
     transform: translate(-50%, -50%);
     width: 420px;
     z-index: 0; }
-    .birdinfo__wings img {
-      fill: red; }
   .birdinfo__header {
     text-align: center;
     z-index: 100;

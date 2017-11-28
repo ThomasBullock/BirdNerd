@@ -4,13 +4,18 @@ const BirdWings = () => (
 <svg className="birdwings" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 	 width="3019.781px" height="856.859px" viewBox="0 0 3019.781 856.859" enableBackground="new 0 0 3019.781 856.859">     " }} />
       <defs>
-		<linearGradient id="linear-gradient" gradientUnits="userSpaceOnUse" x1="0" y1="169.485" x2="3019.9301" y2="169.485" >
-	      <stop offset="0%" stopColor="#38aeF4" stopOpacity="100%"/>
-	      <stop offset="20%" stopColor="#a026bf" stopOpacity="100%"/>
-	      <stop offset="60%" stopColor="#e82c75" stopOpacity="100%"/>
-	      <stop offset="85%" stopColor="#FCEE21" stopOpacity="100%"/>
-	      <stop offset="95%" stopColor="#38aeF4" stopOpacity="100%"/>        
+				<linearGradient id="linear-gradient" gradientUnits="userSpaceOnUse" x1="0" y1="169.485" x2="3019.9301" y2="169.485" >
+	      	<stop offset="0%" stopColor="#38aeF4" stopOpacity="100%"/>
+	      	<stop offset="20%" stopColor="#a026bf" stopOpacity="100%"/>
+	      	<stop offset="60%" stopColor="#e82c75" stopOpacity="100%"/>
+	      	<stop offset="85%" stopColor="#FCEE21" stopOpacity="100%"/>
+	      	<stop offset="95%" stopColor="#38aeF4" stopOpacity="100%"/>        
       	</linearGradient>
+  	    <filter id="filter1" x="0" y="0">
+          <feOffset result="offOut" in="SourceAlpha" dx="2" dy="2" />
+          <feGaussianBlur result="blurOut" in="offOut" stdDeviation="15" />
+          <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+		    </filter>      
       </defs>
 <g>
 	<path fill="url(#linear-gradient)" d="M1482.031,443.207c-6.572-6.572-37.332-5.098-54.578,2.615c-13.887,6.213-15.684,6.012-27.979-3.115
@@ -62,7 +67,7 @@ const BirdWings = () => (
 		c7.739,7.577,14.574,15.776,23.357,22.229c1.006,0.738,2.136,1.166,3.307,1.354l0.03,0.049l0.193-0.011
 		c1.01,0.136,2.046,0.091,3.062-0.112l9.23-0.351c14.691-0.555,15.426-1.123,19.993-15.477c4.61-14.49-0.449-29.168-20.788-60.291
 		c-19.417-29.713-31.294-65.406-25.25-75.877c5.98-10.361,23.632-27.35,32.596-31.371c28.903-12.971,45.104-23.475,64.538-41.832
-		C1484.207,455.013,1488.029,449.205,1482.031,443.207z"/>
+		C1484.207,455.013,1488.029,449.205,1482.031,443.207z" filter="url(#filter1)" />
 	<path fill="url(#linear-gradient)" d="M2982.543,146.923c18.506-17.997,21.553-22.657,29.037-44.379c4.598-13.349,8.287-34.377,8.199-46.729
 		c-0.174-24.626-8.875-55.931-15.514-55.814c-2.311,0.041-8.146,11.306-12.975,25.036c-4.825,13.73-15.375,34.327-23.438,45.771
 		c-8.066,11.444-21.74,31.199-30.39,43.897c-10.019,14.712-21.815,28.027-32.515,36.697
@@ -112,9 +117,9 @@ const BirdWings = () => (
 		c-28.272-1.929-24.115-8.604,6.424-10.312c30.863-1.726,59.144-11.823,73.607-26.288c9.709-9.71,29.516-42.204,33.301-54.635
 		c2.676-8.787,7.945-44.343,9.693-62.319c0.864-3.438,1.575-6.912,2.077-10.426c2.021-14.073,0.933-27.932,4.698-41.541
 		c4.896-6.506,8.966-12.296,11.263-16.208c6.798-11.575,5.646-19.975-1.726-12.603c-5.138,5.136-25.41,11.421-28.115,8.716
-		C2962.836,168.003,2971.17,157.984,2982.543,146.923z"/>
+		C2962.836,168.003,2971.17,157.984,2982.543,146.923z" filter="url(#filter1)"/>
 </g>
-<rect x="1010.391" y="329.93" fill="url(#linear-gradient)" width="1000" height="280"/>
+<rect x="1010.391" y="329.93" fill="url(#linear-gradient)" width="1000" height="280" />
 </svg>
 )
 
