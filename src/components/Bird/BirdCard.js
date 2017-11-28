@@ -8,6 +8,7 @@ import IconBubble from '../icons/IconBubble';
 import IconBird from '../icons/IconBird';
 import DeleteIcon from '../icons/IconCross';
 import { deletePhoto } from  '../../ducks/photos';
+import { cloudinaryUrlModify } from '../../clientHelpers';
 
 class BirdCard extends Component {
 		constructor(props) {
@@ -21,6 +22,11 @@ class BirdCard extends Component {
 		render() {
 			const userImg = 'http://3.bp.blogspot.com/-dXOvZOVDhes/Ts99nTenjtI/AAAAAAAAA2A/It9Ymliw4t4/s1600/26.jpg';
 			const orientation = this.props.orientation;
+			const image = (orientation === 'Portrait') ? 
+				this.props.img && cloudinaryUrlModify(this.props.img.split('/'), 'w_640') :
+				this.props.img && cloudinaryUrlModify(this.props.img.split('/'), 'w_720')
+				
+			console.log(image)
 			return(
 				<div className={`birdcard birdcard--${orientation}`}>
 					<div className={`birdcard__photo birdcard__photo--${orientation}`}>
@@ -29,7 +35,7 @@ class BirdCard extends Component {
 							<DeleteIcon />
 						</button>
 						}
-						<img src={this.props.img} alt={this.props.name}/>
+						<img src={image} alt={this.props.name}/>
 					</div>
 					<div className={`birdcard__stats birdcard__stats--${orientation}`}>
 						<button className="birdcard__button">

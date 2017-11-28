@@ -29,3 +29,9 @@ export const birdGroups = {
              Anseriformes: 'Waterfowl',
              Piciformes: 'Woodpeckers and Toucans'   
 }
+
+// this is a bit of a hack to resize images off cloudinary 
+export const cloudinaryUrlModify = (arr, width) => {
+      arr.splice(6, 0, width);
+      return arr.join('/');
+}

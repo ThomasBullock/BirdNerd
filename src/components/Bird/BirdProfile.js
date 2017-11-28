@@ -5,6 +5,7 @@ import BirdWings from '../icons/BirdWings';
 import DeleteIcon from '../icons/IconCross';
 import EditIcon from '../icons/IconFeather';
 import BirdCard from './BirdCard';
+import { cloudinaryUrlModify } from '../../clientHelpers';
 
 // Duplicate code also in Homepage to be improved!
 const userPermission = (user, photo) => {
@@ -44,11 +45,12 @@ const BirdProfile = ({birdInfo, photos, user, likeHandler, deleteBird}) => {
 				locations += `${val} `;
 			})			
 		}
+		const image = birdInfo.get('imageUrl') && cloudinaryUrlModify(birdInfo.get('imageUrl').split('/'), 'w_1048');
 		return(
 			<div className="birdinfo">
 				<div className="birdinfo__hero">
 					<div className="birdinfo__gradient birdinfo__gradient--left"></div>
-					<div className="birdinfo__hero-img" style={{'backgroundImage': `url(${birdInfo.get('imageUrl')})`}}></div>
+					<div className="birdinfo__hero-img" style={{'backgroundImage': `url(${image})`}}></div>
 					<div className="birdinfo__gradient birdinfo__gradient--right"></div>
 				</div>
 				<div className="birdinfo__card">
