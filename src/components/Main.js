@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import TopBar from './TopBar';
+import Footer from './Footer';
 import Home from './Home/Home';
 import Register from './Auth/Register';
 import NotFound from './NotFound';  
@@ -25,6 +26,7 @@ const Main = () => (
       <Route path='/bird' component={Birds}/> 
       <Route path='/404' component={NotFound} />
     </Switch>
+    <Footer />
   </main>
 );
 
