@@ -267,11 +267,11 @@ a {
     padding: 0.75em;
     display: flex; }
     .birdcard__stats--Portrait {
-      background: linear-gradient(180deg, #38aeF4 0%, #FFC40E 30%, #e82c75 60%, #a026bf 85%, #48ded4 97%);
+      background: linear-gradient(180deg, #38aeF4 0%, #FFE340 27%, #e82c75 60%, #a026bf 85%, #38aeF4 97%);
       flex-direction: column;
       align-items: center; }
     .birdcard__stats--Landscape {
-      background: linear-gradient(90deg, #38aeF4 0%, #FFC40E 30%, #e82c75 60%, #a026bf 85%, #48ded4 97%);
+      background: linear-gradient(90deg, #38aeF4 0%, #FFE340 27%, #e82c75 60%, #a026bf 85%, #38aeF4 97%);
       flex-direction: row;
       align-items: center;
       padding-top: 1.5em;
@@ -281,10 +281,10 @@ a {
           padding-top: 1.5em;
           padding-bottom: 1.5em; } }
     .birdcard__stats--Square {
-      background: linear-gradient(90deg, #38aeF4 0%, #FFC40E 30%, #e82c75 60%, #a026bf 85%, #48ded4 97%); }
+      background: linear-gradient(90deg, #38aeF4 0%, #FFE340 27%, #e82c75 60%, #a026bf 85%, #38aeF4 97%); }
   .birdcard__button {
     position: relative;
-    background: rgba(246, 246, 246, 0.5);
+    background: rgba(246, 246, 246, 0.7);
     border-radius: 50%;
     padding: 0.75em;
     height: 48px;

@@ -35,15 +35,16 @@ class TopBar extends Component {
 	render() {
 		const { authenticated, role } = this.props;
 		const notLoginLeft = <ul className="topbar__menu">
-			<li className="topbar__link-item"><Link to='/dashboard'>BIRDNERD</Link></li>
+			{/* <li className="topbar__link-item"><Link to='/dashboard'>BIRDNERD</Link></li>*/}
 			<li className="topbar__link-item"><Link to='/bird'>Birds</Link></li>
 		</ul>;
 
 		const loginLeft = <ul className="topbar__menu">
-			<li className="topbar__link-item"><Link to='/dashboard'>BIRDNERD</Link></li>
+			{/*<li className="topbar__link-item"><Link to='/dashboard'>BIRDNERD</Link></li> */}
 			<li className="topbar__link-item"><Link to='/'>Home</Link></li>
 			<li className="topbar__link-item"><Link to='/bird'>Birds</Link></li>
 			{role === 'moderator' && <li className="topbar__link-item"><Link to='/bird/new'>Submit Bird</Link></li>}
+			<li className="topbar__link-item"><Link to='/bird/mybirds/new'>Submit Photo</Link></li>
 			<li className="topbar__link-item"><Link to='/bird/mybirds'>My Photos</Link></li>
 		</ul>;
 

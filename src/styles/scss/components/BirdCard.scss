@@ -99,8 +99,10 @@
 
 	@include elem('button') {
 		position: relative;
-		background: transparentize($vapor, .5);
+		background: transparentize($vapor, .3);
+		// background: transparentize($lorikeet-blue, .8);		
 		border-radius: 50%;
+		// border: solid 1px transparentize($base, .5);
 		padding: $base-spacing / 2;
 		height: 48px;
 		width: 48px;

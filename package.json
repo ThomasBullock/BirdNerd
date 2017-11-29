@@ -24,6 +24,7 @@
     "passport-jwt": "^2.2.1",
     "passport-local": "^1.0.0",
     "postmark": "^1.4.1",
+    "raven-js": "^3.20.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-dropzone": "^4.0.0",

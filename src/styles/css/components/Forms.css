@@ -224,6 +224,7 @@ a {
   justify-content: space-between; }
 
 .form {
+  box-shadow: 2px 2px 5px rgba(51, 51, 51, 0.5);
   width: 600px;
   margin: 1.5em auto;
   background: #DDDDDD;
@@ -233,6 +234,12 @@ a {
   display: flex;
   flex-wrap: wrap;
   justify-content: center; }
+  .form button {
+    margin-top: 0.75em;
+    background: #38aeF4;
+    box-shadow: 1px 1px 2px rgba(51, 51, 51, 0.4); }
+  .form input, .form select {
+    border: solid 1px rgba(51, 51, 51, 0.2); }
   .form:disabled {
     background-color: red; }
   .form__title {
@@ -271,6 +278,6 @@ a {
     .form__reset-panel p {
       margin-bottom: 0; }
     .form__reset-panel a {
-      color: #48ded4; }
+      color: rgba(232, 44, 117, 0.6); }
       .form__reset-panel a:hover {
         color: #333333; }

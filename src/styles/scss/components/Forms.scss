@@ -1,6 +1,22 @@
 @import '../settings';
 
+
+
+
 .form {
+
+  box-shadow: 2px 2px 5px transparentize($oil, .5);
+
+	button {
+		margin-top: $base-spacing / 2;
+		background: $lorikeet-blue;
+		box-shadow: 1px 1px 2px transparentize($oil, .6);
+	}
+
+	input, select {
+		border: solid 1px transparentize($oil, .8);
+	}
+	
 
 	&:disabled {
 		background-color: red;
@@ -80,7 +96,7 @@
 		}
 
 		a {
-			color: $wes-cyan;
+			color: transparentize($wes-pink, .4);
 
 
 			&:hover {
