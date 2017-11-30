@@ -18,6 +18,12 @@ const validate = values => {
   } else if (values.get('species').length > 60) {
     errors.species = 'Must be 60 characters or less'
   }
+  if(!values.get('order')) {
+    errors.order = 'Required';
+  }
+  if(!values.get('files')) {
+    errors.order = 'Required';
+  }  
   return errors
 }
 

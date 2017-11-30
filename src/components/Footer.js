@@ -29,7 +29,6 @@ class Footer extends Component {
         </div>
         <div className="footer__bottom">
           <hr/>
-
           <p>&#xa9;{date} BirdNerd.</p>
         </div>
       </footer>   

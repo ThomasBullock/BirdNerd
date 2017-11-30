@@ -13,6 +13,9 @@ const validate = values => {
     const errors = {};
   if (!values.get('name')) {
     errors.name = 'Required'; 
+  }
+  if(!values.get('files')) {
+    errors.location = 'Required'
   }   
   return errors;
 }    
