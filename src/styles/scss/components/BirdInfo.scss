@@ -21,7 +21,9 @@
 
 	@include elem('card') {
 		width: 100%;
-		margin: 0 auto;
+		// position: relative;
+		// z-index: 2;
+		// margin: $base-spacing * -1 auto 0;
 		border-radius: $base-border-radius;
 		background: $vapor;
 		box-shadow: 2px 2px 5px transparentize($oil, .5);		
@@ -30,7 +32,7 @@
 	@include elem('wings') {
 		@include center(0%);
 		width: 420px;
-		z-index: 0;
+		z-index: 1;
 
 	}
 
@@ -154,7 +156,9 @@
 
 		@include elem('card') {
 			max-width: 800px;
-			margin: -$base-spacing auto;			
+			margin: $base-spacing * -1 auto 0;
+			position: relative;
+			z-index: 1;			
 		}
 
 		@include elem('wings') {

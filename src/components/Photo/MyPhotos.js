@@ -38,8 +38,12 @@ const MyPhotos = ({ photos, user, likeHandler }) => {
 		})
     return (
     	<div className="container">
-    		<button className="button--upload"><Link to={`/bird/mybirds/new`}>Submit Photo</Link></button>
-    		<div className="container">
+	    	<ul className="nav-tabs">
+	    		<li>
+    				<button className="nav-tabs__button"><Link to={`/bird/mybirds/new`}>Submit Photo</Link></button>
+    			</li>
+    		</ul>		
+    		<div className="cards-wrapper">
     			{birdPhotos}
 	  		</div>	  	  			  		
 	  	</div>	

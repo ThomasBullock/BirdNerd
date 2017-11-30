@@ -3,7 +3,8 @@
 
 .button {
 	@include mod('upload') {
-		background: $wes-magenta;
+		background: $lorikeet-blue;
+		box-shadow: 1px 1px 2px transparentize($oil, .6);
 		margin: $base-spacing auto;
 	}
 }

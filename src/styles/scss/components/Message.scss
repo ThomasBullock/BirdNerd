@@ -12,16 +12,18 @@
 		padding: $base-spacing;
 		background: $silver;
 		border-radius: $base-border-radius;
+  	box-shadow: 2px 2px 5px transparentize($oil, .5);		
 	}
 	
 	@include elem('heading') {
 		align-self: center;
-		color: $lorikeet-green;
+		color: $lorikeet-blue;
 		
 	}
 	
 	@include elem('text') {
 		align-self: center;
+		text-align: center;
 		
 	}
 }

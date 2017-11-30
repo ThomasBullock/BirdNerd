@@ -220,6 +220,14 @@ a {
 ==================================== */
 .container {
   display: flex;
+  justify-content: center;
+  min-height: 500px; }
+
+.wrapper {
+  margin: 0 auto; }
+
+.cards-wrapper {
+  display: flex;
   flex-wrap: wrap;
   justify-content: space-between; }
 

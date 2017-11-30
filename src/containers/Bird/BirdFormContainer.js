@@ -21,7 +21,7 @@ class BirdFormContainer extends Component {
         //const last = this.props.birds.get(-1);
         //const uploading = (last.uploading) ? true : false;
         return (
-          <div>
+          <div className="container">
             {loading ? (
               <div className="loader" >
                 <h2 className="loader__heading">Uploading Image</h2>

@@ -3,7 +3,7 @@
 
 .footer {
 
-	margin-top: $base-spacing;
+	margin-top: $base-spacing * 2;
 	background: $jet;
 	padding: $base-spacing;
 	display: flex;
@@ -13,7 +13,7 @@
 
 	@include elem('logo') {
 		width: 360px;
-		flex: 1 1 20%;
+		flex: 0 1 20%;
 	}
 
 	@include elem('wings') {
@@ -30,8 +30,8 @@
 		text-align: center;
 		flex: 1 1 40%;		
 		color: $steel; 
-		ul {
-
+		a {
+			color: $jumbo;
 		}
 
 	}
@@ -39,14 +39,17 @@
 	@include elem('bottom') {
 		flex: 1 1 100%;
 		hr {
-			border: 0; 
+			border: 0;
+			border-top: 1px solid $oil; 
 			height: 1px;
-  			background-image: $tropical-gradient;
+  		// background-image: $tropical-gradient;
 			// border: solid 1px $charcoal;
 		}
 
 		p {
+			color: $charcoal;
 			text-align: center;
+			
 		}
 	}
 }

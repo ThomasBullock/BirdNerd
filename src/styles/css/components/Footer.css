@@ -220,11 +220,19 @@ a {
 ==================================== */
 .container {
   display: flex;
+  justify-content: center;
+  min-height: 500px; }
+
+.wrapper {
+  margin: 0 auto; }
+
+.cards-wrapper {
+  display: flex;
   flex-wrap: wrap;
   justify-content: space-between; }
 
 .footer {
-  margin-top: 1.5em;
+  margin-top: 3em;
   background: #222222;
   padding: 1.5em;
   display: flex;
@@ -232,7 +240,7 @@ a {
   flex-wrap: wrap; }
   .footer__logo {
     width: 360px;
-    flex: 1 1 20%; }
+    flex: 0 1 20%; }
   .footer__wings {
     display: relative;
     width: 240px;
@@ -245,11 +253,14 @@ a {
     text-align: center;
     flex: 1 1 40%;
     color: #666666; }
+    .footer__links a {
+      color: #888888; }
   .footer__bottom {
     flex: 1 1 100%; }
     .footer__bottom hr {
       border: 0;
-      height: 1px;
-      background-image: linear-gradient(90deg, #38aeF4 0%, #FFE340 30%, #e82c75 60%, #a026bf 85%, #38aeF4 97%); }
+      border-top: 1px solid #333333;
+      height: 1px; }
     .footer__bottom p {
+      color: #555555;
       text-align: center; }

@@ -46,7 +46,7 @@ class HomeContainer extends Component {
   render() {
     const { photos } = this.props;
     return (
-      <div >
+      <div>
         {photos ? (<HomePage photos={photos} sort={this.handleSort} user={this.props.user} likeHandler={this.props.likePhoto}/>) : (
           <h2>Loading</h2>
         )}

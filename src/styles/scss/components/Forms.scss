@@ -53,6 +53,10 @@
 	@include elem('input') {
 		flex: 1 1 100%;
 	
+		@include mod('comments') {
+			rows: 10;
+		}
+	
 		@include mod('half') { /// for 1/2 width form elements 
 			flex: 0 1 50%;
 		}
@@ -86,11 +90,12 @@
 	@include elem('reset-panel') {
 		@include container(600px, $base-spacing);
 		padding: $base-spacing;
+		margin-bottom: $base-spacing * 2;
 		border-radius: $base-border-radius;						
 		background: $silver;
 		text-align: center;
 		color: $jumbo;
-  		box-shadow: 2px 2px 5px transparentize($oil, .5);
+  	box-shadow: 2px 2px 5px transparentize($oil, .5);
   		
 		p {
 			margin-bottom: 0;
