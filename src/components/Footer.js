@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import BirdWings from './icons/BirdWings';
+
+import '../styles/css/components/Footer.css'
 
 class Footer extends Component {
   constructor(props){
@@ -8,33 +11,25 @@ class Footer extends Component {
   
   render() {
     return(
-      <footer class="footer" role="contentinfo">
-        <div class="footer-logo">
-          <img src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/placeholder_square.png" alt="Logo image"/>
+      <footer className="footer" role="contentinfo">
+        <div className="footer__logo">
+            <BirdWings />
         </div>
-        <div class="footer-links">
+        <div className="footer__links">
           <ul>
-            <li><h3>Content</h3></li>
             <li><a href="javascript:void(0)">About</a></li>
             <li><a href="javascript:void(0)">Contact</a></li>
-            <li><a href="javascript:void(0)">Products</a></li>
           </ul>
           <ul>
-            <li><h3>Follow Us</h3></li>
-            <li><a href="javascript:void(0)">Facebook</a></li>
-            <li><a href="javascript:void(0)">Twitter</a></li>
-            <li><a href="javascript:void(0)">YouTube</a></li>
-          </ul>
-          <ul>
-            <li><h3>Legal</h3></li>
             <li><a href="javascript:void(0)">Terms and Conditions</a></li>
             <li><a href="javascript:void(0)">Privacy Policy</a></li>
           </ul>
         </div>
+        <div className="footer__bottom">
+          <hr/>
 
-        <hr/>
-
-        <p>Disclaimer area lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum, nostrum repudiandae saepe.</p>
+          <p>Disclaimer area lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum, nostrum repudiandae saepe.</p>
+        </div>
       </footer>   
     )
   }

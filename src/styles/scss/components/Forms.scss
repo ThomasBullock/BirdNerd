@@ -90,7 +90,8 @@
 		background: $silver;
 		text-align: center;
 		color: $jumbo;
-
+  		box-shadow: 2px 2px 5px transparentize($oil, .5);
+  		
 		p {
 			margin-bottom: 0;
 		}
