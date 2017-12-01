@@ -64,11 +64,13 @@
  // classes
  
  .container {
-	display: flex;
+	// display: flex;
 	// flex-wrap: wrap;
-	justify-content: center;
-
-	min-height: 500px;
+	// flex-direction: column;
+	// justify-content: center;
+	width: 100%;
+	margin: 0 auto;
+	min-height: 600px;
 }
 
 .wrapper {

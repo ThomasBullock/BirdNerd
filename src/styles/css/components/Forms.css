@@ -219,9 +219,9 @@ a {
   BEM create element / modifier 
 ==================================== */
 .container {
-  display: flex;
-  justify-content: center;
-  min-height: 500px; }
+  width: 100%;
+  margin: 0 auto;
+  min-height: 600px; }
 
 .wrapper {
   margin: 0 auto; }

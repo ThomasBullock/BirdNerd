@@ -24,29 +24,33 @@ let Forgot = props => {
   const { error, handleSubmit, pristine, reset, submitting, forgotPassword, message, submitSucceeded } = props
   if(submitSucceeded && message ==='password reset email sent') {
     return(
-      <Message heading="Email Sent" text="A reset link has been sent to your email address" />
+      <div className="container">
+        <Message heading="Email Sent" text="A reset link has been sent to your email address" />
+      </div>  
     )
   } else {
     return(
-      <form className="form" onSubmit={handleSubmit((vals) => forgotPassword(vals))}>
-        <div className="form__input">
-          <Field
-            name="email"
-            type="email"
-            component={renderField}
-            label="Email"
-          />
-        </div>
-        {error &&
-          <strong>
-            {error}
-          </strong>}
-        <div>
-          <button type="submit" disabled={submitting}>
-            Reset Password
-          </button>
-        </div>          
-      </form>
+      <div className="container">
+        <form className="form" onSubmit={handleSubmit((vals) => forgotPassword(vals))}>
+          <div className="form__input">
+            <Field
+              name="email"
+              type="email"
+              component={renderField}
+              label="Email"
+            />
+          </div>
+          {error &&
+            <strong>
+              {error}
+            </strong>}
+          <div>
+            <button type="submit" disabled={submitting}>
+              Reset Password
+            </button>
+          </div>          
+        </form>
+      </div>
     )     
   }
 

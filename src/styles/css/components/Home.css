@@ -219,9 +219,9 @@ a {
   BEM create element / modifier 
 ==================================== */
 .container {
-  display: flex;
-  justify-content: center;
-  min-height: 500px; }
+  width: 100%;
+  margin: 0 auto;
+  min-height: 600px; }
 
 .wrapper {
   margin: 0 auto; }
@@ -235,6 +235,7 @@ a {
   width: 100%;
   margin-top: 1.5em;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center; }
   .nav-tabs__link {
     margin: 1.5em;
@@ -244,9 +245,16 @@ a {
     border-radius: 3px;
     color: #333333;
     display: block;
-    padding: 0.75em;
+    padding: 0;
     text-decoration: none; }
   .nav-tabs__button {
     background: #38aeF4;
     margin: 0 0.75em;
-    box-shadow: 1px 1px 2px rgba(51, 51, 51, 0.4); }
+    box-shadow: 1px 1px 2px rgba(51, 51, 51, 0.4);
+    font-size: 0.8em; }
+    @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+      .nav-tabs__button {
+        font-size: 1em; } }
+    @media all and (min-width: 1025px) {
+      .nav-tabs__button {
+        font-size: 1em; } }

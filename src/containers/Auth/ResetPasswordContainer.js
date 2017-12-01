@@ -28,11 +28,11 @@ class ResetPasswordContainer extends Component {
 			// content = <Message text="Your Password has been succesfully updated"/>
 		} else if (this.props.authenticated && this.props.message === 'Password succesfully updated') {
 			console.log('password updated we are going to prompt')
-			content = <Message heading="Password updated" text="Your Password has been succesfully updated"/>
+			content = <Message heading="Password updated" text="Your Password has been succesfully updated" link='/login' label='Return to login'/>
 		}
 		
 		return(
-			<div>
+			<div className="container">
 				{content}
 			{/*	{ this.props.authenticated && 
 									<Reset changePassword={changePassword} user={user} />

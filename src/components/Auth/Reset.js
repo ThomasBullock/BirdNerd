@@ -17,7 +17,21 @@ import { connect } from 'react-redux';
 //         </span>}
 //     </div>
 //   </div>
-  
+const validate = values => {
+  // IMPORTANT: values is an Immutable.Map here!
+    const errors = {};
+  if (!values.get('password')) {
+    errors.password = 'Required'; 
+  }
+  if(!values.get('confirm_password')) {
+    errors.confirm_password = 'Required'
+  }
+  if(values.get('password') !== values.get('confirm_password')) {
+  	errors.confirm_password = 'Passwords must match!'
+  } 
+  return errors;
+}    
+
 
 let Reset = ( { handleSubmit, changePassword, user } ) => {
 	return(
@@ -52,5 +66,6 @@ let Reset = ( { handleSubmit, changePassword, user } ) => {
 }
 
 export default reduxForm({
-	form: 'changePassword'
+	form: 'changePassword',
+	validate
 })(Reset);

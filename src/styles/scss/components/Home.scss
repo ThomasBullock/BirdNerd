@@ -4,27 +4,41 @@
 	width: 100%;
 	margin-top: $base-spacing;
 	display: flex;
+    flex-wrap: wrap;
 	justify-content: center;
 	
 	
 	
 	@include elem('link') {
-    // background-color: $jumbo;
-    margin: $base-spacing;
-    border-top: 1px solid $base;
-    border-left: 1px solid $base;
-    border-right: 1px solid $base;        
-    border-radius: $base-border-radius;
-    color: $oil;
-    display: block;
-    padding: $base-spacing / 2;
-    text-decoration: none;		
+        // background-color: $jumbo;
+        margin: $base-spacing;
+        border-top: 1px solid $base;
+        border-left: 1px solid $base;
+        border-right: 1px solid $base;        
+        border-radius: $base-border-radius;
+        color: $oil;
+        display: block;
+        padding: 0;
+        text-decoration: none;
+	
+
+
 	}
 
     @include elem('button') {
         background: $lorikeet-blue;
         margin: 0 $base-spacing / 2;
         box-shadow: 1px 1px 2px transparentize($oil, .6);
+        font-size: modular-scale(-1);
+
+        @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+            font-size: modular-scale(0);       
+        } 
+        
+        @media all and (min-width : 1025px) {
+            font-size: modular-scale(0);                
+        }       
+        
     }
 } 
 
