@@ -93,7 +93,7 @@ function* changePassword(action) {
     const response = yield call(authFetch, `changepassword`, action)
     console.log(response.status)
     if(response.status >= 200 && response.status < 300) {
-      yield put(actions.changePasswordSuccess(action.user)); 
+      yield put(actions.changePasswordSuccess(action.user));
     }
   } catch(error) {
     yield console.log(error)

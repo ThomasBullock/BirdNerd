@@ -219,6 +219,14 @@ a {
   BEM create element / modifier 
 ==================================== */
 .container {
+  width: 100%;
+  margin: 0 auto;
+  min-height: 600px; }
+
+.wrapper {
+  margin: 0 auto; }
+
+.cards-wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between; }
@@ -227,7 +235,8 @@ a {
   padding: 1.5em;
   display: flex;
   flex-direction: column;
-  align-items: center; }
+  align-items: center;
+  margin-bottom: 3em; }
   .loader__heading {
     margin-top: 1.5em;
     margin-bottom: -3em; }

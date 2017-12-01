@@ -48,7 +48,7 @@ const renderField = ({ input, label, type, meta: { touched, error } }) =>
 let Login = props => {
   const { error, handleSubmit, pristine, reset, submitting, login } = props
   return (
-    <div>
+    <div className="container">
     <form className="form" onSubmit={handleSubmit((vals) => login(vals))}>
       <div className="form__title">
         <h2>Welcome Back!</h2>

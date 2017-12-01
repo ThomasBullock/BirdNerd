@@ -22,7 +22,19 @@
 		background-color: red;
 	}
 
-	@include container(600px, $base-spacing);
+	@include container(100%, $base-spacing);
+	
+	
+
+	
+	@media all and (min-width : 768px) and (max-width : 1024px) {
+		@include container(600px, $base-spacing);	    
+  } 	
+
+  @media all and (min-width : 1025px) {
+		@include container(600px, $base-spacing);	                
+  }   
+  
 	background: $gainsboro;
 	position: relative;
 	padding: $base-spacing;
@@ -52,6 +64,10 @@
 	
 	@include elem('input') {
 		flex: 1 1 100%;
+	
+		@include mod('comments') {
+			rows: 10;
+		}
 	
 		@include mod('half') { /// for 1/2 width form elements 
 			flex: 0 1 50%;
@@ -86,11 +102,13 @@
 	@include elem('reset-panel') {
 		@include container(600px, $base-spacing);
 		padding: $base-spacing;
+		margin-bottom: $base-spacing * 2;
 		border-radius: $base-border-radius;						
 		background: $silver;
 		text-align: center;
 		color: $jumbo;
-
+  	box-shadow: 2px 2px 5px transparentize($oil, .5);
+  		
 		p {
 			margin-bottom: 0;
 		}

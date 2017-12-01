@@ -89,7 +89,7 @@ const BirdProfile = ({birdInfo, photos, user, likeHandler, deleteBird}) => {
 				</div>				
 				<div className="birdinfo__body">
 					<h2>Photos of {birdInfo.get('name')+'s'}</h2>
-					<div className="container">		
+					<div className="cards-wrapper">		
 					{photoCards}
 					</div>
 				</div>	

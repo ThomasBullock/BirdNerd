@@ -7,7 +7,7 @@ class MyPhotosContainer extends Component {
   render() {
     const { photos } = this.props;
   	return(
-      <div >
+      <div>
   		  {photos ? (<MyPhotos photos={photos} user={this.props.user} likeHandler={this.props.likePhoto}/>) : (
           <h2>Loading</h2>
         )}

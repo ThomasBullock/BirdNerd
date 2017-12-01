@@ -18,6 +18,12 @@ const validate = values => {
   } else if (values.get('species').length > 60) {
     errors.species = 'Must be 60 characters or less'
   }
+  if(!values.get('order')) {
+    errors.order = 'Required';
+  }
+  if(!values.get('files')) {
+    errors.order = 'Required';
+  }  
   return errors
 }
 
@@ -137,7 +143,7 @@ const BirdForm = ({ handleSubmit, createBird }) => {
           </div>
         </div>
 
-        <div className="form__input">
+        <div className="form__input form__input--comments">
           <label>Comments</label>
           <div>
             <Field
@@ -145,6 +151,7 @@ const BirdForm = ({ handleSubmit, createBird }) => {
               component="textarea"
               type="text"
               placeholder="Infomation about this bird"
+              rows="6"
             />
           </div>
         </div>        

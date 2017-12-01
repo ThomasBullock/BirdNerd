@@ -219,6 +219,14 @@ a {
   BEM create element / modifier 
 ==================================== */
 .container {
+  width: 100%;
+  margin: 0 auto;
+  min-height: 600px; }
+
+.wrapper {
+  margin: 0 auto; }
+
+.cards-wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between; }
@@ -231,11 +239,19 @@ a {
   width: 80%;
   padding: 1.5em;
   background: #EFEFEF;
-  border-radius: 3px; }
+  border-radius: 3px;
+  box-shadow: 2px 2px 5px rgba(51, 51, 51, 0.5); }
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+    .message__panel {
+      width: 600px; } }
+  @media all and (min-width: 1025px) {
+    .message__panel {
+      width: 600px; } }
 
 .message__heading {
   align-self: center;
-  color: #84DF21; }
+  color: #38aeF4; }
 
 .message__text {
-  align-self: center; }
+  align-self: center;
+  text-align: center; }

@@ -29,7 +29,7 @@ class TopBar extends Component {
 	logout() {
 		this.props.unAuthUser();
 		window.sessionStorage.removeItem('token');
-		history.push('/dashboard');
+		history.push('/login');
 	}
 
 	render() {

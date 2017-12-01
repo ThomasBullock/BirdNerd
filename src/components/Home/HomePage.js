@@ -40,20 +40,20 @@ const HomePage = ({ photos, sort, user, likeHandler }) => {
 		})
     return (
     	<div className="container">
-    		<ul className="nav-tabs">
-				  <li className="tab-header-and-content">
-				    { /* <a href="#" className="nav-tabs__link">Newest Photos</a> */}
-				    <button className="nav-tabs__button" onClick={() => sort('Newest')}>Newest Photos</button>
-				  </li>
-				  <li className="tab-header-and-content">
-				    <button className="nav-tabs__button" onClick={() => sort('Oldest')}>Oldest Photos</button>
-				  </li>
-				  <li className="tab-header-and-content">
-				    <button className="nav-tabs__button" onClick={() => sort('Popular')}>Most Popular</button>
-				  </li>
-				</ul>
-    		
-    		<div className="container">
+	    		<ul className="nav-tabs">
+					  <li className="tab-header-and-content">
+					    { /* <a href="#" className="nav-tabs__link">Newest Photos</a> */}
+					    <button className="nav-tabs__button" onClick={() => sort('Newest')}>Newest Photos</button>
+					  </li>
+					  <li className="tab-header-and-content">
+					    <button className="nav-tabs__button" onClick={() => sort('Oldest')}>Oldest Photos</button>
+					  </li>
+					  <li className="tab-header-and-content">
+					    <button className="nav-tabs__button" onClick={() => sort('Popular')}>Most Popular</button>
+					  </li>
+					</ul>
+
+    		<div className="cards-wrapper">
     			{birdPhotos}
 	  		</div>	  	  			  		
 	  	</div>	
