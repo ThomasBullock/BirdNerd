@@ -233,7 +233,7 @@ a {
 
 .form {
   box-shadow: 2px 2px 5px rgba(51, 51, 51, 0.5);
-  width: 600px;
+  width: 100%;
   margin: 1.5em auto;
   background: #DDDDDD;
   position: relative;
@@ -250,6 +250,14 @@ a {
     border: solid 1px rgba(51, 51, 51, 0.2); }
   .form:disabled {
     background-color: red; }
+  @media all and (min-width: 768px) and (max-width: 1024px) {
+    .form {
+      width: 600px;
+      margin: 1.5em auto; } }
+  @media all and (min-width: 1025px) {
+    .form {
+      width: 600px;
+      margin: 1.5em auto; } }
   .form__title {
     color: #F6F6F6;
     margin-bottom: 1.5em;

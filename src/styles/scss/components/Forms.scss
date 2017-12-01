@@ -22,7 +22,19 @@
 		background-color: red;
 	}
 
-	@include container(600px, $base-spacing);
+	@include container(100%, $base-spacing);
+	
+	
+
+	
+	@media all and (min-width : 768px) and (max-width : 1024px) {
+		@include container(600px, $base-spacing);	    
+  } 	
+
+  @media all and (min-width : 1025px) {
+		@include container(600px, $base-spacing);	                
+  }   
+  
 	background: $gainsboro;
 	position: relative;
 	padding: $base-spacing;
