@@ -14,6 +14,9 @@ const validate = values => {
   if (!values.get('name')) {
     errors.name = 'Required'; 
   }
+  if(!values.get('camera')) {
+    errors.camera = 'Required'
+  }
   if(!values.get('files')) {
     errors.location = 'Required'
   }   
@@ -35,7 +38,7 @@ const birdSelect = (bird) => {
     }
   })
   const optionsWithNotSure = options.insert(0, notSure())
-  console.log(options)
+  // console.log(options)
   
   return(
     <Field name="name" component="select">
@@ -44,10 +47,37 @@ const birdSelect = (bird) => {
   )
 }
 
+// const renderSelect = (props) => (
+//   <div>
+    
+//   </div>
+// ) 
+
+
+const renderField = props => {
+  console.log(props)
+    return (
+    // console.log(props)
+    <div>
+      <div className="form__label"> 
+        <label>{props.placeholder}</label>{props.meta.touched && props.meta.error && <span>{props.meta.error}</span>}
+      </div>
+      <div>
+        <input name={props.input.name} type={props.input.type}/>
+        
+      </div>
+    </div>
+  )
+}
+
 const renderDropzoneInput = (field) => {
+  console.log(field)
   const files = field.input.value;
   return (
     <div>
+      <div className="form__label">
+        <label>Image File</label>{field.meta.error && <span>{field.meta.error}</span>}
+      </div>
       <Dropzone
         name={field.name}
         multiple={false}
@@ -67,7 +97,7 @@ const renderDropzoneInput = (field) => {
   );
 }
 
-let PhotoForm = ({ handleSubmit, bird, createPhoto, location, handleChange }) => {
+let PhotoForm = ({ handleSubmit, bird, createPhoto, location, handleChange, errors }) => {
   const props = {
     location: location, // `value` is required
     onChange: handleChange, // `onChange` is required
@@ -98,6 +128,7 @@ let PhotoForm = ({ handleSubmit, bird, createPhoto, location, handleChange }) =>
         	<div>
             {birdSelect(bird)}
         	</div>
+          {props.touched && props.error && <span>{props.error}</span>}
       	</div>
         <div className="form__input--half">
           <label>Location Lat</label>
@@ -120,18 +151,16 @@ let PhotoForm = ({ handleSubmit, bird, createPhoto, location, handleChange }) =>
           </div>          
         </div>
         <div className="form__input">
-          <label>Camera Model</label>
-          <div>
-            <Field
-              name="camera"
-              component="input"
-              placeholder="Camera used to take the photo"              
-              type="text"
-           />
-          </div>          
+
+          <Field
+            name="camera"
+            component={renderField}
+            placeholder="Camera Model"              
+            type="text"
+         />
+       
         </div>                           
         <div className="form__dropzone">
-            <label htmlFor={FILE_FIELD_NAME}>Files</label>
             <Field
                 className="form__dropzone-box"
                 name={FILE_FIELD_NAME}
