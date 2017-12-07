@@ -22,10 +22,35 @@ const validate = values => {
     errors.order = 'Required';
   }
   if(!values.get('files')) {
-    errors.order = 'Required';
+    errors.files = 'Required';
+  }
+  if(!values.get('username')) {
+    errors.username = 'Required';
   }  
   return errors
 }
+
+const mySelectOptions = [
+  {label: '', value: '' },
+	{ label: 'Business', value: 'Business' },
+	{ label: 'Individual', value: 'Individual' },
+];
+
+
+const renderField = ({ input, textarea, label, type, className, meta: { touched, error } }) => {
+  const textareaType = <textarea {...input} type={type} placeholder={label}  />;
+  const inputType = <input {...input} placeholder={label} type={type} />;
+  return (
+    <div className={className}>
+      <label>{label}</label>
+      <div>
+        {textarea ? textareaType : inputType}
+        {touched &&
+				((error && <span style={{color: 'red' }}>{error}</span>))}
+      </div>
+    </div>
+  );
+};
 
 const renderDropzoneInput = (field) => {
   const files = field.input.value;
@@ -40,7 +65,7 @@ const renderDropzoneInput = (field) => {
       </Dropzone>
       {field.meta.touched &&
         field.meta.error &&
-        <span className="error">{field.meta.error}</span>}
+        <span className="error" style={{color: 'red' }}>{field.meta.error}</span>}
       {files && Array.isArray(files) && (
         <ul>
           { files.map((file, i) => <li key={i}>{file.name}</li>) }
@@ -50,6 +75,18 @@ const renderDropzoneInput = (field) => {
   );
 }
 
+const renderSelectField = ({ input, label, type, meta: { touched, error }, children }) => (
+  <div>
+    <label>{label}</label>
+    <div>
+      <select {...input}>
+        {children}
+      </select>
+      {touched && error && <span style={{color: 'red'}}>{error}</span>}
+    </div>
+  </div>
+)
+
 const BirdForm = ({ handleSubmit, createBird }) => {
   return (
     <div>
@@ -57,33 +94,18 @@ const BirdForm = ({ handleSubmit, createBird }) => {
         <div className="form__title">
           <h2>Add New Bird</h2>
         </div>  
-        <div className="form__input--half">
-          <label>Name</label>
-          <div>
-            <Field
-              name="name"
-              component="input"
-              type="text"
-              placeholder="Name"
-            />
-          </div>
-        </div>
-        <div className="form__input--half">
-          <label>Species</label>
-          <div>
-            <Field
-              name="species"
-              component="input"
-              type="text"
-              placeholder="Species"
-            />
-          </div>
-        </div>
+
+        <Field name="name" component={renderField} type="text" placeholder="Name" label="Name" className="form__input--half" />
+        <Field name="species" component={renderField} type="text" placeholder="Species" label="Species" className="form__input--half" />
+
+        <Field name="username" component={renderSelectField} label="Username">
+          { mySelectOptions.map(option => <option value={option.value}>{option.label}</option>) }
+        </Field>
         <div className="form__input--half">
           <label>Bird Group (Order)</label>
           <div>
             <Field name="order" component="select">
-              <option value="false">Not Sure</option>
+              <option value="false"></option>
               <option value="Procellariiformes">Albatrosses and Petrels (Order Procellariiformes)</option>
               <option value="Falconiformes">Birds of Prey (Order Falconiformes)</option>
               <option value="Turniciformes">Buttonquails (Order Turniciformes)</option>
@@ -130,18 +152,9 @@ const BirdForm = ({ handleSubmit, createBird }) => {
               <option value="Extinct in the Wild">Extinct in the Wild</option>                                   
             </Field>
           </div>
-        </div>                
-        <div className="form__input">
-          <label>Locations</label>
-          <div>
-            <Field
-              name="location"
-              component="input"
-              type="text"
-              placeholder="Seperate multiple locations with comma"
-            />
-          </div>
         </div>
+
+        <Field name="location" component={renderField} type="text" placeholder="Seperate multiple locations with comma" label="Locations" className="form__input" />
 
         <div className="form__input form__input--comments">
           <label>Comments</label>
