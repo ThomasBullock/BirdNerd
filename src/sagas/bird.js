@@ -5,6 +5,7 @@ import * as api from '../api';
 import * as actions from '../ducks/bird';
 import { load, loaded } from '../ducks/loading';
 import history from '../history';
+import swal from 'sweetalert'
 
 function* fetchBird(action) {
   try {
@@ -18,6 +19,10 @@ function* fetchBird(action) {
 function* createBird(action) {
   try {    
     const birdImage = action.bird.get('files')[0];
+    if(birdImage.type !== "image/jpeg") {
+        swal('Incorrect file type')
+        return
+    }    
     /// use jimp locally to resize file!???
     // const resizedPhoto = yield call(api.RESIZE, birdImage);
     const formData = new FormData();
