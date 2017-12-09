@@ -269,6 +269,11 @@ a {
     .form__title h2 {
       text-align: center;
       margin: 0 auto; }
+  .form__label {
+    display: flex; }
+    .form__label span {
+      margin-left: 0.75em;
+      color: #e82c75; }
   .form__input {
     flex: 1 1 100%; }
     .form__input--comments {

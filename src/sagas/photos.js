@@ -6,6 +6,7 @@ import * as actions from '../ducks/photos';
 import { load, loaded } from '../ducks/loading';
 import Immutable, { fromJS } from 'immutable';
 import history from '../history';
+import swal from 'sweetalert'
 
 
 //selector
@@ -36,6 +37,10 @@ const aspectCalculator = (data) => {
 function* createPhoto(action) {
 	try {
 		const userPhoto = action.photo.get('files')[0];  //'action' is not defined  no-undef
+        if(userPhoto.type !== "image/jpeg") {
+            swal('Incorrect file type')
+            return
+        }
         const formData = new FormData();
         formData.append("file", userPhoto);
         //formData.append("tags", `codeinfuse, medium, gist`);

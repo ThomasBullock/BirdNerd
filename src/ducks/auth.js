@@ -58,7 +58,6 @@ const auth = (state = INITIAL_STATE, action) => {
       return state.merge({ content: action.payload });
 
     case LOGIN_FAILURE:
-      console.log(action.error);
       return state.set('error', action.error);
     case FORGOT_PASSWORD_SUCCESS: 
       return state.merge({ error: '', message: 'password reset email sent', authenticated: false, user: null });    

@@ -2,6 +2,10 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form/immutable';
 import Dropzone from 'react-dropzone';
 import '../../styles/css/components/Forms.css';
+import { birdGroups } from '../../clientHelpers';
+import { conservationStatus } from '../../clientHelpers';
+
+
 
 const FILE_FIELD_NAME = 'files';
 
@@ -16,31 +20,90 @@ const validate = values => {
   if (!values.get('species')) {
     errors.species = 'Required'
   } else if (values.get('species').length > 60) {
-    errors.species = 'Must be 60 characters or less'
+    errors.species = '60 characters or less'
   }
   if(!values.get('order')) {
     errors.order = 'Required';
   }
   if(!values.get('files')) {
-    errors.order = 'Required';
+    errors.files = 'Required';
+  }
+  if(!values.get('username')) {
+    errors.username = 'Required';
   }  
   return errors
 }
 
+const mySelectOptions = [
+  {label: '', value: '' },
+	{ label: 'Business', value: 'Business' },
+	{ label: 'Individual', value: 'Individual' },
+];
+
+const birdGroupsOptions = (birdsGroups) => {
+  return Object.keys(birdsGroups).map( (group, i) => {
+    return(
+      <option key={i} value={group}>{birdsGroups[group]} (Order {group})</option>
+    )
+  })
+}
+
+const conservationOptions = () => {
+  return conservationStatus.map( (item, i)  => {
+    return(
+      <option value={item} key={i}>{item}</option>
+    )
+  })
+}
+
+const renderField = ({ input, textarea, label, type, className, meta: { touched, error } }) => {
+  const textareaType = <textarea {...input} type={type} placeholder={label}  />;
+  const inputType = <input {...input} placeholder={label} type={type} />;
+  return (
+    <div className={className}>
+      <div className="form__label"> 
+        <label>{label}</label>
+        {touched &&
+        ((error && <span>{error}</span>))}        
+      </div>  
+      <div>
+        {textarea ? textareaType : inputType}
+
+      </div>
+    </div>
+  );
+};
+
+const renderSelectField = ({ input, label, type, className, meta: { touched, error }, children }) => (
+  <div className={className}>
+    <div className="form__label"> 
+      <label>{label}</label>
+      {touched && error && <span>{error}</span>}
+    </div>      
+    <div>
+      <select {...input}>
+        {children}
+      </select>
+    </div>
+  </div>
+)
+
 const renderDropzoneInput = (field) => {
+  console.log(field)  
   const files = field.input.value;
   return (
     <div>
-      <Dropzone
-        name={field.name}
-        multiple={false}
-        onDrop={( filesToUpload, e ) => field.input.onChange(filesToUpload)}
-      >
+      <div className="form__label">
+        <label>Image File</label>{field.meta.touched && field.meta.error && <span style={{color: '#e82c75' }}>{field.meta.error}</span> }
+      </div>  
+        <Dropzone
+          name={field.name}
+          multiple={false}
+          onDrop={( filesToUpload, e ) => field.input.onChange(filesToUpload)}
+        >
+
         <div>Try dropping some files here, or click to select files to upload.</div>
       </Dropzone>
-      {field.meta.touched &&
-        field.meta.error &&
-        <span className="error">{field.meta.error}</span>}
       {files && Array.isArray(files) && (
         <ul>
           { files.map((file, i) => <li key={i}>{file.name}</li>) }
@@ -51,71 +114,31 @@ const renderDropzoneInput = (field) => {
 }
 
 const BirdForm = ({ handleSubmit, createBird }) => {
+  const orderOptions = birdGroupsOptions(birdGroups);
+  console.log(orderOptions)
   return (
     <div>
       <form className="form" onSubmit={handleSubmit((vals) => createBird(vals))}>
         <div className="form__title">
           <h2>Add New Bird</h2>
         </div>  
-        <div className="form__input--half">
-          <label>Name</label>
-          <div>
-            <Field
-              name="name"
-              component="input"
-              type="text"
-              placeholder="Name"
+
+        <Field name="name" component={renderField} type="text" placeholder="Name" label="Name" className="form__input--half" />
+        <Field name="species" component={renderField} type="text" placeholder="Species" label="Species" className="form__input--half" />
+
+       { /* <Field name="username" component={renderSelectField} label="Username">
+          { mySelectOptions.map(option => <option value={option.value}>{option.label}</option>) }
+        </Field> */}
+        <Field name="order" component={renderSelectField} type="select" placeholder="" label="Bird Group (Order)" className="form__input--half" children={orderOptions} />
+
+            <Field 
+              name="conservationStatus" 
+              component={renderSelectField} 
+              type="select" placeholder="" label="Conservation Status"
+              className="form__input--half" 
+              children={conservationOptions()}
             />
-          </div>
-        </div>
-        <div className="form__input--half">
-          <label>Species</label>
-          <div>
-            <Field
-              name="species"
-              component="input"
-              type="text"
-              placeholder="Species"
-            />
-          </div>
-        </div>
-        <div className="form__input--half">
-          <label>Bird Group (Order)</label>
-          <div>
-            <Field name="order" component="select">
-              <option value="false">Not Sure</option>
-              <option value="Procellariiformes">Albatrosses and Petrels (Order Procellariiformes)</option>
-              <option value="Falconiformes">Birds of Prey (Order Falconiformes)</option>
-              <option value="Turniciformes">Buttonquails (Order Turniciformes)</option>
-              <option value="Casuariiformes">Cassowaries and Emus (Order Casuariiformes)</option>
-              <option value="Gruiformes">Cranes, Coots and Rails (Order Gruiformes)</option>
-              <option value="Cuculiformes">Cuckoos and Turacos (Order Cuculiformes)</option>
-              <option value="Phoenicopteriformes">Flamingos (Order Phoenicopteriformes)</option>
-              <option value="Galliformes">Gamebirds (Order Galliformes)</option> 
-              <option value="Podicipediformes">Grebes (Order Podicipediformes)</option> 
-              <option value="Ciconiiformes">Herons and Storks (Order Ciconiiformes)</option> 
-              <option value="Apodiformes">Hummingbirds and Swifts (Order Apodiformes)</option> 
-              <option value="Coraciiformes">Kingfishers (Order Coraciiformes)</option>
-              <option value="Apterygiformes">Kiwis (Order Apterygiformes)</option>
-              <option value="Gaviiformes">Loons (Order Gaviiformes)</option>
-              <option value="Coliiformes">Mousebirds (Order Coliiformes)</option>
-              <option value="Caprimulgiformes">Nightjars and Frogmouths (Order Caprimulgiformes)</option>
-              <option value="Struthioniformes">The Ostrich (Order Struthioniformes)</option>
-              <option value="Strigiformes">Owls (Order Strigiformes)</option> 
-              <option value="Psittaciformes">Parrots and Cockatoos (Order Psittaciformes)</option> 
-              <option value="Pelecaniformes">Pelicans, Cormorants and Frigatebirds (Order Pelecaniformes)</option> 
-              <option value="Sphenisciformes">Penguins (Order Sphenisciformes)</option> 
-              <option value="Passeriformes">Perching Birds (Order Passeriformes)</option>
-              <option value="Columbiformes">Pigeons and Doves (Order Columbiformes)</option>
-              <option value="Rheiformes">Rheas (Order Rheiformes)</option> 
-              <option value="Pteroclidiformes">Sandgrouses (Order Pteroclidiformes)</option> 
-              <option value="Tinamiformes">Tinamous (Order Tinamiformes)</option> 
-              <option value="Trogoniformes">Trogons and Quetzals (Order Trogoniformes)</option> 
-              <option value="Anseriformes">Waterfowl (Order Anseriformes)</option>
-              <option value="Piciformes">Woodpeckers and Toucans (Order Piciformes)</option>                                                                                                                           
-            </Field>
-          </div>
-        </div>
+            {/*
         <div className="form__input--half">
           <label>Conservation Status</label>
           <div>
@@ -130,18 +153,9 @@ const BirdForm = ({ handleSubmit, createBird }) => {
               <option value="Extinct in the Wild">Extinct in the Wild</option>                                   
             </Field>
           </div>
-        </div>                
-        <div className="form__input">
-          <label>Locations</label>
-          <div>
-            <Field
-              name="location"
-              component="input"
-              type="text"
-              placeholder="Seperate multiple locations with comma"
-            />
-          </div>
-        </div>
+        </div> */}
+
+        <Field name="location" component={renderField} type="text" placeholder="Seperate multiple locations with comma" label="Locations" className="form__input" />
 
         <div className="form__input form__input--comments">
           <label>Comments</label>
@@ -156,12 +170,11 @@ const BirdForm = ({ handleSubmit, createBird }) => {
           </div>
         </div>        
         <div className="form__dropzone">
-            <label htmlFor={FILE_FIELD_NAME}>Files</label>
-            <Field
-                className="form__dropzone-box"
-                name={FILE_FIELD_NAME}
-                component={renderDropzoneInput}
-            />
+          <Field
+              className="form__dropzone-box"
+              name={FILE_FIELD_NAME}
+              component={renderDropzoneInput}
+          />
         </div>
         <div className="form__submit">
           <button type="submit">

@@ -30,6 +30,11 @@ export const birdGroups = {
              Piciformes: 'Woodpeckers and Toucans'   
 }
 
+export const conservationStatus = [
+      'Least Concern', 'Conservation Dependent', 'Near Threatened', 'Vulnerable', 'Endangered', 'Critically Endangered', 'Extinct in the Wild'
+]    
+
+
 // this is a bit of a hack to resize images off cloudinary 
 export const cloudinaryUrlModify = (arr, width) => {
       arr.splice(6, 0, width);

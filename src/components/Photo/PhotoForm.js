@@ -14,8 +14,11 @@ const validate = values => {
   if (!values.get('name')) {
     errors.name = 'Required'; 
   }
+  // if(!values.get('camera')) {
+  //   errors.camera = 'Required'
+  // }
   if(!values.get('files')) {
-    errors.location = 'Required'
+    errors.files = 'Required'
   }   
   return errors;
 }    
@@ -35,7 +38,7 @@ const birdSelect = (bird) => {
     }
   })
   const optionsWithNotSure = options.insert(0, notSure())
-  console.log(options)
+  // console.log(options)
   
   return(
     <Field name="name" component="select">
@@ -44,10 +47,68 @@ const birdSelect = (bird) => {
   )
 }
 
+// const renderSelect = (props) => (
+//   <div>
+    
+//   </div>
+// ) 
+
+
+// const renderField = props => {
+//   console.log(props)
+//     return (
+//     // console.log(props)
+//     <div>
+//       <div className="form__label"> 
+//         <label>{props.placeholder}</label>{props.meta.touched && props.meta.error && <span>{props.meta.error}</span>}
+//       </div>
+//       <div>
+//         <input name={props.input.name} type={props.input.type}/>
+        
+//       </div>
+//     </div>
+//   )
+// }
+
+const renderField = ({ input, textarea, label, type, className, placeholder, meta: { touched, error } }) => {
+  const textareaType = <textarea {...input} type={type} placeholder={label}  />;
+  const inputType = <input {...input} placeholder={placeholder || label} type={type} />;
+  return (
+    <div className={className}>
+      <div className="form__label"> 
+        <label>{label}</label>
+        {touched &&
+        ((error && <span>{error}</span>))}        
+      </div>  
+      <div>
+        {textarea ? textareaType : inputType}
+
+      </div>
+    </div>
+  );
+};
+
+const renderSelectField =({ input, label, type, className, meta: { touched, error }, children }) => (
+  <div className={className}>
+    <div className="form__label">
+      <label>{label}</label>
+      {touched && ((error && <span>{error}</span>))}
+    </div>
+
+    {children}
+
+    
+  </div>
+)
+
 const renderDropzoneInput = (field) => {
+  console.log(field)
   const files = field.input.value;
   return (
     <div>
+      <div className="form__label">
+        <label>Image File</label>{field.meta.touched && field.meta.error && <span>{field.meta.error}</span>}
+      </div>
       <Dropzone
         name={field.name}
         multiple={false}
@@ -55,9 +116,6 @@ const renderDropzoneInput = (field) => {
       >
         <div>Try dropping some files here, or click to select files to upload.</div>
       </Dropzone>
-      {field.meta.touched &&
-        field.meta.error &&
-        <span className="error">{field.meta.error}</span>}
       {files && Array.isArray(files) && (
         <ul>
           { files.map((file, i) => <li key={i}>{file.name}</li>) }
@@ -67,7 +125,7 @@ const renderDropzoneInput = (field) => {
   );
 }
 
-let PhotoForm = ({ handleSubmit, bird, createPhoto, location, handleChange }) => {
+let PhotoForm = ({ handleSubmit, bird, createPhoto, location, handleChange, errors }) => {
   const props = {
     location: location, // `value` is required
     onChange: handleChange, // `onChange` is required
@@ -92,13 +150,15 @@ let PhotoForm = ({ handleSubmit, bird, createPhoto, location, handleChange }) =>
               props={props}
            />
           </div>          
-        </div>        
-        <div className="form__input">
+        </div>
+        
+        {/*<div className="form__input">
         	<label>Name</label>
         	<div>
             {birdSelect(bird)}
         	</div>
-      	</div>
+          {props.touched && props.error && <span>{props.error}</span>}
+      	</div> */}
         <div className="form__input--half">
           <label>Location Lat</label>
           <div>
@@ -119,19 +179,25 @@ let PhotoForm = ({ handleSubmit, bird, createPhoto, location, handleChange }) =>
            />
           </div>          
         </div>
+        <Field name="name"
+          label="Name"
+          type="select"
+          component={renderSelectField}
+          className="form__input"
+          children={birdSelect(bird)}
+        />
         <div className="form__input">
-          <label>Camera Model</label>
-          <div>
-            <Field
-              name="camera"
-              component="input"
-              placeholder="Camera used to take the photo"              
-              type="text"
-           />
-          </div>          
+
+          <Field
+            name="camera"
+            label="Camera"
+            component={renderField}
+            placeholder="PENTAX 645Z etc"              
+            type="text"
+         />
+       
         </div>                           
         <div className="form__dropzone">
-            <label htmlFor={FILE_FIELD_NAME}>Files</label>
             <Field
                 className="form__dropzone-box"
                 name={FILE_FIELD_NAME}

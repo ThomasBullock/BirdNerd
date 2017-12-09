@@ -4,6 +4,7 @@ import { SubmissionError } from 'redux-form';
 import * as api from '../api';
 import * as actions from '../ducks/auth';
 import history from '../history';
+import swal from 'sweetalert'
 //import { newError } from 'ducks/alerts';
 const AUTH_BASE_URL = 'http://localhost:3001/api/auth/';
 const CLIENT_ROOT_URL =  'http://localhost:3000/'
@@ -51,6 +52,7 @@ function* loginRequest(action) {
     }
   } catch (error) {
     yield console.log(error);
+    swal('Incorrect details')
     yield put(actions.loginFail('Incorrect details'));
   }
 }
