@@ -18,6 +18,11 @@ const port = process.env.API_PORT || 3001;
 // Connect to our Database 
 mongoose.connect(process.env.DATABASE, { useMongoClient: true, });
 
+// Express only serves static assets in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('build'));
+}
+
 // converts raw requests into usable properties on req.body
 // This object will contain key-value pairs, where the value can be a string or array (when extended is false), or any type (when extended is true).
 app.use(bodyParser.json());
