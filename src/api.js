@@ -1,5 +1,6 @@
+const baseUrl = PRODUCTION ? 'http://128.199.236.172:80/api/' : 'http://localhost:3000/api/';
 //const baseUrl = PRODUCTION ? 'https://api.birdnerd.com/api/' : 'https://testing.birdnerd.com/api/';
-const baseUrl = 'http://128.199.236.172:80/api/';
+//const baseUrl = 'http://128.199.236.172:80/api/';
 
 export const GET = (url) => {
   const token = window.sessionStorage.getItem('token');
