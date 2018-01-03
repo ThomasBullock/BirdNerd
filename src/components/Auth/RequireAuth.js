@@ -7,13 +7,13 @@ export default function(ComposedComponent) {
     
         componentWillMount() {
           if(!this.props.authenticated) {
-            history.push('/login');
+            history.push('/welcome');
           }
         }
     
         componentWillUpdate(nextProps) {
           if(!nextProps.authenticated) {
-            history.push('/login');
+            history.push('/welcome');
           }
         }
     

@@ -220,7 +220,7 @@ a {
 ==================================== */
 .container {
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto 1.5em;
   min-height: 600px; }
 
 .wrapper {
@@ -232,7 +232,6 @@ a {
   justify-content: space-between; }
 
 .footer {
-  margin-top: 3em;
   background: #222222;
   padding: 1.5em;
   display: flex;
