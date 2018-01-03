@@ -1,6 +1,10 @@
-// const baseUrl = PRODUCTION ? 'http://128.199.236.172:80/api/' : 'http://localhost:3000/api/';
+console.log(process.env.NODE_ENV);
+const baseUrl = (process.env.NODE_ENV === 'production') ? 'http://birdnerd.club/api/' : 'http://localhost:3001/api/';
 //const baseUrl = PRODUCTION ? 'https://api.birdnerd.com/api/' : 'https://testing.birdnerd.com/api/';
-const baseUrl = 'http://128.199.236.172:80/api/';
+// process.env.NODE_ENV
+
+// const baseUrl = 'http://birdnerd.club/api/';
+console.log(baseUrl);
 
 export const GET = (url) => {
   const token = window.sessionStorage.getItem('token');

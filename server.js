@@ -9,9 +9,10 @@ import authRouter from './auth';
 
 // import environmental variables from our variables.env file
 require('dotenv').config({ path: 'variables.env' });
+const path = require('path');
 
 const app = express();
-
+// console.log(process.env.NODE_ENV);
 //set our port to either a predetermined port number if you have set it up, or 3001
 const port = process.env.API_PORT || 3001;
 
@@ -38,11 +39,10 @@ app.use(function(req, res, next) {
 app.use('/api', apiRouter);
 app.use('/api/auth', authRouter);
 app.get('/', (req, res) => {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Hello World\n');
+  res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
 });
 
 //starts the server and listens for requests
 app.listen(port, function() {
-  console.log(`api running on port ${port}`);
+  console.log(`api running on port ${port} in ${process.env.NODE_ENV}`);
 });
