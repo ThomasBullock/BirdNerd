@@ -233,6 +233,7 @@ a {
 
 .birdlist {
   width: 600px;
+  max-width: 90%;
   margin: 1.5em auto;
   display: flex;
   flex-direction: column; }

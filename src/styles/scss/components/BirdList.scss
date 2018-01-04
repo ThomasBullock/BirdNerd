@@ -2,6 +2,7 @@
 
 .birdlist {
 	width: 600px;
+	max-width: 90%;
 	margin: $base-spacing auto;
 	display: flex;
 	flex-direction: column;
