@@ -262,14 +262,22 @@ a {
     text-align: center;
     font-weight: 500; }
   .landing__cta {
-    margin-top: 1.5em;
+    margin-top: 3em;
     display: flex;
     flex-direction: column; }
     .landing__cta p {
       text-align: center; }
+    .landing__cta--no-margin {
+      margin-top: 0; }
   .landing__cta-btns {
     display: flex;
     justify-content: center; }
+  .landing__bird-btn {
+    display: flex;
+    align-items: center; }
+    .landing__bird-btn svg {
+      margin-right: 1.5em;
+      fill: #F6F6F6; }
   .landing__hero-grid {
     display: flex;
     margin: 0.09375em -0.75em 0 -1.5em;
