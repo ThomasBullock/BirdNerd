@@ -220,7 +220,7 @@ a {
 ==================================== */
 .container {
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto 1.5em;
   min-height: 600px; }
 
 .wrapper {
@@ -240,10 +240,17 @@ a {
       height: auto;
       display: block; }
   .birdinfo__hero-img {
-    min-height: 400px;
+    min-height: 220px;
     background-size: cover;
     background-position: 0 10%;
     background-repeat: no-repeat; }
+    @media all and (min-width: 768px) and (max-width: 1024px) {
+      .birdinfo__hero-img {
+        min-height: 400px;
+        background-position: 20% 10%; } }
+    @media all and (min-width: 1025px) {
+      .birdinfo__hero-img {
+        min-height: 400px; } }
   .birdinfo__card {
     width: 100%;
     border-radius: 3px;
@@ -257,6 +264,7 @@ a {
     top: 0%;
     transform: translate(-50%, -50%);
     width: 420px;
+    max-width: 100%;
     z-index: 1; }
   .birdinfo__header {
     text-align: center;

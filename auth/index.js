@@ -109,7 +109,7 @@ router.post('/forgot', (req, res) => {
       user.save();
       console.log(process.env.NODE_ENV);
       const baseUrl = (process.env.NODE_ENV === 'production') ? 'http://birdnerd.club' : 'http://localhost:3000';      
-      const resetURL = `http://${baseUrl}/account/reset/${user.resetPasswordToken}`
+      const resetURL = `${baseUrl}/account/reset/${user.resetPasswordToken}`
             
       const mailOptions = {
         from: 'BirdNerd <talk@tbullock.net>', 

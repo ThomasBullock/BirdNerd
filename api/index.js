@@ -123,7 +123,7 @@ router.delete('/bird', requireAuth, (req, res) => {
 
 // photo
 
-router.get('/photos', requireAuth, (req, res) => {
+router.get('/photos', (req, res) => { // removed requireAuth
     Photo.find({})
     .then(data => {
         res.json(data)

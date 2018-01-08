@@ -20,8 +20,10 @@
 		display: flex;
 		justify-content: space-between;
 		flex-wrap: wrap;
-		border-bottom: solid 2px transparentize($oil, .5);
-    box-shadow: 1px 1px 2px transparentize($oil, .6);
+		position: relative;
+		z-index: 99999;
+		// border-bottom: solid 2px transparentize($oil, .8);
+    box-shadow: 0 2px 3px transparentize($oil, .2);
 
 		@media all and (min-width: 900px) {	
 			flex-wrap: nowrap;
