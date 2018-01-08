@@ -6,7 +6,7 @@ import * as actions from '../ducks/auth';
 import history from '../history';
 import swal from 'sweetalert'
 //import { newError } from 'ducks/alerts';
-const AUTH_BASE_URL = 'http://localhost:3001/api/auth/';
+const AUTH_BASE_URL = (process.env.NODE_ENV === 'production') ? 'http://birdnerd.club/api/auth/' : 'http://localhost:3001/api/auth/';
 const CLIENT_ROOT_URL =  'http://localhost:3000/'
 
 function authFetch(url, body) {

@@ -97,7 +97,7 @@ router.post('/register', (req, res, next) => {
  });
  
 router.post('/forgot', (req, res) => {
-  console.log(req.body)
+  // console.log(req.body)
   const email = req.body.email;
   User.findOne({ email: email }, function(err, user) {
     if (err) { return next(err); } 
@@ -107,7 +107,7 @@ router.post('/forgot', (req, res) => {
       user.resetPasswordToken = crypto.randomBytes(20).toString('hex');
       user.resetPasswordExpires = Date.now() + 3600000; // 1 hour from now
       user.save();
-      // const baseUrl = 'localhost:3000' // ${req.headers.host}
+      console.log(process.env.NODE_ENV);
       const baseUrl = (process.env.NODE_ENV === 'production') ? 'http://birdnerd.club' : 'http://localhost:3000';      
       const resetURL = `http://${baseUrl}/account/reset/${user.resetPasswordToken}`
             
