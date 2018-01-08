@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { requestPhotos } from '../ducks/photos';
+import IconBird from './icons/IconBird';
 import '../styles/css/components/Landing.css';
 
 import { cloudinaryUrlModify } from '../clientHelpers';
@@ -25,9 +26,6 @@ class Landing extends Component {
 	}
 	
 	getImage(aspect, index) {
-		// const requestedAspects = Array.from(arguments)
-		// requestedAspects.map(aspect => {
-			// console.log(this.props.photosLandscape)
 				const image = (aspect === 'Landscape') ? this.props.photosLandscape.getIn([index, 'imageUrl'])
 				: this.props.photosPortrait.getIn([index, 'imageUrl']) ;
 				const aspectModifier = (aspect === 'Landscape') ? 'landing__grid-image landing__grid-image--aspect4x3' : 'landing__grid-image landing__grid-image--aspect3x4'
@@ -36,8 +34,6 @@ class Landing extends Component {
 						<img src={image && cloudinaryUrlModify(image.split('/'), 'w_300') }/>
 					</div>
 				)
-
-		// })
 	}
 	
 	render() {
@@ -72,6 +68,14 @@ class Landing extends Component {
 		        <div>
 		        	<p className="landing__intro">BirdNerd is a free photo sharing site for Birdwatchers. Within this site you can view photos, sighting locations and general bird information.</p>
 		        </div>
+		        <div className="landing__cta--no-margin">
+		        	<div className="landing__cta-btns">
+		        		<button className="nav-tabs__button landing__bird-btn" >
+		        			<IconBird />
+		        			<Link to="/bird">Explore our bird database</Link>
+		        		</button>
+		        	</div>	
+		        </div>			        
 		        <div className="landing__cta">
 		        	<p>Sign up to share your favourite birdwatching photos.</p>
 		        	<div className="landing__cta-btns">
