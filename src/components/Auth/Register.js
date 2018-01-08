@@ -25,7 +25,7 @@ let Register = props => {
     <div className="container">
       <form className="form" onSubmit={handleSubmit((vals) => register(vals))}>
         <div className="form__title">
-          <h2>Register with BirdNerd</h2>
+          <h2>Sign Up with BirdNerd</h2>
         </div>
         <div className="form__input--half">  
           <Field
@@ -65,7 +65,7 @@ let Register = props => {
           </strong>}
         <div>
           <button type="submit" disabled={submitting}>
-            Register
+            Sign Up
           </button>
         </div>
       </form>

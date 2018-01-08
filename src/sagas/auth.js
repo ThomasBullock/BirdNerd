@@ -28,7 +28,7 @@ function* signUpRequest(action) {
       const user = yield response.json();
       yield window.sessionStorage.setItem('token', user.token);
       yield put(actions.authUser());
-      history.push('/');
+      history.push('/home');
     } else {
       throw response;
     }

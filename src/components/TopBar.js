@@ -64,7 +64,7 @@ class TopBar extends Component {
 					</div>
 					<div className="topbar__nav-component topbar__nav-component--login">
 						{ !authenticated ? (<ul className="topbar__menu">
-							<li className="topbar__link-item"><Link to='/register'>Register</Link></li>
+							<li className="topbar__link-item"><Link to='/register'>Sign Up</Link></li>
 							<li className="topbar__link-item"><Link to='/login'>Login</Link></li>
 						</ul>) : (<ul className="topbar__menu">
 							<li className="topbar__link-item " onClick={this.logout}><Link to=''>Logout</Link></li>
