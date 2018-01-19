@@ -10,8 +10,8 @@ var cloudinary = require('cloudinary');
 
 cloudinary.config({ 
     cloud_name: 'birdnerd', 
-    api_key: '926417793976924', 
-    api_secret: 'Q1YrfEjVO_WujCKhAZYElT8tffo' 
+    api_key: process.env.CLOUDINARY_API_KEY, 
+    api_secret: process.env.CLOUDINARY_API_SECRET, 
 });
 
 const router = express.Router();
