@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import BirdWings from './icons/BirdWings';
 import { Link } from 'react-router-dom';
 
-import '../styles/css/components/Footer.css'
-
 class Footer extends Component {
   constructor(props){
     super(props);
@@ -14,9 +12,6 @@ class Footer extends Component {
     const date = (new Date().getFullYear());
     return(
       <footer className="footer" role="contentinfo">
-        {/*<div className="footer__logo">
-            <BirdWings />
-        </div>*/}
         <div className="footer__links">
           <ul>
             <li><Link to="/about">About</Link></li>

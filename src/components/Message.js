@@ -1,5 +1,4 @@
 import React from 'react';
-import '../styles/css/components/Message.css';
 import { Link } from 'react-router-dom';
 
 const Message = ({heading, text, link, label}) => {

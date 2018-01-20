@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Field, reduxForm } from 'redux-form/immutable';
 import Dropzone from 'react-dropzone';
 import { connect } from 'react-redux';
@@ -14,9 +13,6 @@ const validate = values => {
   if (!values.get('name')) {
     errors.name = 'Required'; 
   }
-  // if(!values.get('camera')) {
-  //   errors.camera = 'Required'
-  // }
   if(!values.get('files')) {
     errors.files = 'Required'
   }   

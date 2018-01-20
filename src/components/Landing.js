@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { requestPhotos } from '../ducks/photos';
 import IconBird from './icons/IconBird';
-import '../styles/css/components/Landing.css';
 
 import { cloudinaryUrlModify } from '../clientHelpers';
 

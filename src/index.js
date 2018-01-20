@@ -14,7 +14,7 @@ import store from './store';
 import history from './history';
 import Main from './components/Main';
 import { authUser } from './ducks/auth';
-import './styles/css/index.css';
+import './styles/css/styles.css';
 
 
 import { sentry_url } from './config';

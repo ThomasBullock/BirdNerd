@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../../styles/css/components/BirdCard.css';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import IconLocation from '../icons/IconLocation';

@@ -53,8 +53,6 @@ $lorikeet-yellow: #FFE340;
 $action: $lorikeet-blue;
 $success: $wes-magenta;
 
-// $tropical-gradient: linear-gradient(90deg, $wes-cyan 0%, $wes-magenta 20%, $wes-pink 60%, $wes-sunset 85%, $wes-cyan 95%);$sub-tropical-gradient: linear-gradient(90deg, transparentize(#48ded4, .2) 0%, transparentize(#a026bf, .2) 20%, transparentize(#e82c75, .2) 60%, #FFC40E 85%, #48ded4 95%);
-// $tropical-gradient: linear-gradient(90deg, $lorikeet-blue 0%, $lorikeet-yellow 20%, $lorikeet-orange 60%, $lorikeet-green 85%, $lorikeet-blue 95%);$sub-tropical-gradient: linear-gradient(90deg, transparentize(#48ded4, .2) 0%, transparentize(#a026bf, .2) 20%, transparentize(#e82c75, .2) 60%, #FFC40E 85%, #48ded4 95%);
 $tropical-gradient: linear-gradient(90deg, $lorikeet-blue 0%, $lorikeet-yellow 30%, $wes-pink 60%, $wes-magenta 85%, $lorikeet-blue 97%);
 $sub-tropical-gradient: linear-gradient(90deg, transparentize(#48ded4, .2) 0%, transparentize(#a026bf, .2) 20%, transparentize(#e82c75, .2) 60%, #FFC40E 85%, #48ded4 95%);
 

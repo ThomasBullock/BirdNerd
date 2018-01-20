@@ -1,10 +1,4 @@
-console.log(process.env.NODE_ENV);
 const baseUrl = (process.env.NODE_ENV === 'production') ? 'http://birdnerd.club/api/' : 'http://localhost:3001/api/';
-//const baseUrl = PRODUCTION ? 'https://api.birdnerd.com/api/' : 'https://testing.birdnerd.com/api/';
-// process.env.NODE_ENV
-
-// const baseUrl = 'http://birdnerd.club/api/';
-console.log(baseUrl);
 
 export const GET = (url) => {
   const token = window.sessionStorage.getItem('token');
@@ -48,7 +42,6 @@ export const PUT = (url, body) => {
   .then(res => res)
 };
 
-// fetch('http://httpbin.org/delete', { method: 'DELETE', body: JSON.stringify(payload), credentials: false, headers:"'Content-Type': 'application/json','Content-Length':" + payload.length})
 export const DELETE = (url, body) => {
   const token = window.sessionStorage.getItem('token');
   return fetch(baseUrl + url, {
@@ -67,7 +60,6 @@ export const DELETE = (url, body) => {
 
 
 export const POSTBIRD = (body) => {
-  // console.log(body);
   return fetch('https://api.cloudinary.com/v1_1/birdnerd/image/upload', {
     method: 'POST',
     headers: {

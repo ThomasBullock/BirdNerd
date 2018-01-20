@@ -1,6 +1,5 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
-
 import MyPhotos from './MyPhotos';
 import PhotoFormContainer from '../../containers/Photo/PhotoFormContainer';
 import MyPhotosContainer from '../../containers/Photo/MyPhotosContainer';

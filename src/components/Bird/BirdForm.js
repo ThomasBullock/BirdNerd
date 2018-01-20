@@ -1,7 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form/immutable';
 import Dropzone from 'react-dropzone';
-import '../../styles/css/components/Forms.css';
 import { birdGroups } from '../../clientHelpers';
 import { conservationStatus } from '../../clientHelpers';
 

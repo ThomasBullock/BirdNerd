@@ -38,7 +38,7 @@ app.use(function(req, res, next) {
 
 app.use('/api', apiRouter);
 app.use('/api/auth', authRouter);
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
 });
 
