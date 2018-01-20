@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-// import TopBar from '../TopBar';
 import { protectedTest } from '../../ducks/auth';
 import { requestPhotos, sortNewest, sortOldest, sortPopular, likePhoto } from '../../ducks/photos';
 import HomePage from '../../components/Home/HomePage';

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Loader from '../../img/Ellipsis.svg';
-import '../../styles/css/components/Loader.css';
 
 import {
   //requestBird,

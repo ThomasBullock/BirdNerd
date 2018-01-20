@@ -4,8 +4,6 @@ import Dropzone from 'react-dropzone';
 import { birdGroups } from '../../clientHelpers';
 import { conservationStatus } from '../../clientHelpers';
 
-
-
 const FILE_FIELD_NAME = 'files';
 
 const validate = values => {

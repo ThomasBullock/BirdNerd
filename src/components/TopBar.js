@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 import history from '../history';
 import { unAuthUser } from '../ducks/auth';
 
-import '../styles/css/components/TopBar.css'
-
 import search from '../img/search.png';
 
 class TopBar extends Component {
