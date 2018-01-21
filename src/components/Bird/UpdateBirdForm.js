@@ -109,13 +109,15 @@ const renderDropzoneInput = (field) => {
   );
 }
 
-const BirdForm = ({ handleSubmit, createBird }) => {
+const UpdateBirdForm = ({ handleSubmit, createBird, bird , initialValues}) => {
+  console.log(initialValues)
   const orderOptions = birdGroupsOptions(birdGroups);
+  const name = bird && bird.get('name') || '';
   return (
     <div>
       <form className="form" onSubmit={handleSubmit((vals) => createBird(vals))}>
         <div className="form__title">
-          <h2>Add New Bird</h2>
+          <h2>Edit {name}</h2>
         </div>  
 
         <Field name="name" component={renderField} type="text" placeholder="Name" label="Name" className="form__input--half" />
@@ -183,6 +185,6 @@ const BirdForm = ({ handleSubmit, createBird }) => {
 
 
 export default reduxForm({
-    form: 'birdForm',
-    validate
-})(BirdForm);
+    form: 'updatebirdForm',
+    validate,
+})(UpdateBirdForm);

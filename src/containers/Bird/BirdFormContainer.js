@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Loader from '../../img/Ellipsis.svg';
+import Immutable, { fromJS } from 'immutable';
 
 import {
   //requestBird,
@@ -9,16 +10,38 @@ import {
 } from '../../ducks/bird';
 
 import BirdForm from '../../components/Bird/BirdForm';
+import UpdateBirdForm from '../../components/Bird/UpdateBirdForm';
 
 class BirdFormContainer extends Component {
     constructor(props) {
         super(props);
     }
+    
+    createForm(params) {
+      if(params.birdSlug) {
+        // console.log(params.birdSlug)
+        const bird = this.props.birds.filter( bird => bird.get('slug') === params.birdSlug ).get(0);
+        const initialValues = fromJS({
+          name: bird && bird.get('name'),
+          species: bird && bird.get('species'),
+          order: bird && bird.get('order'),
+          conservationStatus: bird && bird.get('onservationStatus'),
+          location: bird && bird.get('location').reduce( (accum, item) => `${accum}, ${item}`),
+          comments: bird && bird.get('comments')
+        })
+        // console.log(bird)
+        return(
+          <UpdateBirdForm initialValues={initialValues} updateBird={updateBird} bird={bird}/>
+        )        
+      } else {
+        return(
+           <BirdForm createBird={createBird}/>
+        )
+      }  
+    }
 
     render() {
-        const { createBird, loading } = this.props;
-        //const last = this.props.birds.get(-1);
-        //const uploading = (last.uploading) ? true : false;
+        const { createBird, loading, match } = this.props;
         return (
           <div className="container">
             {loading ? (
@@ -27,9 +50,7 @@ class BirdFormContainer extends Component {
                 <img src={Loader}/>
               </div>  
             
-            ) : (
-              <BirdForm createBird={createBird}/>
-            )}
+            ) : this.createForm(match.params) }
           </div>
         );
     }
@@ -39,6 +60,7 @@ const mapStateToProps = (state) => {
   return {
     birds: state.get('bird'),
     loading: state.getIn(['loading', 'currentState']),
+    initialValues: fromJS({ name: 'blablab' })
   }
 }
 

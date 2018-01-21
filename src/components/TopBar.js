@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
 import history from '../history';
 import { unAuthUser } from '../ducks/auth';
 
@@ -65,7 +64,7 @@ class TopBar extends Component {
 							<li className="topbar__link-item"><Link to='/register'>Sign Up</Link></li>
 							<li className="topbar__link-item"><Link to='/login'>Login</Link></li>
 						</ul>) : (<ul className="topbar__menu">
-							<li className="topbar__link-item " onClick={this.logout}><Link to=''>Logout</Link></li>
+							<li className="topbar__link-item " onClick={this.logout}><Link to='/login'>Logout</Link></li>
 						</ul>) }	
 					</div>										
 				</nav>

@@ -3,6 +3,7 @@ import BirdWings from '../icons/BirdWings';
 import DeleteIcon from '../icons/IconCross';
 import EditIcon from '../icons/IconFeather';
 import BirdCard from './BirdCard';
+import { Link } from 'react-router-dom';
 import { cloudinaryUrlModify } from '../../clientHelpers';
 
 // Duplicate code also in Homepage to be improved!
@@ -57,10 +58,14 @@ const BirdProfile = ({birdInfo, photos, user, likeHandler, deleteBird}) => {
 							<BirdWings className="birdinfo__svg"/> 
 						</div>
 						<div className="birdinfo__header">
-							{userRole === 'moderator' && <div className="birdinfo__btn">
-								<EditIcon className="birdinfo__edit"/>
-							</div>
-							}			
+
+							{ userRole === 'moderator' &&
+								<button className="birdinfo__btn">
+										<Link to={`/bird/${birdInfo.get('slug')}/edit`}>
+											<EditIcon />
+										</Link>			
+								</button>			
+							}										
 							<div className="birdinfo__heading">
 								<h2>{birdInfo.get('name')}</h2>							
 							</div>
