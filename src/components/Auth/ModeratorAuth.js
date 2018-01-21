@@ -1,28 +1,30 @@
 import React, { Component }from 'react';
 import { connect } from 'react-redux';
-
+import { push } from 'react-router-redux';
+import store from '../../store';
 import history from '../../history';
 export default function(ComposedComponent) {
     class Authentication extends Component {
     
         componentWillMount() {
           if(!this.props.authenticated) {
-            history.push('/login');
+            console.log('not moderator!')
+            store.dispatch(push('/login')) // history.push('');
           } else {
               console.log('Role:============', this.props.role);
             if(this.props.role !== 'moderator') {
-                history.push('/bird');
+              store.dispatch(push('/bird')) // history.push('/bird');
             }
           }
         }
     
         componentWillUpdate(nextProps) {
           if(!nextProps.authenticated) {
-            history.push('/login');
+            store.dispatch(push('/login'));
           } else {
             console.log('Role:============', this.props.role);
             if(this.props.role !== 'user') {
-                history.push('/bird');
+              store.dispatch(push('/bird')) // history.push('/bird');
             }
           }
         }
