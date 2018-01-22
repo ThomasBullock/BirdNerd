@@ -31,7 +31,7 @@ class BirdFormContainer extends Component {
         })
         // console.log(bird)
         return(
-          <UpdateBirdForm initialValues={initialValues} updateBird={updateBird} bird={bird}/>
+          <UpdateBirdForm initialValues={initialValues} updateBird={this.props.updateBird} bird={bird}/>
         )        
       } else {
         return(

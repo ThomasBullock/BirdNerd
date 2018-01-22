@@ -22,9 +22,6 @@ const validate = values => {
   if(!values.get('order')) {
     errors.order = 'Required';
   }
-  if(!values.get('files')) {
-    errors.files = 'Required';
-  }
   if(!values.get('username')) {
     errors.username = 'Required';
   }  
@@ -109,13 +106,13 @@ const renderDropzoneInput = (field) => {
   );
 }
 
-const UpdateBirdForm = ({ handleSubmit, createBird, bird , initialValues}) => {
-  console.log(initialValues)
+const UpdateBirdForm = ({ handleSubmit, updateBird, bird , initialValues}) => {
+  console.log(updateBird)
   const orderOptions = birdGroupsOptions(birdGroups);
   const name = bird && bird.get('name') || '';
   return (
     <div>
-      <form className="form" onSubmit={handleSubmit((vals) => createBird(vals))}>
+      <form className="form" onSubmit={handleSubmit((vals) => updateBird(vals))}>
         <div className="form__title">
           <h2>Edit {name}</h2>
         </div>  
@@ -175,7 +172,7 @@ const UpdateBirdForm = ({ handleSubmit, createBird, bird , initialValues}) => {
         </div>
         <div className="form__submit">
           <button type="submit">
-            Submit
+            Save Changes
           </button>
         </div> 
       </form>

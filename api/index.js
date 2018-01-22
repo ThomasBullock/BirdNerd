@@ -50,6 +50,26 @@ router.post('/birds', requireAuth, (req, res) => {
     }
 }); 
 
+
+router.post('/birds/update', requireAuth, (req, res) => {
+    if(req.user.profile.role === 'moderator') {
+        const bird = new Bird(req.body);
+        console.log(bird)
+        // bird.save()
+        // .then(data => {
+        //     console.log('Data : ======', data);
+        //     res.json({err: false, data });
+        // })
+        // .catch(err => {
+        //     console.log(err);
+        //     res.json(err);
+        // })
+    } else {
+        return res.status(403).send({ error: 'You are not authorized' });
+    }
+}); 
+
+
 router.get('/birds/:birdSlug', (req, res) => {  // removed requireAuth,
     const birdSlug = req.params.birdSlug; 
     Bird.findOne( { slug: birdSlug } ) 

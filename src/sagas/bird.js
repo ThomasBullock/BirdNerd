@@ -23,8 +23,6 @@ function* createBird(action) {
         swal('Incorrect file type')
         return
     }    
-    /// use jimp locally to resize file!???
-    // const resizedPhoto = yield call(api.RESIZE, birdImage);
     const formData = new FormData();
     formData.append("file", birdImage);
     //formData.append("tags", `codeinfuse, medium, gist`);
@@ -95,6 +93,39 @@ function* deleteBird(action) {
   }
 }
 
+function* updateBird(action) {
+  try {
+    console.log(action);
+    
+    // if no file attached we will update bird but leave photo unchanged
+    const birdImage = action.bird.get('files') && action.bird.get('files')[0];
+    if(!birdImage) {
+      console.log('if no file attached we will update bird but leave photo unchanged')
+    }
+    console.log(birdImage)
+
+    const birdInfo = {
+      name: action.bird.get('name'),
+      slug: slugs(action.bird.get('name')),
+      order: action.bird.get('order'),      
+      species: action.bird.get('species'),
+      location: action.bird.get('location') && action.bird.get('location').split(',').map( (item) => item.trim() ),      
+      conservationStatus: action.bird.get('conservationStatus'),
+      comments: action.bird.get('comments'),
+      created_at: null,
+      bytes: null,
+      format: null,
+      imageUrl: null,
+      public_id: null,      
+    }; 
+    
+    const res = yield call(api.POST, 'birds/update', birdInfo);
+    
+  } catch(error) {
+    console.log(error)
+  }
+}
+
 export function* watchFetchBirdList() {
   yield takeLatest(actions.REQUEST_BIRD_LIST, fetchBirdList);
 }
@@ -111,11 +142,16 @@ export function* watchDeleteBird() {
   yield takeLatest(actions.DELETE_BIRD, deleteBird);
 }
 
+export function* watchUpdateBird() {
+  yield takeLatest(actions.UPDATE_BIRD, updateBird);
+}
+
 export default function* rootSaga() {
   yield [
     fork(watchFetchBird),
     fork(watchCreateBird),
     fork(watchFetchBirdList),
     fork(watchDeleteBird),
+    fork(watchUpdateBird)
   ];
 }
