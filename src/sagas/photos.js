@@ -4,7 +4,7 @@ import slugs from 'slugs';
 import * as api from '../api';
 import * as actions from '../ducks/photos';
 import { load, loaded } from '../ducks/loading';
-import Immutable, { fromJS } from 'immutable';
+import Immutable from 'immutable';
 import history from '../history';
 import swal from 'sweetalert'
 
