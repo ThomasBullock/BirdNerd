@@ -120,10 +120,6 @@ const BirdForm = ({ handleSubmit, createBird }) => {
 
         <Field name="name" component={renderField} type="text" placeholder="Name" label="Name" className="form__input--half" />
         <Field name="species" component={renderField} type="text" placeholder="Species" label="Species" className="form__input--half" />
-
-       { /* <Field name="username" component={renderSelectField} label="Username">
-          { mySelectOptions.map(option => <option value={option.value}>{option.label}</option>) }
-        </Field> */}
         <Field name="order" component={renderSelectField} type="select" placeholder="" label="Bird Group (Order)" className="form__input--half" children={orderOptions} />
 
             <Field 
@@ -133,23 +129,6 @@ const BirdForm = ({ handleSubmit, createBird }) => {
               className="form__input--half" 
               children={conservationOptions()}
             />
-            {/*
-        <div className="form__input--half">
-          <label>Conservation Status</label>
-          <div>
-            <Field name="conservationStatus" component="select" >
-              <option />
-              <option value="Least Concern">Least Concern</option>
-              <option value="Conservation Dependent">Conservation Dependent</option>
-              <option value="Near Threatened">Near Threatened</option>
-              <option value="Vulnerable">Vulnerable</option>
-              <option value="Endangered">Endangered</option>
-              <option value="Critically Endangered">Critically Endangered</option>
-              <option value="Extinct in the Wild">Extinct in the Wild</option>                                   
-            </Field>
-          </div>
-        </div> */}
-
         <Field name="location" component={renderField} type="text" placeholder="Seperate multiple locations with comma" label="Locations" className="form__input" />
 
         <div className="form__input form__input--comments">

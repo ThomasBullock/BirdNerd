@@ -5,6 +5,7 @@ import EditIcon from '../icons/IconFeather';
 import BirdCard from './BirdCard';
 import { Link } from 'react-router-dom';
 import { cloudinaryUrlModify } from '../../clientHelpers';
+import swal from 'sweetalert';
 
 // Duplicate code also in Homepage to be improved!
 const userPermission = (user, photo) => {
@@ -17,9 +18,31 @@ const userPermission = (user, photo) => {
 	}
 }
 
+const deleteAlert = (birdInfo, deleteBird) => {
+	console.log(deleteBird)
+	// deleteBird(birdId)
+	swal({
+	  title: "Are you sure?",
+	  text: "Once deleted, you will not be able to recover this bird profile!",
+	  icon: "warning",
+	  buttons: true,
+	  dangerMode: true,
+	})
+	.then((willDelete) => {
+	  if (willDelete) {
+	    // swal("Poof! Your imaginary file has been deleted!", {
+	    //   icon: "success",
+	    // });
+	    console.log(' will delete')
+			deleteBird(birdInfo.get('_id'));	 
+	  } else {
+	    swal(`The ${birdInfo.get('name')} profile is safe!`);
+	  }
+	});
+}
+
 const BirdProfile = ({birdInfo, photos, user, likeHandler, deleteBird}) => {
 		const userRole = (user) ? user.get('role') : null;
-		console.log(birdInfo.get('public_id'))
 		const photoCards = photos && photos.map( (item, i) => {
 			return(
 				<BirdCard 
@@ -60,7 +83,7 @@ const BirdProfile = ({birdInfo, photos, user, likeHandler, deleteBird}) => {
 						<div className="birdinfo__header">
 
 							{ userRole === 'moderator' &&
-								<button className="birdinfo__btn">
+								<button className="birdinfo__btn birdinfo__btn--edit">
 										<Link to={`/bird/${birdInfo.get('slug')}/edit`}>
 											<EditIcon />
 										</Link>			
@@ -70,7 +93,7 @@ const BirdProfile = ({birdInfo, photos, user, likeHandler, deleteBird}) => {
 								<h2>{birdInfo.get('name')}</h2>							
 							</div>
 							{ userRole === 'moderator' &&
-								<button className="birdinfo__btn" onClick={() => deleteBird(birdInfo.get('_id'))}>
+								<button className="birdinfo__btn" onClick={() => deleteAlert(birdInfo, deleteBird) }>
 										<DeleteIcon />
 								</button>			
 							}

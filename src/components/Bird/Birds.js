@@ -16,7 +16,7 @@ import { requestPhotos } from '../../ducks/photos';
 import { withRouter } from 'react-router-dom'
 
 class Birds extends Component {
-  componentDidMount() {
+  componentWillMount() {
     console.log('getting birdList and myPhotos')
     this.props.dispatch(requestBirdList());
     this.props.dispatch(requestPhotos());  // problem when on birdprofile this means on only users birdphotos are available
@@ -25,7 +25,7 @@ class Birds extends Component {
     return (
       <Switch>
         <Route exact path='/bird' component={BirdListContainer}/>  
-        <Route exact path='/bird/new' component={ModeratorAuth(BirdFormContainer)}/>
+        <Route exact path='/bird/new' component={BirdFormContainer}/>
         <Route exact path='/bird/mybirds' component={RequireAuth(MyPhotosContainer)}/>
         <Route exact path="/bird/mybirds/new" component={RequireAuth(PhotoFormContainer)}/>
         <Route exact path='/bird/:birdSlug' component={BirdProfileContainer}/>

@@ -87,7 +87,7 @@ const renderDropzoneInput = (field) => {
   return (
     <div>
       <div className="form__label">
-        <label>Image File</label>{field.meta.touched && field.meta.error && <span style={{color: '#e82c75' }}>{field.meta.error}</span> }
+        <label>Image File (leave blank to keep existing image)</label>{field.meta.touched && field.meta.error && <span style={{color: '#e82c75' }}>{field.meta.error}</span> }
       </div>  
         <Dropzone
           name={field.name}
@@ -95,7 +95,7 @@ const renderDropzoneInput = (field) => {
           onDrop={( filesToUpload, e ) => field.input.onChange(filesToUpload)}
         >
 
-        <div>Try dropping some files here, or click to select files to upload.</div>
+        <div>Try dropping some files here, or click to select files to upload. </div>
       </Dropzone>
       {files && Array.isArray(files) && (
         <ul>
@@ -106,13 +106,13 @@ const renderDropzoneInput = (field) => {
   );
 }
 
-const UpdateBirdForm = ({ handleSubmit, updateBird, bird , initialValues}) => {
-  console.log(updateBird)
+const UpdateBirdForm = ({ handleSubmit, updateBird, bird, initialValues}) => {
   const orderOptions = birdGroupsOptions(birdGroups);
   const name = bird && bird.get('name') || '';
+  const birdId = bird && bird.get('_id');
   return (
     <div>
-      <form className="form" onSubmit={handleSubmit((vals) => updateBird(vals))}>
+      <form className="form" onSubmit={handleSubmit((vals) => updateBird(vals, birdId))}>
         <div className="form__title">
           <h2>Edit {name}</h2>
         </div>  
@@ -132,23 +132,6 @@ const UpdateBirdForm = ({ handleSubmit, updateBird, bird , initialValues}) => {
               className="form__input--half" 
               children={conservationOptions()}
             />
-            {/*
-        <div className="form__input--half">
-          <label>Conservation Status</label>
-          <div>
-            <Field name="conservationStatus" component="select" >
-              <option />
-              <option value="Least Concern">Least Concern</option>
-              <option value="Conservation Dependent">Conservation Dependent</option>
-              <option value="Near Threatened">Near Threatened</option>
-              <option value="Vulnerable">Vulnerable</option>
-              <option value="Endangered">Endangered</option>
-              <option value="Critically Endangered">Critically Endangered</option>
-              <option value="Extinct in the Wild">Extinct in the Wild</option>                                   
-            </Field>
-          </div>
-        </div> */}
-
         <Field name="location" component={renderField} type="text" placeholder="Seperate multiple locations with comma" label="Locations" className="form__input" />
 
         <div className="form__input form__input--comments">

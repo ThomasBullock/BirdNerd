@@ -8,7 +8,6 @@ export default function(ComposedComponent) {
     
         componentWillMount() {
           if(!this.props.authenticated) {
-            console.log('not moderator!')
             store.dispatch(push('/login')) // history.push('');
           } else {
               console.log('Role:============', this.props.role);

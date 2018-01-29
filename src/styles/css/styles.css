@@ -409,6 +409,10 @@ a {
     .birdinfo__btn:hover {
       fill: #48ded4;
       background: #333333; }
+    .birdinfo__btn--edit .icon {
+      fill: #F6F6F6; }
+      .birdinfo__btn--edit .icon:hover {
+        fill: #48ded4; }
   .birdinfo__body {
     display: flex;
     flex-direction: column;

@@ -29,13 +29,14 @@ class BirdFormContainer extends Component {
           location: bird && bird.get('location').reduce( (accum, item) => `${accum}, ${item}`),
           comments: bird && bird.get('comments')
         })
+        // const birdId = bird && bird.get('_id')
         // console.log(bird)
         return(
           <UpdateBirdForm initialValues={initialValues} updateBird={this.props.updateBird} bird={bird}/>
         )        
       } else {
         return(
-           <BirdForm createBird={createBird}/>
+           <BirdForm createBird={this.props.createBird}/>
         )
       }  
     }
@@ -60,7 +61,6 @@ const mapStateToProps = (state) => {
   return {
     birds: state.get('bird'),
     loading: state.getIn(['loading', 'currentState']),
-    initialValues: fromJS({ name: 'blablab' })
   }
 }
 
@@ -68,7 +68,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     //requestBird: () => dispatch(requestBird()),
     createBird: (bird) => dispatch(createBird(bird)),
-    updateBird: (bird) => dispatch(updateBird(bird))
+    updateBird: (bird, birdId) => dispatch(updateBird(bird, birdId))
   }; // here we're mapping actions to props
 }
 
