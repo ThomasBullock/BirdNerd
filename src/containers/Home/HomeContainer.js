@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { instanceOf, object } from 'prop-types';
+import Immutable from 'immutable';
 import { connect } from 'react-redux';
 import { protectedTest } from '../../ducks/auth';
 import { requestPhotos, sortNewest, sortOldest, sortPopular, likePhoto } from '../../ducks/photos';
@@ -11,11 +13,9 @@ class HomeContainer extends Component {
     this.handleSort = this.handleSort.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     console.log('we\'ll get a bunch of photos');
     this.props.requestPhotos();
-    // this.props.sortNewest();
-
   }
   
   handleSort(sort) {
@@ -44,13 +44,19 @@ class HomeContainer extends Component {
   render() {
     const { photos } = this.props;
     return (
+      // if the photos List size is greater then 1 ( ie not initial state ) then render the homepage
       <div>
-        {photos ? (<HomePage photos={photos} sort={this.handleSort} user={this.props.user} likeHandler={this.props.likePhoto}/>) : (
+        {photos.size > 1 ? (<HomePage photos={photos} sort={this.handleSort} user={this.props.user} likeHandler={this.props.likePhoto}/>) : (
           <h2>Loading</h2>
         )}
       </div>
     );
   }
+}
+
+HomeContainer.propTypes = {
+  photos: instanceOf(Immutable.List).isRequired,
+  user: object
 }
 
 function mapStateToProps(state) {

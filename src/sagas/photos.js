@@ -1,5 +1,4 @@
-import { takeLatest } from 'redux-saga';
-import { call, put, select, fork } from 'redux-saga/effects';
+import { takeLatest, call, put, select, fork } from 'redux-saga/effects';
 import slugs from 'slugs';
 import * as api from '../api';
 import * as actions from '../ducks/photos';

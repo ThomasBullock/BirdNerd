@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { instanceOf, func, object } from 'prop-types';
+import Immutable from 'immutable';
 import { connect } from 'react-redux';
 import MyPhotos from '../../components/Photo/MyPhotos';
 import { likePhoto } from '../../ducks/photos';
@@ -8,12 +10,18 @@ class MyPhotosContainer extends Component {
     const { photos } = this.props;
   	return(
       <div>
-  		  {photos ? (<MyPhotos photos={photos} user={this.props.user} likeHandler={this.props.likePhoto}/>) : (
+  		  {photos.size > 1 ? (<MyPhotos photos={photos} user={this.props.user} likeHandler={this.props.likePhoto}/>) : (
           <h2>Loading</h2>
         )}
       </div>
   	)
   }
+}
+
+MyPhotosContainer.propTypes = {
+  photos: instanceOf(Immutable.List).isRequired,
+  user: object,
+  likePhoto: func.isRequired
 }
 
 const mapStateToProps = (state) => {

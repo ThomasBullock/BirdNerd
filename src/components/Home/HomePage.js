@@ -15,7 +15,7 @@ const userPermission = (user, photo) => {
 
 
 const HomePage = ({ photos, sort, user, likeHandler }) => {
-		// console.log(user)
+		console.log(user)
 
 		const birdPhotos = photos.map( (item, i) => {
 			// console.log(item.get('likes'))

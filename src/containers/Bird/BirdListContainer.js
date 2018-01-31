@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { object, instanceOf } from 'prop-types';
+import Immutable from 'immutable';
 import { connect } from 'react-redux';
 import { birdGroups } from '../../clientHelpers';
 
@@ -45,6 +47,10 @@ class BirdListContainer extends Component {
 		)		
 	}
 	
+}
+
+BirdListContainer.propTypes = {
+	birdList: instanceOf(Immutable.List).isRequired
 }
 
 const mapStateToProps = (state) => {

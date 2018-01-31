@@ -13,10 +13,10 @@ import Main from './components/Main';
 import { authUser } from './ducks/auth';
 import './styles/css/styles.css';
 
-
-// import { sentry_url } from './config';
-
-// Raven.config(sentry_url).install();
+if(process.env.NODE_ENV === 'production') {
+  import { sentry_url } from './config';
+	Raven.config(sentry_url).install();
+}
 
 const token = window.sessionStorage.getItem('token');
 if (token) {
