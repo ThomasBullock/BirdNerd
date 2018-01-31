@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { instanceOf, func, bool } from 'prop-types';
+import Immutable from 'immutable';
 import { connect } from 'react-redux';
 import Loader from '../../img/Ellipsis.svg';
 
@@ -33,6 +35,13 @@ class BirdFormContainer extends Component {
           </div>
         );
     }
+}
+
+BirdFormContainer.propTypes = {
+  birds: instanceOf(Immutable.List).isRequired,
+  loading: bool.isRequired,
+  createBird: func.isRequired,
+  updateBird: func.isRequired
 }
 
 const mapStateToProps = (state) => {

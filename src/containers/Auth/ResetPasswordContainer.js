@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { func, bool, string, object } from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
 import Reset from '../../components/Auth/Reset';
@@ -13,9 +14,7 @@ class ResetPasswordContainer extends Component {
 	
 	componentDidMount() {
 		const token = this.props.match.params.token
-		// console.log(token)
 		this.props.resetPassword(token)
-		console.log(this.props)
 	}
 	
 	
@@ -43,6 +42,14 @@ class ResetPasswordContainer extends Component {
 		)
 	}
 } 
+
+ResetPasswordContainer.propTypes = {
+  authenticated: bool.isRequired,
+  message: string,
+  user: object.isRequired,
+  resetPassword: func.isRequired,
+  changePassword: func.isRequired
+}
 
 const mapDispatchToProps = (dispatch) => {
 

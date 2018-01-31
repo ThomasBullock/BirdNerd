@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { instanceOf, object, string, number, func, bool } from 'prop-types';
+import Immutable from 'immutable';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import IconLocation from '../icons/IconLocation';
@@ -53,6 +55,19 @@ class BirdCard extends Component {
 				</div>
 			)
 		}
+}
+
+BirdCard.propTypes = {
+	id: string.isRequired,
+	orientation: string.isRequired,
+	slug: string.isRequired,
+	likes: number.isRequired,
+	img: string.isRequired,
+	public_id: string.isRequired,
+	owner: bool.isRequired, // would it be more efficient to pass _id's directly rather then maps??
+	userID: string.isRequired,
+	gravatar: string.isRequired,
+	likeHandler: func.isRequired		
 }
 
 export default connect()(BirdCard);

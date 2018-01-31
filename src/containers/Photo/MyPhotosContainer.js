@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { instanceOf, func, object } from 'prop-types';
+import Immutable from 'immutable';
 import { connect } from 'react-redux';
 import MyPhotos from '../../components/Photo/MyPhotos';
 import { likePhoto } from '../../ducks/photos';
@@ -14,6 +16,12 @@ class MyPhotosContainer extends Component {
       </div>
   	)
   }
+}
+
+MyPhotosContainer.propTypes = {
+  photos: instanceOf(Immutable.List).isRequired,
+  user: object,
+  likePhoto: func.isRequired
 }
 
 const mapStateToProps = (state) => {

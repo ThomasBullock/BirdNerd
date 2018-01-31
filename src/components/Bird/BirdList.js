@@ -6,8 +6,6 @@ const BirdList = (birdList) => {
 	
 	birdList && console.log(birdList);
 	
-	// const birds = birdList.toJS();
-	// console.log(birds);
 	// cycle through props of obj
 	const birdsByGroup = () => {
 		
@@ -31,23 +29,7 @@ const BirdList = (birdList) => {
 				</div>
 			)
 		})	
-		
-
 	}
-
-		// if array.length then
-			// render group heading
-			// group entries
-	
-	
-	
-	// const birds = birdList.birdList.map( (item, i) => {
-	// 	return (
-	// 		<div key={i} className="birdlist__item">
-	// 			<Link className="birdlist__link" to={`/bird/${item.slug}`}>{item.name} <i>({item.species})</i></Link>
-	// 		</div>
-	// 	)
-	// })
 	return(
 		<div className="birdlist">
 			<h2 className="birdlist__title">The Bird List</h2>

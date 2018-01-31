@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { instanceOf, func, object, bool } from 'prop-types';
+import Immutable from 'immutable';
 import { connect } from 'react-redux';
+
 import Loader from '../../img/Ellipsis.svg';
 
 import {
@@ -30,6 +33,12 @@ class PhotoFormContainer extends Component {
       </div>                     
     	)
     }	
+}
+
+PhotoFormContainer.propTypes = {
+  createPhoto: func.isRequired,
+  photos: instanceOf(Immutable.List).isRequired, // do we need this?
+  loading: bool.isRequired,
 }
 
 const mapDispatchToProps = (dispatch) => {

@@ -18,7 +18,6 @@ const userPermission = (user, photo) => {
 
 const BirdProfile = ({birdInfo, photos, user, likeHandler, deleteBird}) => {
 		const userRole = (user) ? user.get('role') : null;
-		console.log(birdInfo.get('public_id'))
 		const photoCards = photos && photos.map( (item, i) => {
 			return(
 				<BirdCard 
