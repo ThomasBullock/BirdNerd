@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { instanceOf, func, bool } from 'prop-types';
-import Immutable from 'immutable';
+import Immutable, { fromJS } from 'immutable';
 import { connect } from 'react-redux';
 import Loader from '../../img/Ellipsis.svg';
-import Immutable, { fromJS } from 'immutable';
 
 import {
-  //requestBird,
   createBird,
   updateBird,
 } from '../../ducks/bird';

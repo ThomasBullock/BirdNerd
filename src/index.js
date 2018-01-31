@@ -6,6 +6,7 @@ import {Provider} from 'react-redux';
 import jwtDecode from 'jwt-decode';
 import registerServiceWorker from './registerServiceWorker';
 import Raven from 'raven-js';
+import { sentry_url } from './config';
 
 import store from './store';
 import history from './history';
@@ -14,7 +15,6 @@ import { authUser } from './ducks/auth';
 import './styles/css/styles.css';
 
 if(process.env.NODE_ENV === 'production') {
-  import { sentry_url } from './config';
 	Raven.config(sentry_url).install();
 }
 

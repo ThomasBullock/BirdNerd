@@ -3,9 +3,6 @@ import { Link } from 'react-router-dom';
 import { birdGroups } from '../../clientHelpers';
 
 const BirdList = (birdList) => {
-	
-	birdList && console.log(birdList);
-	
 	// cycle through props of obj
 	const birdsByGroup = () => {
 		
