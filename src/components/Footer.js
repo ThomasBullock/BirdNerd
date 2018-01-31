@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import BirdWings from './icons/BirdWings';
 import { Link } from 'react-router-dom';
 
 class Footer extends Component {

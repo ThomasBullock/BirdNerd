@@ -22,9 +22,6 @@ const validate = values => {
   if(!values.get('order')) {
     errors.order = 'Required';
   }
-  if(!values.get('files')) {
-    errors.files = 'Required';
-  }
   if(!values.get('username')) {
     errors.username = 'Required';
   }  
@@ -90,7 +87,7 @@ const renderDropzoneInput = (field) => {
   return (
     <div>
       <div className="form__label">
-        <label>Image File</label>{field.meta.touched && field.meta.error && <span style={{color: '#e82c75' }}>{field.meta.error}</span> }
+        <label>Image File (leave blank to keep existing image)</label>{field.meta.touched && field.meta.error && <span style={{color: '#e82c75' }}>{field.meta.error}</span> }
       </div>  
         <Dropzone
           name={field.name}
@@ -98,7 +95,7 @@ const renderDropzoneInput = (field) => {
           onDrop={( filesToUpload, e ) => field.input.onChange(filesToUpload)}
         >
 
-        <div>Try dropping some files here, or click to select files to upload.</div>
+        <div>Try dropping some files here, or click to select files to upload. </div>
       </Dropzone>
       {files && Array.isArray(files) && (
         <ul>
@@ -109,17 +106,23 @@ const renderDropzoneInput = (field) => {
   );
 }
 
-const BirdForm = ({ handleSubmit, createBird }) => {
+const UpdateBirdForm = ({ handleSubmit, updateBird, bird, initialValues}) => {
   const orderOptions = birdGroupsOptions(birdGroups);
+  const name = bird && bird.get('name') || '';
+  const birdId = bird && bird.get('_id');
   return (
     <div>
-      <form className="form" onSubmit={handleSubmit((vals) => createBird(vals))}>
+      <form className="form" onSubmit={handleSubmit((vals) => updateBird(vals, birdId))}>
         <div className="form__title">
-          <h2>Add New Bird</h2>
+          <h2>Edit {name}</h2>
         </div>  
 
         <Field name="name" component={renderField} type="text" placeholder="Name" label="Name" className="form__input--half" />
         <Field name="species" component={renderField} type="text" placeholder="Species" label="Species" className="form__input--half" />
+
+       { /* <Field name="username" component={renderSelectField} label="Username">
+          { mySelectOptions.map(option => <option value={option.value}>{option.label}</option>) }
+        </Field> */}
         <Field name="order" component={renderSelectField} type="select" placeholder="" label="Bird Group (Order)" className="form__input--half" children={orderOptions} />
 
             <Field 
@@ -152,7 +155,7 @@ const BirdForm = ({ handleSubmit, createBird }) => {
         </div>
         <div className="form__submit">
           <button type="submit">
-            Submit
+            Save Changes
           </button>
         </div> 
       </form>
@@ -162,6 +165,6 @@ const BirdForm = ({ handleSubmit, createBird }) => {
 
 
 export default reduxForm({
-    form: 'birdForm',
-    validate
-})(BirdForm);
+    form: 'updatebirdForm',
+    validate,
+})(UpdateBirdForm);

@@ -4,8 +4,10 @@ import { call, put, select, fork } from 'redux-saga/effects';
 import * as api from '../api';
 import * as actions from '../ducks/bird';
 import { load, loaded } from '../ducks/loading';
-import history from '../history';
 import swal from 'sweetalert'
+import history from '../history';
+import { push } from 'react-router-redux';
+import store from '../store';
 
 function* fetchBird(action) {
   try {
@@ -23,8 +25,6 @@ function* createBird(action) {
         swal('Incorrect file type')
         return
     }    
-    /// use jimp locally to resize file!???
-    // const resizedPhoto = yield call(api.RESIZE, birdImage);
     const formData = new FormData();
     formData.append("file", birdImage);
     //formData.append("tags", `codeinfuse, medium, gist`);
@@ -49,7 +49,8 @@ function* createBird(action) {
       format: birdImageRes.format,
       imageUrl: birdImageRes.secure_url,
       public_id: birdImageRes.public_id,      
-    }; 
+    };
+    console.log('uploading ', birdInfo); 
     const res = yield call(api.POST, 'birds', birdInfo);
     yield put(actions.createBirdSuccess(res.data));
     yield put(loaded());
@@ -69,27 +70,87 @@ function* fetchBirdList(action) {
 }
 
 function* deleteBird(action) {
-  try {
-    console.log(action)
-    const _id = { _id: action._id}
-    const removeBird = yield call(api.DELETE, 'bird', _id);
-    console.log(removeBird)
-    if(!removeBird.err) {
-      const updates = {
-        field: 'birdId',
-        value: action._id,
-        updates: {
-          birdId: null,
-          birdSlug: null
+
+      try {
+        console.log('in try')
+        console.log(action)
+        const _id = { _id: action._id}
+        const removeBird = yield call(api.DELETE, 'bird', _id);
+        console.log(removeBird)
+        if(!removeBird.err) {
+          const updates = {
+            field: 'birdId',
+            value: action._id,
+            updates: {
+              birdId: null,
+              birdSlug: null
+            }
+          }
+          // this updates the birdId entry in all of the photos because the bird has been deleted
+          // it doesn't update state yet
+          const updatePhotos = yield call(api.POST, 'updatePhotos', updates );
+          yield put(actions.deleteBirdSuccess(action._id)) 
+          history.push('/bird');      
         }
+      } catch(error) {
+        console.log(error)
       }
-      // this updates the birdId entry in all of the photos because the bird has been deleted
-      // it doesn't update state yet
-      const updatePhotos = yield call(api.POST, 'updatePhotos', updates );
-      yield put(actions.deleteBirdSuccess(action._id)) 
-      history.push('/bird');     
+}
+
+function* updateBird(action) {
+  try {
+    console.log(action.birdId);
+    
+    // if no file attached we will update bird but leave photo unchanged
+    const birdImage = action.bird.get('files') && action.bird.get('files')[0];
+    let birdImageRes = null;
+    if(birdImage) {
+      console.log(' we have a file attached we will update bird photo')
+      if(birdImage.type !== "image/jpeg") {
+          swal('Incorrect file type')
+          return;
+      }    
+      const formData = new FormData();
+      formData.append("file", birdImage);
+      //formData.append("tags", `codeinfuse, medium, gist`);
+      formData.append("upload_preset", "ueut3dbz"); 
+      formData.append("api_key", process.env.CLOUDINARY_API_KEY); 
+      formData.append("timestamp", (Date.now() / 1000) | 0);
       
+      yield put(load());   
+      birdImageRes = yield call(api.POSTBIRD, formData);            
     }
+    console.log(birdImageRes)
+    // if birdImageRes we need to delete the current bird photo from cloudinary
+    
+    
+    // console.log(birdImage)
+    const birdInfo = {
+      name: action.bird.get('name'),
+      slug: slugs(action.bird.get('name')),
+      order: action.bird.get('order'),      
+      species: action.bird.get('species'),
+      location: action.bird.get('location') && action.bird.get('location').split(',').map( (item) => item.trim() ),      
+      conservationStatus: action.bird.get('conservationStatus'),
+      comments: action.bird.get('comments')  
+    }; 
+    
+    
+    if(birdImageRes) {
+      birdInfo.created_at = birdImageRes && birdImageRes.created_at;
+      birdInfo.bytes = birdImageRes.bytes;
+      birdInfo.format = birdImageRes.format;
+      birdInfo.imageUrl = birdImageRes.secure_url;
+      birdInfo.public_id = birdImageRes.public_id;   
+    }
+    
+    const res = yield call(api.POST, `birds/update/${action.birdId}`, birdInfo);
+    console.log(res);
+ //${res.data.slug}
+    yield put(actions.updateBirdSuccess(res.data));
+    yield put(loaded());
+    history.push(`/bird/${res.data.slug}`);       
+    
   } catch(error) {
     console.log(error)
   }
@@ -111,11 +172,16 @@ export function* watchDeleteBird() {
   yield takeLatest(actions.DELETE_BIRD, deleteBird);
 }
 
+export function* watchUpdateBird() {
+  yield takeLatest(actions.UPDATE_BIRD, updateBird);
+}
+
 export default function* rootSaga() {
   yield [
     fork(watchFetchBird),
     fork(watchCreateBird),
     fork(watchFetchBirdList),
     fork(watchDeleteBird),
+    fork(watchUpdateBird)
   ];
 }

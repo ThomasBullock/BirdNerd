@@ -89,6 +89,20 @@
 			fill: $wes-cyan;
 			background: $oil;
 		}
+		
+		@include mod('edit') {
+
+			.icon {  // to stop svg going black inside link component
+				fill: $vapor;
+				
+				&:hover {
+					fill: $wes-cyan;
+				}
+			}
+			
+		}
+		
+
 	}	
 	
 	@include elem('edit') {

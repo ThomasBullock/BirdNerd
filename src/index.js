@@ -1,11 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route } from 'react-router-dom';
-import { createStore, applyMiddleware } from 'redux';
 import { ConnectedRouter } from 'react-router-redux';
-import createSagaMiddleware from 'redux-saga';
 import {Provider} from 'react-redux';
-import thunk from 'redux-thunk';
 import jwtDecode from 'jwt-decode';
 import registerServiceWorker from './registerServiceWorker';
 import Raven from 'raven-js';
@@ -16,10 +13,8 @@ import Main from './components/Main';
 import { authUser } from './ducks/auth';
 import './styles/css/styles.css';
 
-
-import { sentry_url } from './config';
-
 if(process.env.NODE_ENV === 'production') {
+  import { sentry_url } from './config';
 	Raven.config(sentry_url).install();
 }
 

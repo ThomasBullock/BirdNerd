@@ -51,7 +51,7 @@ const auth = (state = INITIAL_STATE, action) => {
     case AUTH_USER:
       return state.merge({ error: '', message: '', authenticated: true, user: action.user });
     case UNAUTH_USER:
-      return state.merge({ authenticated: false });
+      return state.merge({ authenticated: false, user: null });
     case AUTH_ERROR:
       return state.merge({ error: action.payload });
     case PROTECTED_TEST_SUCCESS:

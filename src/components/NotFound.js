@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
+import Message from './Message';
 
 class NotFound extends Component {
 	render() {
 		return(
-			<div>
-				<h2>Sorry that page doesn't exist</h2>
-			</div>
+			<Message heading="Sorry that page doesn't exist" />
 		)
 	}
 }

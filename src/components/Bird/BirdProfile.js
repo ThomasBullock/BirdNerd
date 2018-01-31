@@ -3,7 +3,9 @@ import BirdWings from '../icons/BirdWings';
 import DeleteIcon from '../icons/IconCross';
 import EditIcon from '../icons/IconFeather';
 import BirdCard from './BirdCard';
+import { Link } from 'react-router-dom';
 import { cloudinaryUrlModify } from '../../clientHelpers';
+import swal from 'sweetalert';
 
 // Duplicate code also in Homepage to be improved!
 const userPermission = (user, photo) => {
@@ -14,6 +16,29 @@ const userPermission = (user, photo) => {
 	} else {
 		return false;
 	}
+}
+
+const deleteAlert = (birdInfo, deleteBird) => {
+	console.log(deleteBird)
+	// deleteBird(birdId)
+	swal({
+	  title: "Are you sure?",
+	  text: "Once deleted, you will not be able to recover this bird profile!",
+	  icon: "warning",
+	  buttons: true,
+	  dangerMode: true,
+	})
+	.then((willDelete) => {
+	  if (willDelete) {
+	    // swal("Poof! Your imaginary file has been deleted!", {
+	    //   icon: "success",
+	    // });
+	    console.log(' will delete')
+			deleteBird(birdInfo.get('_id'));	 
+	  } else {
+	    swal(`The ${birdInfo.get('name')} profile is safe!`);
+	  }
+	});
 }
 
 const BirdProfile = ({birdInfo, photos, user, likeHandler, deleteBird}) => {
@@ -56,15 +81,19 @@ const BirdProfile = ({birdInfo, photos, user, likeHandler, deleteBird}) => {
 							<BirdWings className="birdinfo__svg"/> 
 						</div>
 						<div className="birdinfo__header">
-							{userRole === 'moderator' && <div className="birdinfo__btn">
-								<EditIcon className="birdinfo__edit"/>
-							</div>
-							}			
+
+							{ userRole === 'moderator' &&
+								<button className="birdinfo__btn birdinfo__btn--edit">
+										<Link to={`/bird/${birdInfo.get('slug')}/edit`}>
+											<EditIcon />
+										</Link>			
+								</button>			
+							}										
 							<div className="birdinfo__heading">
 								<h2>{birdInfo.get('name')}</h2>							
 							</div>
 							{ userRole === 'moderator' &&
-								<button className="birdinfo__btn" onClick={() => deleteBird(birdInfo.get('_id'))}>
+								<button className="birdinfo__btn" onClick={() => deleteAlert(birdInfo, deleteBird) }>
 										<DeleteIcon />
 								</button>			
 							}
