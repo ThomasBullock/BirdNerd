@@ -10,7 +10,7 @@ class MyPhotosContainer extends Component {
     const { photos } = this.props;
   	return(
       <div>
-  		  {photos ? (<MyPhotos photos={photos} user={this.props.user} likeHandler={this.props.likePhoto}/>) : (
+  		  {photos.size > 1 ? (<MyPhotos photos={photos} user={this.props.user} likeHandler={this.props.likePhoto}/>) : (
           <h2>Loading</h2>
         )}
       </div>

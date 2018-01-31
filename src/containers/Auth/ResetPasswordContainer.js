@@ -46,7 +46,7 @@ class ResetPasswordContainer extends Component {
 ResetPasswordContainer.propTypes = {
   authenticated: bool.isRequired,
   message: string,
-  user: object.isRequired,
+  user: object,
   resetPassword: func.isRequired,
   changePassword: func.isRequired
 }

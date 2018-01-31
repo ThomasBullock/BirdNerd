@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { instanceOf, func, bool } from 'prop-types';
+import Immutable from 'immutable';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { requestPhotos } from '../ducks/photos';
@@ -14,15 +16,9 @@ class Landing extends Component {
 	}
 
 	componentWillMount() {
-
+    this.props.dispatch(requestPhotos());
 	}
 	
-	componentDidMount() {
-    this.props.dispatch(requestPhotos());
-		// if(this.props.user) {
-		// 	this.props.history.push('/home');
-		// }      		
-	}
 	
 	getImage(aspect, index) {
 				const image = (aspect === 'Landscape') ? this.props.photosLandscape.getIn([index, 'imageUrl'])
@@ -86,18 +82,6 @@ class Landing extends Component {
 		        		</button>
 		        	</div>	
 		        </div>		        
-		        {/*
-		        <div className="form__submit">
-		        	<ul className="nav-tabs">
-							  <li className="tab-header-and-content">
-							    <button className="nav-tabs__button">Register</button>
-							  </li>
-							  <li className="tab-header-and-content">
-							    <button className="nav-tabs__button">Login</button>
-							  </li>
-						  </ul>
-		        </div> 		          						
-						*/}
 					</div>
 				</div>										
 			</div>
@@ -105,11 +89,15 @@ class Landing extends Component {
 	}
 }
 
+Landing.propTypes = {
+  photosLandscape: instanceOf(Immutable.List).isRequired,
+  photosPortrait: instanceOf(Immutable.List).isRequired
+}
+
 const mapStateToProps = (state) => {
 	return {
 		photosLandscape: state.get('photos').filter(photoInfo => photoInfo.get('imageAspect') === 'Landscape').sort((a, b) => b.get('likes').size - a.get('likes').size),
 		photosPortrait: state.get('photos').filter(photoInfo => photoInfo.get('imageAspect') === 'Portrait').sort((a, b) => b.get('likes').size - a.get('likes').size),		
-    user: state.getIn(['auth', 'user'])	
 	}
 }
 

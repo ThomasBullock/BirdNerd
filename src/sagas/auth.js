@@ -1,5 +1,4 @@
-import { takeLatest } from 'redux-saga';
-import { call, put, fork } from 'redux-saga/effects';
+import { takeLatest, call, put, fork } from 'redux-saga/effects';
 import { SubmissionError } from 'redux-form';
 import * as api from '../api';
 import * as actions from '../ducks/auth';

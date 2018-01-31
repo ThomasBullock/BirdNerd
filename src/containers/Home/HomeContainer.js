@@ -56,7 +56,7 @@ class HomeContainer extends Component {
 
 HomeContainer.propTypes = {
   photos: instanceOf(Immutable.List).isRequired,
-  user: object.isRequired
+  user: object
 }
 
 function mapStateToProps(state) {
