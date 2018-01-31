@@ -1,4 +1,6 @@
 import React, { Component }from 'react';
+import { bool } from 'prop-types';
+import Immutable from 'immutable';
 import { connect } from 'react-redux';
 
 import history from '../../history';
@@ -20,6 +22,10 @@ export default function(ComposedComponent) {
         render() {
           return <ComposedComponent {...this.props} />
         }
+      }
+
+      Authentication.propTypes = {
+        authenticated: bool.isRequired,
       }
     
       function mapStateToProps(state) {
