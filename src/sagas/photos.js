@@ -17,22 +17,15 @@ const getPhoto = (state, photoID ) => state.get('photos').filter(photo => photo.
 
 function* fetchPhotos(action) {
     try {
-        let loadingStatus = yield select(getLoadingStatus);
-        if(!loadingStatus) {
-            console.log(loadingStatus)
-            yield put(load('Loading Photos'));            
-        }
+        yield put(load('Loading Photos'));            
         const myPhotos = yield call(api.GET, `photos/`);
-        loadingStatus = yield select(getLoadingStatus)
-        if(loadingStatus) {
-            console.log('loading status is' + loadingStatus)
-            yield put(loaded());            
-        }         
-        yield put(actions.receivePhotos(myPhotos))
-
+        yield put(loaded());                  
+        yield put(actions.receivePhotos(myPhotos));
        
     } catch(error) {
+        // need to try a redirect here
         console.log(error)
+        history.push(`/`);
     }   
 }
 
@@ -101,8 +94,8 @@ function* createPhoto(action) {
             user: user,             
         } 
         console.log('PhotoInfo : =====', photoInfo);  
-        yield call(api.POST, 'photo', photoInfo);
-        yield put(actions.createPhotoSuccess(photoInfo));
+        const res = yield call(api.POST, 'photo', photoInfo);
+        yield put(actions.createPhotoSuccess(res.data));
         yield put(loaded());      
         history.push('/bird/mybirds');   	
 	} catch(error) {

@@ -4,10 +4,10 @@ import Immutable from 'immutable';
 import { connect } from 'react-redux';
 import { protectedTest } from '../../ducks/auth';
 import { requestPhotos, sortNewest, sortOldest, sortPopular, likePhoto } from '../../ducks/photos';
-import HomePage from '../../components/Home/HomePage';
+import BirdFeed from '../../components/Bird/BirdFeed';
 import Loader from '../../img/Ellipsis.svg';
 
-class HomeContainer extends Component {
+class BirdFeedContainer extends Component {
   constructor(props) {
     super(props);
     // this.props.protectedTest(); // do we need this?
@@ -15,11 +15,11 @@ class HomeContainer extends Component {
   }
 
   componentWillMount() {
-    console.log('we\'ll get a bunch of photos');
-    if(this.props.photos.size === 1 && this.props.photos.get(0).get('created_at') === null) {
-      console.log('requesting photos loader === ' + this.props.loading)
-      this.props.requestPhotos();
-    }    
+    // console.log('we\'ll get a bunch of photos');
+    // if(this.props.photos.size === 1 && this.props.photos.get(0).get('created_at') === null) {
+    //   console.log('requesting photos loader === ' + this.props.loading)
+    //   this.props.requestPhotos();
+    // }    
   }
   
   handleSort(sort) {
@@ -47,21 +47,15 @@ class HomeContainer extends Component {
   }
   render() {
     const { photos, loading } = this.props;
-    console.log(loading)
     return (
-      // if the photos List size is greater then 1 ( ie not initial state ) then render the homepage
       <div>
-        {(this.props.loading && this.props.photos.get(0).get('created_at') === null) ? ( <div className="loader" >
-            <h2 className="loader__heading">{this.props.message}</h2>
-            <img src={Loader}/>
-          </div>  )  : (<HomePage photos={photos} sort={this.handleSort} user={this.props.user} likeHandler={this.props.likePhoto}/>) 
-        }
+        <BirdFeed photos={photos} sort={this.handleSort} user={this.props.user} likeHandler={this.props.likePhoto}/>
       </div>
     );
   }
 }
 
-HomeContainer.propTypes = {
+BirdFeedContainer.propTypes = {
   photos: instanceOf(Immutable.List).isRequired,
   user: object,
   loading: bool.isRequired
@@ -88,4 +82,4 @@ const mapDispatchToProps = (dispatch) => {
   }; // here we're mapping actions to props 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(BirdFeedContainer);

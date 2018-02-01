@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import TopBar from './TopBar';
 import Footer from './Footer';
-import Home from './Home/Home';
+// import Home from './Home/Home';
 import Landing from './Landing';
 import Register from './Auth/Register';
 import NotFound from './NotFound';  
@@ -20,8 +20,7 @@ const Main = () => (
   <main>
     <TopBar />
     <Switch>
-      <Route exact path='/' component={RequireAuth(Home)} />
-      <Route path='/welcome' component={Landing} />      
+      <Route exact path='/' component={Landing} />      
       <Route path="/register" component={Register} />
       <Route path="/login" component={Login} />
       <Route path="/forgot" component={Forgot} />

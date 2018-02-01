@@ -7,6 +7,7 @@ import BirdFormContainer from '../../containers/Bird/BirdFormContainer';
 import BirdForm from './BirdForm';
 import BirdProfileContainer from '../../containers/Bird/BirdProfileContainer';
 import BirdListContainer from '../../containers/Bird/BirdListContainer';
+import BirdFeedContainer from '../../containers/Bird/BirdFeedContainer';
 import RequireAuth from '../Auth/RequireAuth';
 import ModeratorAuth from '../Auth/ModeratorAuth';
 import MyPhotosContainer from '../../containers/Photo/MyPhotosContainer';
@@ -40,6 +41,7 @@ class Birds extends Component {
           </div>  ) : 
       (<Switch>
         <Route exact path='/bird' component={BirdListContainer}/>  
+        <Route exact path='/bird/feed' component={RequireAuth(BirdFeedContainer)}/>          
         <Route exact path='/bird/new' component={BirdFormContainer}/>
         <Route exact path='/bird/mybirds' component={RequireAuth(MyPhotosContainer)}/>
         <Route exact path="/bird/mybirds/new" component={RequireAuth(PhotoFormContainer)}/>

@@ -244,7 +244,8 @@ router.post('/photo', requireAuth, (req, res) => {
     const photo = new Photo(req.body);
     photo.save()
         .then(data => {
-            res.json({err: false});
+            console.log('Data : ======', data);            
+            res.json({err: false, data});
         })
         .catch(err => {
             console.log(err);

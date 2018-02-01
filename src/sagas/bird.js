@@ -1,6 +1,5 @@
-import { takeLatest } from 'redux-saga';
 import slugs from 'slugs';
-import { call, put, select, fork } from 'redux-saga/effects';
+import { call, put, select, fork, takeLatest } from 'redux-saga/effects';
 import * as api from '../api';
 import * as actions from '../ducks/bird';
 import { load, loaded } from '../ducks/loading';
@@ -50,7 +49,7 @@ function* createBird(action) {
       imageUrl: birdImageRes.secure_url,
       public_id: birdImageRes.public_id,      
     };
-    console.log('uploading ', birdInfo); 
+    // console.log('uploading ', birdInfo); 
     const res = yield call(api.POST, 'birds', birdInfo);
     yield put(actions.createBirdSuccess(res.data));
     yield put(loaded());
@@ -68,6 +67,9 @@ function* fetchBirdList(action) {
     yield put(loaded());
   } catch(error) {
     console.log(error)
+    // need to push somewhere
+    history.push(`/bird`);
+    
   }
 }
 

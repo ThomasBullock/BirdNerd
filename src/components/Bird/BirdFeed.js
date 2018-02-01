@@ -14,8 +14,7 @@ const userPermission = (user, photo) => {
 }
 
 
-const HomePage = ({ photos, sort, user, likeHandler }) => {
-		console.log('we is in Hompage!')
+const BirdFeed = ({ photos, sort, user, likeHandler }) => {
 		const birdPhotos = photos.map( (item, i) => {
 			// console.log(item.get('likes'))
 			return (
@@ -51,11 +50,11 @@ const HomePage = ({ photos, sort, user, likeHandler }) => {
 					  </li>
 					</ul>
 
-    		<div className="cards-wrapper">
-    			{birdPhotos}
+    		<div className="cards-wrapper">	
+    			{photos.size > 1 && birdPhotos}
 	  		</div>	  	  			  		
 	  	</div>	
     );
 }
 
-export default HomePage;
+export default BirdFeed;
