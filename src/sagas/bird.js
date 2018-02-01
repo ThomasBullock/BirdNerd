@@ -33,7 +33,7 @@ function* createBird(action) {
     formData.append("timestamp", (Date.now() / 1000) | 0);
     //const [birdRes, birdImageRes] = yield [call(api.POST, 'birds', action.bird.toJS()), call(api.POSTBIRD, formData)];
     //yield put(actions.createBirdUpload()); 
-    yield put(load());   
+    yield put(load('Uploading Photo'));   
     const birdImageRes = yield call(api.POSTBIRD, formData);
   
     const birdInfo = {
@@ -62,21 +62,20 @@ function* createBird(action) {
 
 function* fetchBirdList(action) {
   try {
+    yield put(load('fetching bird data'));  
     const birdList = yield call(api.GET, `birds`)
     yield put(actions.receiveBirdList(birdList));
+    yield put(loaded());
   } catch(error) {
     console.log(error)
   }
 }
 
 function* deleteBird(action) {
-
       try {
-        console.log('in try')
-        console.log(action)
         const _id = { _id: action._id}
+        yield put(load('Deleting Bird Profile'));  
         const removeBird = yield call(api.DELETE, 'bird', _id);
-        console.log(removeBird)
         if(!removeBird.err) {
           const updates = {
             field: 'birdId',
@@ -89,7 +88,8 @@ function* deleteBird(action) {
           // this updates the birdId entry in all of the photos because the bird has been deleted
           // it doesn't update state yet
           const updatePhotos = yield call(api.POST, 'updatePhotos', updates );
-          yield put(actions.deleteBirdSuccess(action._id)) 
+          yield put(actions.deleteBirdSuccess(action._id));
+          yield put(loaded());           
           history.push('/bird');      
         }
       } catch(error) {
@@ -104,6 +104,7 @@ function* updateBird(action) {
     // if no file attached we will update bird but leave photo unchanged
     const birdImage = action.bird.get('files') && action.bird.get('files')[0];
     let birdImageRes = null;
+    yield put(load('Updating Bird Profile')); 
     if(birdImage) {
       console.log(' we have a file attached we will update bird photo')
       if(birdImage.type !== "image/jpeg") {
@@ -116,8 +117,7 @@ function* updateBird(action) {
       formData.append("upload_preset", "ueut3dbz"); 
       formData.append("api_key", process.env.CLOUDINARY_API_KEY); 
       formData.append("timestamp", (Date.now() / 1000) | 0);
-      
-      yield put(load());   
+        
       birdImageRes = yield call(api.POSTBIRD, formData);            
     }
     console.log(birdImageRes)

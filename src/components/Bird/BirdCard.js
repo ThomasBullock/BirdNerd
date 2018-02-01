@@ -10,6 +10,30 @@ import IconBird from '../icons/IconBird';
 import DeleteIcon from '../icons/IconCross';
 import { deletePhoto } from  '../../ducks/photos';
 import { cloudinaryUrlModify } from '../../clientHelpers';
+import swal from 'sweetalert';
+
+// const deleteAlert = (birdInfo, deleteBird) => {
+// 	console.log(deleteBird)
+// 	// deleteBird(birdId)
+// 	swal({
+// 	  title: "Are you sure?",
+// 	  text: "Once deleted, you will not be able to recover this bird profile!",
+// 	  icon: "warning",
+// 	  buttons: true,
+// 	  dangerMode: true,
+// 	})
+// 	.then((willDelete) => {
+// 	  if (willDelete) {
+// 	    // swal("Poof! Your imaginary file has been deleted!", {
+// 	    //   icon: "success",
+// 	    // });
+// 	    console.log(' will delete')
+// 			deleteBird(birdInfo.get('_id'));	 
+// 	  } else {
+// 	    swal(`The ${birdInfo.get('name')} profile is safe!`);
+// 	  }
+// 	});
+// }
 
 class BirdCard extends Component {
 		constructor(props) {
@@ -18,7 +42,26 @@ class BirdCard extends Component {
 		}
 
 		handleDelete() {
-			this.props.dispatch(deletePhoto(this.props.public_id));
+			// console.log(deleteBird)
+			swal({
+			  title: "Are you sure?",
+			  text: "Once deleted, you will not be able to recover this photo!",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+			})
+			.then((willDelete) => {
+			  if (willDelete) {
+			    // swal("Poof! Your imaginary file has been deleted!", {
+			    //   icon: "success",
+			    // });
+			    console.log(' will delete')
+					this.props.dispatch(deletePhoto(this.props.public_id));
+			  } else {
+			    swal(`This ${this.props.name} photo is safe!`);
+			  }
+			});			
+
 		}
 		render() {
 			const userImg = 'http://3.bp.blogspot.com/-dXOvZOVDhes/Ts99nTenjtI/AAAAAAAAA2A/It9Ymliw4t4/s1600/26.jpg';

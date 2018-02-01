@@ -9,6 +9,7 @@ import swal from 'sweetalert'
 
 
 //selector
+const getLoadingStatus = (state) => state.getIn(['loading', 'currentState']);
 const getBirdInfo = (state, birdName) => state.get('bird').filter(bird => bird.get('name') === birdName).get(0);
 const getUser = (state) => state.getIn(['auth', 'user', '_id']);
 const getGravatar = (state) => state.getIn(['auth', 'user', 'gravatar']);
@@ -16,8 +17,20 @@ const getPhoto = (state, photoID ) => state.get('photos').filter(photo => photo.
 
 function* fetchPhotos(action) {
     try {
+        let loadingStatus = yield select(getLoadingStatus);
+        if(!loadingStatus) {
+            console.log(loadingStatus)
+            yield put(load('Loading Photos'));            
+        }
         const myPhotos = yield call(api.GET, `photos/`);
+        loadingStatus = yield select(getLoadingStatus)
+        if(loadingStatus) {
+            console.log('loading status is' + loadingStatus)
+            yield put(loaded());            
+        }         
         yield put(actions.receivePhotos(myPhotos))
+
+       
     } catch(error) {
         console.log(error)
     }   
@@ -47,7 +60,7 @@ function* createPhoto(action) {
         formData.append("api_key", process.env.CLOUDINARY_API_KEY); 
         formData.append("timestamp", (Date.now() / 1000) | 0);
         //yield put(actions.createPhotoUpload()); 
-        yield put(load());
+        yield put(load('Uploading Photo'));
         const birdImageRes = yield call(api.POSTBIRD, formData); //Post bird on cloudinary
         //get a bird info from redux store
         

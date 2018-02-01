@@ -20,22 +20,16 @@ import BirdProfile from '../../components/Bird/BirdProfile';
 class BirdProfileContainer extends Component {
 	componentWillMount() {
 		console.log('componentWillMount')
-		console.log(this.props);
+		// console.log(this.props);
 		
 		// if(!this.props.birdInfo) {
 		// 	store.dispatch(requestBirdList());
 		// }
 	}
-	
-	componentDidMount() {
-		console.log('componentDidMount')
-		console.log(this.props);		
-	}
-	
-	
+		
 	componentWillReceiveProps(nextProps) {
-		console.log('componentWillReceiveProps')
-		console.log(nextProps)
+		// console.log('componentWillReceiveProps')
+		// console.log(nextProps)
 	}
 	
 	render() {
