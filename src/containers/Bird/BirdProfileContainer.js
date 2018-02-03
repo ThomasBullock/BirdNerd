@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { instanceOf, object, bool } from 'prop-types';
+import Immutable from 'immutable';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import Loader from '../../img/Ellipsis.svg';
 import { push } from 'react-router-redux';
 import store from '../../store';
@@ -17,29 +18,9 @@ import { likePhoto } from '../../ducks/photos';
 
 import BirdProfile from '../../components/Bird/BirdProfile';
 
-class BirdProfileContainer extends Component {
-	componentWillMount() {
-		console.log('componentWillMount')
-		console.log(this.props);
-		
-		// if(!this.props.birdInfo) {
-		// 	store.dispatch(requestBirdList());
-		// }
-	}
-	
-	componentDidMount() {
-		console.log('componentDidMount')
-		console.log(this.props);		
-	}
-	
-	
-	componentWillReceiveProps(nextProps) {
-		console.log('componentWillReceiveProps')
-		console.log(nextProps)
-	}
+class BirdProfileContainer extends Component {	
 	
 	render() {
-		console.log('this.props.birdInfo in render ==== ' + this.props.birdInfo)
 		const birdSlug = this.props.match.params.birdSlug;
 		return (
 			<div className="container">
@@ -59,6 +40,12 @@ class BirdProfileContainer extends Component {
 				</div>
 		)
 	}
+}
+
+BirdProfileContainer.propTypes = {
+  birdInfo: instanceOf(Immutable.Map),
+  photos: instanceOf(Immutable.List).isRequired,
+  user: instanceOf(Immutable.Map) 	
 }
 
 const mapStateToProps = (state, props) => {

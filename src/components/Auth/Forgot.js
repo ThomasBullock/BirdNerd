@@ -32,6 +32,9 @@ let Forgot = props => {
     return(
       <div className="container">
         <form className="form" onSubmit={handleSubmit((vals) => forgotPassword(vals))}>
+          <div className="form__title">
+            <h2>Forgot your password?</h2>
+          </div>
           <div className="form__input">
             <Field
               name="email"

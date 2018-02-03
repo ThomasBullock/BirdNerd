@@ -2,8 +2,6 @@ import { fromJS } from 'immutable';
 
 const action = name => `birdnerd/bird/${name}`;
 
-export const REQUEST_BIRD = action('REQUEST_BIRD'); // need to create request and receive
-export const RECEIVE_BIRD = action('RECEIVE_BIRD');
 export const CREATE_BIRD = action('CREATE_BIRD');
 export const UPDATE_BIRD = action('UPDATE_BIRD');
 export const UPDATE_BIRD_SUCCESS = action('UPDATE_BIRD_SUCCESS');
@@ -17,8 +15,6 @@ export const RECEIVE_BIRD_LIST = action('RECEIVE_BIRD_LIST');
 
 // Action Creators
 //export const requestBird = (bird) => ({ type: REQUEST_BIRD, bird }); 
-
-export const receiveBird = (data) => ( { type: RECEIVE_BIRD, data });
 
 export const createBird = bird => ({ type: CREATE_BIRD, bird });
 
@@ -55,10 +51,6 @@ const bird = (state = initialState, action) => {
   // console.log(action)
   switch (action.type) {
     // do reducer stuff
-    case RECEIVE_BIRD: 
-      const bird = fromJS(action.data)
-      // console.log(bird)    
-      return state.update(list => fromJS(action.data));    
     case CREATE_BIRD_UPLOAD:
       console.log('uploading in bird ducks!') 
       return state.push({ uploading: true });

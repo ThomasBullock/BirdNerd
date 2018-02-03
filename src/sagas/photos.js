@@ -9,6 +9,7 @@ import swal from 'sweetalert'
 
 
 //selector
+const getLoadingStatus = (state) => state.getIn(['loading', 'currentState']);
 const getBirdInfo = (state, birdName) => state.get('bird').filter(bird => bird.get('name') === birdName).get(0);
 const getUser = (state) => state.getIn(['auth', 'user', '_id']);
 const getGravatar = (state) => state.getIn(['auth', 'user', 'gravatar']);
@@ -16,10 +17,15 @@ const getPhoto = (state, photoID ) => state.get('photos').filter(photo => photo.
 
 function* fetchPhotos(action) {
     try {
+        yield put(load('Loading Photos'));            
         const myPhotos = yield call(api.GET, `photos/`);
-        yield put(actions.receivePhotos(myPhotos))
+        yield put(loaded());                  
+        yield put(actions.receivePhotos(myPhotos));
+       
     } catch(error) {
+        // need to try a redirect here
         console.log(error)
+        history.push(`/`);
     }   
 }
 
@@ -47,7 +53,7 @@ function* createPhoto(action) {
         formData.append("api_key", process.env.CLOUDINARY_API_KEY); 
         formData.append("timestamp", (Date.now() / 1000) | 0);
         //yield put(actions.createPhotoUpload()); 
-        yield put(load());
+        yield put(load('Uploading Photo'));
         const birdImageRes = yield call(api.POSTBIRD, formData); //Post bird on cloudinary
         //get a bird info from redux store
         
@@ -88,8 +94,8 @@ function* createPhoto(action) {
             user: user,             
         } 
         console.log('PhotoInfo : =====', photoInfo);  
-        yield call(api.POST, 'photo', photoInfo);
-        yield put(actions.createPhotoSuccess(photoInfo));
+        const res = yield call(api.POST, 'photo', photoInfo);
+        yield put(actions.createPhotoSuccess(res.data));
         yield put(loaded());      
         history.push('/bird/mybirds');   	
 	} catch(error) {

@@ -111,37 +111,6 @@ router.get('/birds/:birdSlug', (req, res) => {  // removed requireAuth,
 });
 
 
-// router.get('/birds/:name', (req, res) => {  // removed requireAuth,
-//     const birdName = req.params.name;
-//     Bird.findOne( { name: birdName } ) 
-//         .exec()
-//         .then(data => {
-//             console.log(data);
-//             res.json(data);
-//         })
-//         .catch(err => {
-//             console.log(err);
-//             res.json(err);
-//         });
-// });
-
-// router.delete('/birds/:birdId', requireAuth, (req, res) => {
-//     if(req.user.profile.role === 'moderator') {
-//         const birdId = req.params.birdId;
-//         Bird.findByIdAndRemove(birdId)
-//         .exec()
-//         .then(data =>{
-//             res.json({ err: false});
-//         })
-//         .catch(err => {
-//             console.log(err);
-//             res.json(err);
-//         });
-//     } else {
-//         return res.status(403).send({ error: 'You are not authorized' });
-//     }
-// });
-
 router.delete('/bird', requireAuth, (req, res) => {
     if(req.user.profile.role === 'moderator') {
         console.log(req.body)
@@ -244,7 +213,8 @@ router.post('/photo', requireAuth, (req, res) => {
     const photo = new Photo(req.body);
     photo.save()
         .then(data => {
-            res.json({err: false});
+            console.log('Data : ======', data);            
+            res.json({err: false, data});
         })
         .catch(err => {
             console.log(err);
@@ -257,22 +227,7 @@ router.post('/updatephotos', requireAuth, (req, res) => {
     console.log(req.body);
     // console.log(req.user);
     if(req.user.profile.role === 'moderator') {
-        // Photo.find( { [req.body.field] : req.body.value })
-        // .then(data => {
-        //     console.log(data);
-        // })
-        // Photo.find( { [req.body.field] : req.body.value }, function(err, photos) {
-        //     if(err){
-        //         throw err;
-        //     }            
-        //     // console.log(photos)
-        //     if(photos) {
-        //         photos.forEach(photo => {
-        //             console.log(photo)
-        //             photo
-        //         })
-        //     }
-        // })
+
         Photo.update({[req.body.field] : req.body.value }, req.body.updates, {multi: true}, function(err, raw) {
             if(err){
                 throw err;
@@ -304,7 +259,7 @@ router.delete('/photo', requireAuth, (req, res) => {
             }
         });
     } else {
-        Photo.findOneAndRemove({'public_id': req.body.public_id, 'user': req.user._id}, function (err, photo) {
+        Photo.findOneAndRemove({'public_id': req.body.public_id, 'user._id': req.user._id}, function (err, photo) {
             if(err){
                 throw err;
             }

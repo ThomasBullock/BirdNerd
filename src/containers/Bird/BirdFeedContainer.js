@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { instanceOf, object } from 'prop-types';
+import { instanceOf, object, bool } from 'prop-types';
 import Immutable from 'immutable';
 import { connect } from 'react-redux';
 import { protectedTest } from '../../ducks/auth';
 import { requestPhotos, sortNewest, sortOldest, sortPopular, likePhoto } from '../../ducks/photos';
-import HomePage from '../../components/Home/HomePage';
+import BirdFeed from '../../components/Bird/BirdFeed';
+import Loader from '../../img/Ellipsis.svg';
 
-class HomeContainer extends Component {
+class BirdFeedContainer extends Component {
   constructor(props) {
     super(props);
     // this.props.protectedTest(); // do we need this?
@@ -14,8 +15,11 @@ class HomeContainer extends Component {
   }
 
   componentWillMount() {
-    console.log('we\'ll get a bunch of photos');
-    this.props.requestPhotos();
+    // console.log('we\'ll get a bunch of photos');
+    // if(this.props.photos.size === 1 && this.props.photos.get(0).get('created_at') === null) {
+    //   console.log('requesting photos loader === ' + this.props.loading)
+    //   this.props.requestPhotos();
+    // }    
   }
   
   handleSort(sort) {
@@ -42,29 +46,28 @@ class HomeContainer extends Component {
     }
   }
   render() {
-    const { photos } = this.props;
+    const { photos, loading } = this.props;
     return (
-      // if the photos List size is greater then 1 ( ie not initial state ) then render the homepage
       <div>
-        {photos.size > 1 ? (<HomePage photos={photos} sort={this.handleSort} user={this.props.user} likeHandler={this.props.likePhoto}/>) : (
-          <h2>Loading</h2>
-        )}
+        <BirdFeed photos={photos} sort={this.handleSort} user={this.props.user} likeHandler={this.props.likePhoto}/>
       </div>
     );
   }
 }
 
-HomeContainer.propTypes = {
+BirdFeedContainer.propTypes = {
   photos: instanceOf(Immutable.List).isRequired,
-  user: object
+  user: object,
+  loading: bool.isRequired
 }
 
 function mapStateToProps(state) {
   return { 
     content: state.getIn(['auth', 'content']),
     photos: state.get('photos'),
-    user: state.getIn(['auth', 'user']) 
-    
+    user: state.getIn(['auth', 'user']),
+    loading: state.getIn(['loading', 'currentState']),
+    message: state.getIn(['loading', 'message']) 
   };
 }
 
@@ -79,4 +82,4 @@ const mapDispatchToProps = (dispatch) => {
   }; // here we're mapping actions to props 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(BirdFeedContainer);

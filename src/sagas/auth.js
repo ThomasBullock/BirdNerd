@@ -27,7 +27,7 @@ function* signUpRequest(action) {
       const user = yield response.json();
       yield window.sessionStorage.setItem('token', user.token);
       yield put(actions.authUser());
-      history.push('/home');
+      history.push('/bird/feed');
     } else {
       throw response;
     }
@@ -45,7 +45,7 @@ function* loginRequest(action) {
       console.log("Response: ====", user)
       yield window.sessionStorage.setItem('token', user.token);
       yield put(actions.authUser(user.user));
-      history.push('/');
+      history.push('/bird/feed');
     } else {
       throw response;
     }

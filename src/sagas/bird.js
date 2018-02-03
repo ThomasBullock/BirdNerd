@@ -1,6 +1,5 @@
-import { takeLatest } from 'redux-saga';
 import slugs from 'slugs';
-import { call, put, select, fork } from 'redux-saga/effects';
+import { call, put, select, fork, takeLatest } from 'redux-saga/effects';
 import * as api from '../api';
 import * as actions from '../ducks/bird';
 import { load, loaded } from '../ducks/loading';
@@ -33,7 +32,7 @@ function* createBird(action) {
     formData.append("timestamp", (Date.now() / 1000) | 0);
     //const [birdRes, birdImageRes] = yield [call(api.POST, 'birds', action.bird.toJS()), call(api.POSTBIRD, formData)];
     //yield put(actions.createBirdUpload()); 
-    yield put(load());   
+    yield put(load('Uploading Photo'));   
     const birdImageRes = yield call(api.POSTBIRD, formData);
   
     const birdInfo = {
@@ -50,7 +49,7 @@ function* createBird(action) {
       imageUrl: birdImageRes.secure_url,
       public_id: birdImageRes.public_id,      
     };
-    console.log('uploading ', birdInfo); 
+    // console.log('uploading ', birdInfo); 
     const res = yield call(api.POST, 'birds', birdInfo);
     yield put(actions.createBirdSuccess(res.data));
     yield put(loaded());
@@ -62,21 +61,23 @@ function* createBird(action) {
 
 function* fetchBirdList(action) {
   try {
+    yield put(load('fetching bird data'));  
     const birdList = yield call(api.GET, `birds`)
     yield put(actions.receiveBirdList(birdList));
+    yield put(loaded());
   } catch(error) {
     console.log(error)
+    // need to push somewhere
+    history.push(`/bird`);
+    
   }
 }
 
 function* deleteBird(action) {
-
       try {
-        console.log('in try')
-        console.log(action)
         const _id = { _id: action._id}
+        yield put(load('Deleting Bird Profile'));  
         const removeBird = yield call(api.DELETE, 'bird', _id);
-        console.log(removeBird)
         if(!removeBird.err) {
           const updates = {
             field: 'birdId',
@@ -89,7 +90,8 @@ function* deleteBird(action) {
           // this updates the birdId entry in all of the photos because the bird has been deleted
           // it doesn't update state yet
           const updatePhotos = yield call(api.POST, 'updatePhotos', updates );
-          yield put(actions.deleteBirdSuccess(action._id)) 
+          yield put(actions.deleteBirdSuccess(action._id));
+          yield put(loaded());           
           history.push('/bird');      
         }
       } catch(error) {
@@ -104,6 +106,7 @@ function* updateBird(action) {
     // if no file attached we will update bird but leave photo unchanged
     const birdImage = action.bird.get('files') && action.bird.get('files')[0];
     let birdImageRes = null;
+    yield put(load('Updating Bird Profile')); 
     if(birdImage) {
       console.log(' we have a file attached we will update bird photo')
       if(birdImage.type !== "image/jpeg") {
@@ -116,8 +119,7 @@ function* updateBird(action) {
       formData.append("upload_preset", "ueut3dbz"); 
       formData.append("api_key", process.env.CLOUDINARY_API_KEY); 
       formData.append("timestamp", (Date.now() / 1000) | 0);
-      
-      yield put(load());   
+        
       birdImageRes = yield call(api.POSTBIRD, formData);            
     }
     console.log(birdImageRes)
@@ -164,9 +166,9 @@ export function* watchCreateBird() {
   yield takeLatest(actions.CREATE_BIRD, createBird);
 }
 
-export function* watchFetchBird() {
-  yield takeLatest(actions.REQUEST_BIRD, fetchBird);
-}
+// export function* watchFetchBird() {
+//   yield takeLatest(actions.REQUEST_BIRD, fetchBird);
+// }
 
 export function* watchDeleteBird() {
   yield takeLatest(actions.DELETE_BIRD, deleteBird);
@@ -178,7 +180,7 @@ export function* watchUpdateBird() {
 
 export default function* rootSaga() {
   yield [
-    fork(watchFetchBird),
+    // fork(watchFetchBird),
     fork(watchCreateBird),
     fork(watchFetchBirdList),
     fork(watchDeleteBird),
