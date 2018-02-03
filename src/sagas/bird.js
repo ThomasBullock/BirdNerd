@@ -166,9 +166,9 @@ export function* watchCreateBird() {
   yield takeLatest(actions.CREATE_BIRD, createBird);
 }
 
-export function* watchFetchBird() {
-  yield takeLatest(actions.REQUEST_BIRD, fetchBird);
-}
+// export function* watchFetchBird() {
+//   yield takeLatest(actions.REQUEST_BIRD, fetchBird);
+// }
 
 export function* watchDeleteBird() {
   yield takeLatest(actions.DELETE_BIRD, deleteBird);
@@ -180,7 +180,7 @@ export function* watchUpdateBird() {
 
 export default function* rootSaga() {
   yield [
-    fork(watchFetchBird),
+    // fork(watchFetchBird),
     fork(watchCreateBird),
     fork(watchFetchBirdList),
     fork(watchDeleteBird),
