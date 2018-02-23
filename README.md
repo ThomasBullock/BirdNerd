@@ -1,3 +1,46 @@
+# BirdNerd #
+
+Photo sharing web application for Bird Watchers. MERN stack.
+React with Redux [Ducks](https://github.com/erikras/ducks-modular-redux) / [Sagas](https://github.com/redux-saga/redux-saga).
+
+### Folder Structure ###
+
+```
+BirdNerd/
+    api/
+    auth/
+    config/
+    middleware/
+    models/
+    public/
+    src/
+      components/
+      containers/
+      ducks/
+      img/
+      sagas/
+      styles/
+        css/
+        scss/
+          base/
+          components/
+          mixins/
+          plugins/
+          styles.scss
+       api.js
+       clientHelpers.js
+       config.js
+       history.js
+       index.js
+       store.js
+    server.js
+    helpers.js
+    package.json
+    README.md
+    start.sh
+  
+```
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
