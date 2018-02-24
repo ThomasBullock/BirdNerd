@@ -4,106 +4,185 @@
 // calculated aspect ratio of the image (with a common ratio like 3:2 written as 1.5), 
 // images that have the same flex-basis (initial width) will maintain the same height while adjusting their width proportionally.
 
-.landing {
-	padding: 0 0 2px;;
-	max-width: 100%;
-	width: 100%;
-	min-height: 400px;
-	
-	@media all and (min-width : 1025px) { 
-		min-height: 600px;
+.hero {
+
+	@include elem('bird-wrapper') {
+		position: relative; 
+		height: 0; 
+		width: 100%; 
+		padding: 0;
+	  padding-bottom: 100%; 		
 	}
 
-	background: $black; //linear-gradient($oil, $tuatara);
+	@include elem('bird') {
+		// flex: 1 1 100%;
+    // width: 360px;
+    // height: auto;
+    // overflow: visible;
+		position: absolute; 
+		height: 100%; 
+		width: 100%; 
+	  left: 0; 
+		top: 0;    
+	}
+
+	@include elem('bird-image') {
+		// width: 554px;
+		// height: 586px;
+	}
+}
+
+.landing {
+
+
+
+
+
+
+	background: linear-gradient(0deg, $vapor, $lorikeet-blue);
+
+
+	// padding: 0 0 2px;;
+	max-width: 100%;
+	width: 100%;
+	min-height: 800px;
+	
+	@media all and (min-width : 1025px) { 
+		min-height: 1200px;
+	}
+	 //linear-gradient($oil, $tuatara);
 	// @include tropical-gradient(45deg)
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;	
 	position: relative;
-	
-	@include elem('screen') {
-		background: linear-gradient(darken($wes-magenta, 30%),transparentize($wes-magenta, .5) 20%),
-              linear-gradient(0deg, $lorikeet-blue, transparent 80%),
-              transparentize($jet, .9); // transparentize($jet, .6);
-		position: absolute;
-		width: 100%;
-		height: 100%;
-	}
-	
-	@include elem('panel') {
-		animation: fadein 3s ease-in;
-		position: absolute;
-		left: 0;
-		right: 0;
-		margin: 0 auto;
-		
-		@media all and (min-width : 1025px) { 
-			top: $base-spacing * 2;		
-		}		
-	}
-	
-	@include elem('intro') {
-		text-align: center;
-		font-weight: 500;
-	}
-	
-	@include elem('cta') {
-		margin-top: $base-spacing * 2;
+
+	@include elem('hero-wrapper') {
 		display: flex;
-		flex-direction: column;
-		p {
-			text-align: center;			
-		}
-		@include mod('no-margin') {
-			margin-top: 0;
-		}
-		
+		flex-wrap: wrap;
+		margin-top: $base-spacing;
+		align-self: center;
+		// background: $oil;
+		width: 80%;
+		// min-height: 200px;
 	}
-	
-	@include elem('cta-btns') {
+
+	@include elem('camera-container') {
+		display: flex;
+		// justify-content: center;
+		flex: 0 1 90%;
+		margin: 0 auto;
+		// min-height: 400px;
+
+		/* override this inline for aspect ratio other than square */	
+		@media all and (min-width : 768px) and (max-width : 1024px) {
+			flex: 0 1 60%;		
+		}
+
+
+		@media all and (min-width : 1025px) { 		
+			flex: 0 1 50%;
+		}
+	}
+
+	@include elem('intro-container') {
 		display: flex;
 		justify-content: center;
-
+		text-align: center;
+		flex: 1 1 100%;
 	}
 
-	@include elem('bird-btn') {
+	@include elem('cta-container') {
 		display: flex;
+		justify-content: center;
 		align-items: center;
+		flex: 1 1 100%;	
 
-		svg {
-			margin-right: $base-spacing;
-			fill: $vapor;
-		}
 	}
 	
-	@include elem('hero-grid') {
-		display: flex;
-		margin: $base-spacing / 16 $base-spacing / -2 0 $base-spacing * -1;
-		margin: 1px 0 0 -0;  
-		// flex-direction: column;
-		// height: 200px;
-	}
+	// @include elem('screen') {
+	// 	background: linear-gradient(darken($wes-magenta, 30%),transparentize($wes-magenta, .5) 20%),
+ //              linear-gradient(0deg, $lorikeet-blue, transparent 80%),
+ //              transparentize($jet, .9); // transparentize($jet, .6);
+	// 	position: absolute;
+	// 	width: 100%;
+	// 	height: 100%;
+	// }
+	
+	// @include elem('panel') {
+	// 	animation: fadein 3s ease-in;
+	// 	position: absolute;
+	// 	left: 0;
+	// 	right: 0;
+	// 	margin: 0 auto;
+		
+	// 	@media all and (min-width : 1025px) { 
+	// 		top: $base-spacing * 2;		
+	// 	}		
+	// }
+	
+	// @include elem('intro') {
+	// 	text-align: center;
+	// 	font-weight: 500;
+	// }
+	
+	// @include elem('cta') {
+	// 	margin-top: $base-spacing * 2;
+	// 	display: flex;
+	// 	flex-direction: column;
+	// 	p {
+	// 		text-align: center;			
+	// 	}
+	// 	@include mod('no-margin') {
+	// 		margin-top: 0;
+	// 	}
+		
+	// }
+	
+	// @include elem('cta-btns') {
+	// 	display: flex;
+	// 	justify-content: center;
+
+	// }
+
+	// @include elem('bird-btn') {
+	// 	display: flex;
+	// 	align-items: center;
+
+	// 	svg {
+	// 		margin-right: $base-spacing;
+	// 		fill: $vapor;
+	// 	}
+	// }
+	
+	// @include elem('hero-grid') {
+	// 	display: flex;
+	// 	margin: $base-spacing / 16 $base-spacing / -2 0 $base-spacing * -1;
+	// 	margin: 1px 0 0 -0;  
+	// 	// flex-direction: column;
+	// 	// height: 200px;
+	// }
 	
 	
-	@include elem('grid-image') {
-		width: 100%;
-		// padding: $base-spacing / 4 0 0 $base-spacing / 4;
-		padding: 1px 1px 0 1px;
-		// height: auto;
+	// @include elem('grid-image') {
+	// 	width: 100%;
+	// 	// padding: $base-spacing / 4 0 0 $base-spacing / 4;
+	// 	padding: 1px 1px 0 1px;
+	// 	// height: auto;
 		
-		img {
-			@include img-responsive();
-			min-height: 100%;
-		}
+	// 	img {
+	// 		@include img-responsive();
+	// 		min-height: 100%;
+	// 	}
 		
-		@include mod('aspect4x3') {
-			flex: 1.333333 1 0%;
-		}
+	// 	@include mod('aspect4x3') {
+	// 		flex: 1.333333 1 0%;
+	// 	}
 		
-		@include mod('aspect3x4') {
-			flex: .75 1 0%;
-		}
-	}
+	// 	@include mod('aspect3x4') {
+	// 		flex: .75 1 0%;
+	// 	}
+	// }
 }
 
 @keyframes fadein {

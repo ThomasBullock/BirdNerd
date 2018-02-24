@@ -4,18 +4,13 @@ const BirdWings = () => (
 <svg className="birdwings" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 	 width="720px" height="204px" viewBox="0 0 3019.781 856.859" enableBackground="new 0 0 3019.781 856.859">     " }} />
       <defs>
-				<linearGradient id="linear-gradient" gradientUnits="userSpaceOnUse" x1="0" y1="169.485" x2="3019.9301" y2="169.485" >
+				<linearGradient id="linear-gradient" gradientUnits="userSpaceOnUse" x1="0" y1="100%" x2="100%" y2="0%" >
 	      	<stop offset="0%" stopColor="#38aeF4" stopOpacity="100%"/>
 	      	<stop offset="20%" stopColor="#a026bf" stopOpacity="100%"/>
 	      	<stop offset="60%" stopColor="#e82c75" stopOpacity="100%"/>
 	      	<stop offset="85%" stopColor="#FCEE21" stopOpacity="100%"/>
 	      	<stop offset="95%" stopColor="#38aeF4" stopOpacity="100%"/>        
-      	</linearGradient>
-  	    <filter id="filter1" x="0" y="0">
-          <feOffset result="offOut" in="SourceAlpha" dx="2" dy="2" />
-          <feGaussianBlur result="blurOut" in="offOut" stdDeviation="15" />
-          <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
-		    </filter>      
+      	</linearGradient>    
       </defs>
 <g>
 	<path fill="url(#linear-gradient)" d="M1482.031,443.207c-6.572-6.572-37.332-5.098-54.578,2.615c-13.887,6.213-15.684,6.012-27.979-3.115

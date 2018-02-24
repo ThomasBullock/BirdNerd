@@ -34,56 +34,40 @@ class Landing extends Component {
 	render() {
 		return(
 			<div className="landing">
-				<div className="landing__screen"></div>
-				<div className="landing__hero-grid">
-					{this.getImage('Portrait', 0)}
-					{this.getImage('Landscape', 1)}
-					{this.getImage('Landscape', 3)}
-					{this.getImage('Landscape', 8)}
-					{this.getImage('Landscape', 0)}																	
-				</div>
-				<div className="landing__hero-grid">
-					{this.getImage('Portrait', 1)}
-					{this.getImage('Landscape', 4)}
-					{this.getImage('Portrait', 2)}
-					{this.getImage('Portrait', 4)}					
-					{this.getImage('Landscape', 5)}					
-				</div>
-				<div className="landing__hero-grid">
-					{this.getImage('Landscape', 6)}
-					{this.getImage('Portrait', 3)}							
-					{this.getImage('Landscape', 7)}
-					{this.getImage('Portrait', 5)}					
-				</div>
-				<div className="landing__panel">
-					<div className="form">
-		        <div className="form__title">
-		          <h2>Welcome to BirdNerd</h2>
-		        </div>
-		        <div>
-		        	<p className="landing__intro">BirdNerd is a free photo sharing site for Birdwatchers. Within this site you can view photos, sighting locations and general bird information.</p>
-		        </div>
-		        <div className="landing__cta--no-margin">
-		        	<div className="landing__cta-btns">
-		        		<button className="nav-tabs__button landing__bird-btn" >
-		        			<IconBird />
-		        			<Link to="/bird">Explore our bird database</Link>
-		        		</button>
-		        	</div>	
-		        </div>			        
-		        <div className="landing__cta">
-		        	<p>Sign up to share your favourite birdwatching photos.</p>
-		        	<div className="landing__cta-btns">
-		        		<button className="nav-tabs__button" >
-		        			<Link to="/register">Sign up</Link>
-		        		</button>
-		        		<button className="nav-tabs__button" >
-		        			<Link to="/login">Login</Link>
-		        		</button>
-		        	</div>	
-		        </div>		        
+				<div className="landing__hero-wrapper">
+					<div className="landing__camera-container">
+						<div className="hero__bird-wrapper">
+							<svg viewBox="0 0 100 100" className="hero__bird" preserveAspectRatio="xMidYMid slice">
+								<defs>
+					        <mask id="mask" maskUnits="userSpaceOnUse"
+					              maskContentUnits="userSpaceOnUse">
+					            <image className="hero__bird-image" xlinkHref="https://img-fotki.yandex.ru/get/15520/5091629.a4/0_8d416_118079e_orig" 
+					                   width="100" height="100"></image>
+					        </mask>
+					        <linearGradient id="linear-gradient" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="100%" y2="100%" >
+						      	<stop offset="0%" stopColor="#38aeF4" stopOpacity="100%"/>
+						      	<stop offset="20%" stopColor="#a026bf" stopOpacity="100%"/>
+						      	<stop offset="60%" stopColor="#e82c75" stopOpacity="100%"/>
+						      	<stop offset="85%" stopColor="#FCEE21" stopOpacity="100%"/>
+						      	<stop offset="95%" stopColor="#38aeF4" stopOpacity="100%"/>        
+					      	</linearGradient>
+								</defs>
+								<g mask="url(#mask)" className="g-container">
+		       				<rect fill="url(#linear-gradient)" width="100%" height="100%"></rect>
+		        			<rect fill="url(#linear-gradient)" width="100%" height="100%"></rect>
+		    				</g>
+							</svg>
+						</div>	
 					</div>
-				</div>										
+					<div className="landing__intro-container">
+						<p className="">
+							BirdNerd is a free photo sharing site for Birdwatchers. Within this site you can view photos, sighting locations and general bird information.
+						</p>
+					</div>
+					<div className="landing__cta-container">
+						<button>Sign up</button>
+					</div>					
+				</div>	
 			</div>
 		)
 	}
