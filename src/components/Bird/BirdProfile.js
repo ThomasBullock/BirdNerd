@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import {Helmet} from "react-helmet";
+
+import '../../styles/css/components/BirdInfo.css';
+// import BirdWings from '../../img/BirdWings.svg';
 import BirdWings from '../icons/BirdWings';
 import DeleteIcon from '../icons/IconCross';
 import EditIcon from '../icons/IconFeather';
@@ -16,9 +20,8 @@ const userPermission = (user, photo) => {
 	}
 }
 
-const BirdProfile = ({birdInfo, photos, user, likeHandler, deleteBird}) => {
+const BirdProfile = ({birdSlug, birdInfo, photos, user, likeHandler, deleteBird}) => {
 		const userRole = (user) ? user.get('role') : null;
-		console.log(birdInfo.get('public_id'))
 		const photoCards = photos && photos.map( (item, i) => {
 			return(
 				<BirdCard 
@@ -46,6 +49,9 @@ const BirdProfile = ({birdInfo, photos, user, likeHandler, deleteBird}) => {
 		const image = birdInfo.get('imageUrl') && cloudinaryUrlModify(birdInfo.get('imageUrl').split('/'), 'w_1048');
 		return(
 			<div className="birdinfo">
+				<Helmet>
+					<title>Bird:{birdSlug}</title>
+				</Helmet>
 				<div className="birdinfo__hero">
 					<div className="birdinfo__gradient birdinfo__gradient--left"></div>
 					<div className="birdinfo__hero-img" style={{'backgroundImage': `url(${image})`}}></div>

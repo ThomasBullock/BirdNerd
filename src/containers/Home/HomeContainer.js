@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {Helmet} from "react-helmet";
+
+// import TopBar from '../TopBar';
 import { protectedTest } from '../../ducks/auth';
 import { requestPhotos, sortNewest, sortOldest, sortPopular, likePhoto } from '../../ducks/photos';
 import HomePage from '../../components/Home/HomePage';
@@ -12,10 +15,7 @@ class HomeContainer extends Component {
   }
 
   componentDidMount() {
-    console.log('we\'ll get a bunch of photos');
     this.props.requestPhotos();
-    // this.props.sortNewest();
-
   }
   
   handleSort(sort) {
@@ -45,6 +45,9 @@ class HomeContainer extends Component {
     const { photos } = this.props;
     return (
       <div>
+        <Helmet>
+            <title>Home</title>
+        </Helmet>
         {photos ? (<HomePage photos={photos} sort={this.handleSort} user={this.props.user} likeHandler={this.props.likePhoto}/>) : (
           <h2>Loading</h2>
         )}
