@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {Helmet} from "react-helmet";
+
+import '../../styles/css/components/BirdList.css';
 import { birdGroups } from '../../clientHelpers';
 
 const BirdList = (birdList) => {
@@ -29,6 +32,9 @@ const BirdList = (birdList) => {
 	}
 	return(
 		<div className="birdlist">
+			<Helmet>
+            	<title>Bird Lists</title>
+        	</Helmet>
 			<h2 className="birdlist__title">The Bird List</h2>
 			{birdsByGroup()}
 		</div>

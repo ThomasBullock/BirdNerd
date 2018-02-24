@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { instanceOf, object, bool } from 'prop-types';
 import Immutable from 'immutable';
 import { connect } from 'react-redux';
+import {Helmet} from "react-helmet";
+
+// import TopBar from '../TopBar';
 import { protectedTest } from '../../ducks/auth';
 import { requestPhotos, sortNewest, sortOldest, sortPopular, likePhoto } from '../../ducks/photos';
 import BirdFeed from '../../components/Bird/BirdFeed';
@@ -19,7 +22,10 @@ class BirdFeedContainer extends Component {
     // if(this.props.photos.size === 1 && this.props.photos.get(0).get('created_at') === null) {
     //   console.log('requesting photos loader === ' + this.props.loading)
     //   this.props.requestPhotos();
-    // }    
+  }    
+
+  componentDidMount() {
+    this.props.requestPhotos();
   }
   
   handleSort(sort) {
@@ -50,6 +56,12 @@ class BirdFeedContainer extends Component {
     return (
       <div>
         <BirdFeed photos={photos} sort={this.handleSort} user={this.props.user} likeHandler={this.props.likePhoto}/>
+        <Helmet>
+            <title>Home</title>
+        </Helmet>
+        {photos ? (<HomePage photos={photos} sort={this.handleSort} user={this.props.user} likeHandler={this.props.likePhoto}/>) : (
+          <h2>Loading</h2>
+        )}
       </div>
     );
   }
