@@ -3,6 +3,8 @@ import { instanceOf, func, bool } from 'prop-types';
 import Immutable from 'immutable';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import {Helmet} from "react-helmet";
+
 import { requestPhotos } from '../ducks/photos';
 import IconBird from './icons/IconBird';
 
@@ -34,6 +36,9 @@ class Landing extends Component {
 	render() {
 		return(
 			<div className="landing">
+				<Helmet>
+            		<title>BirdNerd App</title>
+        		</Helmet>
 				<div className="landing__screen"></div>
 				<div className="landing__hero-grid">
 					{this.getImage('Portrait', 0)}
