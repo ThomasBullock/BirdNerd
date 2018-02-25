@@ -6,6 +6,7 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import apiRouter from './api';
 import authRouter from './auth';
+import fs from 'fs';
 
 import Bird from './models/bird';
 
@@ -21,12 +22,8 @@ const port = process.env.API_PORT || 3001;
 // Connect to our Database 
 mongoose.connect(process.env.DATABASE, { useMongoClient: true, });
 
-// Express only serves static assets in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('build'));
-}
 
-// converts raw requests into usable properties on req.body
+// converts raw requests into usaxsble properties on req.body
 // This object will contain key-value pairs, where the value can be a string or array (when extended is false), or any type (when extended is true).
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
@@ -41,8 +38,9 @@ app.use(function(req, res, next) {
 app.use('/api', apiRouter);
 app.use('/api/auth', authRouter);
 
+
+
 app.get('/', function(request, response) {
-  console.log('Home page visited!');
   const filePath = path.resolve(__dirname, './build', 'index.html');
 
   // read in the index.html file
@@ -54,7 +52,7 @@ app.get('/', function(request, response) {
     // replace the special strings with server generated strings
     data = data.replace(/\$OG_TITLE/g, 'Bird Nerd App');
     data = data.replace(/\$OG_DESCRIPTION/g, "BirdNerd is a free photo sharing site for Birdwatchers. Within this site you can view photos, sighting locations and general bird information.");
-    result = data.replace(/\$OG_IMAGE/g, 'https://cdn.dribbble.com/users/224707/screenshots/1966613/birdnerd.jpg');
+    let result = data.replace(/\$OG_IMAGE/g, 'https://cdn.dribbble.com/users/224707/screenshots/1966613/birdnerd.jpg');
     response.send(result);
   });
 });
@@ -62,22 +60,22 @@ app.get('/', function(request, response) {
 app.get('/bird/:birdSlug', function(request, response) {
   const birdSlug = request.params.birdSlug;
   const filePath = path.resolve(__dirname, './build', 'index.html')
-  fs.readFile(filePath, 'utf8', function (err,data) {
+  fs.readFile(filePath, 'utf8', function (err,template) {
     if (err) {
       return console.log(err);
     }
-    data = data.replace(/\$OG_TITLE/g, `Bird: ${birdSlug}`);
+    template = template.replace(/\$OG_TITLE/g, `Bird: ${birdSlug}`);
 
     Bird.findOne( { slug: birdSlug } ) 
         .exec()
         .then(data => {
-          data = data.replace(/\$OG_DESCRIPTION/g, `${data.comments}`);
-          result = data.replace(/\$OG_IMAGE/g, `${data.imageUrl}`);
+          template = template.replace(/\$OG_DESCRIPTION/g, `${data.comments}`);
+          let result = template.replace(/\$OG_IMAGE/g, `${data.imageUrl}`);
           response.send(result);
         })
         .catch(err => {
             console.log(err);
-            res.json(err);
+            response.json(err);
         });
   });
 });
@@ -96,11 +94,20 @@ app.get('/bird/:birdSlug', function(request, response) {
 //   });
 // });
 
+
+// Express only serves static assets in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('build'));
+}
+
+
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
 });
+
 
 //starts the server and listens for requests
 app.listen(port, function() {
   console.log(`api running on port ${port} in ${process.env.NODE_ENV}`);
 });
+
