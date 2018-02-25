@@ -19,10 +19,8 @@ function* fetchPhotos(action) {
     try {
         yield put(load('Loading Photos'));            
         const myPhotos = yield call(api.GET, `photos/`);
-        console.log('My photos:====', myPhotos);
         yield put(loaded());                  
         yield put(actions.receivePhotos(myPhotos));
-       debugger;
     } catch(error) {
         // need to try a redirect here
         console.log(error)
