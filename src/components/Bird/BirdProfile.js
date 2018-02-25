@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import {Helmet} from "react-helmet";
 
-import '../../styles/css/components/BirdInfo.css';
-// import BirdWings from '../../img/BirdWings.svg';
 import BirdWings from '../icons/BirdWings';
 import DeleteIcon from '../icons/IconCross';
 import EditIcon from '../icons/IconFeather';

@@ -25,7 +25,7 @@ class BirdFeedContainer extends Component {
   }    
 
   componentDidMount() {
-    this.props.requestPhotos();
+    //this.props.requestPhotos();
   }
   
   handleSort(sort) {
@@ -57,11 +57,11 @@ class BirdFeedContainer extends Component {
       <div>
         <BirdFeed photos={photos} sort={this.handleSort} user={this.props.user} likeHandler={this.props.likePhoto}/>
         <Helmet>
-            <title>Home</title>
+            <title>BirdFeed</title>
         </Helmet>
-        {photos ? (<HomePage photos={photos} sort={this.handleSort} user={this.props.user} likeHandler={this.props.likePhoto}/>) : (
+        {/* {photos ? (<HomePage photos={photos} sort={this.handleSort} user={this.props.user} likeHandler={this.props.likePhoto}/>) : (
           <h2>Loading</h2>
-        )}
+        )} */}
       </div>
     );
   }
