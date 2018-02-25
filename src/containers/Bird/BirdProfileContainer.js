@@ -26,6 +26,7 @@ class BirdProfileContainer extends Component {
 			<div className="container">
 			{this.props.birdInfo && this.props.photos ? (
 				<BirdProfile 
+					birdSlug={birdSlug}
 					birdInfo={this.props.birdInfo} 
 					photos={this.props.photos} 
 					user={this.props.user} 

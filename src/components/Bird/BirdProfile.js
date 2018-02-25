@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {Helmet} from "react-helmet";
+
 import BirdWings from '../icons/BirdWings';
 import DeleteIcon from '../icons/IconCross';
 import EditIcon from '../icons/IconFeather';
@@ -19,8 +21,6 @@ const userPermission = (user, photo) => {
 }
 
 const deleteAlert = (birdInfo, deleteBird) => {
-	console.log(deleteBird)
-	// deleteBird(birdId)
 	swal({
 	  title: "Are you sure?",
 	  text: "Once deleted, you will not be able to recover this bird profile!",
@@ -41,7 +41,7 @@ const deleteAlert = (birdInfo, deleteBird) => {
 	});
 }
 
-const BirdProfile = ({birdInfo, photos, user, likeHandler, deleteBird}) => {
+const BirdProfile = ({birdSlug, birdInfo, photos, user, likeHandler, deleteBird}) => {
 		const userRole = (user) ? user.get('role') : null;
 		const photoCards = photos && photos.map( (item, i) => {
 			return(
@@ -70,6 +70,9 @@ const BirdProfile = ({birdInfo, photos, user, likeHandler, deleteBird}) => {
 		const image = birdInfo.get('imageUrl') && cloudinaryUrlModify(birdInfo.get('imageUrl').split('/'), 'w_1048');
 		return(
 			<div className="birdinfo">
+				<Helmet>
+					<title>Bird:{birdSlug}</title>
+				</Helmet>
 				<div className="birdinfo__hero">
 					<div className="birdinfo__gradient birdinfo__gradient--left"></div>
 					<div className="birdinfo__hero-img" style={{'backgroundImage': `url(${image})`}}></div>
