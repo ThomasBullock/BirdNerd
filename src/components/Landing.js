@@ -38,6 +38,10 @@ class Landing extends Component {
 			<div className="landing">
 				<Helmet>
             		<title>BirdNerd App</title>
+					<meta name="description"        content="$OG_DESCRIPTION" />
+					<meta property="og:title"       content="BirdNerd App" />
+					<meta property="og:description" content="BirdNerd is a free photo sharing site for Birdwatchers. Within this site you can view photos, sighting locations and general bird information." />
+					<meta property="og:image"       content="https://cdn.dribbble.com/users/224707/screenshots/1966613/birdnerd.jpg" />
         		</Helmet>
 				<div className="landing__screen"></div>
 				<div className="landing__hero-grid">

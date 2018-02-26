@@ -72,6 +72,10 @@ const BirdProfile = ({birdSlug, birdInfo, photos, user, likeHandler, deleteBird}
 			<div className="birdinfo">
 				<Helmet>
 					<title>Bird:{birdSlug}</title>
+					<meta name="description"        content={birdInfo.get('comments')} />
+					<meta property="og:title"       content={birdSlug} />
+					<meta property="og:description" content={birdInfo.get('comments')} />
+					<meta property="og:image"       content={birdInfo.get('imageUrl')} />
 				</Helmet>
 				<div className="birdinfo__hero">
 					<div className="birdinfo__gradient birdinfo__gradient--left"></div>
