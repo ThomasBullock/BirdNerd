@@ -1,22 +1,29 @@
 // import plugins
 @import './plugins/bourbon/bourbon';
+@import './plugins/neat/neat';
 @import './plugins/base/base';
 
 // import our base styles
 @import './base/variables';
 @import './base/global-styles';
+@import './base/grid';
 
 // import our mixins
 @import './mixins/BEM';
 @import './mixins/helpers';
+@import './mixins/material-UI-shadows';
 
 // import our components
 @import './components/BirdCard';
 @import './components/BirdInfo';
 @import './components/BirdList';
+@import './components/Camera';
+@import './components/Features';
+@import './components/FeatureCard';
 @import './components/Footer';
 @import './components/Forms';
-@import './components/Home';
+@import './components/Home'; //Clean this up it's redundant!!
+@import './components/Hero';
 @import './components/Landing';
 @import './components/Loader';
 @import './components/Message';

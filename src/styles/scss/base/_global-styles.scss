@@ -15,3 +15,7 @@ a {
     outline-offset: $focus-outline-offset;
   }
 }
+
+.lead {
+  font-size: modular-scale(1);
+}

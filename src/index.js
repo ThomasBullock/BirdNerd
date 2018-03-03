@@ -25,7 +25,7 @@ if (token) {
 }
 const router = (
 	<Provider store={store}>
-    <ConnectedRouter history={history}>
+    <ConnectedRouter onUpdate={() => window.scrollTo(0, 0)} history={history}>
         <Route path='/' component={Main} />
     </ConnectedRouter>
    </Provider> 
