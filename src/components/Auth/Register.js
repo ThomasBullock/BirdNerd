@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
+import {Helmet} from "react-helmet";
 
 import { signUpRequest } from '../../ducks/auth';
 
@@ -23,6 +24,9 @@ let Register = props => {
   const { error, handleSubmit, pristine, reset, submitting, register } = props;
   return (
     <div className="container">
+      <Helmet>
+          <title>Register</title>
+      </Helmet>
       <form className="form" onSubmit={handleSubmit((vals) => register(vals))}>
         <div className="form__title">
           <h2>Sign Up with BirdNerd</h2>

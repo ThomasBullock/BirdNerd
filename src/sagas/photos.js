@@ -21,7 +21,6 @@ function* fetchPhotos(action) {
         const myPhotos = yield call(api.GET, `photos/`);
         yield put(loaded());                  
         yield put(actions.receivePhotos(myPhotos));
-       
     } catch(error) {
         // need to try a redirect here
         console.log(error)
