@@ -1,0 +1,67 @@
+.hero {
+	
+	@include grid-container;
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: $base-spacing;
+	align-self: center;
+	min-height: 600px;
+	// background: $oil;
+		
+	
+	@include elem('intro-container') {
+		color: $vapor;
+		text-align: center;
+		margin-top: $base-spacing / 2;
+		
+		
+	  @include grid-media($tablet-grid){
+	    @include grid-column(6);
+			margin-top: $base-spacing;
+	  }
+	  
+	  @include grid-media($desktop-grid){
+	    @include grid-column(6);
+	    margin-top: 0;
+	  }				
+	}
+	
+	@include elem('cta-container') {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		flex: 1 1 100%;	
+		color: $vapor;
+		margin-top: $base-spacing;				
+	}
+	
+	@include elem('cta-buttons') {
+		display: flex;
+		justify-content: space-between;
+		
+		a:last-child {
+			margin-left: $base-spacing;
+		}		
+
+	}
+	
+	@include elem('cta-text') {
+		margin-top: $base-spacing;
+	}
+	
+	@include elem('learn-more') {
+		width: 100%;
+		text-align: center;
+		// margin-top: $base-spacing * 2;
+		// margin-bottom: $base-spacing;		
+		
+	}
+	
+	@include elem('learn-more-link') {
+		svg {
+			fill: $vapor;
+		}
+	}		
+	
+}

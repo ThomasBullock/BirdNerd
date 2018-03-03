@@ -5,6 +5,7 @@ import BirdWings from '../icons/BirdWings';
 import DeleteIcon from '../icons/IconCross';
 import EditIcon from '../icons/IconFeather';
 import BirdCard from './BirdCard';
+import ScrollToTopOnMount from '../ScrollToTopOnMount';
 import { Link } from 'react-router-dom';
 import { cloudinaryUrlModify } from '../../clientHelpers';
 import swal from 'sweetalert';
@@ -70,6 +71,7 @@ const BirdProfile = ({birdSlug, birdInfo, photos, user, likeHandler, deleteBird}
 		const image = birdInfo.get('imageUrl') && cloudinaryUrlModify(birdInfo.get('imageUrl').split('/'), 'w_1048');
 		return(
 			<div className="birdinfo">
+				<ScrollToTopOnMount />
 				<Helmet>
 					<title>Bird:{birdSlug}</title>
 				</Helmet>

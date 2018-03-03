@@ -4,109 +4,113 @@
 // calculated aspect ratio of the image (with a common ratio like 3:2 written as 1.5), 
 // images that have the same flex-basis (initial width) will maintain the same height while adjusting their width proportionally.
 
+
 .landing {
-	padding: 0 0 2px;;
+
+	background: linear-gradient(0deg, lighten($lorikeet-blue, 30%), darken($lorikeet-blue, 10%));
 	max-width: 100%;
 	width: 100%;
-	min-height: 400px;
+	min-height: 900px;
+
+	@include elem('heading') {
+		@include text-shadow(3);
+		 
+		width: 100%;
+		text-align: center;
+		margin-top: $base-spacing / 2;
+		font-size: modular-scale(3);
+		color: $vapor;
+		
+		@include grid-media($desktop-grid){
+			font-size: modular-scale(5);
+			margin-top: $base-spacing;
+		}		
+	}
 	
-	@media all and (min-width : 1025px) { 
-		min-height: 600px;
+	@include elem('viewport') {
+		margin: 0 auto;
+		width: 90%;
+		@include grid-media($tablet-grid){
+			height: calc(100vh - 156px); 
+			width: 80%;
+		}
+		
+		@include grid-media($desktop-grid){
+			height: calc(100vh - 128px); 		 
+			width: 80%;
+		}	
+		
+		@include grid-media($large-desktop-grid){
+			height: calc(100vh - 128px); 		 
+			width: 60%;
+		}				
 	}
 
-	background: $black; //linear-gradient($oil, $tuatara);
-	// @include tropical-gradient(45deg)
+	@media all and (min-width : 1025px) { 
+		min-height: 1200px;
+	}
+
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;	
 	position: relative;
-	
-	@include elem('screen') {
-		background: linear-gradient(darken($wes-magenta, 30%),transparentize($wes-magenta, .5) 20%),
-              linear-gradient(0deg, $lorikeet-blue, transparent 80%),
-              transparentize($jet, .9); // transparentize($jet, .6);
-		position: absolute;
-		width: 100%;
-		height: 100%;
-	}
-	
-	@include elem('panel') {
-		animation: fadein 3s ease-in;
-		position: absolute;
-		left: 0;
-		right: 0;
-		margin: 0 auto;
+
+	@include elem('hero-wrapper') {
+		@include grid-container;
+		display: flex;
+		flex-wrap: wrap;
+		margin-top: $base-spacing;
+		align-self: center;
+		min-height: 600px;
+		width: 90%;
+		@include grid-media($tablet-grid){
+			height: calc(100vh - 156px); 
+			width: 80%;
+		}
 		
-		@media all and (min-width : 1025px) { 
-			top: $base-spacing * 2;		
-		}		
+		@include grid-media($desktop-grid){
+			height: calc(100vh - 128px); 		 
+			width: 80%;
+		}	
+		
+		@include grid-media($large-desktop-grid){
+			height: calc(100vh - 128px); 		 
+			width: 60%;
+		}					
+		// min-height: 200px;
 	}
-	
-	@include elem('intro') {
+
+	@include elem('intro-container') {
+		color: $vapor;
 		text-align: center;
-		font-weight: 500;
-	}
-	
-	@include elem('cta') {
-		margin-top: $base-spacing * 2;
-		display: flex;
-		flex-direction: column;
-		p {
-			text-align: center;			
-		}
-		@include mod('no-margin') {
-			margin-top: 0;
-		}
+		margin-top: $base-spacing / 2;
 		
+		
+	  @include grid-media($tablet-grid){
+	    @include grid-column(6);
+			margin-top: $base-spacing;
+	  }
+	  
+	  @include grid-media($desktop-grid){
+	    @include grid-column(6);
+	    margin-top: 0;
+	  }		
 	}
 	
-	@include elem('cta-btns') {
-		display: flex;
-		justify-content: center;
-
-	}
-
-	@include elem('bird-btn') {
+	@include elem('btn') {
+		@include drop-shadow(1);
+		margin: 0 auto;
 		display: flex;
 		align-items: center;
 
 		svg {
-			margin-right: $base-spacing;
+			margin-right: $base-spacing / 2;
 			fill: $vapor;
+			width: 24px;
+			height: 24px;			
+			
 		}
-	}
-	
-	@include elem('hero-grid') {
-		display: flex;
-		margin: $base-spacing / 16 $base-spacing / -2 0 $base-spacing * -1;
-		margin: 1px 0 0 -0;  
-		// flex-direction: column;
-		// height: 200px;
-	}
-	
-	
-	@include elem('grid-image') {
-		width: 100%;
-		// padding: $base-spacing / 4 0 0 $base-spacing / 4;
-		padding: 1px 1px 0 1px;
-		// height: auto;
-		
-		img {
-			@include img-responsive();
-			min-height: 100%;
-		}
-		
-		@include mod('aspect4x3') {
-			flex: 1.333333 1 0%;
-		}
-		
-		@include mod('aspect3x4') {
-			flex: .75 1 0%;
-		}
-	}
+	}	
+
 }
 
-@keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}

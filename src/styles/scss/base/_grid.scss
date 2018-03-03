@@ -1,0 +1,36 @@
+$neat-grid: (
+	columns: 3,
+	gutter: $base-spacing,
+);
+
+$large-desktop-grid: (
+  columns: 12,
+  gutter: $base-spacing,
+  media: 1200px,
+  color: rgba(#00d4ff, 0.25),
+  direction: ltr,
+);
+
+$desktop-grid: (
+  columns: 12,
+  gutter: $base-spacing,
+  media: 1024px,
+  color: rgba(#00d4ff, 0.25),
+  direction: ltr,
+);
+
+$tablet-grid: (
+  columns: 6,
+  gutter: $base-spacing,
+  media: 768px,
+  color: rgba(#00d4ff, 0.25),
+  direction: ltr,
+);
+
+$mobile-grid: (
+  columns: 3,
+  gutter: $base-spacing,
+  media: 767px,
+  color: rgba(#00d4ff, 0.25),
+  direction: ltr,
+);
