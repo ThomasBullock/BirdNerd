@@ -40,6 +40,7 @@ const initialState = fromJS([
     comments: null,
     created_at: null,
     bytes: null,
+    imageAspect: null,    
     imageUrl: null,
     public_id: null,    
   }

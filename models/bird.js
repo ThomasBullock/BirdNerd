@@ -7,6 +7,7 @@ const BirdSchema = new mongoose.Schema({
     order: String,   // bird category or order
     location: [String],
     conservationStatus: String,
+    imageAspect: String, // Portrait or Landscape        
     imageUrl: String,
     comments: String,
     created_at: Date,

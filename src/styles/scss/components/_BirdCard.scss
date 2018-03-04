@@ -1,3 +1,28 @@
+@mixin portrait-stats() {
+	@include tropical-gradient(180deg);
+	flex-direction: column;
+	align-items: center;
+	border-top-right-radius: $base-border-radius;
+	border-bottom-right-radius: $base-border-radius;
+}
+
+@mixin landscape-stats() {
+	@include tropical-gradient(90deg);			
+	flex-direction: row;
+	align-items: center;
+	padding-top: $base-spacing;		
+	padding-bottom: $base-spacing;
+	border-bottom-left-radius: $base-border-radius;
+	border-bottom-right-radius: $base-border-radius;
+
+
+	@media all and (min-width : 1025px) {
+		padding-top: $base-spacing;		
+		padding-bottom: $base-spacing;				
+	}									
+}
+
+
 .button {
 	@include mod('upload') {
 		background: $lorikeet-blue;
@@ -35,23 +60,47 @@
 		margin: 2.5%;
 	}
 
-	@include mod('Portrait') {
+	// @include mod('Portrait') {
+	// 	flex-direction: row;
+	// }
+
+
+	// @include mod('Landscape') {
+	// 	flex-direction: column;
+	// }
+
+	@include mod('Square') {
+		flex-direction: column;
+	}
+	
+	@include mod('4to3') {
+		flex-direction: column;			
+	}
+
+	@include mod('3to2') {
+		flex-direction: column;			
+	}		
+
+	@include mod('16to9') {
+		flex-direction: column;			
+	}		
+	
+	@include mod('3to4') {
+		flex-direction: row;	
+	}
+
+	@include mod('2to3') {
+		flex-direction: row;		
+	}		
+
+	@include mod('9to16') {
 		flex-direction: row;
-	}
-
-
-	@include mod('Landscape') {
-		flex-direction: column;
-	}
-
-		@include mod('Square') {
-		flex-direction: column;
-	}
+	}					
 
 
 
 	@include elem('photo') {
-		flex: 1 1 66%;
+		// flex: 1 1 66%;
 		position: relative;
 
 			img {
@@ -73,42 +122,65 @@
 				border-top-left-radius: $base-border-radius;
 				border-top-right-radius: $base-border-radius;
 			}
-		}		
+		}
+
+		@include mod('4to3') {
+			flex: 1 1 66%;				
+		}
+		@include mod('3to2') {
+			flex: 1 1 66%;						
+		}
+		@include mod('16to9') {
+			flex: 1 1 60%;						
+		}
+		@include mod('3to4') {
+			flex: 1 1 66%;						
+		}
+		@include mod('2to3') {
+			flex: 1 1 66%;						
+		}	
+		@include mod('9to16') {
+			flex: 1 1 60%;						
+		}						
+				
 	}
 
 	@include elem('stats') {
-		flex: 1 1 33%;
+		// flex: 1 1 33%;
 		justify-content: space-between;
 		padding: $base-spacing / 2;
 		display: flex;
 
-		@include mod('Portrait') {
-			@include tropical-gradient(180deg);
-			flex-direction: column;
-			align-items: center;
-			border-top-right-radius: $base-border-radius;
-			border-bottom-right-radius: $base-border-radius;
-		}
-
-		@include mod('Landscape') {
-			@include tropical-gradient(90deg);			
-			flex-direction: row;
-			align-items: center;
-			padding-top: $base-spacing;		
-			padding-bottom: $base-spacing;
-			border-bottom-left-radius: $base-border-radius;
-			border-bottom-right-radius: $base-border-radius;
-
-
-			@media all and (min-width : 1025px) {
-				padding-top: $base-spacing;		
-				padding-bottom: $base-spacing;				
-			}									
-		}
-
 		@include mod('Square') {
 			@include tropical-gradient(90deg);					
-		}				
+		}
+
+		@include mod('4to3') {
+			@include landscape-stats();
+			flex: 1 1 33%;				
+		}
+		@include mod('3to2') {
+			@include landscape-stats();
+			flex: 1 1 40%;					
+		}
+		@include mod('16to9') {
+			@include landscape-stats();
+			flex: 1 1 33%;					
+		}
+		@include mod('3to4') {
+			@include portrait-stats();			
+			flex: 1 1 33%;					
+		}
+		@include mod('2to3') {
+			@include portrait-stats();				
+			flex: 1 1 33%;					
+		}	
+		@include mod('9to16') {
+			@include portrait-stats();				
+			flex: 1 1 40%;					
+		}			
+												
+						
 	}
 
 	@include elem('button') {

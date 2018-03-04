@@ -13,19 +13,49 @@
 
 	@include elem('hero-img') {
 
-		min-height: 220px;
+		min-height: 240px;
 		background-size: cover;
-		background-position: 0 10%; 
+		// width: 75%;
+		margin: 0 auto;
+		// min-height: 500px;
 		background-repeat: no-repeat;		
-		@media all and (min-width : 768px) and (max-width : 1024px) {
-			min-height: 400px;
-			background-position: 20% 10%; 			
+
+		@include mod('4to3') {
+			background-position: 0 20%;
+			@media all and (min-width : 768px) and (max-width : 1024px) {
+				min-height: 400px;
+				background-position: 0% 15%; 			
+			}
+			@media all and (min-width : 1025px) { 		
+				min-height: 550px;
+				background-position: 0% 20%; 						
+			}			 
 		}
 
-
-		@media all and (min-width : 1025px) { 		
-			min-height: 400px;	
+		
+		@include mod('3to2') {
+			background-position: 0 50%;
+			@media all and (min-width : 768px) and (max-width : 1024px) {
+				min-height: 400px;
+				background-position: 0% 40%; 			
+			}
+			@media all and (min-width : 1025px) { 		
+				min-height: 500px;
+				background-position: 0% 20%; 						
+			}			 
 		}
+		
+		@include mod('16to9') {
+			background-position: 0 50%;
+			@media all and (min-width : 768px) and (max-width : 1024px) {
+				min-height: 400px;
+				background-position: 0% 30%; 			
+			}
+			@media all and (min-width : 1025px) { 		
+				min-height: 500px;
+				background-position: 0% 20%; 						
+			}			 
+		}		
 	}
 
 	@include elem('card') {
@@ -154,9 +184,7 @@
 		}
 
 		@include elem('hero-img') {
-			width: 75%;
-			margin: 0 auto;
-			min-height: 500px;
+
 		}
 
 		@include elem('gradient') {

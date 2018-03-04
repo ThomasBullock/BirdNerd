@@ -7,7 +7,7 @@ import EditIcon from '../icons/IconFeather';
 import BirdCard from './BirdCard';
 import ScrollToTopOnMount from '../ScrollToTopOnMount';
 import { Link } from 'react-router-dom';
-import { cloudinaryUrlModify } from '../../clientHelpers';
+import { cloudinaryUrlModify, aspectRatioClass } from '../../clientHelpers';
 import swal from 'sweetalert';
 
 // Duplicate code also in Homepage to be improved!
@@ -43,6 +43,8 @@ const deleteAlert = (birdInfo, deleteBird) => {
 }
 
 const BirdProfile = ({birdSlug, birdInfo, photos, user, likeHandler, deleteBird}) => {
+		// console.log(aspectRatioClass(birdInfo.get('imageAspect')));
+		const aspect = ( birdInfo.get('imageAspect') ) ? aspectRatioClass(birdInfo.get('imageAspect')) : 'other';
 		const userRole = (user) ? user.get('role') : null;
 		const photoCards = photos && photos.map( (item, i) => {
 			return(
@@ -76,9 +78,9 @@ const BirdProfile = ({birdSlug, birdInfo, photos, user, likeHandler, deleteBird}
 					<title>Bird:{birdSlug}</title>
 				</Helmet>
 				<div className="birdinfo__hero">
-					<div className="birdinfo__gradient birdinfo__gradient--left"></div>
-					<div className="birdinfo__hero-img" style={{'backgroundImage': `url(${image})`}}></div>
-					<div className="birdinfo__gradient birdinfo__gradient--right"></div>
+				{/*	<div className="birdinfo__gradient birdinfo__gradient--left"></div> */}
+					<div className={`birdinfo__hero-img birdinfo__hero-img--${aspect}`} style={{'backgroundImage': `url(${image})`}}></div>
+				{/*	<div className="birdinfo__gradient birdinfo__gradient--right"></div> */}
 				</div>
 				<div className="birdinfo__card">
 					<div className="birdinfo__facts">
