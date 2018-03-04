@@ -4,6 +4,7 @@ import * as api from '../api';
 import * as actions from '../ducks/bird';
 import { load, loaded } from '../ducks/loading';
 import swal from 'sweetalert'
+import calculateAspectRatios from 'calculate-aspect-ratio';
 import history from '../history';
 import { push } from 'react-router-redux';
 import store from '../store';
@@ -46,6 +47,7 @@ function* createBird(action) {
       created_at: birdImageRes.created_at,
       bytes: birdImageRes.bytes,
       format: birdImageRes.format,
+      imageAspect: calculateAspectRatios(birdImageRes.width, birdImageRes.height),
       imageUrl: birdImageRes.secure_url,
       public_id: birdImageRes.public_id,      
     };
@@ -142,6 +144,7 @@ function* updateBird(action) {
       birdInfo.created_at = birdImageRes && birdImageRes.created_at;
       birdInfo.bytes = birdImageRes.bytes;
       birdInfo.format = birdImageRes.format;
+      birdInfo.imageAspect = calculateAspectRatios(birdImageRes.width, birdImageRes.height),
       birdInfo.imageUrl = birdImageRes.secure_url;
       birdInfo.public_id = birdImageRes.public_id;   
     }

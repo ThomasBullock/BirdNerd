@@ -9,31 +9,9 @@ import IconBubble from '../icons/IconBubble';
 import IconBird from '../icons/IconBird';
 import DeleteIcon from '../icons/IconCross';
 import { deletePhoto } from  '../../ducks/photos';
-import { cloudinaryUrlModify } from '../../clientHelpers';
+import { cloudinaryUrlModify, aspectRatio, aspectRatioClass } from '../../clientHelpers';
 import swal from 'sweetalert';
 
-// const deleteAlert = (birdInfo, deleteBird) => {
-// 	console.log(deleteBird)
-// 	// deleteBird(birdId)
-// 	swal({
-// 	  title: "Are you sure?",
-// 	  text: "Once deleted, you will not be able to recover this bird profile!",
-// 	  icon: "warning",
-// 	  buttons: true,
-// 	  dangerMode: true,
-// 	})
-// 	.then((willDelete) => {
-// 	  if (willDelete) {
-// 	    // swal("Poof! Your imaginary file has been deleted!", {
-// 	    //   icon: "success",
-// 	    // });
-// 	    console.log(' will delete')
-// 			deleteBird(birdInfo.get('_id'));	 
-// 	  } else {
-// 	    swal(`The ${birdInfo.get('name')} profile is safe!`);
-// 	  }
-// 	});
-// }
 
 class BirdCard extends Component {
 		constructor(props) {
@@ -66,12 +44,13 @@ class BirdCard extends Component {
 		render() {
 			const userImg = 'http://3.bp.blogspot.com/-dXOvZOVDhes/Ts99nTenjtI/AAAAAAAAA2A/It9Ymliw4t4/s1600/26.jpg';
 			const orientation = this.props.orientation;
+			const aspect = aspectRatioClass(this.props.orientation);
 			const image = (orientation === 'Portrait') ? 
 				this.props.img && cloudinaryUrlModify(this.props.img.split('/'), 'w_640') :
 				this.props.img && cloudinaryUrlModify(this.props.img.split('/'), 'w_720')
 			return(
-				<div className={`birdcard birdcard--${orientation}`}>
-					<div className={`birdcard__photo birdcard__photo--${orientation}`}>
+				<div className={`birdcard birdcard--${aspect}`}>
+					<div className={`birdcard__photo birdcard__photo--${aspect}`}>
 						<button style={{'backgroundImage': `url(${this.props.gravatar})`}} className="birdcard__button--user"></button>
 						{this.props.owner && <button onClick={this.handleDelete} className="birdcard__button birdcard__button--delete">
 							<DeleteIcon />
@@ -79,7 +58,7 @@ class BirdCard extends Component {
 						}
 						<img src={image} alt={this.props.name}/>
 					</div>
-					<div className={`birdcard__stats birdcard__stats--${orientation}`}>
+					<div className={`birdcard__stats birdcard__stats--${aspect}`}>
 						<button className="birdcard__button">
 							<IconLocation/>
 						</button>

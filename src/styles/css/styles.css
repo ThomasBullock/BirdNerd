@@ -259,14 +259,21 @@ a {
     .birdcard {
       flex: 0 1 25%;
       margin: 2.5%; } }
-  .birdcard--Portrait {
-    flex-direction: row; }
-  .birdcard--Landscape {
-    flex-direction: column; }
   .birdcard--Square {
     flex-direction: column; }
+  .birdcard--4to3 {
+    flex-direction: column; }
+  .birdcard--3to2 {
+    flex-direction: column; }
+  .birdcard--16to9 {
+    flex-direction: column; }
+  .birdcard--3to4 {
+    flex-direction: row; }
+  .birdcard--2to3 {
+    flex-direction: row; }
+  .birdcard--9to16 {
+    flex-direction: row; }
   .birdcard__photo {
-    flex: 1 1 66%;
     position: relative; }
     .birdcard__photo img {
       max-width: 100%;
@@ -280,31 +287,84 @@ a {
     .birdcard__photo--Landscape img {
       border-top-left-radius: 3px;
       border-top-right-radius: 3px; }
+    .birdcard__photo--4to3 {
+      flex: 1 1 66%; }
+    .birdcard__photo--3to2 {
+      flex: 1 1 66%; }
+    .birdcard__photo--16to9 {
+      flex: 1 1 60%; }
+    .birdcard__photo--3to4 {
+      flex: 1 1 66%; }
+    .birdcard__photo--2to3 {
+      flex: 1 1 66%; }
+    .birdcard__photo--9to16 {
+      flex: 1 1 60%; }
   .birdcard__stats {
-    flex: 1 1 33%;
     justify-content: space-between;
     padding: 0.75em;
     display: flex; }
-    .birdcard__stats--Portrait {
-      background: linear-gradient(180deg, #38aeF4 0%, #FFE340 27%, #e82c75 60%, #a026bf 85%, #38aeF4 97%);
-      flex-direction: column;
-      align-items: center;
-      border-top-right-radius: 3px;
-      border-bottom-right-radius: 3px; }
-    .birdcard__stats--Landscape {
+    .birdcard__stats--Square {
+      background: linear-gradient(90deg, #38aeF4 0%, #FFE340 27%, #e82c75 60%, #a026bf 85%, #38aeF4 97%); }
+    .birdcard__stats--4to3 {
       background: linear-gradient(90deg, #38aeF4 0%, #FFE340 27%, #e82c75 60%, #a026bf 85%, #38aeF4 97%);
       flex-direction: row;
       align-items: center;
       padding-top: 1.5em;
       padding-bottom: 1.5em;
       border-bottom-left-radius: 3px;
-      border-bottom-right-radius: 3px; }
+      border-bottom-right-radius: 3px;
+      flex: 1 1 33%; }
       @media all and (min-width: 1025px) {
-        .birdcard__stats--Landscape {
+        .birdcard__stats--4to3 {
           padding-top: 1.5em;
           padding-bottom: 1.5em; } }
-    .birdcard__stats--Square {
-      background: linear-gradient(90deg, #38aeF4 0%, #FFE340 27%, #e82c75 60%, #a026bf 85%, #38aeF4 97%); }
+    .birdcard__stats--3to2 {
+      background: linear-gradient(90deg, #38aeF4 0%, #FFE340 27%, #e82c75 60%, #a026bf 85%, #38aeF4 97%);
+      flex-direction: row;
+      align-items: center;
+      padding-top: 1.5em;
+      padding-bottom: 1.5em;
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+      flex: 1 1 40%; }
+      @media all and (min-width: 1025px) {
+        .birdcard__stats--3to2 {
+          padding-top: 1.5em;
+          padding-bottom: 1.5em; } }
+    .birdcard__stats--16to9 {
+      background: linear-gradient(90deg, #38aeF4 0%, #FFE340 27%, #e82c75 60%, #a026bf 85%, #38aeF4 97%);
+      flex-direction: row;
+      align-items: center;
+      padding-top: 1.5em;
+      padding-bottom: 1.5em;
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+      flex: 1 1 33%; }
+      @media all and (min-width: 1025px) {
+        .birdcard__stats--16to9 {
+          padding-top: 1.5em;
+          padding-bottom: 1.5em; } }
+    .birdcard__stats--3to4 {
+      background: linear-gradient(180deg, #38aeF4 0%, #FFE340 27%, #e82c75 60%, #a026bf 85%, #38aeF4 97%);
+      flex-direction: column;
+      align-items: center;
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+      flex: 1 1 33%; }
+    .birdcard__stats--2to3 {
+      background: linear-gradient(180deg, #38aeF4 0%, #FFE340 27%, #e82c75 60%, #a026bf 85%, #38aeF4 97%);
+      flex-direction: column;
+      align-items: center;
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+      flex: 1 1 33%; }
+    .birdcard__stats--9to16 {
+      background: linear-gradient(180deg, #38aeF4 0%, #FFE340 27%, #e82c75 60%, #a026bf 85%, #38aeF4 97%);
+      flex-direction: column;
+      align-items: center;
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+      flex: 1 1 40%; }
   .birdcard__button {
     position: relative;
     background: rgba(246, 246, 246, 0.7);
@@ -364,17 +424,40 @@ a {
       height: auto;
       display: block; }
   .birdinfo__hero-img {
-    min-height: 220px;
+    min-height: 240px;
     background-size: cover;
-    background-position: 0 10%;
+    margin: 0 auto;
     background-repeat: no-repeat; }
-    @media all and (min-width: 768px) and (max-width: 1024px) {
-      .birdinfo__hero-img {
-        min-height: 400px;
-        background-position: 20% 10%; } }
-    @media all and (min-width: 1025px) {
-      .birdinfo__hero-img {
-        min-height: 400px; } }
+    .birdinfo__hero-img--4to3 {
+      background-position: 0 20%; }
+      @media all and (min-width: 768px) and (max-width: 1024px) {
+        .birdinfo__hero-img--4to3 {
+          min-height: 400px;
+          background-position: 0% 15%; } }
+      @media all and (min-width: 1025px) {
+        .birdinfo__hero-img--4to3 {
+          min-height: 550px;
+          background-position: 0% 20%; } }
+    .birdinfo__hero-img--3to2 {
+      background-position: 0 50%; }
+      @media all and (min-width: 768px) and (max-width: 1024px) {
+        .birdinfo__hero-img--3to2 {
+          min-height: 400px;
+          background-position: 0% 40%; } }
+      @media all and (min-width: 1025px) {
+        .birdinfo__hero-img--3to2 {
+          min-height: 500px;
+          background-position: 0% 20%; } }
+    .birdinfo__hero-img--16to9 {
+      background-position: 0 50%; }
+      @media all and (min-width: 768px) and (max-width: 1024px) {
+        .birdinfo__hero-img--16to9 {
+          min-height: 400px;
+          background-position: 0% 30%; } }
+      @media all and (min-width: 1025px) {
+        .birdinfo__hero-img--16to9 {
+          min-height: 500px;
+          background-position: 0% 20%; } }
   .birdinfo__card {
     width: 100%;
     border-radius: 3px;
@@ -447,10 +530,6 @@ a {
     display: flex;
     flex-direction: column; }
   @media all and (min-width: 1025px) {
-    .birdinfo__hero-img {
-      width: 75%;
-      margin: 0 auto;
-      min-height: 500px; }
     .birdinfo__gradient {
       position: absolute;
       min-height: 500px;

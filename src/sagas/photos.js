@@ -3,6 +3,7 @@ import slugs from 'slugs';
 import * as api from '../api';
 import * as actions from '../ducks/photos';
 import { load, loaded } from '../ducks/loading';
+import calculateAspectRatios from 'calculate-aspect-ratio';
 import Immutable from 'immutable';
 import history from '../history';
 import swal from 'sweetalert'
@@ -82,12 +83,12 @@ function* createPhoto(action) {
             birdId: birdInfo.get('_id'),
             birdSlug: slugs(action.photo.get('name')),
             location: photoLocation,
-            imageAspect: aspectCalculator(birdImageRes),
             comments: [],
             camera: action.photo.get('camera'),
             created_at: birdImageRes.created_at,
             bytes: birdImageRes.bytes,
             format: birdImageRes.format,        
+            imageAspect: calculateAspectRatios(birdImageRes.width, birdImageRes.height),
             imageUrl: birdImageRes.secure_url, 
             public_id: birdImageRes.public_id,
             user: user,             
