@@ -241,6 +241,8 @@ router.post('/updatephotos', requireAuth, (req, res) => {
 })
 
 router.delete('/photo', requireAuth, (req, res) => {
+    console.log(req.user)
+    console.log(req.body)    
     if(req.user.profile.role === 'moderator') {
         Photo.findOneAndRemove({'public_id' : req.body.public_id}, function (err, photo) {
             if(err){
@@ -259,7 +261,9 @@ router.delete('/photo', requireAuth, (req, res) => {
             }
         });
     } else {
+        console.log('we aint a mod')
         Photo.findOneAndRemove({'public_id': req.body.public_id, 'user._id': req.user._id}, function (err, photo) {
+            console.log(photo)
             if(err){
                 throw err;
             }

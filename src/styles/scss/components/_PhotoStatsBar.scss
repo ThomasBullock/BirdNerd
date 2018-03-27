@@ -1,0 +1,53 @@
+.stats-bar{
+	background: $jet;
+	display: flex;
+	padding: $base-spacing;
+	justify-content: center;		
+		
+	svg.icon {
+
+		width: 24px;
+		height: 24px;
+
+		@media all and (min-width : 1025px) {
+			width: 24px;
+		}			
+	}
+	
+	@include elem('wrapper') {
+		width: 80%;
+		margin: 0 auto;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;					
+	}
+	
+	@include elem('left') {
+		display: flex;
+		flex-direction: column;
+		flex: 1 1 50%;
+		
+	}
+	
+	@include elem('right') {
+		display: flex;
+		flex-direction: column;
+		flex: 1 1 50%;	
+	}	
+
+	@include elem('comments') {
+		display: flex;
+		flex-direction: column;
+		flex: 1 1 100%;	
+	}		
+			
+	@include elem('stat') {
+		display: flex;
+		align-items: center;
+	}
+	
+	@include elem('text') {
+		margin-left: $base-spacing;
+		color: $silver;
+	}	
+}

@@ -1,0 +1,40 @@
+.user-bar{
+  background: $tropical-gradient;  // if we alter the $tropical-gradient in _variable.scss the change will be reflected throughtout the app where ever $tropical-gradient is used.
+	display: flex;
+	padding: $base-spacing;
+
+	@include elem('wrapper') {
+		width: 80%;
+		margin: 0 auto;
+		display: flex;
+		justify-content: center;		
+		
+	}
+
+	@include elem('title') {
+		border-radius: $base-border-radius;
+		background: $jet;
+		min-width: 480px;
+		display: flex;
+		// flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		padding: $base-spacing / 2 $base-spacing;
+		color: $smoke;
+		
+		h3 {
+			margin-bottom: 0;
+		}		
+	}
+
+	// svg.icon {
+
+	// 	width: 24px;
+	// 	height: 24px;
+
+	// 	@media all and (min-width : 1025px) {
+	// 		width: 24px;
+	// 	}			
+	// }
+			
+}

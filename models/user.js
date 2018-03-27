@@ -14,10 +14,12 @@ const UserSchema = new Schema({
       required: true
     },
     profile: {
+      userName: { type: String},
       firstName: { type: String },
       lastName: { type: String },
       role: { type: String, default: 'user' },
-      gravatar: { type: String }
+      gravatar: { type: String },
+      country: { type: String }
     },
     resetPasswordToken: { type: String },
     resetPasswordExpires: { type: Date }

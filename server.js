@@ -42,7 +42,6 @@ app.use('/api/auth', authRouter);
 
 app.get('/', function(request, response) {
   const filePath = path.resolve(__dirname, './build', 'index.html');
-
   // read in the index.html file
   fs.readFile(filePath, 'utf8', function (err,data) {
     if (err) {
@@ -50,7 +49,7 @@ app.get('/', function(request, response) {
     }
     
     // replace the special strings with server generated strings
-    data = data.replace(/\$OG_TITLE/g, 'Bird Nerd App');
+    data = data.replace(/\$OG_TITLE/g, 'BirdNerd App');
     data = data.replace(/\$OG_DESCRIPTION/g, "BirdNerd is a free photo sharing site for Birdwatchers. Within this site you can view photos, sighting locations and general bird information.");
     let result = data.replace(/\$OG_IMAGE/g, 'https://cdn.dribbble.com/users/224707/screenshots/1966613/birdnerd.jpg');
     response.send(result);
@@ -103,6 +102,7 @@ if (process.env.NODE_ENV === 'production') {
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+  
 });
 
 

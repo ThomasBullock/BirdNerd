@@ -14,6 +14,10 @@ const getLoadingStatus = (state) => state.getIn(['loading', 'currentState']);
 const getBirdInfo = (state, birdName) => state.get('bird').filter(bird => bird.get('name') === birdName).get(0);
 const getUser = (state) => state.getIn(['auth', 'user', '_id']);
 const getGravatar = (state) => state.getIn(['auth', 'user', 'gravatar']);
+const getUserName = (state) => state.getIn(['auth', 'user', 'userName']);
+const getUserFirst = (state) => state.getIn(['auth', 'user', 'firstName']); // not currently used
+const getUserSurname = (state) => state.getIn(['auth', 'user', 'lastName']); // not currently used
+
 const getPhoto = (state, photoID ) => state.get('photos').filter(photo => photo.get('_id') === photoID).get(0);
 
 function* fetchPhotos(action) {
@@ -63,10 +67,14 @@ function* createPhoto(action) {
         // const birdInfo = yield select(getBirdInfo, action.photo.get('name'));
         console.log('BirdInfo=======',birdInfo)
         const userId = yield select(getUser);
-        const userGravatar = yield select(getGravatar);        
+        const userGravatar = yield select(getGravatar);
+        const userName = yield select(getUserName);
+        const userFirst = yield select(getUserFirst);        
+        const userSurname = yield select(getUserSurname);        
         const user = {
             _id: userId,
-            gravatar: userGravatar
+            gravatar: userGravatar,
+            userName: userName
         }      
         const photoLocation = {
             type: 'Point',
@@ -104,13 +112,14 @@ function* createPhoto(action) {
 }
 
 function* deletePhoto(action) {
+    // get router info if on photo:id then history push to my photos
     console.log(action)
     try {
         const public_id = { public_id: action.public_id}
         const res = yield call(api.DELETE, 'photo', public_id);
         if(!res.err) {
             yield put(actions.deletePhotoSuccess(action.public_id))
-        }
+        }        
     } catch(error) {
         console.log(error);
     }

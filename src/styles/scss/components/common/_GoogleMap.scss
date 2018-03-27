@@ -1,0 +1,20 @@
+.map {
+	
+	@include elem('wrapper') {
+		height: 400px;
+	}
+	
+	@include elem('label') {
+		width: 25%;
+		border: solid 1px $oil;
+		background: transparentize($vapor, .3);
+		padding: $base-spacing;
+		font-size: modular-scale(1);
+		text-align: center;
+		border-radius: $base-border-radius;
+	}
+	
+	@include elem('marker') {
+		transform: translate(-38px, -80px);
+	}
+}

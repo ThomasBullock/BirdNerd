@@ -3,8 +3,7 @@ import { instanceOf, object, string, number, func, bool } from 'prop-types';
 import Immutable from 'immutable';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import IconLocation from '../icons/IconLocation';
-import IconHeart from '../icons/IconHeart';
+import IconButton from '../Common/IconButton';
 import IconBubble from '../icons/IconBubble';
 import IconBird from '../icons/IconBird';
 import DeleteIcon from '../icons/IconCross';
@@ -56,23 +55,30 @@ class BirdCard extends Component {
 							<DeleteIcon />
 						</button>
 						}
-						<img src={image} alt={this.props.name}/>
+						<Link to={`/bird/photo/${this.props.id}`} >
+							<img src={image} alt={this.props.name}/>
+						</Link>
 					</div>
 					<div className={`birdcard__stats birdcard__stats--${aspect}`}>
-						<button className="birdcard__button">
-							<IconLocation/>
-						</button>
-						<button className="birdcard__button" onClick={ () => this.props.likeHandler(this.props.id)}>
-							<IconHeart/>
-							<span className="birdcard__number">{this.props.likes}</span>
-						</button>
+						<IconButton 
+							type="location"
+							id={this.props.id}
+						/>	
+						<IconButton 
+							type="likes"
+							number={this.props.likes}
+							handler={this.props.likeHandler}
+							id={this.props.id}							
+						/>
 						<button className="birdcard__button">
 							<IconBubble/>
 							<span className="birdcard__number">{this.props.comments}</span>
-						</button>
-						<Link to={`/bird/${this.props.slug}`} className="birdcard__button">
-							<IconBird/>
-						</Link>					
+						</button>	
+						<IconButton 
+							type="bird"
+							id={this.props.id}
+							slug={this.props.slug}
+						/>			
 					</div>				
 				</div>
 			)

@@ -6,7 +6,8 @@ const PhotoSchema = new mongoose.Schema({
             type: mongoose.Schema.ObjectId,
             ref: 'user'
         },
-        gravatar: String
+        gravatar: String,
+        userName: String
     },
     birdName: String, // comes from select or search input in submit photo form and is used to query db to get bird
     birdSlug: String,  

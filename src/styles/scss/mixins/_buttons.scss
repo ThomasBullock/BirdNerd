@@ -1,0 +1,13 @@
+@mixin round-icon-btn() {
+
+	svg.icon {
+
+		width: 24px;
+		height: 24px;
+
+		@media all and (min-width : 1025px) {
+			width: 24px;
+		}			
+	}
+
+}
