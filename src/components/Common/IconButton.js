@@ -6,6 +6,8 @@ import IconLocation from '../icons/IconLocation';
 import IconHeart from '../icons/IconHeart';
 import IconBubble from '../icons/IconBubble';
 import IconBird from '../icons/IconBird';
+import IconCamera from '../icons/IconCamera';
+import IconCalendar from '../icons/IconCalendar';
 
 
 // 			{ /*  */}
@@ -19,7 +21,11 @@ const getIcon = (type) => {
 		case 'bird':
 			return <IconBird/>;									
 		case 'location':
-			return <IconLocation/>;			
+			return <IconLocation/>;		
+		case 'camera':
+			return <IconCamera/>;	
+		case 'calendar':
+			return <IconCalendar/>;									
 		default:
 			return <IconBird/>;
 	}

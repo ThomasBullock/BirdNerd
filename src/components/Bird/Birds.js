@@ -22,11 +22,11 @@ import Loader from '../../img/Ellipsis.svg';
 class Birds extends Component {
   componentWillMount() {
     if(this.props.birdList.size === 1 && this.props.birdList.get(0).get('name') === null) {
-      console.log('requesting birdList')
+      // console.log('requesting birdList')
       this.props.dispatch(requestBirdList());
     }
     if(this.props.photos.size === 1 && this.props.photos.get(0).get('created_at') === null) {
-      console.log('requesting photos')
+      // console.log('requesting photos')
       this.props.dispatch(requestPhotos());
     } 
   }

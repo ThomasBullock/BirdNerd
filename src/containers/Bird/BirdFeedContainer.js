@@ -7,6 +7,7 @@ import {Helmet} from "react-helmet";
 // import TopBar from '../TopBar';
 import { protectedTest } from '../../ducks/auth';
 import { requestPhotos, sortNewest, sortOldest, sortPopular, likePhoto } from '../../ducks/photos';
+import { requestUsers } from '../../ducks/users';
 import BirdFeed from '../../components/Bird/BirdFeed';
 import Loader from '../../img/Ellipsis.svg';
 
@@ -18,6 +19,7 @@ class BirdFeedContainer extends Component {
   }
 
   componentWillMount() {
+    this.props.requestUsers();
     // console.log('we\'ll get a bunch of photos');
     // if(this.props.photos.size === 1 && this.props.photos.get(0).get('created_at') === null) {
     //   console.log('requesting photos loader === ' + this.props.loading)
@@ -90,7 +92,8 @@ const mapDispatchToProps = (dispatch) => {
     sortNewest: () => dispatch(sortNewest()),
     sortOldest: () => dispatch(sortOldest()),
     sortPopular: () => dispatch(sortPopular()),
-    likePhoto: (photo) => dispatch(likePhoto(photo))
+    likePhoto: (photo) => dispatch(likePhoto(photo)),
+    requestUsers: () => dispatch(requestUsers()),    
   }; // here we're mapping actions to props 
 }
 

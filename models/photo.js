@@ -33,7 +33,13 @@ const PhotoSchema = new mongoose.Schema({
             type: mongoose.Schema.ObjectId,
             ref: 'user'
         }],
-    comments: [String],
+    comments: [{
+        user: {
+            type: mongoose.Schema.ObjectId,
+            ref: 'user'
+        },
+        text: String
+    }],
     camera: String, // brand/model od camera used to take the photo 
     imageAspect: String, // Portrait or Landscape    
     imageUrl: String,

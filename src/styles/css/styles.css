@@ -1199,12 +1199,29 @@ a {
     display: flex;
     flex-direction: column;
     flex: 1 1 100%; }
-  .stats-bar__stat {
+  .stats-bar__comments-list {
     display: flex;
-    align-items: center; }
+    flex-direction: column;
+    flex: 1 1 100%;
+    background: #DDDDDD;
+    padding: 1.5em;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px; }
+  .stats-bar__comments-item {
+    display: flex;
+    flex: 1 1 100%;
+    align-items: center;
+    border-bottom: solid 1px #CCCCCC; }
+    .stats-bar__comments-item span {
+      margin-left: 1.5em; }
+  .stats-bar__stat {
+    display: flex; }
+    .stats-bar__stat--last {
+      display: block; }
   .stats-bar__text {
     margin-left: 1.5em;
-    color: #EFEFEF; }
+    color: #EFEFEF;
+    align-self: center; }
 
 .user-bar {
   background: linear-gradient(90deg, #38aeF4 0%, #FFE340 30%, #e82c75 60%, #a026bf 85%, #38aeF4 97%);

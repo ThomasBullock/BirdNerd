@@ -16,6 +16,31 @@ cloudinary.config({
 
 const router = express.Router();
 
+
+///////////////////////////////////////////////////
+/////////////         NEW API      ////////////////
+///////////////////////////////////////////////////
+
+
+router.get('/users', requireAuth, (req, res) =>{
+    console.log('api users')
+    User.find({}).select({ profile: 1 })
+    .exec()
+    .then( data => {
+        res.status(200).json(data);
+    })
+    .catch( err => {
+        console.log(err);
+        res.json(err);
+    })
+})
+
+///////////////////////////////////////////////////
+/////////////         NEW API      ////////////////
+///////////////////////////////////////////////////
+
+
+
 // Test protected route
 router.get('/protected', requireAuth, (req, res) => {
     res.send({ content: 'The protected test route is functional!' });

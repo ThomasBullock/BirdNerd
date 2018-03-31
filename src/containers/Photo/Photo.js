@@ -70,7 +70,8 @@ class Photo extends Component {
 						slug={this.props.photo.get('birdSlug')}
 						likeHandler={this.props.likePhoto}
 						user={this.props.photo.get('user')}
-						location={this.props.photo.get('location')}															
+						location={this.props.photo.get('location')}
+						camera={this.props.photo.get('camera')}															
 					/>
 					<PhotoMap location={this.props.photo.get('location')}/>
 				</div>) : 

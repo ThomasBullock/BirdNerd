@@ -48,12 +48,11 @@ const deleteAlert = (birdName, deleteHandler, id) => {
 }
 
 const PhotoUserBar = (props) => {
-	console.log(props)
-	console.log(props.user.get('_id'))
+	// console.log(props)
+	// console.log(props.user.get('_id'))
 	const { id, user, uploadDate, deleteHandler, birdName, slug, owner, photoUser } = props;
 	// console.log(user.getIn([profile]))
 	const userRole = (user) ? user.get('role') : null;
-	console.log(userRole)	
 	return(
 		<div className="user-bar">
 			<div className="user-bar__wrapper">
