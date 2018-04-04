@@ -50,6 +50,7 @@ function* createPhoto(action) {
             swal('Incorrect file type')
             return
         }
+        console.log(userPhoto)
         const formData = new FormData();
         formData.append("file", userPhoto);
         //formData.append("tags", `codeinfuse, medium, gist`);
@@ -67,14 +68,18 @@ function* createPhoto(action) {
         // const birdInfo = yield select(getBirdInfo, action.photo.get('name'));
         console.log('BirdInfo=======',birdInfo)
         const userId = yield select(getUser);
-        const userGravatar = yield select(getGravatar);
-        const userName = yield select(getUserName);
-        const userFirst = yield select(getUserFirst);        
-        const userSurname = yield select(getUserSurname);        
+
+        // Have moved user list into state so _id is the only thing needed to identify photo creator 
+        // and gravatar name etc will be accessed from users
+
+        // const userGravatar = yield select(getGravatar);
+        // const userName = yield select(getUserName);
+        // const userFirst = yield select(getUserFirst);        
+        // const userSurname = yield select(getUserSurname);        
         const user = {
             _id: userId,
-            gravatar: userGravatar,
-            userName: userName
+            // gravatar: userGravatar,
+            // userName: userName
         }      
         const photoLocation = {
             type: 'Point',
@@ -85,6 +90,7 @@ function* createPhoto(action) {
             address: action.photo.get('address')
         }
         
+        const dateTaken = (action.photo.get('dateTaken')) ? action.photo.get('dateTaken') : new Date(userPhoto.lastModified)
 
         const photoInfo = {
             birdName: action.photo.get('name'),
@@ -94,6 +100,7 @@ function* createPhoto(action) {
             comments: [],
             camera: action.photo.get('camera'),
             created_at: birdImageRes.created_at,
+            dateTaken: dateTaken,
             bytes: birdImageRes.bytes,
             format: birdImageRes.format,        
             imageAspect: calculateAspectRatios(birdImageRes.width, birdImageRes.height),

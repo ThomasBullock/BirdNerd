@@ -41,7 +41,8 @@ class BirdCard extends Component {
 
 		}
 		render() {
-			const userImg = 'http://3.bp.blogspot.com/-dXOvZOVDhes/Ts99nTenjtI/AAAAAAAAA2A/It9Ymliw4t4/s1600/26.jpg';
+			// console.log(this.props)
+			const birdNerdAvatar = this.props.birdNerdProfile && this.props.birdNerdProfile.getIn(['profile', 'gravatar']);
 			const orientation = this.props.orientation;
 			const aspect = aspectRatioClass(this.props.orientation);
 			const image = (orientation === 'Portrait') ? 
@@ -50,14 +51,22 @@ class BirdCard extends Component {
 			return(
 				<div className={`birdcard birdcard--${aspect}`}>
 					<div className={`birdcard__photo birdcard__photo--${aspect}`}>
-						<button style={{'backgroundImage': `url(${this.props.gravatar})`}} className="birdcard__button--user"></button>
-						{this.props.owner && <button onClick={this.handleDelete} className="birdcard__button birdcard__button--delete">
-							<DeleteIcon />
-						</button>
+						{ this.props.user && 
+							<button style={{'backgroundImage': `url(${birdNerdAvatar})`}} className="birdcard__button--user"></button>
 						}
-						<Link to={`/bird/photo/${this.props.id}`} >
-							<img src={image} alt={this.props.name}/>
-						</Link>
+						
+						{this.props.owner && 
+							<button onClick={this.handleDelete} className="birdcard__button birdcard__button--delete">
+								<DeleteIcon />
+							</button>
+						}
+					    {this.props.user ? (
+							<Link to={`/bird/${this.props.slug}/photo/${this.props.id}`} >
+								<img src={image} alt={this.props.name}/>
+							</Link>
+					    ) : (
+					        <img src={image} alt={this.props.name}/>
+					    )}						
 					</div>
 					<div className={`birdcard__stats birdcard__stats--${aspect}`}>
 						<IconButton 
@@ -94,8 +103,17 @@ BirdCard.propTypes = {
 	public_id: string.isRequired,
 	owner: bool.isRequired, // would it be more efficient to pass _id's directly rather then maps??
 	userID: string.isRequired,
-	gravatar: string.isRequired,
+	// gravatar: string.isRequired,
 	likeHandler: func.isRequired		
 }
 
-export default connect()(BirdCard);
+const mapStateToProps = (state, props) => {
+	return {
+		user: state.getIn(['auth', 'user']),
+		birdNerdProfile: state.get('users').filter( (user) => user.get('_id') === props.userID).get(0)
+	}
+} 
+
+
+
+export default connect(mapStateToProps)(BirdCard);

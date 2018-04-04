@@ -46,7 +46,7 @@ class Birds extends Component {
         <Route exact path="/bird/mybirds/new" component={RequireAuth(PhotoFormContainer)}/>
         <Route exact path='/bird/:birdSlug' component={BirdProfileContainer}/>
         <Route exact path='/bird/:birdSlug/edit' component={ModeratorAuth(BirdFormContainer)}/>
-        <Route exact path="/bird/photo/:id" component={Photo} />   /bird/photo/pacific-reef-heron/edit     
+        <Route exact path="/bird/:birdSlug/photo/:id" component={Photo} />   /bird/photo/pacific-reef-heron/edit     
         <Route exact path='/bird/photo/:id/edit' component={ComingSoon}/>
       </Switch>)
     )

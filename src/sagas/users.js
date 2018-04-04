@@ -10,7 +10,6 @@ function* fetchUsers(action) {
     console.log('in users saga')
     // yield put(load('fetching list of users'));  
     const userList = yield call(api.GET, `users`)
-    console.log(userList)
     yield put(actions.receiveUsers(userList));
     // yield put(loaded());
   } catch(error) {

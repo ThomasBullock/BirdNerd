@@ -19,7 +19,10 @@ class BirdFeedContainer extends Component {
   }
 
   componentWillMount() {
-    this.props.requestUsers();
+    if(this.props.birdNerds.getIn(['0', '_id']) === null) {
+      this.props.requestUsers();      
+    }
+
     // console.log('we\'ll get a bunch of photos');
     // if(this.props.photos.size === 1 && this.props.photos.get(0).get('created_at') === null) {
     //   console.log('requesting photos loader === ' + this.props.loading)
@@ -81,7 +84,8 @@ function mapStateToProps(state) {
     photos: state.get('photos'),
     user: state.getIn(['auth', 'user']),
     loading: state.getIn(['loading', 'currentState']),
-    message: state.getIn(['loading', 'message']) 
+    message: state.getIn(['loading', 'message']),
+    birdNerds: state.get('users') 
   };
 }
 

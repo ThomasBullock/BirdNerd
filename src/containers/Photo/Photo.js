@@ -15,6 +15,8 @@ import {
   deletePhoto
 } from '../../ducks/photos';
 
+import { requestUsers } from '../../ducks/users';
+
 const userPermission = (user, photo) => {
 	if(user && user.get('role') === 'moderator') {
 		return true;
@@ -26,6 +28,13 @@ const userPermission = (user, photo) => {
 }
 
 class Photo extends Component {
+
+	componentWillMount() {
+		if(this.props.birdNerds.getIn(['0', '_id']) === null) {
+			this.props.requestUsers();      
+		}
+	}   
+
 	static contextTypes = {
 	  router: PropTypes.shape({
 	    history: PropTypes.shape({
@@ -64,14 +73,16 @@ class Photo extends Component {
 					/>
 					<PhotoStatsBar
 						id={this.props.photo.get('_id')}
-						birdName={this.props.photo.get('birdName')}
-						likes={this.props.photo.get('likes').size}
+						birdData={this.props.birdData}
+						likes={this.props.photo.get('likes')}
 						comments={this.props.photo.get('comments')} 
 						slug={this.props.photo.get('birdSlug')}
 						likeHandler={this.props.likePhoto}
 						user={this.props.photo.get('user')}
 						location={this.props.photo.get('location')}
-						camera={this.props.photo.get('camera')}															
+						camera={this.props.photo.get('camera')}
+						dateTaken={this.props.photo.get('dateTaken')}
+						birdNerds={this.props.birdNerds}																					
 					/>
 					<PhotoMap location={this.props.photo.get('location')}/>
 				</div>) : 
@@ -92,8 +103,9 @@ Photo.propTypes = {
 const mapStateToProps = (state, props) => {
 	return {
 		photo: state.get('photos').filter( (photo) => photo.get('_id') === props.match.params.id).get(0),
-		// birdData: state.get('birds').filter( (bird) => bird.get('_id')) need tp restructure url to give bird slug
-		user: state.getIn(['auth', 'user'])		
+		birdData: state.get('bird').filter( (bird) => bird.get('slug') === props.match.params.birdSlug).get(0), //need tp restructure url to give bird slug
+		user: state.getIn(['auth', 'user']),
+		birdNerds: state.get('users'),		
 	}
 }
 
@@ -101,7 +113,8 @@ const mapDispatchToProps = (dispatch) => {
 	// console.log(dispatch);
   return {
     deletePhoto: (_id) => dispatch(deletePhoto(_id)),
-    likePhoto: (photo) => dispatch(likePhoto(photo))
+    likePhoto: (photo) => dispatch(likePhoto(photo)),
+    requestUsers: () => dispatch(requestUsers()),        
   }; // here we're mapping actions to props	
 }
 

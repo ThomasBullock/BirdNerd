@@ -19,7 +19,6 @@ const initialState = fromJS([
 
 
 const users = (state = initialState, action) => {
-  console.log(action)
   switch (action.type) {
     case RECEIVE_USERS:
       return fromJS(action.users); 

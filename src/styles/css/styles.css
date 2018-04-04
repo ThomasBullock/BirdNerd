@@ -489,6 +489,13 @@ a {
     background-size: cover;
     margin: 0 auto;
     background-repeat: no-repeat; }
+    @media all and (min-width: 768px) and (max-width: 1024px) {
+      .birdinfo__hero-img {
+        min-height: 400px; } }
+    @media all and (min-width: 1025px) {
+      .birdinfo__hero-img {
+        min-height: 550px;
+        background-position: 0% 20%; } }
     .birdinfo__hero-img--4to3 {
       background-position: 0 20%; }
       @media all and (min-width: 768px) and (max-width: 1024px) {

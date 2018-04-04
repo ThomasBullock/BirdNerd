@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Immutable from 'immutable';
+import moment from 'moment';
 
 import IconButton from '../Common/IconButton';
 
@@ -10,7 +12,45 @@ import IconBird from '../icons/IconBird';
 import IconCalendar from '../icons/IconCalendar';
 import DeleteIcon from '../icons/IconCross';
 
-const RenderComments = (comments) => {
+
+const renderPhotoLikes = (likes, user, birdNerds) => {
+	// this should be moved into another component!!??
+	function indexBy(iterable, searchKey) {
+	    return iterable.reduce(
+	        (lookup, item) => lookup.set(item.get(searchKey), item),
+	        Immutable.Map()
+	    );
+	}
+
+
+	var birdNerdsAsMap = indexBy(birdNerds, '_id');
+
+	let likers = '';
+	console.log(birdNerds);
+	console.log(user);
+	console.log(likes.includes(user.get('_id')))
+	if(likes.includes(user.get('_id'))) {
+		likers += 'You ';
+		if(likes.size > 1) {
+			likers += 'and '; 
+		}
+	} 
+	if(likes.size > 0) {
+		likes.map ( (item) => {
+			console.log(item)
+			if(user.get('_id') !== item) {
+				likers += `${(birdNerdsAsMap.getIn([item, 'profile', 'userName'])) ? birdNerdsAsMap.getIn([item, 'profile', 'userName']) : ''} `;
+			}
+		})
+	}
+	likers += 'like this photo.';
+	console.log(likers);
+	return likers;
+
+
+} 
+
+const renderComments = (comments) => {
 	return comments.map( (comment, i) => {
 		return(
 				<li key={i} className="stats-bar__comments-item">
@@ -24,9 +64,8 @@ const RenderComments = (comments) => {
 }
 
 const PhotoStatsBar = (props) => {
-	// console.log(props)
-	const { likes, comments, likeHandler, slug, id, user, birdName, location, camera } = props;
-	const commentsVisible = true;
+	const { likes, comments, likeHandler, slug, id, user, birdData, location, camera, dateTaken, birdNerds } = props;
+	const commentsVisible = (comments.size > 0) ? true : false;
 	return(
 		<div className="stats-bar">
 			<div className="stats-bar__wrapper">
@@ -37,22 +76,30 @@ const PhotoStatsBar = (props) => {
 							id={id}
 							slug={slug}
 						/>
-						<span className="stats-bar__text">{birdName}(species)</span>
+						<span className="stats-bar__text">{birdData && birdData.get('name')} ({birdData && birdData.get('species')})</span>
 					</div>
 					<div className="stats-bar__stat">			
 						<IconButton 
 							type="likes"
-							number={likes}
+							number={likes.size}
 							handler={likeHandler}
 							id={id}
 							/>
+						<span className="stats-bar__text">{renderPhotoLikes(likes, user, birdNerds)}</span>	
 					</div>
 					<div className="stats-bar__stat">		
 						<IconButton 
 							type="camera"
 							id={id}
 						/>
-						<span className="stats-bar__text">This photo was take with a {camera}</span>										
+						{(!camera) ? (
+							<span className="stats-bar__text">No camera info available for this photo</span>	
+							) : (
+						<span className="stats-bar__text">This photo was take with a {camera}</span>	
+						)
+						
+						}
+																
 					</div>										
 				</div>
 				<div className="stats-bar__right">
@@ -67,7 +114,13 @@ const PhotoStatsBar = (props) => {
 						<IconButton 
 							type="calendar"
 							id={id}
-						/>										
+						/>
+						{(dateTaken) ? (
+							<span className="stats-bar__text">{moment.format(dateTaken)}</span> 
+						) : ( 
+							<span className="stats-bar__text">No date available</span>
+						)
+						}										
 					</div>									
 				</div>
 				<div className="stats-bar__comments">
@@ -81,7 +134,7 @@ const PhotoStatsBar = (props) => {
 					</div>
 					{commentsVisible && 
 						<ul className="stats-bar__comments-list">
-							{RenderComments(comments)}
+							{renderComments(comments)}
 						</ul>
 					}
 				</div>

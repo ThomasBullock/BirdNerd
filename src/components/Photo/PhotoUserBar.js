@@ -29,17 +29,13 @@ const userPermission = (user, photo) => {
 const deleteAlert = (birdName, deleteHandler, id) => {
 	swal({
 	  title: "Are you sure?",
-	  text: "Once deleted, you will not be able to recover this bird profile!",
+	  text: "Once deleted, you will not be able to recover this bird photo!",
 	  icon: "warning",
 	  buttons: true,
 	  dangerMode: true,
 	})
 	.then((willDelete) => {
 	  if (willDelete) {
-	    // swal("Poof! Your imaginary file has been deleted!", {
-	    //   icon: "success",
-	    // });
-	    console.log(' will delete')
 			deleteHandler(id);	 
 	  } else {
 	    swal(`The ${birdName} photo is safe!`);
