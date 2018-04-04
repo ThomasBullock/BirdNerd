@@ -231,7 +231,7 @@ router.get('/photos/:query', requireAuth, (req, res) => {
 }) 
 
 router.post('/photo', requireAuth, (req, res) => { 
-    // console.log(req);
+    console.log(req.body);
     //req.body.user = req.user._id;
     //req.body.likes = 0;
     //req.body.comments = [];
