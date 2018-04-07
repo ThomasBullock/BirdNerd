@@ -1,4 +1,7 @@
 import React from 'react';
+import { instanceOf } from 'prop-types';
+import Immutable from 'immutable';
+
 import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
 
@@ -44,15 +47,15 @@ const deleteAlert = (birdName, deleteHandler, id) => {
 }
 
 const PhotoUserBar = (props) => {
-	// console.log(props)
-	// console.log(props.user.get('_id'))
+	console.log(props.photoUser)
+	console.log(props.photoUser.getIn(['profile', 'gravatar']))
 	const { id, user, uploadDate, deleteHandler, birdName, slug, owner, photoUser } = props;
 	// console.log(user.getIn([profile]))
 	const userRole = (user) ? user.get('role') : null;
 	return(
 		<div className="user-bar">
 			<div className="user-bar__wrapper">
-				<button style={{'backgroundImage': `url(${photoUser.get('gravatar')})`, backgroundSize: 'cover' }} className="birdcard__button"></button>
+				<button style={{'backgroundImage': `url(${props.photoUser.getIn(['profile', 'gravatar'])})`, backgroundSize: 'cover' }} className="birdcard__button"></button>
 
 				{ (userRole === 'moderator' || owner ) &&
 					<button className="birdinfo__btn birdinfo__btn--edit">
@@ -62,7 +65,7 @@ const PhotoUserBar = (props) => {
 					</button>			
 				}		
 				<div className="user-bar__title">
-					<h3>Uploaded by {photoUser.get('userName')} on {moment(uploadDate).format('MMMM Do YYYY')}</h3>	
+					<h3>Uploaded by {photoUser.getIn(['profile', 'userName'])} on {moment(uploadDate).format('MMMM Do YYYY')}</h3>	
 				</div>
 		
 
@@ -75,6 +78,10 @@ const PhotoUserBar = (props) => {
 			</div>	
 		</div>
 	)
+}
+
+PhotoUserBar.propTypes = {
+	photoUser: instanceOf(Immutable.Map),
 }
 
 export default PhotoUserBar;

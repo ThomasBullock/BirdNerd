@@ -1,9 +1,24 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
+import RenderField from '../Common/Forms/RenderField';
 import {Helmet} from "react-helmet";
 
 import { signUpRequest } from '../../ducks/auth';
+
+const validate = (values) => {
+  const errors = {};
+  if (!values.get('firstName')) {
+    errors.firstName = 'Required'
+  }  
+  if (!values.get('lastName')) {
+    errors.lastName = 'Required'
+  }    
+  if (!values.get('userName')) {
+    errors.userName = 'Required'
+  }  
+  return errors;
+}
 
 const countryOptions = () => {
     return(
@@ -55,30 +70,33 @@ let Register = props => {
         <div className="form__title">
           <h2>Sign Up with BirdNerd</h2>
         </div>
-        <div className="form__input--half">  
-          <Field
-            name="firstName"
-            type="text"
-            component={renderField}
-            label="First Name"
-          />
-        </div>
-        <div className="form__input--half">    
-          <Field
-            name="lastName"
-            type="text"
-            component={renderField}
-            label="Last Name"
-          />
-        </div>
-        <div className="form__input--half">    
-          <Field
-            name="userName"
-            type="text"
-            component={renderField}
-            label="Username"
-          />
-        </div>
+
+        <Field
+          className="form__input--half"
+          name="firstName"
+          type="text"
+          component={RenderField}
+          label="First Name"
+        />
+
+  
+        <Field
+          className="form__input--half"
+          name="lastName"
+          type="text"
+          component={RenderField}
+          label="Last Name"
+        />
+
+   
+        <Field
+          className="form__input--half"
+          name="userName"
+          type="text"
+          component={RenderField}
+          label="Username"
+        />
+
         <div className="form__input--half">    
           <Field
             name="country"
@@ -88,14 +106,14 @@ let Register = props => {
             children={countryOptions()}
           />
         </div>                             
-        <div className="form__input">
-          <Field
-            name="email"
-            type="email"
-            component={renderField}
-            label="Email"
-          />
-        </div>
+
+        <Field
+          className="form__input"
+          name="email"
+          type="email"
+          component={RenderField}
+          label="Email"
+        />
         <div className="form__input">
           <Field
             name="password"
@@ -119,7 +137,8 @@ let Register = props => {
 }
 
 Register = reduxForm({
-  form: 'login' // a unique identifier for this form
+  form: 'register', // a unique identifier for this form
+  validate
 })(Register);
 
 const mapStateToProps = state => ({ error: state.getIn(['auth', 'error']) });

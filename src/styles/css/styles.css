@@ -1210,10 +1210,13 @@ a {
     display: flex;
     flex-direction: column;
     flex: 1 1 100%;
+    margin-top: 0.375em;
     background: #DDDDDD;
     padding: 1.5em;
+    border-top: solid 1px #999999;
     border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px; }
+    border-bottom-right-radius: 3px;
+    box-shadow: inset 1px 4px 10px -4px #000000; }
   .stats-bar__comments-item {
     display: flex;
     flex: 1 1 100%;

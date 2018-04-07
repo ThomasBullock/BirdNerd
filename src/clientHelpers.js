@@ -1,3 +1,5 @@
+import Immutable from 'immutable';
+
 export const birdGroups = {
   Procellariiformes: 'Albatrosses and Petrels',
   Falconiformes: 'Birds of Prey',
@@ -77,3 +79,11 @@ export const aspectRatioClass = (aspect) => {
       return 'other';   
   }
 }
+
+// can be used to convert an immutanle list to map eg var birdNerdsAsMap = indexBy(birdNerds, '_id')
+export const indexBy = (iterable, searchKey) => {
+      return iterable.reduce(
+          (lookup, item) => lookup.set(item.get(searchKey), item),
+          Immutable.Map()
+      );
+  }

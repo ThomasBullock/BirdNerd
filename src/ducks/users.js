@@ -10,12 +10,9 @@ export const receiveUsers = (users) => ({ type: RECEIVE_USERS, users });
 
 
 
-const initialState = fromJS([
-  {
-    _id: null,
-    profile: null,
-  }
-]);
+const initialState = fromJS({
+
+});
 
 
 const users = (state = initialState, action) => {

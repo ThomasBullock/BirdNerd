@@ -110,7 +110,7 @@ BirdCard.propTypes = {
 const mapStateToProps = (state, props) => {
 	return {
 		user: state.getIn(['auth', 'user']),
-		birdNerdProfile: state.get('users').filter( (user) => user.get('_id') === props.userID).get(0)
+		birdNerdProfile: state.getIn(['users', props.userID]),
 	}
 } 
 

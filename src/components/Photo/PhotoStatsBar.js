@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Immutable from 'immutable';
+import { indexBy } from '../../clientHelpers';
 import moment from 'moment';
 
+import UserListComponent from '../Common/UserListComponent'; 
 import IconButton from '../Common/IconButton';
 
 import IconLocation from '../icons/IconLocation';
@@ -12,43 +13,6 @@ import IconBird from '../icons/IconBird';
 import IconCalendar from '../icons/IconCalendar';
 import DeleteIcon from '../icons/IconCross';
 
-
-const renderPhotoLikes = (likes, user, birdNerds) => {
-	// this should be moved into another component!!??
-	function indexBy(iterable, searchKey) {
-	    return iterable.reduce(
-	        (lookup, item) => lookup.set(item.get(searchKey), item),
-	        Immutable.Map()
-	    );
-	}
-
-
-	var birdNerdsAsMap = indexBy(birdNerds, '_id');
-
-	let likers = '';
-	console.log(birdNerds);
-	console.log(user);
-	console.log(likes.includes(user.get('_id')))
-	if(likes.includes(user.get('_id'))) {
-		likers += 'You ';
-		if(likes.size > 1) {
-			likers += 'and '; 
-		}
-	} 
-	if(likes.size > 0) {
-		likes.map ( (item) => {
-			console.log(item)
-			if(user.get('_id') !== item) {
-				likers += `${(birdNerdsAsMap.getIn([item, 'profile', 'userName'])) ? birdNerdsAsMap.getIn([item, 'profile', 'userName']) : ''} `;
-			}
-		})
-	}
-	likers += 'like this photo.';
-	console.log(likers);
-	return likers;
-
-
-} 
 
 const renderComments = (comments) => {
 	return comments.map( (comment, i) => {
@@ -76,7 +40,14 @@ const PhotoStatsBar = (props) => {
 							id={id}
 							slug={slug}
 						/>
-						<span className="stats-bar__text">{birdData && birdData.get('name')} ({birdData && birdData.get('species')})</span>
+						{(birdData) ? (
+							<span className="stats-bar__text">{birdData.get('name')} ({birdData.get('species')})</span>
+						) : (
+							<span className="stats-bar__text">Unknown</span>
+						)
+													
+						}
+
 					</div>
 					<div className="stats-bar__stat">			
 						<IconButton 
@@ -85,7 +56,8 @@ const PhotoStatsBar = (props) => {
 							handler={likeHandler}
 							id={id}
 							/>
-						<span className="stats-bar__text">{renderPhotoLikes(likes, user, birdNerds)}</span>	
+						{likes && <UserListComponent user={user} likers={likes}/>
+						}
 					</div>
 					<div className="stats-bar__stat">		
 						<IconButton 
@@ -95,7 +67,7 @@ const PhotoStatsBar = (props) => {
 						{(!camera) ? (
 							<span className="stats-bar__text">No camera info available for this photo</span>	
 							) : (
-						<span className="stats-bar__text">This photo was take with a {camera}</span>	
+						<span className="stats-bar__text">This photo was taken with a {camera}</span>	
 						)
 						
 						}
@@ -116,7 +88,7 @@ const PhotoStatsBar = (props) => {
 							id={id}
 						/>
 						{(dateTaken) ? (
-							<span className="stats-bar__text">{moment.format(dateTaken)}</span> 
+							<span className="stats-bar__text">{moment(dateTaken).format('MMMM Do YYYY, h:mm a')}</span> 
 						) : ( 
 							<span className="stats-bar__text">No date available</span>
 						)

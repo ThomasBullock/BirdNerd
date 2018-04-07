@@ -8,7 +8,7 @@ import { requestUsers } from '../../ducks/users';
 
 class MyPhotosContainer extends Component {
   componentWillMount() {
-    if(this.props.users.getIn(['0', '_id']) === null) {
+    if(this.props.birdNerds.size === 0) {
       this.props.requestUsers();      
     }
   }
@@ -35,7 +35,7 @@ const mapStateToProps = (state) => {
 
 	  photos: state.get('photos').filter(photoInfo => photoInfo.getIn(['user', '_id']) === state.getIn(['auth', 'user', '_id']) ),
     user: state.getIn(['auth', 'user']),
-    users: state.get('users'),
+    birdNerds: state.get('users'),
 	}
 }
 

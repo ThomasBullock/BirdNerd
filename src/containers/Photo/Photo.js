@@ -10,12 +10,21 @@ import NotFound from '../../components/NotFound';
 import PhotoStatsBar from '../../components/Photo/PhotoStatsBar'; 
 import PhotoUserBar from '../../components/Photo/PhotoUserBar';   
 
+import ScrollToTopOnMount from '../../components/ScrollToTopOnMount';
+
+import Loader from '../../img/Ellipsis.svg';
+
 import {
   likePhoto,
   deletePhoto
 } from '../../ducks/photos';
 
 import { requestUsers } from '../../ducks/users';
+
+const tempProfile = Immutable.fromJS({ // Do we need this!?
+	userName: 'MrBirdNerd',
+	gravatar: 'https://gravatar.com/avatar/790607f59356104c3bcd9f4e832bf16d?s=200',
+})
 
 const userPermission = (user, photo) => {
 	if(user && user.get('role') === 'moderator') {
@@ -30,7 +39,8 @@ const userPermission = (user, photo) => {
 class Photo extends Component {
 
 	componentWillMount() {
-		if(this.props.birdNerds.getIn(['0', '_id']) === null) {
+		console.log(this.props.birdNerds)
+		if(this.props.birdNerds.size === 0) {
 			this.props.requestUsers();      
 		}
 	}   
@@ -54,44 +64,49 @@ class Photo extends Component {
 			
 		}
 		return(
-			<div className="photo">
-				{this.props.photo ? (
-				<div>	
-					<div className="photo__image-wrapper">
-						<img src={this.props.photo.get('imageUrl')} style={styles.image} className="photo__image" alt={this.props.photo.get('birdName')}/>
-						<div className="photo__image-background" style={styles.wrapper}></div>
-					</div>
-					<PhotoUserBar 
-						user={this.props.user}
-						photoUser={this.props.photo.get('user')}
-						birdName={this.props.photo.get('birdName')}						
-						uploadDate={this.props.photo.get('created_at')}
-						id={this.props.photo.get('public_id')}
-						slug={this.props.photo.get('birdSlug')}
-						owner={userPermission(this.props.user, this.props.photo)}						
-						deleteHandler={this.props.deletePhoto}			
-					/>
-					<PhotoStatsBar
-						id={this.props.photo.get('_id')}
-						birdData={this.props.birdData}
-						likes={this.props.photo.get('likes')}
-						comments={this.props.photo.get('comments')} 
-						slug={this.props.photo.get('birdSlug')}
-						likeHandler={this.props.likePhoto}
-						user={this.props.photo.get('user')}
-						location={this.props.photo.get('location')}
-						camera={this.props.photo.get('camera')}
-						dateTaken={this.props.photo.get('dateTaken')}
-						birdNerds={this.props.birdNerds}																					
-					/>
-					<PhotoMap location={this.props.photo.get('location')}/>
-				</div>) : 
-				(
-					<NotFound />
-				)				
-				}
+			<Fragment>
+				<ScrollToTopOnMount />
+				<div className="photo">
+					{this.props.photo ? (
+					<div>	
+						<div className="photo__image-wrapper">
+							<img src={this.props.photo.get('imageUrl')} style={styles.image} className="photo__image" alt={this.props.photo.get('birdName')}/>
+							<div className="photo__image-background" style={styles.wrapper}></div>
+						</div>
+						<PhotoUserBar 
+							user={this.props.user}
+							photoUser={this.props.birdNerds.get(this.props.photo.getIn(['user', '_id'])) || tempProfile}
+							birdName={this.props.photo.get('birdName')}						
+							uploadDate={this.props.photo.get('created_at')}
+							id={this.props.photo.get('public_id')}
+							slug={this.props.photo.get('birdSlug')}
+							owner={userPermission(this.props.user, this.props.photo)}						
+							deleteHandler={this.props.deletePhoto}			
+						/>
+						<PhotoStatsBar
+							id={this.props.photo.get('_id')}
+							birdData={this.props.birdData}
+							likes={this.props.photo.get('likes')}
+							comments={this.props.photo.get('comments')} 
+							slug={this.props.photo.get('birdSlug')}
+							likeHandler={this.props.likePhoto}
+							user={this.props.photo.get('user')}
+							location={this.props.photo.get('location')}
+							camera={this.props.photo.get('camera')}
+							dateTaken={this.props.photo.get('dateTaken')}																				
+						/>
+						<PhotoMap location={this.props.photo.get('location')}/>
+					</div>) : 
+					(
+	          <div className="loader" >
+	            <h2 className="loader__heading">Uploading Image</h2>
+	            <img src={Loader}/>
+	          </div>  
+					)				
+					}
 
-			</div>
+				</div>
+			</Fragment>
 		)
 	}
 }
