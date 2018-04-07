@@ -26,7 +26,8 @@ function* signUpRequest(action) {
     if (response.status >= 200 && response.status < 300) {
       const user = yield response.json();
       yield window.sessionStorage.setItem('token', user.token);
-      yield put(actions.authUser());
+      console.log(user)
+      yield put(actions.authUser(user.user));
       history.push('/bird/feed');
     } else {
       throw response;

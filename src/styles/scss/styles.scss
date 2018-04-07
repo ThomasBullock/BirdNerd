@@ -11,12 +11,15 @@
 // import our mixins
 @import './mixins/BEM';
 @import './mixins/helpers';
+@import './mixins/buttons';
 @import './mixins/material-UI-shadows';
 
 // import our components
+@import './components/TopBar';
 @import './components/BirdCard';
 @import './components/BirdInfo';
 @import './components/BirdList';
+// @import './components/common/Buttons';
 @import './components/Camera';
 @import './components/Features';
 @import './components/FeatureCard';
@@ -27,4 +30,10 @@
 @import './components/Landing';
 @import './components/Loader';
 @import './components/Message';
-@import './components/TopBar';
+
+// Photo page
+@import './components/Photo';
+@import './components/PhotoStatsBar';
+@import './components/PhotoUserBar';
+
+@import './components/common/GoogleMap';

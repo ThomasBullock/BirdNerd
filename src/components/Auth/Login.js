@@ -6,6 +6,15 @@ import {Helmet} from "react-helmet";
 
 import { loginRequest } from '../../ducks/auth';
 
+const validate = (values) => {
+  const errors = {};
+  if (!values.get('username')) {
+    errors.username = 'Required'
+  }  
+  return errors;
+}
+
+
 const renderField = ({ input, label, type, meta: { touched, error } }) =>
   <div>
     <label>
@@ -66,7 +75,8 @@ let Login = props => {
 }
 
 Login = reduxForm({
-  form: 'login' // a unique identifier for this form
+  form: 'login', // a unique identifier for this form
+  validate
 })(Login);
 
 const mapStateToProps = state => ({ error: state.getIn(['auth', 'error']) });

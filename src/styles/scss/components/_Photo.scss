@@ -1,0 +1,47 @@
+.photo {
+	min-height: 80vh;
+
+	@include elem('image-wrapper') {
+		padding: $base-spacing;
+		position: relative;		
+	}
+	
+	@include elem('image') {
+		position: relative;
+		z-index: 100;
+		max-height: 80vh;
+		margin: 0 auto;
+		filter: 0;
+		border: solid 1px $oil;
+		@include img-responsive();
+		
+		
+	}
+	
+	@include elem('image-background') {
+		width: 110%;
+		z-index: -1;
+		min-height: 110%;
+		position: absolute;
+		top: -5%;
+		left: -5%;
+		bottom: 0;
+		right: 0;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: 50% 50%;
+		filter: blur(10px) brightness(70%);		
+	}
+	
+	@include elem('screen') {  // removed from component
+		width: 100%;
+		z-index: -2;
+		min-height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		background: $lorikeet-blue;	
+	}
+}

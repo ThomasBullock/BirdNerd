@@ -3,8 +3,7 @@ import { instanceOf, object, string, number, func, bool } from 'prop-types';
 import Immutable from 'immutable';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import IconLocation from '../icons/IconLocation';
-import IconHeart from '../icons/IconHeart';
+import IconButton from '../Common/IconButton';
 import IconBubble from '../icons/IconBubble';
 import IconBird from '../icons/IconBird';
 import DeleteIcon from '../icons/IconCross';
@@ -42,7 +41,8 @@ class BirdCard extends Component {
 
 		}
 		render() {
-			const userImg = 'http://3.bp.blogspot.com/-dXOvZOVDhes/Ts99nTenjtI/AAAAAAAAA2A/It9Ymliw4t4/s1600/26.jpg';
+			// console.log(this.props)
+			const birdNerdAvatar = this.props.birdNerdProfile && this.props.birdNerdProfile.getIn(['profile', 'gravatar']);
 			const orientation = this.props.orientation;
 			const aspect = aspectRatioClass(this.props.orientation);
 			const image = (orientation === 'Portrait') ? 
@@ -51,28 +51,43 @@ class BirdCard extends Component {
 			return(
 				<div className={`birdcard birdcard--${aspect}`}>
 					<div className={`birdcard__photo birdcard__photo--${aspect}`}>
-						<button style={{'backgroundImage': `url(${this.props.gravatar})`}} className="birdcard__button--user"></button>
-						{this.props.owner && <button onClick={this.handleDelete} className="birdcard__button birdcard__button--delete">
-							<DeleteIcon />
-						</button>
+						{ this.props.user && 
+							<button style={{'backgroundImage': `url(${birdNerdAvatar})`}} className="birdcard__button--user"></button>
 						}
-						<img src={image} alt={this.props.name}/>
+						
+						{this.props.owner && 
+							<button onClick={this.handleDelete} className="birdcard__button birdcard__button--delete">
+								<DeleteIcon />
+							</button>
+						}
+					    {this.props.user ? (
+							<Link to={`/bird/${this.props.slug}/photo/${this.props.id}`} >
+								<img src={image} alt={this.props.name}/>
+							</Link>
+					    ) : (
+					        <img src={image} alt={this.props.name}/>
+					    )}						
 					</div>
 					<div className={`birdcard__stats birdcard__stats--${aspect}`}>
-						<button className="birdcard__button">
-							<IconLocation/>
-						</button>
-						<button className="birdcard__button" onClick={ () => this.props.likeHandler(this.props.id)}>
-							<IconHeart/>
-							<span className="birdcard__number">{this.props.likes}</span>
-						</button>
+						<IconButton 
+							type="location"
+							id={this.props.id}
+						/>	
+						<IconButton 
+							type="likes"
+							number={this.props.likes}
+							handler={this.props.likeHandler}
+							id={this.props.id}							
+						/>
 						<button className="birdcard__button">
 							<IconBubble/>
 							<span className="birdcard__number">{this.props.comments}</span>
-						</button>
-						<Link to={`/bird/${this.props.slug}`} className="birdcard__button">
-							<IconBird/>
-						</Link>					
+						</button>	
+						<IconButton 
+							type="bird"
+							id={this.props.id}
+							slug={this.props.slug}
+						/>			
 					</div>				
 				</div>
 			)
@@ -88,8 +103,17 @@ BirdCard.propTypes = {
 	public_id: string.isRequired,
 	owner: bool.isRequired, // would it be more efficient to pass _id's directly rather then maps??
 	userID: string.isRequired,
-	gravatar: string.isRequired,
+	// gravatar: string.isRequired,
 	likeHandler: func.isRequired		
 }
 
-export default connect()(BirdCard);
+const mapStateToProps = (state, props) => {
+	return {
+		user: state.getIn(['auth', 'user']),
+		birdNerdProfile: state.getIn(['users', props.userID]),
+	}
+} 
+
+
+
+export default connect(mapStateToProps)(BirdCard);

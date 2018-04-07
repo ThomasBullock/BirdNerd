@@ -16,6 +16,31 @@ cloudinary.config({
 
 const router = express.Router();
 
+
+///////////////////////////////////////////////////
+/////////////         NEW API      ////////////////
+///////////////////////////////////////////////////
+
+
+router.get('/users', requireAuth, (req, res) =>{
+    console.log('api users')
+    User.find({}).select({ profile: 1 })
+    .exec()
+    .then( data => {
+        res.status(200).json(data);
+    })
+    .catch( err => {
+        console.log(err);
+        res.json(err);
+    })
+})
+
+///////////////////////////////////////////////////
+/////////////         NEW API      ////////////////
+///////////////////////////////////////////////////
+
+
+
 // Test protected route
 router.get('/protected', requireAuth, (req, res) => {
     res.send({ content: 'The protected test route is functional!' });
@@ -206,7 +231,7 @@ router.get('/photos/:query', requireAuth, (req, res) => {
 }) 
 
 router.post('/photo', requireAuth, (req, res) => { 
-    // console.log(req);
+    console.log(req.body);
     //req.body.user = req.user._id;
     //req.body.likes = 0;
     //req.body.comments = [];
@@ -241,6 +266,8 @@ router.post('/updatephotos', requireAuth, (req, res) => {
 })
 
 router.delete('/photo', requireAuth, (req, res) => {
+    console.log(req.user)
+    console.log(req.body)    
     if(req.user.profile.role === 'moderator') {
         Photo.findOneAndRemove({'public_id' : req.body.public_id}, function (err, photo) {
             if(err){
@@ -259,7 +286,9 @@ router.delete('/photo', requireAuth, (req, res) => {
             }
         });
     } else {
+        console.log('we aint a mod')
         Photo.findOneAndRemove({'public_id': req.body.public_id, 'user._id': req.user._id}, function (err, photo) {
+            console.log(photo)
             if(err){
                 throw err;
             }

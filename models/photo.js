@@ -5,8 +5,7 @@ const PhotoSchema = new mongoose.Schema({
         _id: {
             type: mongoose.Schema.ObjectId,
             ref: 'user'
-        },
-        gravatar: String
+        }
     },
     birdName: String, // comes from select or search input in submit photo form and is used to query db to get bird
     birdSlug: String,  
@@ -32,11 +31,18 @@ const PhotoSchema = new mongoose.Schema({
             type: mongoose.Schema.ObjectId,
             ref: 'user'
         }],
-    comments: [String],
+    comments: [{
+        user: {
+            type: mongoose.Schema.ObjectId,
+            ref: 'user'
+        },
+        text: String
+    }],
     camera: String, // brand/model od camera used to take the photo 
     imageAspect: String, // Portrait or Landscape    
     imageUrl: String,
     created_at: Date,
+    dateTaken: Date,
     bytes: Number,
     format: String,
     public_id: String,

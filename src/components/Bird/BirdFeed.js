@@ -30,7 +30,6 @@ const BirdFeed = ({ photos, sort, user, likeHandler }) => {
 					public_id={item.get('public_id')}
 					owner={userPermission(user, item)} // would it be more efficient to pass _id's directly rather then maps??
 					userID={item.getIn(['user', '_id'])}
-					gravatar={item.getIn(['user', 'gravatar'])}
 					likeHandler={likeHandler}			
 				/>	
 			)

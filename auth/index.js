@@ -30,9 +30,12 @@ function generateToken(user) {
 }
 
 router.post('/register', (req, res, next) => {
+  console.log(req.body)
     const email = req.body.email;
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
+    const userName = req.body.userName;
+    const country = req.body.country;
     const password = req.body.password;
     const gravatar =`https://gravatar.com/avatar/${md5(email)}?s=200`;
   
@@ -42,14 +45,20 @@ router.post('/register', (req, res, next) => {
     }
   
     // Return error if full name not provided
-    if (!firstName || !lastName) {
-      return res.status(422).send({ error: 'You must enter your full name.'});
+    if (!firstName || !lastName || !userName) {
+      return res.status(422).send({ error: 'You must enter your full name and a unique username'});
     }
+  
   
     // Return error if no password provided
     if (!password) {
       return res.status(422).send({ error: 'You must enter a password.' });
     }
+  
+    // Return error if no password provided
+    if (!country) {
+      return res.status(422).send({ error: 'You must enter the country in which you live.' });
+    }  
   
     User.findOne({ email: email }, function(err, existingUser) {
         if (err) { return next(err); }
@@ -63,7 +72,7 @@ router.post('/register', (req, res, next) => {
         let user = new User({
           email: email,
           password: password,
-          profile: { firstName: firstName, lastName: lastName, gravatar: gravatar }
+          profile: { userName: userName, firstName: firstName, lastName: lastName, gravatar: gravatar, country: country }
         });
   
         user.save(function(err, user) {

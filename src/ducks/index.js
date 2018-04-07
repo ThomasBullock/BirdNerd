@@ -6,6 +6,7 @@ import bird from './bird';
 import photos from './photos';
 import location from './location';
 import auth from './auth';
+import users from './users';
 import loading from './loading';
 
 const rootReducer = combineReducers({
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
     auth,
     form,
     loading,
+    users,
 });
 
 export default rootReducer; 

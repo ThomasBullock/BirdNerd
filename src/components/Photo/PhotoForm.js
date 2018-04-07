@@ -3,6 +3,7 @@ import { Field, reduxForm } from 'redux-form/immutable';
 import Dropzone from 'react-dropzone';
 import { connect } from 'react-redux';
 import PlaceField from './PlaceField';
+import RenderField from '../Common/Forms/RenderField';
 import PlacesAutocomplete from 'react-places-autocomplete';
 
 const FILE_FIELD_NAME = 'files';
@@ -43,46 +44,6 @@ const birdSelect = (bird) => {
   )
 }
 
-// const renderSelect = (props) => (
-//   <div>
-    
-//   </div>
-// ) 
-
-
-// const renderField = props => {
-//   console.log(props)
-//     return (
-//     // console.log(props)
-//     <div>
-//       <div className="form__label"> 
-//         <label>{props.placeholder}</label>{props.meta.touched && props.meta.error && <span>{props.meta.error}</span>}
-//       </div>
-//       <div>
-//         <input name={props.input.name} type={props.input.type}/>
-        
-//       </div>
-//     </div>
-//   )
-// }
-
-const renderField = ({ input, textarea, label, type, className, placeholder, meta: { touched, error } }) => {
-  const textareaType = <textarea {...input} type={type} placeholder={label}  />;
-  const inputType = <input {...input} placeholder={placeholder || label} type={type} />;
-  return (
-    <div className={className}>
-      <div className="form__label"> 
-        <label>{label}</label>
-        {touched &&
-        ((error && <span>{error}</span>))}        
-      </div>  
-      <div>
-        {textarea ? textareaType : inputType}
-
-      </div>
-    </div>
-  );
-};
 
 const renderSelectField =({ input, label, type, className, meta: { touched, error }, children }) => (
   <div className={className}>
@@ -148,13 +109,6 @@ let PhotoForm = ({ handleSubmit, bird, createPhoto, location, handleChange, erro
           </div>          
         </div>
         
-        {/*<div className="form__input">
-        	<label>Name</label>
-        	<div>
-            {birdSelect(bird)}
-        	</div>
-          {props.touched && props.error && <span>{props.error}</span>}
-      	</div> */}
         <div className="form__input--half">
           <label>Location Lat</label>
           <div>
@@ -187,7 +141,7 @@ let PhotoForm = ({ handleSubmit, bird, createPhoto, location, handleChange, erro
           <Field
             name="camera"
             label="Camera"
-            component={renderField}
+            component={RenderField}
             placeholder="PENTAX 645Z etc"              
             type="text"
          />

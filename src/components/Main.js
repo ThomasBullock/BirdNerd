@@ -8,7 +8,8 @@ import Landing from '../containers/Landing/Landing';
 import Register from './Auth/Register';
 import NotFound from './NotFound';  
 import Login from './Auth/Login'; 
-import Forgot from './Auth/Forgot'; 
+import Forgot from './Auth/Forgot';
+import Photo from '../containers/Photo/Photo'; 
 import ResetPasswordContainer from '../containers/Auth/ResetPasswordContainer';
 import ComingSoon from './ComingSoon';
 
@@ -26,6 +27,7 @@ const Main = () => (
       <Route path="/forgot" component={Forgot} />
       <Route path="/account/reset/:token" component={ResetPasswordContainer} />      
       <Route path='/bird' component={Birds}/> 
+      <Route path='/photo/:id' component={Photo}/>       
       <Route path='/404' component={NotFound} />
       <Route path="/contact" component={ComingSoon} />
       <Route path="/about" component={ComingSoon} />

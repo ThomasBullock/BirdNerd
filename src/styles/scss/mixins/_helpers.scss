@@ -70,7 +70,17 @@
 	// justify-content: center;
 	width: 100%;
 	margin: 0 auto $base-spacing;
-	min-height: 600px;
+	@include grid-media($tablet-grid){
+		min-height: calc(100vh - 156px); 
+	}
+	
+	@include grid-media($desktop-grid){
+		min-height: calc(100vh - 128px); 		 
+
+	}		
+	@include grid-media($large-desktop-grid){
+		min-height: calc(100vh - 128px); 		 
+	}		
 }
 
 .wrapper {
