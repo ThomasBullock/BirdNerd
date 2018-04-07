@@ -2,6 +2,7 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form/immutable';
 import Dropzone from 'react-dropzone';
 import { birdGroups } from '../../clientHelpers';
+import RenderField from '../Common/Forms/RenderField';
 import { conservationStatus } from '../../clientHelpers';
 
 const FILE_FIELD_NAME = 'files';
@@ -53,23 +54,6 @@ const conservationOptions = () => {
   })
 }
 
-const renderField = ({ input, textarea, label, type, className, meta: { touched, error } }) => {
-  const textareaType = <textarea {...input} type={type} placeholder={label}  />;
-  const inputType = <input {...input} placeholder={label} type={type} />;
-  return (
-    <div className={className}>
-      <div className="form__label"> 
-        <label>{label}</label>
-        {touched &&
-        ((error && <span>{error}</span>))}        
-      </div>  
-      <div>
-        {textarea ? textareaType : inputType}
-
-      </div>
-    </div>
-  );
-};
 
 const renderSelectField = ({ input, label, type, className, meta: { touched, error }, children }) => (
   <div className={className}>
@@ -118,8 +102,8 @@ const BirdForm = ({ handleSubmit, createBird }) => {
           <h2>Add New Bird</h2>
         </div>  
 
-        <Field name="name" component={renderField} type="text" placeholder="Name" label="Name" className="form__input--half" />
-        <Field name="species" component={renderField} type="text" placeholder="Species" label="Species" className="form__input--half" />
+        <Field name="name" component={RenderField} type="text" placeholder="Name" label="Name" className="form__input--half" />
+        <Field name="species" component={RenderField} type="text" placeholder="Species" label="Species" className="form__input--half" />
         <Field name="order" component={renderSelectField} type="select" placeholder="" label="Bird Group (Order)" className="form__input--half" children={orderOptions} />
 
             <Field 
@@ -129,7 +113,7 @@ const BirdForm = ({ handleSubmit, createBird }) => {
               className="form__input--half" 
               children={conservationOptions()}
             />
-        <Field name="location" component={renderField} type="text" placeholder="Seperate multiple locations with comma" label="Locations" className="form__input" />
+        <Field name="location" component={RenderField} type="text" placeholder="Seperate multiple locations with comma" label="Locations" className="form__input" />
 
         <div className="form__input form__input--comments">
           <label>Comments</label>
