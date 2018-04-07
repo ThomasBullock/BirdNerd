@@ -126,7 +126,8 @@ function* deletePhoto(action) {
         const res = yield call(api.DELETE, 'photo', public_id);
         if(!res.err) {
             yield put(actions.deletePhotoSuccess(action.public_id))
-        }        
+        } 
+        history.push('/bird/feed');             
     } catch(error) {
         console.log(error);
     }

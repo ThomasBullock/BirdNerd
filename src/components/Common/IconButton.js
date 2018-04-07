@@ -39,6 +39,7 @@ const getNumber = (number) => {
 
 const IconButton = (props) => {
 	const { type, func, handler, number, id, slug } = props;
+	const checkHandler = (handler) ? () => handler(id) : null;
 	return(
 		<Fragment>
 		{slug ? (
@@ -46,7 +47,7 @@ const IconButton = (props) => {
 				{getIcon(type)}
 			</Link>
 		)	: (
-			<button className="birdcard__button" onClick={() => handler(id)}>
+			<button className="birdcard__button" onClick={checkHandler}>
 			{getIcon(type)}
 			{getNumber(number)}
 			</button>		

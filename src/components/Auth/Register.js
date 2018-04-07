@@ -10,13 +10,36 @@ const validate = (values) => {
   const errors = {};
   if (!values.get('firstName')) {
     errors.firstName = 'Required'
-  }  
+  } else if (values.get('firstName').length > 30) {
+    errors.firstName = '30 characters or less'
+  } 
   if (!values.get('lastName')) {
     errors.lastName = 'Required'
-  }    
+  } else if (values.get('lastName').length > 30) {
+    errors.lastName = '30 characters or less'
+  }       
   if (!values.get('userName')) {
     errors.userName = 'Required'
-  }  
+  } else if (values.get('userName') && values.get('userName').length < 4) {
+    errors.userName = 'userName too short'
+  } else if (values.get('userName') && values.get('userName').length > 30) {
+    errors.userName = 'userName too long'
+  }     
+
+  if (!values.get('country')) {
+    errors.country = 'Required'
+  }      
+  if (!values.get('email')) {
+    errors.email = 'Required'
+  }         
+  if (!values.get('password')) {
+    errors.password = 'Required'
+  } else if (values.get('password') && values.get('password').length < 8) {
+    errors.password = 'Password too short'
+  } else if (values.get('password') && !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/g.test(values.get('password')) ) {
+    errors.password = 'Must contain at least one uppercase letter, one lowercase letter and one number'
+  }   
+
   return errors;
 }
 
@@ -24,26 +47,15 @@ const countryOptions = () => {
     return(
       <Fragment>
         <option value="Australia" key={0}>Australia</option>
-        <option value="United States" key={1}>United States</option>
-        <option value="Canada" key={2}>Canada</option>      
+        <option value="Canada" key={1}>Canada</option>         
+        <option value="India" key={2}>India</option>
+        <option value="New Zealand" key={3}>New Zealand</option>                
+        <option value="United Kingdom" key={4}>United Kingdom</option>
+        <option value="United States" key={5}>United States</option>
+        <option value="Other" key={6}>Other</option>             
       </Fragment>
     )
 }
-
-const renderField = ({ input, label, type, meta: { touched, error } }) =>
-  <div>
-    <label>
-      {label}
-    </label>
-    <div>
-      <input {...input} placeholder={label} type={type} />
-      {touched &&
-        error &&
-        <span>
-          {error}
-        </span>}
-    </div>
-  </div>
 
 const renderSelectField = ({ input, label, type, className, meta: { touched, error }, children }) => (
   <div className={className}>
@@ -78,8 +90,7 @@ let Register = props => {
           component={RenderField}
           label="First Name"
         />
-
-  
+ 
         <Field
           className="form__input--half"
           name="lastName"
@@ -87,8 +98,6 @@ let Register = props => {
           component={RenderField}
           label="Last Name"
         />
-
-   
         <Field
           className="form__input--half"
           name="userName"
@@ -118,7 +127,7 @@ let Register = props => {
           <Field
             name="password"
             type="password"
-            component={renderField}
+            component={RenderField}
             label="Password"
           />
         </div>  

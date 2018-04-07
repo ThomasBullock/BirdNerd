@@ -19,7 +19,7 @@ class BirdFeedContainer extends Component {
   }
 
   componentWillMount() {
-    if(this.props.birdNerds.getIn(['0', '_id']) === null) {
+    if(this.props.birdNerds.size === 0) {
       this.props.requestUsers();      
     }
 

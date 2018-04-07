@@ -14,9 +14,6 @@ const validate = values => {
   if (!values.get('name')) {
     errors.name = 'Required'; 
   }
-  if (!values.get('camera')) {
-    errors.camera = 'Required'; 
-  }  
   if(!values.get('files')) {
     errors.files = 'Required'
   }   
