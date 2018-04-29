@@ -6,6 +6,7 @@ import { requireAuth } from '../middleware/auth';
 import User from '../models/user';
 import Bird from '../models/bird';
 import Photo from '../models/photo';
+import { put } from 'redux-saga/effects';
 var cloudinary = require('cloudinary');
 
 cloudinary.config({ 
@@ -21,62 +22,63 @@ const router = express.Router();
 /////////////         NEW API      ////////////////
 ///////////////////////////////////////////////////
 
+///// Birds /////
 
-router.get('/users', requireAuth, (req, res) =>{
-    console.log('api users')
-    User.find({}).select({ profile: 1 })
-    .exec()
-    .then( data => {
-        res.status(200).json(data);
-    })
-    .catch( err => {
-        console.log(err);
-        res.json(err);
-    })
-})
-
-///////////////////////////////////////////////////
-/////////////         NEW API      ////////////////
-///////////////////////////////////////////////////
-
-
-
-// Test protected route
-router.get('/protected', requireAuth, (req, res) => {
-    res.send({ content: 'The protected test route is functional!' });
-});
-
+// Return all birds from db
 router.get('/birds', (req, res) => { // removed requireAuth,
     Bird.find({})
         .exec()
         .then(data => {
-            res.json(data);
+            res.status(200).json(data);
         })
         .catch(err => {
             console.log(err);
-            res.json(err);
+            res.status(500).json(err);
         });
 });
 
+// Return bird with ID
+router.get('/birds/:id', (req, res) => {  // removed requireAuth,
+    const id = req.params.id; 
+    Bird.findOne( { _id: id } ) 
+        .exec()
+        .then(data => {
+            console.log(data)
+            res.status(200).json(data);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+});
+
+// Return bird from order
+router.get('/birds/:order', (req, res) => {  // removed requireAuth,
+
+    // TO DO
+
+});
+
+// Create new bird in DB
 router.post('/birds', requireAuth, (req, res) => {
     if(req.user.profile.role === 'moderator') {
         const bird = new Bird(req.body);
         bird.save()
         .then(data => {
             console.log('Data : ======', data);
-            res.json({err: false, data });
+            res.status(201).json({err: false, data });
         })
         .catch(err => {
             console.log(err);
-            res.json(err);
+            res.status(500).json(err);
         })
     } else {
         return res.status(403).send({ error: 'You are not authorized' });
     }
-}); 
+});
 
-
-router.post('/birds/update/:id', requireAuth, async (req, res) => {
+// Find bird in DB by ID and Update
+router.put('/birds/:id', requireAuth, async (req, res) => {
     if(req.user.profile.role === 'moderator') {
         // const bird = new Bird(req.body);
         // console.log(bird)
@@ -85,8 +87,7 @@ router.post('/birds/update/:id', requireAuth, async (req, res) => {
         
         if(req.body.imageUrl) {
             await Bird.findOne({ _id: req.params.id }, (err, bird) => {
-                console.log('existing',  bird);
-                
+                console.log('existing',  bird);                
                 if(err){
                     throw err;
                 } 
@@ -102,40 +103,23 @@ router.post('/birds/update/:id', requireAuth, async (req, res) => {
                 }                     
             })
         }
-        
-        console.log('waited a bit then ');
-        
+                
         Bird.findOneAndUpdate({_id: req.params.id }, req.body, { new: true })
             .exec()
             .then(data => {
             console.log('Data : ======', data);
-            res.json({err: false, data });
+            res.status(200).json({err: false, data });
         })
         .catch(err => {
             console.log(err);
-            res.json(err);
+            res.status(500).json(err);
         })
     } else {
         return res.status(403).send({ error: 'You are not authorized' });
     }
 }); 
 
-
-router.get('/birds/:birdSlug', (req, res) => {  // removed requireAuth,
-    const birdSlug = req.params.birdSlug; 
-    Bird.findOne( { slug: birdSlug } ) 
-        .exec()
-        .then(data => {
-            console.log(data)
-            res.json(data);
-        })
-        .catch(err => {
-            console.log(err);
-            res.json(err);
-        });
-});
-
-
+// Delete bird from DB and cloudinary
 router.delete('/bird', requireAuth, (req, res) => {
     if(req.user.profile.role === 'moderator') {
         console.log(req.body)
@@ -150,10 +134,10 @@ router.delete('/bird', requireAuth, (req, res) => {
                         console.log('Cloudinary Error:====', error);
                     }
                 });
-                res.json({ err: false, msg: 'bird found and removed'});
+                res.status(204).json({ err: false, msg: 'bird found and removed'});
             }else{
                 console.log('No bird profile photo found');
-                res.json({ err: true, msg: 'No bird profile photo found'});
+                res.status(500).json({ err: true, msg: 'No bird profile photo found'});
             }         
         })
     } else {
@@ -161,17 +145,312 @@ router.delete('/bird', requireAuth, (req, res) => {
     }
 })
 
-// photo
+///// Photos /////
 
-router.get('/photos', (req, res) => { // removed requireAuth
-    Photo.find({})
+// Get all photos of bird of :id
+router.get('/birds/:id/photos', (req, res) => { // removed requireAuth
+    console.log(req.body);
+    const id = req.params.id;     
+    Photo.find({ birdId: id })
     .then(data => {
-        res.json(data)
+        res.status(200).json(data)
     }).catch(err => {
         console.log(err);
-        res.json(err);        
+        res.status(500).json(err);        
     })
 })
+
+// Get photos with assorted sorting queries
+router.get('/photos', (req, res) => { // removed requireAuth
+    // sort newest
+    const sort = req.query.sort;
+    const popular = req.query.popular;
+    if(sort) {
+        let field, order;
+        console.log('in switch!')
+        switch (sort) {
+            case 'created_asc': 
+            field = 'created_at';
+            order = '1';
+            break;
+            case 'created_desc': 
+            field = 'created_at';
+            order = '-1';
+            break;
+            case 'taken_asc': 
+            field = 'dateTaken';
+            order = '1';
+            break;
+            case 'taken_dec': 
+            field = 'dateTaken';
+            order = '-1';
+            break;                                                  
+        }
+
+        Photo.find({})
+        .sort( { [field]: parseInt(order) } )
+        .limit(12)
+        .then(data => {
+            res.status(200).json(data)
+        }).catch(err => {
+            console.log(err);
+            res.status(500).json(err);        
+        })
+
+    } else if(popular) {
+        Photo.getPopular()
+        .then(data => {
+            res.status(200).json(data)
+        }).catch(err => {
+            console.log(err);
+            res.status(500).json(err);        
+        })   
+
+    } else { // return all photos
+        Photo.find({})
+        .then(data => {
+            res.json(data)
+        }).catch(err => {
+            console.log(err);
+            res.json(err);        
+        })
+  
+    }
+
+})
+
+router.post('/photo', requireAuth, (req, res) => { 
+    // console.log(req.body);
+    const photo = new Photo(req.body);
+    photo.save()
+        .then(data => {
+            console.log('Data : ======', data);            
+            res.status(201).json({err: false, data});
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        })          
+});
+
+
+
+// Users //
+
+router.get('/users', requireAuth, (req, res) =>{
+    console.log('api users')
+    User.find({}).select({ profile: 1 })
+    .exec()
+    .then( data => {
+        res.status(200).json(data);
+    })
+    .catch( err => {
+        console.log(err);
+        res.status(500).json(err);
+    })
+})
+
+router.delete('/photos/:id', requireAuth, (req, res) => {
+    // console.log(req.user)
+    const publicId = req.params.id;
+    if(req.user.profile.role === 'moderator') {
+        Photo.findOneAndRemove({'public_id' : publicId }, function (err, photo) {
+            if(err){
+                throw err;
+            }
+            if(photo){
+                cloudinary.v2.uploader.destroy(req.body.public_id, function(error, result){
+                    if(error) {
+                        console.log('Cloudinary Error:====', error);
+                    }
+                });
+                res.status(204).json({ err: false, msg: 'photo found and removed'});
+            }else{
+                console.log('No photo found');
+                res.status(404).json({ err: true, msg: 'No photo found'});
+            }
+        });
+    } else {
+        console.log('we aint a mod')
+        Photo.findOneAndRemove({'public_id': req.body.public_id, 'user._id': req.user._id}, function (err, photo) {
+            console.log(photo)
+            if(err){
+                throw err;
+            }
+            if(photo){
+                cloudinary.v2.uploader.destroy(req.body.public_id, function(error, result){
+                    if(error) {
+                        console.log(error);
+                    }
+                    console.log(result);
+                });
+                res.status(204).json({ err: false, msg: 'photo found and removed'});
+            }else{
+                console.log('No photo found');
+                res.status(404).json({ err: true, msg: 'No photo found'});
+            }
+        });
+    }
+});
+
+router.put('/photos/:id/like', requireAuth, (req, res) => {
+    console.log(req.body)
+    const photoId = req.params.id;
+    // get the photo from the db with ID
+    // Photo.findOne({ _id: req.body.photo}, function (err, photo))
+    // Photo.find({_id: req.body.photo},  function(err, photo) {
+
+    Photo.findByIdAndUpdate( photoId, 
+        { [req.body.operator] : { likes: req.body.user }},
+        { new : true }, function(err, photo) {
+      console.log(photo);
+      if (photo) {
+        res.status(200).json(photo);
+      } else {
+        res.status(500).json(err);
+      };
+
+    })
+
+});
+
+///////////////////////////////////////////////////
+/////////////         NEW API      ////////////////
+///////////////////////////////////////////////////
+
+
+
+// Test protected route
+router.get('/protected', requireAuth, (req, res) => {
+    res.send({ content: 'The protected test route is functional!' });
+});
+
+// router.get('/birds', (req, res) => { // removed requireAuth,
+//     Bird.find({})
+//         .exec()
+//         .then(data => {
+//             res.json(data);
+//         })
+//         .catch(err => {
+//             console.log(err);
+//             res.json(err);
+//         });
+// });
+
+// router.post('/birds', requireAuth, (req, res) => {
+//     if(req.user.profile.role === 'moderator') {
+//         const bird = new Bird(req.body);
+//         bird.save()
+//         .then(data => {
+//             console.log('Data : ======', data);
+//             res.json({err: false, data });
+//         })
+//         .catch(err => {
+//             console.log(err);
+//             res.json(err);
+//         })
+//     } else {
+//         return res.status(403).send({ error: 'You are not authorized' });
+//     }
+// }); 
+
+
+// router.post('/birds/update/:id', requireAuth, async (req, res) => {
+//     if(req.user.profile.role === 'moderator') {
+//         // const bird = new Bird(req.body);
+//         // console.log(bird)
+//         console.log(req.params)
+//         console.log(req.body);
+        
+//         if(req.body.imageUrl) {
+//             await Bird.findOne({ _id: req.params.id }, (err, bird) => {
+//                 console.log('existing',  bird);
+                
+//                 if(err){
+//                     throw err;
+//                 } 
+//                 if(bird){
+//                     cloudinary.v2.uploader.destroy(bird.public_id, function(error, result){
+//                         console.log('old bird photo destroyed')
+//                         if(error) {
+//                             console.log('Cloudinary Error:====', error);
+//                         }
+//                     });
+//                 }else{
+//                     console.log('No bird profile photo found');
+//                 }                     
+//             })
+//         }
+        
+//         console.log('waited a bit then ');
+        
+//         Bird.findOneAndUpdate({_id: req.params.id }, req.body, { new: true })
+//             .exec()
+//             .then(data => {
+//             console.log('Data : ======', data);
+//             res.json({err: false, data });
+//         })
+//         .catch(err => {
+//             console.log(err);
+//             res.json(err);
+//         })
+//     } else {
+//         return res.status(403).send({ error: 'You are not authorized' });
+//     }
+// }); 
+
+
+// router.get('/birds/:birdSlug', (req, res) => {  // removed requireAuth,
+//     const birdSlug = req.params.birdSlug; 
+//     Bird.findOne( { slug: birdSlug } ) 
+//         .exec()
+//         .then(data => {
+//             console.log(data)
+//             res.json(data);
+//         })
+//         .catch(err => {
+//             console.log(err);
+//             res.json(err);
+//         });
+// });
+
+
+// router.delete('/bird', requireAuth, (req, res) => {
+//     if(req.user.profile.role === 'moderator') {
+//         console.log(req.body)
+//         Bird.findOneAndRemove({ _id: req.body._id}, (err, bird) => {
+//             if(err){
+//                 throw err;
+//             } 
+//             if(bird){
+//                 console.log(bird)
+//                 cloudinary.v2.uploader.destroy(bird.public_id, function(error, result){
+//                     if(error) {
+//                         console.log('Cloudinary Error:====', error);
+//                     }
+//                 });
+//                 res.json({ err: false, msg: 'bird found and removed'});
+//             }else{
+//                 console.log('No bird profile photo found');
+//                 res.json({ err: true, msg: 'No bird profile photo found'});
+//             }         
+//         })
+//     } else {
+//         return res.status(403).send({ error: 'You are not authorized' });
+//     }
+// })
+
+// photo
+
+// router.get('/photos', (req, res) => { // removed requireAuth
+//     Photo.find({})
+//     .then(data => {
+//         res.json(data)
+//     }).catch(err => {
+//         console.log(err);
+//         res.json(err);        
+//     })
+// })
 
 
 router.get('/photos/:query', requireAuth, (req, res) => {
@@ -230,22 +509,22 @@ router.get('/photos/:query', requireAuth, (req, res) => {
   
 }) 
 
-router.post('/photo', requireAuth, (req, res) => { 
-    console.log(req.body);
-    //req.body.user = req.user._id;
-    //req.body.likes = 0;
-    //req.body.comments = [];
-    const photo = new Photo(req.body);
-    photo.save()
-        .then(data => {
-            console.log('Data : ======', data);            
-            res.json({err: false, data});
-        })
-        .catch(err => {
-            console.log(err);
-            res.json(err);
-        })          
-});
+// router.post('/photo', requireAuth, (req, res) => { 
+//     console.log(req.body);
+//     //req.body.user = req.user._id;
+//     //req.body.likes = 0;
+//     //req.body.comments = [];
+//     const photo = new Photo(req.body);
+//     photo.save()
+//         .then(data => {
+//             console.log('Data : ======', data);            
+//             res.json({err: false, data});
+//         })
+//         .catch(err => {
+//             console.log(err);
+//             res.json(err);
+//         })          
+// });
 
 
 router.post('/updatephotos', requireAuth, (req, res) => {
@@ -265,48 +544,48 @@ router.post('/updatephotos', requireAuth, (req, res) => {
 
 })
 
-router.delete('/photo', requireAuth, (req, res) => {
-    console.log(req.user)
-    console.log(req.body)    
-    if(req.user.profile.role === 'moderator') {
-        Photo.findOneAndRemove({'public_id' : req.body.public_id}, function (err, photo) {
-            if(err){
-                throw err;
-            }
-            if(photo){
-                cloudinary.v2.uploader.destroy(req.body.public_id, function(error, result){
-                    if(error) {
-                        console.log('Cloudinary Error:====', error);
-                    }
-                });
-                res.json({ err: false, msg: 'photo found and removed'});
-            }else{
-                console.log('No photo found');
-                res.json({ err: true, msg: 'No photo found'});
-            }
-        });
-    } else {
-        console.log('we aint a mod')
-        Photo.findOneAndRemove({'public_id': req.body.public_id, 'user._id': req.user._id}, function (err, photo) {
-            console.log(photo)
-            if(err){
-                throw err;
-            }
-            if(photo){
-                cloudinary.v2.uploader.destroy(req.body.public_id, function(error, result){
-                    if(error) {
-                        console.log(error);
-                    }
-                    console.log(result);
-                });
-                res.json({ err: false, msg: 'photo found and removed'});
-            }else{
-                console.log('No photo found');
-                res.json({ err: true, msg: 'No photo found'});
-            }
-        });
-    }
-});
+// router.delete('/photo', requireAuth, (req, res) => {
+//     console.log(req.user)
+//     console.log(req.body)    
+//     if(req.user.profile.role === 'moderator') {
+//         Photo.findOneAndRemove({'public_id' : req.body.public_id}, function (err, photo) {
+//             if(err){
+//                 throw err;
+//             }
+//             if(photo){
+//                 cloudinary.v2.uploader.destroy(req.body.public_id, function(error, result){
+//                     if(error) {
+//                         console.log('Cloudinary Error:====', error);
+//                     }
+//                 });
+//                 res.json({ err: false, msg: 'photo found and removed'});
+//             }else{
+//                 console.log('No photo found');
+//                 res.json({ err: true, msg: 'No photo found'});
+//             }
+//         });
+//     } else {
+//         console.log('we aint a mod')
+//         Photo.findOneAndRemove({'public_id': req.body.public_id, 'user._id': req.user._id}, function (err, photo) {
+//             console.log(photo)
+//             if(err){
+//                 throw err;
+//             }
+//             if(photo){
+//                 cloudinary.v2.uploader.destroy(req.body.public_id, function(error, result){
+//                     if(error) {
+//                         console.log(error);
+//                     }
+//                     console.log(result);
+//                 });
+//                 res.json({ err: false, msg: 'photo found and removed'});
+//             }else{
+//                 console.log('No photo found');
+//                 res.json({ err: true, msg: 'No photo found'});
+//             }
+//         });
+//     }
+// });
 
 router.post('/like', requireAuth, (req, res) => {
     console.log(req.body)
