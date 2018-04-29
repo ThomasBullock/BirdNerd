@@ -22,7 +22,6 @@
 	}									
 }
 
-
 .button {
 	@include mod('upload') {
 		background: $lorikeet-blue;
@@ -36,9 +35,7 @@
 	flex: 0 1 90%;
 	margin: 5%;
 	border-radius: 10px;
-	box-shadow: 2px 2px 5px transparentize($oil, .5);
-
-	// max-height: 400px;
+	@include drop-shadow(2);
 
 	svg.icon {
 
@@ -59,15 +56,6 @@
 		flex: 0 1 25%;
 		margin: 2.5%;
 	}
-
-	// @include mod('Portrait') {
-	// 	flex-direction: row;
-	// }
-
-
-	// @include mod('Landscape') {
-	// 	flex-direction: column;
-	// }
 
 	@include mod('Square') {
 		flex-direction: column;
@@ -97,10 +85,7 @@
 		flex-direction: row;
 	}					
 
-
-
 	@include elem('photo') {
-		// flex: 1 1 66%;
 		position: relative;
 
 			img {
@@ -141,12 +126,10 @@
 		}	
 		@include mod('9to16') {
 			flex: 1 1 60%;						
-		}						
-				
+		}								
 	}
 
 	@include elem('stats') {
-		// flex: 1 1 33%;
 		justify-content: space-between;
 		padding: $base-spacing / 2;
 		display: flex;
@@ -178,17 +161,13 @@
 		@include mod('9to16') {
 			@include portrait-stats();				
 			flex: 1 1 40%;					
-		}			
-												
-						
+		}																			
 	}
 
 	@include elem('button') {
 		position: relative;
-		background: transparentize($vapor, .3);
-		// background: transparentize($lorikeet-blue, .8);		
+		background: transparentize($vapor, .5);	
 		border-radius: 50%;
-		// border: solid 1px transparentize($base, .5);
 		padding: $base-spacing / 2;
 		height: 48px;
 		width: 48px;
@@ -211,14 +190,10 @@
 			&:hover {
 				opacity: 1;				
 			}
-			// border: solid 1px $base;
-			// background-image: url('http://3.bp.blogspot.com/-dXOvZOVDhes/Ts99nTenjtI/AAAAAAAAA2A/It9Ymliw4t4/s1600/26.jpg');
-			// background-position: 60% 32%;
 		}
+
 		@include mod('delete') {   // for the user button in top left corner
 			@include position(absolute, $base-spacing / 2 $base-spacing / 2 null null )
-			// border: solid 1px $base;
-			// background-image: url('http://3.bp.blogspot.com/-dXOvZOVDhes/Ts99nTenjtI/AAAAAAAAA2A/It9Ymliw4t4/s1600/26.jpg');
 			background-position: 60% 32%;
 		}		
 	}
@@ -233,24 +208,3 @@
 }
 
 
-
-
-/* ================================= 
-  TABLET
-==================================== */
-
-@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
-
-/* Styles */
-
-}
-
-/* ================================= 
-  DESKTOP
-==================================== */
-
-@media only screen and (min-device-width : 1024px) {
-
-/* Styles */
-
-}

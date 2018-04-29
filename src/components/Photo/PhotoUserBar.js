@@ -68,8 +68,6 @@ const PhotoUserBar = (props) => {
 					<h3>Uploaded by {photoUser.getIn(['profile', 'userName'])} on {moment(uploadDate).format('MMMM Do YYYY')}</h3>	
 				</div>
 		
-
-
 				{ (userRole === 'moderator' || owner ) &&
 					<button className="birdinfo__btn" onClick={() => deleteAlert(birdName, deleteHandler, id) }>
 							<DeleteIcon />

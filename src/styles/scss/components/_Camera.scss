@@ -1,8 +1,6 @@
 .camera {
-	
 	@include grid-column(3);
 	
-
   @include grid-media($tablet-grid){
     @include grid-column(6);
   }
@@ -11,7 +9,6 @@
     @include grid-column(6);
   }
 
-	
 	@include elem('bird-wrapper') {
 		position: relative; 
 		height: 0; 
@@ -35,5 +32,4 @@
 		z-index: 900;
 		overflow: visible;		
 	}
-	
 }

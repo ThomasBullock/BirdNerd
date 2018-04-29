@@ -1,17 +1,16 @@
 .features {
 	margin-top: $base-spacing * 2;
 	margin-bottom: $base-spacing * 2;
-	
-	
-  @include grid-media($tablet-grid){
+
+	@include grid-media($tablet-grid){
 		margin-top: 200px;
-    margin-bottom: $base-spacing * 2;
-  }
-  
-  @include grid-media($desktop-grid){
+		margin-bottom: $base-spacing * 2;
+	}
+
+	@include grid-media($desktop-grid){
 		margin-top: 0;
 		margin-bottom: $base-spacing * 4;
-  }
+	}
   
 	@include elem('heading') { // need to standardize headings across site!!!
 		width: 100%;
@@ -19,9 +18,9 @@
 		margin-top: $base-spacing;
 		font-size: modular-scale(2);
 		color: $oil;		
-	  @include grid-media($tablet-grid){
+		@include grid-media($tablet-grid){
 			font-size: modular-scale(3);
-	  }
+		}
 	}
 	
 	@include elem('cards-wrapper') {
@@ -94,7 +93,6 @@
 		
 		@include grid-media($desktop-grid){ 
 			@include grid-column(6);
-
 		}	
 		
 		@include grid-media($large-desktop-grid){ 

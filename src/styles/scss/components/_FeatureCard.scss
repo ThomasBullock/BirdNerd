@@ -1,6 +1,5 @@
 .feature-card {
 	$icon-size: $base-spacing * 2;
-	
 	background: $smoke;
 	border-radius: $base-border-radius;
 	padding: $base-spacing;
@@ -28,47 +27,43 @@
 		}	
 		
 	@include elem('icon') {
-    @include drop-shadow(1);
-    
-    background: $action-color;
-    border-radius: 50%;
-    float: left;
-    height: $icon-size;
-    padding: $icon-size / 5;
-    width: $icon-size;
-    
-    
-    svg {
-    	width: $icon-size / 1.7;
-    	height:$icon-size / 1.7;
-    }	
-    
-    @include mod('blue') {
-    	background: linear-gradient(lighten($lorikeet-blue, 20%), darken($lorikeet-blue, 10%));    	
-    }	
+		@include drop-shadow(1);
+		
+		background: $action-color;
+		border-radius: 50%;
+		float: left;
+		height: $icon-size;
+		padding: $icon-size / 5;
+		width: $icon-size;
+		
+		svg {
+			width: $icon-size / 1.7;
+			height:$icon-size / 1.7;
+		}	
+		
+		@include mod('blue') {
+			background: linear-gradient(lighten($lorikeet-blue, 20%), darken($lorikeet-blue, 10%));    	
+		}	
 
-    @include mod('yellow') {
-    	background: linear-gradient(lighten($lorikeet-yellow, 20%), darken($lorikeet-yellow, 10%));
-    }	
+		@include mod('yellow') {
+			background: linear-gradient(lighten($lorikeet-yellow, 20%), darken($lorikeet-yellow, 10%));
+		}	
 
-    @include mod('pink') {
-    	background: linear-gradient(lighten($wes-pink, 20%), darken($wes-pink, 10%));
-    }
+		@include mod('pink') {
+			background: linear-gradient(lighten($wes-pink, 20%), darken($wes-pink, 10%));
+		}
 
-    @include mod('magenta') {
-    	background: linear-gradient(lighten($wes-magenta, 20%), darken($wes-magenta, 10%));
-    }	    
-    
+		@include mod('magenta') {
+			background: linear-gradient(lighten($wes-magenta, 20%), darken($wes-magenta, 10%));
+		}	    
 	}
 	
 	@include elem('content') {
-    margin-bottom: $base-spacing;
-    margin-left: $icon-size + $base-spacing;
+		margin-bottom: $base-spacing;
+		margin-left: $icon-size + $base-spacing;
 	}
 	
 	@include elem('title') {
 		border-bottom: 1px solid transparentize($base-font-color, 0.8);
-		// margin-left: $base-spacing * 3;
-		// text-align: center;
 	}		
 }

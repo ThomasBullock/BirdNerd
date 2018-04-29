@@ -5,9 +5,7 @@
 	flex-wrap: wrap;
 	margin-top: $base-spacing;
 	align-self: center;
-	min-height: 600px;
-	// background: $oil;
-		
+	min-height: 600px;	
 	
 	@include elem('intro-container') {
 		color: $vapor;
@@ -43,7 +41,6 @@
 		a:last-child {
 			margin-left: $base-spacing;
 		}		
-
 	}
 	
 	@include elem('cta-text') {
@@ -52,16 +49,12 @@
 	
 	@include elem('learn-more') {
 		width: 100%;
-		text-align: center;
-		// margin-top: $base-spacing * 2;
-		// margin-bottom: $base-spacing;		
-		
+		text-align: center;			
 	}
 	
 	@include elem('learn-more-link') {
 		svg {
 			fill: $vapor;
 		}
-	}		
-	
+	}			
 }

@@ -13,9 +13,7 @@
 		margin: 0 auto;
 		filter: 0;
 		border: solid 1px $oil;
-		@include img-responsive();
-		
-		
+		@include img-responsive();		
 	}
 	
 	@include elem('image-background') {
@@ -31,17 +29,5 @@
 		background-repeat: no-repeat;
 		background-position: 50% 50%;
 		filter: blur(10px) brightness(70%);		
-	}
-	
-	@include elem('screen') {  // removed from component
-		width: 100%;
-		z-index: -2;
-		min-height: 100%;
-		position: absolute;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
-		background: $lorikeet-blue;	
 	}
 }
