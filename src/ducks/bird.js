@@ -35,6 +35,7 @@ const initialState = fromJS([
     name: null,
     species: null,
     order: null,
+    family: null,
     location: null,
     conservationStatus: null,
     comments: null,

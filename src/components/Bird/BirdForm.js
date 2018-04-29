@@ -46,6 +46,12 @@ const birdGroupsOptions = (birdsGroups) => {
   })
 }
 
+const birdFamilyOptions = () => {
+  return (
+    <option key={1} value={'Acanthisittidae'}>Acanthisittidae</option>
+  )
+}
+
 const conservationOptions = () => {
   return conservationStatus.map( (item, i)  => {
     return(
@@ -95,6 +101,7 @@ const renderDropzoneInput = (field) => {
 
 const BirdForm = ({ handleSubmit, createBird }) => {
   const orderOptions = birdGroupsOptions(birdGroups);
+  const familyOptions = birdFamilyOptions();
   return (
     <div>
       <form className="form" onSubmit={handleSubmit((vals) => createBird(vals))}>
@@ -105,7 +112,7 @@ const BirdForm = ({ handleSubmit, createBird }) => {
         <Field name="name" component={RenderField} type="text" placeholder="Name" label="Name" className="form__input--half" />
         <Field name="species" component={RenderField} type="text" placeholder="Species" label="Species" className="form__input--half" />
         <Field name="order" component={renderSelectField} type="select" placeholder="" label="Bird Group (Order)" className="form__input--half" children={orderOptions} />
-
+        <Field name="family" component={renderSelectField} type="select" placeholder="" label="Bird Family" className="form__input--half" children={familyOptions} />
             <Field 
               name="conservationStatus" 
               component={renderSelectField} 

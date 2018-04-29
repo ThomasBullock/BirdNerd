@@ -139,14 +139,17 @@ function* likePhoto(action) {
     try {
         const photo = yield select(getPhoto, action.photo);
         const userId = yield select(getUser);
+        if(!userId) {
+            throw('You must be logged in to do that');
+        }
         // are we liking are unliking?
        
         const operator = (photo.get('likes').includes(userId)) ? '$pull' : '$addToSet';
-        console.log(operator)
-        const updatePhotoLikes = yield call(api.POST, 'like', {user: userId, photo: action.photo, operator: operator })
+        console.log(action.photo)
+        const updatePhotoLikes = yield call(api.PUT, `photos/${action.photo}/like`, {user: userId, operator: operator })
         yield put(actions.likePhotoSuccess(Immutable.fromJS(updatePhotoLikes)))
     } catch(error) {
-        console.log()
+        console.log(error)
     }
 }
 

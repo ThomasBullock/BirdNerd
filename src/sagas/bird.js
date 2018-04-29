@@ -39,7 +39,8 @@ function* createBird(action) {
     const birdInfo = {
       name: action.bird.get('name'),
       slug: slugs(action.bird.get('name')),
-      order: action.bird.get('order'),      
+      order: action.bird.get('order'),  
+      order: action.bird.get('family'),            
       species: action.bird.get('species'),
       location: action.bird.get('location') && action.bird.get('location').split(',').map( (item) => item.trim() ),      
       conservationStatus: action.bird.get('conservationStatus'),
@@ -65,6 +66,7 @@ function* fetchBirdList(action) {
   try {
     yield put(load('fetching bird data'));  
     const birdList = yield call(api.GET, `birds`)
+    console.log(birdList)
     yield put(actions.receiveBirdList(birdList));
     yield put(loaded());
   } catch(error) {
