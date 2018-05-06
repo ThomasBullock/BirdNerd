@@ -9,7 +9,15 @@
 
     @include elem('link') {
         color: $oil;
+
+        &:hover {
+           color: $blue;
+        }
     }
+
+    @include elem('sub') {
+        color: $steel;
+    }    
 
     @include elem('img') {
         border-radius: 50%;

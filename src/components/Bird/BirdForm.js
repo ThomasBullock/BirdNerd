@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Field, reduxForm } from 'redux-form/immutable';
 import Dropzone from 'react-dropzone';
 import { birdGroups } from '../../clientHelpers';
@@ -48,7 +48,12 @@ const birdGroupsOptions = (birdsGroups) => {
 
 const birdFamilyOptions = () => {
   return (
-    <option key={1} value={'Acanthisittidae'}>Acanthisittidae</option>
+    <Fragment>
+      <option key={1} value={'Pittidae'}>Pittidae</option>
+      <option key={2} value={'Menuridae'}>Menuridae</option>
+      <option key={3} value={'Atrichornithidae'}>Atrichornithidae</option>
+      <option key={4} value={'Ptilonorhynchidae'}>Ptilonorhynchidae</option>
+    </Fragment>  
   )
 }
 
@@ -113,13 +118,13 @@ const BirdForm = ({ handleSubmit, createBird }) => {
         <Field name="species" component={RenderField} type="text" placeholder="Species" label="Species" className="form__input--half" />
         <Field name="order" component={renderSelectField} type="select" placeholder="" label="Bird Group (Order)" className="form__input--half" children={orderOptions} />
         <Field name="family" component={renderSelectField} type="select" placeholder="" label="Bird Family" className="form__input--half" children={familyOptions} />
-            <Field 
-              name="conservationStatus" 
-              component={renderSelectField} 
-              type="select" placeholder="" label="Conservation Status"
-              className="form__input--half" 
-              children={conservationOptions()}
-            />
+        <Field 
+          name="conservationStatus" 
+          component={renderSelectField} 
+          type="select" placeholder="" label="Conservation Status"
+          className="form__input--half" 
+          children={conservationOptions()}
+        />
         <Field name="location" component={RenderField} type="text" placeholder="Seperate multiple locations with comma" label="Locations" className="form__input" />
 
         <div className="form__input form__input--comments">

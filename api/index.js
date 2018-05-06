@@ -31,9 +31,9 @@ router.get('/birds', (req, res) => { // removed requireAuth,
         .then(data => {
             res.status(200).json(data);
         })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
+        .catch(error => {
+            console.log(error);
+            res.status(500).json(error);
         });
 });
 
@@ -46,9 +46,9 @@ router.get('/birds/:id', (req, res) => {  // removed requireAuth,
             console.log(data)
             res.status(200).json(data);
         })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
+        .catch(error => {
+            console.log(error);
+            res.status(500).json(error);
         });
 });
 
@@ -66,11 +66,11 @@ router.post('/birds', requireAuth, (req, res) => {
         bird.save()
         .then(data => {
             console.log('Data : ======', data);
-            res.status(201).json({err: false, data });
+            res.status(201).json({error: false, data });
         })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
+        .catch(error => {
+            console.log(error);
+            res.status(500).json(error);
         })
     } else {
         return res.status(403).send({ error: 'You are not authorized' });
@@ -86,10 +86,10 @@ router.put('/birds/:id', requireAuth, async (req, res) => {
         console.log(req.body);
         
         if(req.body.imageUrl) {
-            await Bird.findOne({ _id: req.params.id }, (err, bird) => {
+            await Bird.findOne({ _id: req.params.id }, (error, bird) => {
                 console.log('existing',  bird);                
-                if(err){
-                    throw err;
+                if(error){
+                    throw error;
                 } 
                 if(bird){
                     cloudinary.v2.uploader.destroy(bird.public_id, function(error, result){
@@ -108,11 +108,11 @@ router.put('/birds/:id', requireAuth, async (req, res) => {
             .exec()
             .then(data => {
             console.log('Data : ======', data);
-            res.status(200).json({err: false, data });
+            res.status(200).json({error: false, data });
         })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
+        .catch(error => {
+            console.log(error);
+            res.status(500).json(error);
         })
     } else {
         return res.status(403).send({ error: 'You are not authorized' });
@@ -120,12 +120,12 @@ router.put('/birds/:id', requireAuth, async (req, res) => {
 }); 
 
 // Delete bird from DB and cloudinary
-router.delete('/bird', requireAuth, (req, res) => {
+router.delete('/birds/:id', requireAuth, (req, res) => {
     if(req.user.profile.role === 'moderator') {
         console.log(req.body)
-        Bird.findOneAndRemove({ _id: req.body._id}, (err, bird) => {
-            if(err){
-                throw err;
+        Bird.findOneAndRemove({ _id: req.params.id}, (error, bird) => {
+            if(error){
+                throw error;
             } 
             if(bird){
                 console.log(bird)
@@ -134,14 +134,14 @@ router.delete('/bird', requireAuth, (req, res) => {
                         console.log('Cloudinary Error:====', error);
                     }
                 });
-                res.status(204).json({ err: false, msg: 'bird found and removed'});
+                res.status(204).json({ error: false, msg: 'bird found and removed'});
             }else{
                 console.log('No bird profile photo found');
-                res.status(500).json({ err: true, msg: 'No bird profile photo found'});
+                res.status(500).json({ error: true, msg: 'No bird profile photo found'});
             }         
         })
     } else {
-        return res.status(403).send({ error: 'You are not authorized' });
+        return res.status(403).send({ erroror: 'You are not authorized' });
     }
 })
 
@@ -154,9 +154,9 @@ router.get('/birds/:id/photos', (req, res) => { // removed requireAuth
     Photo.find({ birdId: id })
     .then(data => {
         res.status(200).json(data)
-    }).catch(err => {
-        console.log(err);
-        res.status(500).json(err);        
+    }).catch(error => {
+        console.log(error);
+        res.status(500).json(error);        
     })
 })
 
@@ -192,27 +192,27 @@ router.get('/photos', (req, res) => { // removed requireAuth
         .limit(12)
         .then(data => {
             res.status(200).json(data)
-        }).catch(err => {
-            console.log(err);
-            res.status(500).json(err);        
+        }).catch(error => {
+            console.log(error);
+            res.status(500).json(error);        
         })
 
     } else if(popular) {
         Photo.getPopular()
         .then(data => {
             res.status(200).json(data)
-        }).catch(err => {
-            console.log(err);
-            res.status(500).json(err);        
+        }).catch(error => {
+            console.log(error);
+            res.status(500).json(error);        
         })   
 
     } else { // return all photos
         Photo.find({})
         .then(data => {
             res.json(data)
-        }).catch(err => {
-            console.log(err);
-            res.json(err);        
+        }).catch(error => {
+            console.log(error);
+            res.json(error);        
         })
   
     }
@@ -225,11 +225,11 @@ router.post('/photo', requireAuth, (req, res) => {
     photo.save()
         .then(data => {
             console.log('Data : ======', data);            
-            res.status(201).json({err: false, data});
+            res.status(201).json({error: false, data});
         })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
+        .catch(error => {
+            console.log(error);
+            res.status(500).json(error);
         })          
 });
 
@@ -244,9 +244,9 @@ router.get('/users', requireAuth, (req, res) =>{
     .then( data => {
         res.status(200).json(data);
     })
-    .catch( err => {
-        console.log(err);
-        res.status(500).json(err);
+    .catch(error => {
+        console.log(error);
+        res.status(500).json(error);
     })
 })
 
@@ -254,9 +254,9 @@ router.delete('/photos/:id', requireAuth, (req, res) => {
     // console.log(req.user)
     const publicId = req.params.id;
     if(req.user.profile.role === 'moderator') {
-        Photo.findOneAndRemove({'public_id' : publicId }, function (err, photo) {
-            if(err){
-                throw err;
+        Photo.findOneAndRemove({'public_id' : publicId }, function (error, photo) {
+            if(error){
+                throw error;
             }
             if(photo){
                 cloudinary.v2.uploader.destroy(req.body.public_id, function(error, result){
@@ -264,18 +264,18 @@ router.delete('/photos/:id', requireAuth, (req, res) => {
                         console.log('Cloudinary Error:====', error);
                     }
                 });
-                res.status(204).json({ err: false, msg: 'photo found and removed'});
+                res.status(204).json({ error: false, msg: 'photo found and removed'});
             }else{
                 console.log('No photo found');
-                res.status(404).json({ err: true, msg: 'No photo found'});
+                res.status(404).json({ error: true, msg: 'No photo found'});
             }
         });
     } else {
         console.log('we aint a mod')
-        Photo.findOneAndRemove({'public_id': req.body.public_id, 'user._id': req.user._id}, function (err, photo) {
+        Photo.findOneAndRemove({'public_id': req.body.public_id, 'user._id': req.user._id}, function (error, photo) {
             console.log(photo)
-            if(err){
-                throw err;
+            if(error){
+                throw error;
             }
             if(photo){
                 cloudinary.v2.uploader.destroy(req.body.public_id, function(error, result){
@@ -284,14 +284,30 @@ router.delete('/photos/:id', requireAuth, (req, res) => {
                     }
                     console.log(result);
                 });
-                res.status(204).json({ err: false, msg: 'photo found and removed'});
+                res.status(204).json({ error: false, msg: 'photo found and removed'});
             }else{
                 console.log('No photo found');
-                res.status(404).json({ err: true, msg: 'No photo found'});
+                res.status(404).json({ error: true, msg: 'No photo found'});
             }
         });
     }
 });
+
+// update photos field of bird ID (eg if bird is deleted update photo birdID's to null)
+router.put('/birds/:Id/photos/:field', requireAuth, (req, res) => {
+    console.log(req.body);
+    // console.log(req.user);
+    if(req.user.profile.role === 'moderator') {
+
+        Photo.update({[req.params.field] : req.params.Id }, req.body.updates, {multi: true}, function(error, raw) {
+            if(error){
+                throw error;
+            }
+            console.log('The raw response from Mongo was ', raw);
+            res.status(200).json({ error: false, msg: 'photos updated'});
+        })             
+    }
+})
 
 router.put('/photos/:id/like', requireAuth, (req, res) => {
     console.log(req.body)
@@ -302,12 +318,12 @@ router.put('/photos/:id/like', requireAuth, (req, res) => {
 
     Photo.findByIdAndUpdate( photoId, 
         { [req.body.operator] : { likes: req.body.user }},
-        { new : true }, function(err, photo) {
+        { new : true }, function(error, photo) {
       console.log(photo);
       if (photo) {
         res.status(200).json(photo);
       } else {
-        res.status(500).json(err);
+        res.status(500).json(error);
       };
 
     })
@@ -331,7 +347,7 @@ router.get('/protected', requireAuth, (req, res) => {
 //         .then(data => {
 //             res.json(data);
 //         })
-//         .catch(err => {
+//         .catch(error => {
 //             console.log(err);
 //             res.json(err);
 //         });
@@ -461,9 +477,9 @@ router.get('/photos/:query', requireAuth, (req, res) => {
             .then(data => {
                 res.json(data);
             })
-            .catch(err => {
-                console.log(err);
-                res.json(err);
+            .catch(error => {
+                console.log(error);
+                res.json(error);
             });          
     } else if(query === 'recent') {
         Photo.find({}).sort( { created_at: -1} ).limit(12)
@@ -471,9 +487,9 @@ router.get('/photos/:query', requireAuth, (req, res) => {
             // console.log(data)
            res.json(data); 
         })
-        .catch(err => {
-            console.log(err);
-            res.json(err);
+        .catch(error => {
+            console.log(error);
+            res.json(error);
         });         
     } else if(query === 'oldest') {
         Photo.find({}).sort( { created_at: 1} ).limit(12)
@@ -481,9 +497,9 @@ router.get('/photos/:query', requireAuth, (req, res) => {
             // console.log(data)
            res.json(data); 
         })        
-        .catch(err => {
-            console.log(err);
-            res.json(err);
+        .catch(error => {
+            console.log(error);
+            res.json(error);
         });              
     } else if(query === 'popular') {
         Photo.find({}).sort( { likes: -1} ).limit(12)
@@ -491,9 +507,9 @@ router.get('/photos/:query', requireAuth, (req, res) => {
             // console.log(data)
            res.json(data); 
         })        
-        .catch(err => {
-            console.log(err);
-            res.json(err);
+        .catch(error => {
+            console.log(error);
+            res.json(error);
         });
     
     } else {
@@ -501,9 +517,9 @@ router.get('/photos/:query', requireAuth, (req, res) => {
             .then(data => {
                 res.json(data);
             })
-            .catch(err => {
-                console.log(err);
-                res.json(err);
+            .catch(error => {
+                console.log(error);
+                res.json(error);
             });               
     }
   
@@ -527,22 +543,22 @@ router.get('/photos/:query', requireAuth, (req, res) => {
 // });
 
 
-router.post('/updatephotos', requireAuth, (req, res) => {
-    console.log(req.body);
-    // console.log(req.user);
-    if(req.user.profile.role === 'moderator') {
+// router.post('/updatephotos', requireAuth, (req, res) => {
+//     console.log(req.body);
+//     // console.log(req.user);
+//     if(req.user.profile.role === 'moderator') {
 
-        Photo.update({[req.body.field] : req.body.value }, req.body.updates, {multi: true}, function(err, raw) {
-            if(err){
-                throw err;
-            }
-            console.log('The raw response from Mongo was ', raw);
-            res.json({ err: false, msg: 'photos updated'});
-        }) 
+//         Photo.update({[req.body.field] : req.body.value }, req.body.updates, {multi: true}, function(err, raw) {
+//             if(err){
+//                 throw err;
+//             }
+//             console.log('The raw response from Mongo was ', raw);
+//             res.json({ err: false, msg: 'photos updated'});
+//         }) 
                 
-    }
+//     }
 
-})
+// })
 
 // router.delete('/photo', requireAuth, (req, res) => {
 //     console.log(req.user)
@@ -587,21 +603,21 @@ router.post('/updatephotos', requireAuth, (req, res) => {
 //     }
 // });
 
-router.post('/like', requireAuth, (req, res) => {
-    console.log(req.body)
-    // get the photo from the db with ID
-    // Photo.findOne({ _id: req.body.photo}, function (err, photo))
-    // Photo.find({_id: req.body.photo},  function(err, photo) {
+// router.post('/like', requireAuth, (req, res) => {
+//     console.log(req.body)
+//     // get the photo from the db with ID
+//     // Photo.findOne({ _id: req.body.photo}, function (err, photo))
+//     // Photo.find({_id: req.body.photo},  function(err, photo) {
 
-    Photo.findByIdAndUpdate(req.body.photo, 
-        { [req.body.operator] : { likes: req.body.user }},
-        { new : true }, function(err, photo) {
-      console.log(photo);
-      if (err) return handleError(err);
-      res.send(photo);
-    })
+//     Photo.findByIdAndUpdate(req.body.photo, 
+//         { [req.body.operator] : { likes: req.body.user }},
+//         { new : true }, function(err, photo) {
+//       console.log(photo);
+//       if (err) return handleError(err);
+//       res.send(photo);
+//     })
 
-});
+// });
 
 // router.post('/birds/resize', requireAuth, (req, res) => {
     

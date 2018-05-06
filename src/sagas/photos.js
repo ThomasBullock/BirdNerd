@@ -33,16 +33,6 @@ function* fetchPhotos(action) {
     }   
 }
 
-const aspectCalculator = (data) => {
-    if(data.width > data.height) {
-        return 'Landscape';
-    } else if(data.height > data.width) {
-        return 'Portrait';
-    } else if(data.height === data.width) {
-        return 'Square';
-    }
-}
-
 function* createPhoto(action) {
 	try {
 		const userPhoto = action.photo.get('files')[0];  //'action' is not defined  no-undef
@@ -124,7 +114,7 @@ function* deletePhoto(action) {
     try {
         const public_id = { public_id: action.public_id}
         const res = yield call(api.DELETE, 'photo', public_id);
-        if(!res.err) {
+        if(!res.error) {
             yield put(actions.deletePhotoSuccess(action.public_id))
         } 
         history.push('/bird/feed');             

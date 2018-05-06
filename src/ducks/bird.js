@@ -57,6 +57,7 @@ const bird = (state = initialState, action) => {
       console.log('uploading in bird ducks!') 
       return state.push({ uploading: true });
     case CREATE_BIRD_SUCCESS:
+      console.log(action);
     	return state.push(fromJS(action.bird));
     case UPDATE_BIRD_SUCCESS:
       return state.update((birdList) => birdList.map(birdObj => (birdObj.get('_id') === action.bird._id) ? fromJS(action.bird) : birdObj));

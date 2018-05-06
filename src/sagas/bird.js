@@ -40,7 +40,7 @@ function* createBird(action) {
       name: action.bird.get('name'),
       slug: slugs(action.bird.get('name')),
       order: action.bird.get('order'),  
-      order: action.bird.get('family'),            
+      family: action.bird.get('family'),            
       species: action.bird.get('species'),
       location: action.bird.get('location') && action.bird.get('location').split(',').map( (item) => item.trim() ),      
       conservationStatus: action.bird.get('conservationStatus'),
@@ -54,7 +54,13 @@ function* createBird(action) {
     };
     // console.log('uploading ', birdInfo); 
     const res = yield call(api.POST, 'birds', birdInfo);
-    yield put(actions.createBirdSuccess(res.data));
+    console.log(res);
+    if(!res.error) {
+      yield put(actions.createBirdSuccess(res.data));
+    } else {
+      throw res.error;
+    }
+
     yield put(loaded());
     history.push(`/bird/${birdInfo.slug}`)
   } catch (error) {
@@ -79,13 +85,12 @@ function* fetchBirdList(action) {
 
 function* deleteBird(action) {
       try {
-        const _id = { _id: action._id}
+        const id = action._id;
         yield put(load('Deleting Bird Profile'));  
-        const removeBird = yield call(api.DELETE, 'bird', _id);
-        if(!removeBird.err) {
+        const removeBird = yield call(api.DELETE, `birds/${id}`);
+        if(!removeBird.error) {
+          console.log('deleted bird without error')
           const updates = {
-            field: 'birdId',
-            value: action._id,
             updates: {
               birdId: null,
               birdSlug: null
@@ -93,7 +98,7 @@ function* deleteBird(action) {
           }
           // this updates the birdId entry in all of the photos because the bird has been deleted
           // it doesn't update state yet
-          const updatePhotos = yield call(api.POST, 'updatePhotos', updates );
+          const updatePhotos = yield call(api.PUT, `birds/${id}/photos/birdId`, updates);
           yield put(actions.deleteBirdSuccess(action._id));
           yield put(loaded());           
           history.push('/bird');      
