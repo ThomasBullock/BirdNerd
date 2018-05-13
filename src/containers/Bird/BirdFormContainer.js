@@ -25,6 +25,7 @@ class BirdFormContainer extends Component {
           name: bird && bird.get('name'),
           species: bird && bird.get('species'),
           order: bird && bird.get('order'),
+          family: bird && bird.get('family'),
           conservationStatus: bird && bird.get('conservationStatus'),
           location: bird && bird.get('location').reduce( (accum, item) => `${accum}, ${item}`),
           comments: bird && bird.get('comments')
