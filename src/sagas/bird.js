@@ -7,6 +7,7 @@ import swal from 'sweetalert'
 import calculateAspectRatios from 'calculate-aspect-ratio';
 import history from '../history';
 import { push } from 'react-router-redux';
+import { fromJS } from 'immutable';
 import store from '../store';
 
 function* fetchBird(action) {
@@ -25,6 +26,7 @@ function* createBird(action) {
         swal('Incorrect file type')
         return
     }    
+    console.log(action.bird)
     const formData = new FormData();
     formData.append("file", birdImage);
     //formData.append("tags", `codeinfuse, medium, gist`);
@@ -39,7 +41,9 @@ function* createBird(action) {
     const birdInfo = {
       name: action.bird.get('name'),
       slug: slugs(action.bird.get('name')),
-      order: action.bird.get('order'),      
+      order: action.bird.get('order'),  
+      family: action.bird.get('family'),
+      wingspan: fromJS([parseInt(action.bird.get('wingspan-min')), parseInt(action.bird.get('wingspan-max'))]),            
       species: action.bird.get('species'),
       location: action.bird.get('location') && action.bird.get('location').split(',').map( (item) => item.trim() ),      
       conservationStatus: action.bird.get('conservationStatus'),
@@ -53,7 +57,13 @@ function* createBird(action) {
     };
     // console.log('uploading ', birdInfo); 
     const res = yield call(api.POST, 'birds', birdInfo);
-    yield put(actions.createBirdSuccess(res.data));
+    console.log(res);
+    if(!res.error) {
+      yield put(actions.createBirdSuccess(res.data));
+    } else {
+      throw res.error;
+    }
+
     yield put(loaded());
     history.push(`/bird/${birdInfo.slug}`)
   } catch (error) {
@@ -77,13 +87,12 @@ function* fetchBirdList(action) {
 
 function* deleteBird(action) {
       try {
-        const _id = { _id: action._id}
+        const id = action._id;
         yield put(load('Deleting Bird Profile'));  
-        const removeBird = yield call(api.DELETE, 'bird', _id);
-        if(!removeBird.err) {
+        const removeBird = yield call(api.DELETE, `birds/${id}`);
+        if(!removeBird.error) {
+          console.log('deleted bird without error')
           const updates = {
-            field: 'birdId',
-            value: action._id,
             updates: {
               birdId: null,
               birdSlug: null
@@ -91,7 +100,7 @@ function* deleteBird(action) {
           }
           // this updates the birdId entry in all of the photos because the bird has been deleted
           // it doesn't update state yet
-          const updatePhotos = yield call(api.POST, 'updatePhotos', updates );
+          const updatePhotos = yield call(api.PUT, `birds/${id}/photos/birdId`, updates);
           yield put(actions.deleteBirdSuccess(action._id));
           yield put(loaded());           
           history.push('/bird');      
@@ -132,7 +141,9 @@ function* updateBird(action) {
     const birdInfo = {
       name: action.bird.get('name'),
       slug: slugs(action.bird.get('name')),
-      order: action.bird.get('order'),      
+      order: action.bird.get('order'),
+      family: action.bird.get('family'),
+      wingspan: fromJS([parseInt(action.bird.get('wingspan-min')), parseInt(action.bird.get('wingspan-max'))]),               
       species: action.bird.get('species'),
       location: action.bird.get('location') && action.bird.get('location').split(',').map( (item) => item.trim() ),      
       conservationStatus: action.bird.get('conservationStatus'),
@@ -149,7 +160,7 @@ function* updateBird(action) {
       birdInfo.public_id = birdImageRes.public_id;   
     }
     
-    const res = yield call(api.POST, `birds/update/${action.birdId}`, birdInfo);
+    const res = yield call(api.PUT, `birds/${action.birdId}`, birdInfo);
     console.log(res);
  //${res.data.slug}
     yield put(actions.updateBirdSuccess(res.data));

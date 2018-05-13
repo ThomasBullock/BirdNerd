@@ -1,18 +1,15 @@
-
 .topbar {
-
 	background: $jet;
 	width: 100%;
 
 	&::before {
-    content: '';
-    display: block;
-    background: $tropical-gradient;  // if we alter the $tropical-gradient in _variable.scss the change will be reflected throughtout the app where ever $tropical-gradient is used.
-    height: $base-spacing;
-    width: 100%;
+		content: '';
+		display: block;
+		background: $tropical-gradient;  // if we alter the $tropical-gradient in _variable.scss the change will be reflected throughtout the app where ever $tropical-gradient is used.
+		height: $base-spacing;
+		width: 100%;
 		border-bottom: 2px inset transparentize($oil, .5);  // transparentize is a mixin built into sass that changes the opacity of colors    		
 	}
-
 
 	@include elem('nav') {  // this creates element selector .topbar__nav as per BEM methodologies 
 		padding: $base-spacing;
@@ -21,8 +18,7 @@
 		flex-wrap: wrap;
 		position: relative;
 		z-index: 99999;
-		// border-bottom: solid 2px transparentize($oil, .8);
-    box-shadow: 0 2px 3px transparentize($oil, .2);
+    	@include drop-shadow(4);
 
 		@media all and (min-width: 900px) {	
 			flex-wrap: nowrap;
@@ -30,9 +26,7 @@
 		}	
 	}
 
-
 	@include elem('nav-component') {
-
 		@include mod('search') {  // this creates modifier selector topbar__nav-component--search as per BEM methodologies 
 			flex: 1 1 100%;
 			order: 2;
@@ -63,21 +57,21 @@
 	}
 
 	button[type=submit] {
-      background: $oil;
-      border: 0;
-      bottom: 0.3em;
-      left: auto;
-      outline: none;
-      padding: 0 $base-spacing / 2;
-      position: absolute;
-      right: 0.3em;
-      top: 0.3em;		
+		background: $oil;
+		border: 0;
+		bottom: 0.3em;
+		left: auto;
+		outline: none;
+		padding: 0 $base-spacing / 2;
+		position: absolute;
+		right: 0.3em;
+		top: 0.3em;		
 
-			img {
+		img {
 	      height: 12px;
 	      opacity: 0.7;
 	    }
-		}
+	}
 
 	@include elem('menu') {
 		display: flex;

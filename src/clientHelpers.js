@@ -3,7 +3,7 @@ import Immutable from 'immutable';
 export const birdGroups = {
   Procellariiformes: 'Albatrosses and Petrels',
   Falconiformes: 'Birds of Prey',
-  Turniciformes: 'Buttonquails',
+  Charadriiformes: 'Buttonquails',
   Casuariiformes: 'Cassowaries and Emus',
   Gruiformes: 'Cranes, Coots and Rails',
   Cuculiformes: 'Cuckoos and Turacos',
@@ -30,6 +30,30 @@ export const birdGroups = {
   Trogoniformes: 'Trogons and Quetzals', 
   Anseriformes: 'Waterfowl',
   Piciformes: 'Woodpeckers and Toucans'   
+}
+
+export const birdFamilies = {
+	"Struthioniformes": ["Struthionidae", "Casuariidae"],
+	"Anseriformes": ["Anseranatidae", "Anatidae"],
+	"Galliformes": ["Megapodiidae", "Numididae", "Odontophoridae", "Phasianidae"],
+	"Podicepiformes": ["Phoenicopteridae", "Podicipedidae"],
+	"Columbiformes": ["Columbidae"],
+	"Cuculiformes": ["Cuculidae"],
+	"Otidiformes": ["Otididae"],
+	"Caprimulgiformes": ["Podargidae", "Eurostopodidae", "Caprimulgidae", "Aegothelidae", "Apodidae"],
+	"Gruiformes": ["Rallidae", "Gruidae"],
+	"Charadriiformes": ["Burhinidae", "Chionididae", "Haematopodidae", "Recurvirostridae", "Charadriidae", "Pedionomidae", "Rostratulidae", "Jacanidae", "Scolopacidae", "Turnicidae", "Glareolidae", "Stercorariidae", "Laridae"],
+	"Phaetontiformes": ["Phaethontidae"],
+	"Sphenisciformes": ["Spheniscidae"],
+	"Procellariiformes": ["Oceanitidae", "Diomedeidae", "Hydrobatidae", "Procellariidae"],
+	"Pelecaniformes": ["Ciconiidae", "Pelicanidae", "Ardeidae", "Threskiornithidae", "Fregatidae", "Sulidae", "Phalacrocoracidae", "Anhingidae"],
+	"Accipitriformes": ["Pandionidae", "Accipitridae"],
+	"Strigiformes": ["Tytonidae", "Strigidae"],
+	"Bucerotiformes": ["Upupidae"],
+	"Coraciiformes": ["Meropidae", "Coraciidae", "Alcedinidae"],
+	"Falconiformes": ["Falconidae"],
+	"Psittaciformes": ["Cacatuidae", "Psittaculidae"],
+	"Passeriformes": ["Pittidae", "Menuridae", "Atrichornithidae", "Ptilonorhynchidae", "Climacteridae", "Maluridae", "Dasyornithidae", "Meliphagidae", "Pardalotidae", "Acanthizidae", "Orthonychidae", "Pomatostomidae", "Neosittidae", "Campephagidae", "Cinclosomatidae", "Pachycephalidae", "Falcunculidae", "Oreoicidae", "Psophodidae", "Oriolidae", "Machaerirhynchidae", "Artamidae", "Dicruridae", "Rhipiduridae", "Laniidae", "Corvidae", "Monarchidae", "Corcoracidae", "Paradisaeidae", "Petroicidae", "Dicaeidae", "Nectariniidae", "Estrildidae", "Passeridae", "Motacillidae", "Emberizidae", "Fringillidae", "Alaudidae", "Cisticolidae", "Locustellidae", "Acrocephalidae", "Hirundinidae", "Pycnonotidae", "Phylloscopidae", "Zosteropidae", "Sturnidae", "Muscicapidae", "Turdidae"]
 }
 
 export const conservationStatus = [

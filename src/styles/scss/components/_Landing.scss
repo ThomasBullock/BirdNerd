@@ -1,16 +1,21 @@
-
 // I found part of the solution in Kartik Prabhu’s “Equal height images with flexbox”, 
 // which shows a neat trick with the flex-grow property. If flex-grow is set to the 
 // calculated aspect ratio of the image (with a common ratio like 3:2 written as 1.5), 
 // images that have the same flex-basis (initial width) will maintain the same height while adjusting their width proportionally.
 
-
 .landing {
-
 	background: linear-gradient(0deg, lighten($lorikeet-blue, 30%), darken($lorikeet-blue, 10%));
 	max-width: 100%;
 	width: 100%;
 	min-height: 900px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;	
+	position: relative;
+
+	@media all and (min-width : 1025px) { 
+		min-height: 1200px;
+	}
 
 	@include elem('heading') {
 		@include text-shadow(3);
@@ -46,15 +51,6 @@
 		}				
 	}
 
-	@media all and (min-width : 1025px) { 
-		min-height: 1200px;
-	}
-
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;	
-	position: relative;
-
 	@include elem('hero-wrapper') {
 		@include grid-container;
 		display: flex;
@@ -77,7 +73,6 @@
 			height: calc(100vh - 128px); 		 
 			width: 60%;
 		}					
-		// min-height: 200px;
 	}
 
 	@include elem('intro-container') {
@@ -111,6 +106,5 @@
 			
 		}
 	}	
-
 }
 

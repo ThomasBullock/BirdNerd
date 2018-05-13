@@ -1,7 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
 import Dropzone from 'react-dropzone';
-import { birdGroups } from '../../clientHelpers';
+import { birdGroups, birdFamilies } from '../../clientHelpers';
+import RenderField from '../Common/Forms/RenderField';
+import RangeSlider from '../Common/Forms/RangeSlider';
 import { conservationStatus } from '../../clientHelpers';
 
 const FILE_FIELD_NAME = 'files';
@@ -40,6 +43,22 @@ const birdGroupsOptions = (birdsGroups) => {
       <option key={i} value={group}>{birdsGroups[group]} (Order {group})</option>
     )
   })
+}
+
+const birdFamilyOptions = (order) => {
+  console.log(birdFamilies);
+  const familyArray = birdFamilies[order];
+  console.log(familyArray);
+  if(familyArray) {
+    return familyArray.map( (family, i) => {
+      return (
+        <option key={i} value={family}>{family}</option>
+      )
+    })
+  } else {
+    return null;
+  }
+
 }
 
 const conservationOptions = () => {
@@ -106,8 +125,9 @@ const renderDropzoneInput = (field) => {
   );
 }
 
-const UpdateBirdForm = ({ handleSubmit, updateBird, bird, initialValues}) => {
+let UpdateBirdForm = ({ handleSubmit, updateBird, bird, initialValues, hasOrder}) => {
   const orderOptions = birdGroupsOptions(birdGroups);
+  const familyOptions = birdFamilyOptions(hasOrder);
   const name = bird && bird.get('name') || '';
   const birdId = bird && bird.get('_id');
   return (
@@ -119,12 +139,19 @@ const UpdateBirdForm = ({ handleSubmit, updateBird, bird, initialValues}) => {
 
         <Field name="name" component={renderField} type="text" placeholder="Name" label="Name" className="form__input--half" />
         <Field name="species" component={renderField} type="text" placeholder="Species" label="Species" className="form__input--half" />
-
-       { /* <Field name="username" component={renderSelectField} label="Username">
-          { mySelectOptions.map(option => <option value={option.value}>{option.label}</option>) }
-        </Field> */}
         <Field name="order" component={renderSelectField} type="select" placeholder="" label="Bird Group (Order)" className="form__input--half" children={orderOptions} />
-
+        <Field name="family" component={renderSelectField} type="select" placeholder="" label="Bird Family" className="form__input--half" children={familyOptions} />
+        <div className="form__dual-slider">
+          <label className="form__dual-slider-label">Adult Wingspan range (cm)</label>
+          <div className="form__dual-slider-container">
+            <Field 
+              name="wingspan-min" component={RangeSlider}     
+              type="range" label="Wingspan Min" className="form__range form__range---min" />
+            <Field 
+              name="wingspan-max" component={RangeSlider}     
+            type="range" label="Wingspan Max" className="form__range form__range--max" />
+           </div>
+        </div>  
             <Field 
               name="conservationStatus" 
               component={renderSelectField} 
@@ -164,7 +191,27 @@ const UpdateBirdForm = ({ handleSubmit, updateBird, bird, initialValues}) => {
 }
 
 
-export default reduxForm({
+UpdateBirdForm =  reduxForm({
     form: 'updatebirdForm',
     validate,
 })(UpdateBirdForm);
+
+// const selector = formValueSelector('updatebirdForm')
+// You have to connect() to any reducers that you wish to connect to yourself
+UpdateBirdForm = connect(
+  state => {
+    // console.log(state)
+    // can select values individually
+    // console.log(selector)
+    const hasOrder = state.getIn(['form', 'updatebirdForm', 'values', 'order'])// selector(state, 'order')
+    // const hasFamily = selector(state, 'family')
+    // console.log(hasOrder);
+    return {
+      hasOrder,
+      // initialValues: state.get('groups'), // pull initial values from account reducer
+      enableReinitialize: true,      
+    }
+  }  
+)(UpdateBirdForm)
+
+export default UpdateBirdForm;

@@ -1,4 +1,22 @@
+import axios from 'axios';
 const baseUrl = (process.env.NODE_ENV === 'production') ? 'http://birdnerd.club/api/' : 'http://localhost:3001/api/';
+
+// using axios //
+// export const GET = (url) => {
+//   const token = window.sessionStorage.getItem('token');
+//   return axios.get(baseUrl + url, {
+//     headers: {
+//       Authorization: token,
+//     }
+//   })
+//   .then((res) => {
+//     return res.data;
+//   })
+//   .catch((error) => {
+//     console.log(error)
+//     return error;
+//   })
+// };
 
 export const GET = (url) => {
   const token = window.sessionStorage.getItem('token');

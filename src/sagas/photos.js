@@ -20,10 +20,12 @@ const getUserSurname = (state) => state.getIn(['auth', 'user', 'lastName']); // 
 
 const getPhoto = (state, photoID ) => state.get('photos').filter(photo => photo.get('_id') === photoID).get(0);
 
+
 function* fetchPhotos(action) {
     try {
-        yield put(load('Loading Photos'));            
-        const myPhotos = yield call(api.GET, `photos/`);
+        yield put(load('Loading Photos'));
+        const query = (action.id) ? `birds/${action.id}/photos` : `photos/?${action.query}`;        
+        const myPhotos = yield call(api.GET, query);
         yield put(loaded());                  
         yield put(actions.receivePhotos(myPhotos));
     } catch(error) {
@@ -31,16 +33,6 @@ function* fetchPhotos(action) {
         console.log(error)
         history.push(`/`);
     }   
-}
-
-const aspectCalculator = (data) => {
-    if(data.width > data.height) {
-        return 'Landscape';
-    } else if(data.height > data.width) {
-        return 'Portrait';
-    } else if(data.height === data.width) {
-        return 'Square';
-    }
 }
 
 function* createPhoto(action) {
@@ -122,12 +114,13 @@ function* deletePhoto(action) {
     // get router info if on photo:id then history push to my photos
     console.log(action)
     try {
-        const public_id = { public_id: action.public_id}
-        const res = yield call(api.DELETE, 'photo', public_id);
-        if(!res.err) {
-            yield put(actions.deletePhotoSuccess(action.public_id))
+        const public_id = { public_id: action._id}
+        const res = yield call(api.DELETE, `photos/${action._id}`);
+        if(!res.error) {
+            history.push('/bird/feed');  
+            yield put(actions.deletePhotoSuccess(action._id));
         } 
-        history.push('/bird/feed');             
+           
     } catch(error) {
         console.log(error);
     }
@@ -139,14 +132,17 @@ function* likePhoto(action) {
     try {
         const photo = yield select(getPhoto, action.photo);
         const userId = yield select(getUser);
+        if(!userId) {
+            throw('You must be logged in to do that');
+        }
         // are we liking are unliking?
        
         const operator = (photo.get('likes').includes(userId)) ? '$pull' : '$addToSet';
-        console.log(operator)
-        const updatePhotoLikes = yield call(api.POST, 'like', {user: userId, photo: action.photo, operator: operator })
+        console.log(action.photo)
+        const updatePhotoLikes = yield call(api.PUT, `photos/${action.photo}/like`, {user: userId, operator: operator })
         yield put(actions.likePhotoSuccess(Immutable.fromJS(updatePhotoLikes)))
     } catch(error) {
-        console.log()
+        console.log(error)
     }
 }
 

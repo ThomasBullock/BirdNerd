@@ -35,6 +35,8 @@ const initialState = fromJS([
     name: null,
     species: null,
     order: null,
+    family: null,
+    wingspan: null, 
     location: null,
     conservationStatus: null,
     comments: null,
@@ -42,7 +44,7 @@ const initialState = fromJS([
     bytes: null,
     imageAspect: null,    
     imageUrl: null,
-    public_id: null,    
+    public_id: null, 
   }
 ]);
 
@@ -56,6 +58,7 @@ const bird = (state = initialState, action) => {
       console.log('uploading in bird ducks!') 
       return state.push({ uploading: true });
     case CREATE_BIRD_SUCCESS:
+      console.log(action);
     	return state.push(fromJS(action.bird));
     case UPDATE_BIRD_SUCCESS:
       return state.update((birdList) => birdList.map(birdObj => (birdObj.get('_id') === action.bird._id) ? fromJS(action.bird) : birdObj));

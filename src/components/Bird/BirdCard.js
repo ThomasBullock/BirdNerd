@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { instanceOf, object, string, number, func, bool } from 'prop-types';
+import { instanceOf, object, string, number, func, bool, oneOfType } from 'prop-types';
 import Immutable from 'immutable';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -33,7 +33,7 @@ class BirdCard extends Component {
 			    //   icon: "success",
 			    // });
 			    console.log(' will delete')
-					this.props.dispatch(deletePhoto(this.props.public_id));
+					this.props.dispatch(deletePhoto(this.props.id));
 			  } else {
 			    swal(`This ${this.props.name} photo is safe!`);
 			  }
@@ -97,7 +97,7 @@ class BirdCard extends Component {
 BirdCard.propTypes = {
 	id: string.isRequired,
 	orientation: string.isRequired,
-	slug: string.isRequired,
+	slug: oneOfType([() => {return null}, string]),
 	likes: number.isRequired,
 	img: string.isRequired,
 	public_id: string.isRequired,

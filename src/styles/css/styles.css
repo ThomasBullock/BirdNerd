@@ -259,7 +259,7 @@ a {
     flex-wrap: wrap;
     position: relative;
     z-index: 99999;
-    box-shadow: 0 2px 3px rgba(51, 51, 51, 0.8); }
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.22), 0 14px 56px rgba(0, 0, 0, 0.25); }
     @media all and (min-width: 900px) {
       .topbar__nav {
         flex-wrap: nowrap;
@@ -313,7 +313,8 @@ a {
   flex: 0 1 90%;
   margin: 5%;
   border-radius: 10px;
-  box-shadow: 2px 2px 5px rgba(51, 51, 51, 0.5); }
+  transition: all .2s ease-out;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.23), 0 3px 12px rgba(0, 0, 0, 0.16); }
   .birdcard svg.icon {
     width: 24px;
     height: 24px; }
@@ -436,7 +437,7 @@ a {
       flex: 1 1 40%; }
   .birdcard__button {
     position: relative;
-    background: rgba(246, 246, 246, 0.7);
+    background: rgba(246, 246, 246, 0.5);
     border-radius: 50%;
     padding: 0.75em;
     height: 48px;
@@ -472,18 +473,6 @@ a {
     color: rgba(246, 246, 246, 0.7);
     font-size: 0.8em; }
 
-/* ================================= 
-  TABLET
-==================================== */
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-  /* Styles */ }
-
-/* ================================= 
-  DESKTOP
-==================================== */
-@media only screen and (min-device-width: 1024px) {
-  /* Styles */ }
-
 .birdinfo {
   width: 100%; }
   .birdinfo__hero {
@@ -496,7 +485,8 @@ a {
     min-height: 240px;
     background-size: cover;
     margin: 0 auto;
-    background-repeat: no-repeat; }
+    background-repeat: no-repeat;
+    border-bottom: solid 1px #555555; }
     @media all and (min-width: 768px) and (max-width: 1024px) {
       .birdinfo__hero-img {
         min-height: 400px; } }
@@ -512,7 +502,7 @@ a {
           background-position: 0% 15%; } }
       @media all and (min-width: 1025px) {
         .birdinfo__hero-img--4to3 {
-          min-height: 550px;
+          min-height: 600px;
           background-position: 0% 20%; } }
     .birdinfo__hero-img--3to2 {
       background-position: 0 50%; }
@@ -522,8 +512,8 @@ a {
           background-position: 0% 40%; } }
       @media all and (min-width: 1025px) {
         .birdinfo__hero-img--3to2 {
-          min-height: 500px;
-          background-position: 0% 20%; } }
+          min-height: 550px;
+          background-position: 0% 35%; } }
     .birdinfo__hero-img--16to9 {
       background-position: 0 50%; }
       @media all and (min-width: 768px) and (max-width: 1024px) {
@@ -538,7 +528,7 @@ a {
     width: 100%;
     border-radius: 3px;
     background: #F6F6F6;
-    box-shadow: 2px 2px 5px rgba(51, 51, 51, 0.5); }
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.23), 0 10px 40px rgba(0, 0, 0, 0.19); }
   .birdinfo__wings {
     text-align: center;
     z-index: 100;
@@ -548,7 +538,9 @@ a {
     transform: translate(-50%, -50%);
     width: 420px;
     max-width: 100%;
-    z-index: 1; }
+    z-index: 1;
+    -webkit-filter: drop-shadow(0 3px 12px rgba(0, 0, 0, 0.23)) drop-shadow(0 3px 12px rgba(0, 0, 0, 0.16));
+    filter: drop-shadow(0 3px 12px rgba(0, 0, 0, 0.23)) drop-shadow(0 3px 12px rgba(0, 0, 0, 0.16)); }
   .birdinfo__header {
     text-align: center;
     z-index: 100;
@@ -566,6 +558,7 @@ a {
     border-radius: 3px;
     padding: 0.75em;
     width: 200px;
+    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
     background: #222222; }
     .birdinfo__heading h2 {
       font-size: 1em;
@@ -578,7 +571,8 @@ a {
     padding: 0.375em;
     max-height: 48px;
     margin: 0 0.375em;
-    transition: fill 250ms ease; }
+    transition: fill 250ms ease;
+    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
     .birdinfo__btn:hover {
       fill: #48ded4;
       background: #333333; }
@@ -601,10 +595,17 @@ a {
       display: block; }
   .birdinfo__facts {
     position: relative;
-    padding: 6em 1.5em 1.5em;
+    padding: 4.5em 1.5em 1.5em;
     flex: 1 1 100%;
     display: flex;
-    flex-direction: column; }
+    flex-wrap: wrap;
+    flex-direction: row; }
+  .birdinfo__entry--third {
+    flex: 1 1 33.3%; }
+  .birdinfo__entry--half {
+    flex: 0 1 50%; }
+  .birdinfo__entry--full {
+    flex: 1 1 100%; }
   @media all and (min-width: 1025px) {
     .birdinfo__gradient {
       position: absolute;
@@ -630,7 +631,7 @@ a {
       .birdinfo__heading h2 {
         font-size: 1.25em; }
     .birdinfo__facts {
-      padding: 6em 1.5em 1.5em;
+      padding: 7.5em 1.5em 1.5em;
       flex: 1 1 60%; } }
 
 .birdwings {
@@ -873,7 +874,7 @@ a {
       text-align: center; }
 
 .form {
-  box-shadow: 2px 2px 5px rgba(51, 51, 51, 0.5);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.23), 0 3px 12px rgba(0, 0, 0, 0.16);
   width: 100%;
   margin: 1.5em auto;
   background: #DDDDDD;
@@ -921,6 +922,109 @@ a {
       rows: 10; }
     .form__input--half {
       flex: 0 1 50%; }
+  .form__dual-slider {
+    position: relative;
+    flex: 1 1 50%; }
+    .form__dual-slider--min {
+      position: absolute;
+      color: #F6F6F6;
+      z-index: 50;
+      border: solid 1px rgba(51, 51, 51, 0.2);
+      border-radius: 3px;
+      background: #888888;
+      width: 32px;
+      height: 21px;
+      padding: 0 2px;
+      font-size: 0.8em;
+      text-align: center;
+      left: 2px;
+      top: 7px; }
+    .form__dual-slider--max {
+      position: absolute;
+      color: #F6F6F6;
+      z-index: 50;
+      border: solid 1px rgba(51, 51, 51, 0.2);
+      border-radius: 3px;
+      background: #888888;
+      width: 32px;
+      height: 21px;
+      padding: 0 2px;
+      font-size: 0.8em;
+      text-align: center;
+      right: 2px;
+      top: 7px; }
+  .form__dual-slider-container {
+    position: relative; }
+  .form__dual-slider-label {
+    margin: 0 auto; }
+  .form__range {
+    pointer-events: none;
+    position: absolute;
+    top: 7px;
+    left: 35px;
+    width: 73%;
+    outline: none;
+    height: 18px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* Styles for Firefox */
+    /* extra fixes for Firefox */ }
+    .form__range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      pointer-events: all;
+      border: 1px solid #CCD2DB;
+      top: -11px;
+      box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
+      border-radius: 3px;
+      background-image: url(%thumb-image%);
+      background-color: white;
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      position: relative;
+      z-index: 1;
+      outline: 0;
+      height: 1.5em;
+      width: 1.5em;
+      content: 'min'; }
+    .form__range::-webkit-slider-runnable-track {
+      /*
+			background-color: #5FCCC7;
+			*/
+      background-color: #DDDDDD;
+      height: 6px;
+      border-radius: 13px;
+      border: 1px solid #EDEEF0; }
+    .form__range::-moz-range-thumb {
+      -moz-appearance: none;
+      box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
+      pointer-events: all;
+      border: 2px solid #CCD2DB;
+      border-radius: 3px;
+      background-image: url(%thumb-image%);
+      background-color: white;
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      position: relative;
+      z-index: 100;
+      outline: 0;
+      height: 12px;
+      width: 12px; }
+    .form__range::-moz-range-track {
+      position: relative;
+      z-index: -1;
+      /*
+			background-color: #5FCCC7;
+			*/
+      background: none transparent;
+      height: 6px;
+      border-radius: 13px;
+      border: 1px solid #EDEEF0; }
+    .form__range:last-of-type::-moz-range-track {
+      -moz-appearance: none;
+      background: none transparent;
+      border: 0; }
+    .form__range::-moz-focus-outer {
+      border: 0; }
   .form__dropzone {
     flex: 1 1 100%; }
   .form__dropzone-box {
@@ -940,41 +1044,13 @@ a {
     background: #EFEFEF;
     text-align: center;
     color: #888888;
-    box-shadow: 2px 2px 5px rgba(51, 51, 51, 0.5); }
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.23), 0 3px 12px rgba(0, 0, 0, 0.16); }
     .form__reset-panel p {
       margin-bottom: 0; }
     .form__reset-panel a {
       color: rgba(232, 44, 117, 0.6); }
       .form__reset-panel a:hover {
         color: #333333; }
-
-.nav-tabs {
-  width: 100%;
-  margin-top: 1.5em;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center; }
-  .nav-tabs__link {
-    margin: 1.5em;
-    border-top: 1px solid #AAAAAA;
-    border-left: 1px solid #AAAAAA;
-    border-right: 1px solid #AAAAAA;
-    border-radius: 3px;
-    color: #333333;
-    display: block;
-    padding: 0;
-    text-decoration: none; }
-  .nav-tabs__button {
-    background: #38aeF4;
-    margin: 0 0.75em;
-    box-shadow: 1px 1px 2px rgba(51, 51, 51, 0.4);
-    font-size: 0.8em; }
-    @media all and (min-width: 768px) and (max-width: 1024px) {
-      .nav-tabs__button {
-        font-size: 1em; } }
-    @media all and (min-width: 1025px) {
-      .nav-tabs__button {
-        font-size: 1em; } }
 
 .hero {
   display: flex;
@@ -1032,6 +1108,9 @@ a {
   flex-direction: column;
   justify-content: flex-start;
   position: relative; }
+  @media all and (min-width: 1025px) {
+    .landing {
+      min-height: 1200px; } }
   .landing__heading {
     text-shadow: 0 6px 12px rgba(0, 0, 0, 0.23), 0 10px 40px rgba(0, 0, 0, 0.19);
     width: 100%;
@@ -1058,9 +1137,6 @@ a {
       .landing__viewport {
         height: calc(100vh - 128px);
         width: 60%; } }
-  @media all and (min-width: 1025px) {
-    .landing {
-      min-height: 1200px; } }
   .landing__hero-wrapper {
     display: flex;
     flex-wrap: wrap;
@@ -1183,16 +1259,6 @@ a {
     background-repeat: no-repeat;
     background-position: 50% 50%;
     filter: blur(10px) brightness(70%); }
-  .photo__screen {
-    width: 100%;
-    z-index: -2;
-    min-height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: #38aeF4; }
 
 .stats-bar {
   background: #222222;
@@ -1267,7 +1333,8 @@ a {
     justify-content: center;
     align-items: center;
     padding: 0.75em 1.5em;
-    color: #EEEEEE; }
+    color: #EEEEEE;
+    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
     .user-bar__title h3 {
       margin-bottom: 0; }
 
@@ -1285,3 +1352,84 @@ a {
 
 .map__marker {
   transform: translate(-38px, -80px); }
+
+.list-item {
+  border-top: solid 1px #AAAAAA;
+  display: flex;
+  padding: 0.75em 0; }
+  .list-item__content {
+    margin-left: 1.5em; }
+  .list-item__link {
+    color: #333333; }
+    .list-item__link:hover {
+      color: #1565c0; }
+  .list-item__sub {
+    color: #666666; }
+  .list-item__img {
+    border-radius: 50%;
+    padding: 0.75em;
+    height: 48px;
+    width: 48px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%; }
+
+.pagination {
+  text-align: center;
+  margin-top: 1.5em; }
+  .pagination__btn {
+    background: #f7f7f7;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    color: #333;
+    outline: none;
+    padding: 0.375em 0.75em;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out; }
+    .pagination__btn:hover, .pagination__btn:focus {
+      background: white;
+      color: #38aeF4; }
+    .pagination__btn--active {
+      background: #38aeF4; }
+  .pagination ul {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    text-align: center; }
+    .pagination ul li {
+      display: inline;
+      list-style: none; }
+    @media all and (min-width: 1025px) {
+      .pagination ul ul li {
+        display: inline; } }
+
+.sort-tabs {
+  margin-top: 1.5em;
+  margin-left: 1.5em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; }
+  .sort-tabs__link {
+    margin: 1.5em;
+    border-top: 1px solid #AAAAAA;
+    border-left: 1px solid #AAAAAA;
+    border-right: 1px solid #AAAAAA;
+    border-radius: 3px;
+    color: #333333;
+    display: block;
+    padding: 0;
+    text-decoration: none; }
+  .sort-tabs__button {
+    background: #f7f7f7;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    color: #333;
+    outline: none;
+    padding: 0.375em 0.75em;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out; }
+    .sort-tabs__button:hover, .sort-tabs__button:focus {
+      background: white;
+      color: #38aeF4; }
+    .sort-tabs__button--active {
+      background: #38aeF4; }

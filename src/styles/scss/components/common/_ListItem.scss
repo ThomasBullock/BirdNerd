@@ -1,0 +1,30 @@
+.list-item {
+    border-top: solid 1px $base;
+    display: flex;
+    padding: $base-spacing / 2 0;
+
+    @include elem('content') {
+        margin-left: $base-spacing;
+    }
+
+    @include elem('link') {
+        color: $oil;
+
+        &:hover {
+           color: $blue;
+        }
+    }
+
+    @include elem('sub') {
+        color: $steel;
+    }    
+
+    @include elem('img') {
+        border-radius: 50%;
+		padding: $base-spacing / 2;
+		height: 48px;
+        width: 48px;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+    }
+}

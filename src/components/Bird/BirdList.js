@@ -1,14 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {Helmet} from "react-helmet";
-
-//import '../../styles/css/components/BirdList.css';
+import ListItem from '../Common/ListItem';
+import { cloudinaryUrlModify } from '../../clientHelpers';
+	// <div key={i} className="birdlist__item">
+	// 	<Link className="birdlist__link" to={`/bird/${item.slug}`}>{item.name} <i>({item.species})</i></Link>
+	// </div>	
 import { birdGroups } from '../../clientHelpers';
 
 const BirdList = (birdList) => {
 	// cycle through props of obj
 	const birdsByGroup = () => {
-		
 		return Object.keys(birdList.birdList).map( (group, i) => {
 			return(
 				<div key={i}>
@@ -17,9 +19,12 @@ const BirdList = (birdList) => {
 					{ birdList.birdList[group].length > 0 ? (
 						birdList.birdList[group].map ( (item, i) => {
 							return(
-								<div key={i} className="birdlist__item">
-									<Link className="birdlist__link" to={`/bird/${item.slug}`}>{item.name} <i>({item.species})</i></Link>
-								</div>							
+								<ListItem 
+									key={i} 
+									heading={item.name} 
+									subHeading={item.species} 
+									link={`/bird/${item.slug}`} 
+									img={cloudinaryUrlModify(item.imageUrl.split('/'), 'w_100')} />
 							)
 						}) ) : (
 							<p>No Listings Yet</p>

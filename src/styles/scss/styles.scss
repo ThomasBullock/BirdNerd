@@ -17,7 +17,7 @@
 // import our components
 @import './components/TopBar';
 @import './components/BirdCard';
-@import './components/BirdInfo';
+@import './components/BirdProfile';
 @import './components/BirdList';
 // @import './components/common/Buttons';
 @import './components/Camera';
@@ -25,7 +25,7 @@
 @import './components/FeatureCard';
 @import './components/Footer';
 @import './components/Forms';
-@import './components/Home'; //Clean this up it's redundant!!
+@import './components/Home'; //Clean this up it's redundant!!  contains nav-tabs!!
 @import './components/Hero';
 @import './components/Landing';
 @import './components/Loader';
@@ -37,3 +37,6 @@
 @import './components/PhotoUserBar';
 
 @import './components/common/GoogleMap';
+@import './components/common/ListItem';
+@import './components/common/PaginationMenu';
+@import './components/common/Sort';

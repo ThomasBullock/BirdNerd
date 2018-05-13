@@ -59,7 +59,6 @@ const renderSelectField =({ input, label, type, className, meta: { touched, erro
 )
 
 const renderDropzoneInput = (field) => {
-  console.log(field)
   const files = field.input.value;
   return (
     <div>
