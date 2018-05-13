@@ -7,6 +7,7 @@ import swal from 'sweetalert'
 import calculateAspectRatios from 'calculate-aspect-ratio';
 import history from '../history';
 import { push } from 'react-router-redux';
+import { fromJS } from 'immutable';
 import store from '../store';
 
 function* fetchBird(action) {
@@ -25,6 +26,7 @@ function* createBird(action) {
         swal('Incorrect file type')
         return
     }    
+    console.log(action.bird)
     const formData = new FormData();
     formData.append("file", birdImage);
     //formData.append("tags", `codeinfuse, medium, gist`);
@@ -40,7 +42,8 @@ function* createBird(action) {
       name: action.bird.get('name'),
       slug: slugs(action.bird.get('name')),
       order: action.bird.get('order'),  
-      family: action.bird.get('family'),            
+      family: action.bird.get('family'),
+      wingspan: fromJS([parseInt(action.bird.get('wingspan-min')), parseInt(action.bird.get('wingspan-max'))]),            
       species: action.bird.get('species'),
       location: action.bird.get('location') && action.bird.get('location').split(',').map( (item) => item.trim() ),      
       conservationStatus: action.bird.get('conservationStatus'),
@@ -72,7 +75,6 @@ function* fetchBirdList(action) {
   try {
     yield put(load('fetching bird data'));  
     const birdList = yield call(api.GET, `birds`)
-    console.log(birdList)
     yield put(actions.receiveBirdList(birdList));
     yield put(loaded());
   } catch(error) {
@@ -139,7 +141,9 @@ function* updateBird(action) {
     const birdInfo = {
       name: action.bird.get('name'),
       slug: slugs(action.bird.get('name')),
-      order: action.bird.get('order'),      
+      order: action.bird.get('order'),
+      family: action.bird.get('family'),
+      wingspan: fromJS([parseInt(action.bird.get('wingspan-min')), parseInt(action.bird.get('wingspan-max'))]),               
       species: action.bird.get('species'),
       location: action.bird.get('location') && action.bird.get('location').split(',').map( (item) => item.trim() ),      
       conservationStatus: action.bird.get('conservationStatus'),
@@ -156,7 +160,7 @@ function* updateBird(action) {
       birdInfo.public_id = birdImageRes.public_id;   
     }
     
-    const res = yield call(api.POST, `birds/update/${action.birdId}`, birdInfo);
+    const res = yield call(api.PUT, `birds/${action.birdId}`, birdInfo);
     console.log(res);
  //${res.data.slug}
     yield put(actions.updateBirdSuccess(res.data));

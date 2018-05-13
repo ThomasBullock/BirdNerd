@@ -1,6 +1,20 @@
-.form {
-	box-shadow: 2px 2px 5px transparentize($oil, .5);
+@mixin slider-value-span() {
+	position: absolute;
+	color: $vapor;
+	z-index: 50;
+	border: solid 1px transparentize($oil, .8);
+	border-radius: $base-border-radius;
+	background: $jumbo;
+	width: 32px;
+	height: 21px;
+	padding: 0 2px;
+	font-size: modular-scale(-1);
+	text-align: center;	
+}
 
+.form {
+	@include drop-shadow(2);
+	
 	button {
 		margin-top: $base-spacing / 2;
 		background: $lorikeet-blue;
@@ -74,6 +88,147 @@
 		}
 	}
 	
+	@include elem('dual-slider') {
+		position: relative;
+		// padding: $base-spacing;
+		flex: 1 1 50%;
+		// margin-right: 5%;
+
+		@include mod('min') {
+			@include slider-value-span;
+			// position: absolute;
+			left:2px;
+			top: 7px;
+		}
+		@include mod('max') {
+			@include slider-value-span;
+
+			right: 2px;
+			top: 7px;
+
+		}		
+	}
+
+	@include elem('dual-slider-container') {	
+		position: relative;
+		// display: flex;
+	}
+
+	@include elem('dual-slider-label') {
+		margin: 0 auto;
+	}
+
+	@include elem('range') {
+		// based on react-dual-rangeslider css
+
+		pointer-events: none;
+		position: absolute;
+		// overflow: hidden;
+		// left: $base-spacing;
+		// right: $base-spacing;
+		// top: $base-spacing * 1.35;
+		top: 7px;
+		left: 35px;
+		width: 73%;
+		// flex: 1 1 50%;
+		outline: none;
+		height: 18px;
+		// margin: 0 auto;
+		// margin-left: $base-spacing;
+		// margin-right: $base-spacing * 2;
+		// padding-left: $base-spacing;
+		// padding-right: $base-spacing;		
+
+
+		-webkit-appearance: none;
+		-moz-appearance: none;
+
+		&::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			// top: 2px // ($base-spacing / 2) * -1 ;
+			pointer-events: all;
+			border: 1px solid #CCD2DB;
+			top: -11px;
+			@include drop-shadow(1);
+			border-radius: $base-border-radius;
+			background-image:url(%thumb-image%);
+			background-color: white;
+			background-repeat: no-repeat;
+			background-position: 50% 50%;
+			position: relative;
+			z-index: 1;
+			outline: 0;
+			height: $base-spacing;
+			width: $base-spacing;
+			content: 'min';
+		}
+
+		&::-webkit-slider-runnable-track {
+			/*
+			background-color: #5FCCC7;
+			*/
+			background-color: $gainsboro;
+			height: 6px;
+			border-radius: 13px;
+			border: 1px solid #EDEEF0;
+		}
+
+		@include mod('min') {
+
+		}
+
+		@include mod('max') {
+			// position: absolute;
+			// top: 0;
+			// left: 0; 
+		}
+		
+		/* Styles for Firefox */
+		&::-moz-range-thumb {
+			-moz-appearance: none;
+			@include drop-shadow(1);
+			pointer-events: all;
+			border: 2px solid #CCD2DB;
+			border-radius: $base-border-radius;
+			background-image:url(%thumb-image%);
+			background-color: white;
+			background-repeat: no-repeat;
+			background-position: 50% 50%;
+			position: relative;
+			z-index: 100;
+			outline: 0;
+			height: 12px;
+			width: 12px;
+		}
+
+		&::-moz-range-track {
+			position: relative;
+			z-index: -1;
+			/*
+			background-color: #5FCCC7;
+			*/
+			background: none transparent;
+			height: 6px;
+			border-radius: 13px;
+			border: 1px solid #EDEEF0;
+		}
+
+		/* extra fixes for Firefox */
+		&:last-of-type::-moz-range-track {
+			-moz-appearance: none;
+			background: none transparent;
+			border: 0;
+		}
+
+		&::-moz-focus-outer {
+			border: 0;
+		}
+
+	}
+
+
+	
+
 	@include elem('dropzone') {
 		flex: 1 1 100%;			
 	}
@@ -100,7 +255,7 @@
 		background: $silver;
 		text-align: center;
 		color: $jumbo;
-  		box-shadow: 2px 2px 5px transparentize($oil, .5);
+		@include drop-shadow(2);
   		
 		p {
 			margin-bottom: 0;

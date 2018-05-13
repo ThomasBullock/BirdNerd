@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import PaginationMenu from '../Common/PaginationMenu';
 import BirdCard from '../Bird/BirdCard';
 
 // Duplicate code also in Homepage to be improved!
@@ -14,7 +14,7 @@ const userPermission = (user, photo) => {
 	}
 }
 
-const MyPhotos = ({ photos, user, likeHandler }) => {
+const MyPhotos = ({ photos, user, likeHandler, sort, totalPhotos }) => {
 		const userRole = user.get('role');
 		const birdPhotos = photos.map( (item, i) => {
 			return (
@@ -37,11 +37,21 @@ const MyPhotos = ({ photos, user, likeHandler }) => {
 		})
     return (
     	<div className="container">
-	    	<ul className="nav-tabs">
-	    		<li>
-    				<button className="nav-tabs__button"><Link to={`/bird/mybirds/new`}>Submit Photo</Link></button>
-    			</li>
-    		</ul>		
+			<div style={{'display': 'flex', 'justifyContent': 'center', 'flexWrap': 'wrap' }}> 
+				<PaginationMenu page="myPhotosPage" totalPhotos={totalPhotos}/>
+				<ul className="sort-tabs">
+					<li className="tab-header-and-content">
+						{ /* <a href="#" className="nav-tabs__link">Newest Photos</a> */}
+						<button className="sort-tabs__button" onClick={() => sort('Newest')}>Newest Photos</button>
+					</li>
+					<li className="tab-header-and-content">
+						<button className="sort-tabs__button" onClick={() => sort('Oldest')}>Oldest Photos</button>
+					</li>
+					<li className="tab-header-and-content">
+						<button className="sort-tabs__button" onClick={() => sort('Popular')}>Most Popular</button>
+					</li>
+				</ul>
+			</div>	
     		<div className="cards-wrapper">
     			{birdPhotos}
 	  		</div>	  	  			  		

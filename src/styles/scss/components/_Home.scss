@@ -1,39 +1,39 @@
 
-.nav-tabs {
-	width: 100%;
-	margin-top: $base-spacing;
-	display: flex;
-    flex-wrap: wrap;
-	justify-content: center;
+// .nav-tabs {
+// 	width: 100%;
+// 	margin-top: $base-spacing;
+// 	display: flex;
+//     flex-wrap: wrap;
+// 	justify-content: center;
 	
 	
 	
-	@include elem('link') {
-        margin: $base-spacing;
-        border-top: 1px solid $base;
-        border-left: 1px solid $base;
-        border-right: 1px solid $base;        
-        border-radius: $base-border-radius;
-        color: $oil;
-        display: block;
-        padding: 0;
-        text-decoration: none;
-	}
+// 	@include elem('link') {
+//         margin: $base-spacing;
+//         border-top: 1px solid $base;
+//         border-left: 1px solid $base;
+//         border-right: 1px solid $base;        
+//         border-radius: $base-border-radius;
+//         color: $oil;
+//         display: block;
+//         padding: 0;
+//         text-decoration: none;
+// 	}
 
-    @include elem('button') {
-        background: $lorikeet-blue;
-        margin: 0 $base-spacing / 2;
-        @include drop-shadow(1);
-        font-size: modular-scale(-1);
+//     @include elem('button') {
+//         background: $lorikeet-blue;
+//         margin: 0 $base-spacing / 2;
+//         @include drop-shadow(1);
+//         font-size: modular-scale(-1);
 
-        @media all and (min-width : 768px) and (max-width : 1024px) {
-            font-size: modular-scale(0);       
-        } 
+//         @media all and (min-width : 768px) and (max-width : 1024px) {
+//             font-size: modular-scale(0);       
+//         } 
         
-        @media all and (min-width : 1025px) {
-            font-size: modular-scale(0);                
-        }       
+//         @media all and (min-width : 1025px) {
+//             font-size: modular-scale(0);                
+//         }       
         
-    }
-} 
+//     }
+// } 
 

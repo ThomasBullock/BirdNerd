@@ -33,7 +33,7 @@ class BirdCard extends Component {
 			    //   icon: "success",
 			    // });
 			    console.log(' will delete')
-					this.props.dispatch(deletePhoto(this.props.public_id));
+					this.props.dispatch(deletePhoto(this.props.id));
 			  } else {
 			    swal(`This ${this.props.name} photo is safe!`);
 			  }

@@ -22,17 +22,8 @@ class BirdFeedContainer extends Component {
     if(this.props.birdNerds.size === 0) {
       this.props.requestUsers();      
     }
-
-    // console.log('we\'ll get a bunch of photos');
-    // if(this.props.photos.size === 1 && this.props.photos.get(0).get('created_at') === null) {
-    //   console.log('requesting photos loader === ' + this.props.loading)
-    //   this.props.requestPhotos();
   }    
 
-  componentDidMount() {
-    //this.props.requestPhotos();
-  }
-  
   handleSort(sort) {
     switch(sort) {
       case 'Newest': 
@@ -57,16 +48,17 @@ class BirdFeedContainer extends Component {
     }
   }
   render() {
-    const { photos, loading } = this.props;
+    // console.log(this.props)
+    const { photos, loading, photosPerPage, feedPage } = this.props;
+    const skip = photosPerPage * feedPage;
+    const feedPhotos = Immutable.fromJS([...photos.slice( skip, (skip + photosPerPage) )]);
+    // console.log(feedPhotos)
     return (
       <div>
-        <BirdFeed photos={photos} sort={this.handleSort} user={this.props.user} likeHandler={this.props.likePhoto}/>
+        <BirdFeed photos={feedPhotos} sort={this.handleSort} user={this.props.user} likeHandler={this.props.likePhoto} totalPhotos={this.props.photos.size}/>
         <Helmet>
             <title>BirdFeed</title>
         </Helmet>
-        {/* {photos ? (<HomePage photos={photos} sort={this.handleSort} user={this.props.user} likeHandler={this.props.likePhoto}/>) : (
-          <h2>Loading</h2>
-        )} */}
       </div>
     );
   }
@@ -78,19 +70,20 @@ BirdFeedContainer.propTypes = {
   loading: bool.isRequired
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, props) {
   return { 
     content: state.getIn(['auth', 'content']),
     photos: state.get('photos'),
     user: state.getIn(['auth', 'user']),
     loading: state.getIn(['loading', 'currentState']),
     message: state.getIn(['loading', 'message']),
-    birdNerds: state.get('users') 
+    birdNerds: state.get('users'),
+    feedPage: state.getIn(['ui', 'feedPage']),
+    photosPerPage: state.getIn(['ui', 'photosPerPage']),
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
-  // console.log(dispatch);
   return {
     requestPhotos: (query) => dispatch(requestPhotos(query)),
     sortNewest: () => dispatch(sortNewest()),

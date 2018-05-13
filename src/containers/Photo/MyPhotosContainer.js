@@ -3,7 +3,7 @@ import { instanceOf, func, object } from 'prop-types';
 import Immutable from 'immutable';
 import { connect } from 'react-redux';
 import MyPhotos from '../../components/Photo/MyPhotos';
-import { likePhoto } from '../../ducks/photos';
+import { likePhoto, sortNewest, sortOldest, sortPopular } from '../../ducks/photos';
 import { requestUsers } from '../../ducks/users';
 
 class MyPhotosContainer extends Component {
@@ -13,11 +13,29 @@ class MyPhotosContainer extends Component {
     }
   }
 
+  handleSort = (sort) => {
+    switch(sort) {
+      case 'Newest': 
+        this.props.sortNewest();
+        break;
+      case 'Oldest':
+        this.props.sortOldest();
+        break;
+      case 'Popular': 
+        this.props.sortPopular();
+        break;       
+      default:
+        this.props.sortNewest();
+    }
+  }
+
   render() {
-    const { photos } = this.props;
+    const { photos, loading, photosPerPage, feedPage } = this.props;
+    const skip = photosPerPage * feedPage;
+    const myPhotos = Immutable.fromJS([...photos.slice( skip, (skip + photosPerPage) )]);
   	return(
       <div>
-  		  <MyPhotos photos={photos} user={this.props.user} likeHandler={this.props.likePhoto}/>
+  		  <MyPhotos photos={myPhotos} user={this.props.user} likeHandler={this.props.likePhoto} sort={this.handleSort} totalPhotos={this.props.photos.size}/>
       </div>
   	)
   }
@@ -31,17 +49,20 @@ MyPhotosContainer.propTypes = {
 
 const mapStateToProps = (state) => {
 	return {
-    // state.get('photos').filter(photoInfo => photoInfo.get('birdSlug') === props.match.params.birdSlug)
-
 	  photos: state.get('photos').filter(photoInfo => photoInfo.getIn(['user', '_id']) === state.getIn(['auth', 'user', '_id']) ),
     user: state.getIn(['auth', 'user']),
     birdNerds: state.get('users'),
+    feedPage: state.getIn(['ui', 'myPhotosPage']),
+    photosPerPage: state.getIn(['ui', 'photosPerPage']),
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     likePhoto: (photo) => dispatch(likePhoto(photo)),
+    sortNewest: () => dispatch(sortNewest()),
+    sortOldest: () => dispatch(sortOldest()),
+    sortPopular: () => dispatch(sortPopular()),    
     requestUsers: () => dispatch(requestUsers()),
   }
 }

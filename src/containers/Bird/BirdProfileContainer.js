@@ -14,12 +14,30 @@ import {
   requestBirdList
 } from '../../ducks/bird';
 
-import { likePhoto } from '../../ducks/photos';
+import { likePhoto, requestPhotos } from '../../ducks/photos';
 
 import BirdProfile from '../../components/Bird/BirdProfile';
 
-class BirdProfileContainer extends Component {	
-	
+class BirdProfileContainer extends Component {
+	// componentDidMount() {
+	// 	console.log(this.props);
+	// 	if(this.props.photos.size === 1 && this.props.photos.get(0).get('created_at') === null) {		
+	// 		console.log('we get the photos we need')
+	// 		this.props.requestPhotos('sort=created_asc', this.props.birdInfo.get('_id'));
+	// 	}
+	// }
+
+	// shouldComponentUpdate(nextProps, nextState) {
+	// 	console.log('current', this.props);
+	// 	console.log('next', nextProps);
+	// 	return false;		
+
+	// }
+
+	// componentDidUpdate(){
+	// 	console.log('component update')
+	// }
+
 	render() {
 		const birdSlug = this.props.match.params.birdSlug;
 		return (
@@ -58,12 +76,12 @@ const mapStateToProps = (state, props) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-	// console.log(dispatch);
   return {
     createBird: (bird) => dispatch(createBird(bird)),
     updateBird: (bird) => dispatch(updateBird(bird)),
     deleteBird: (_id) => dispatch(deleteBird(_id)),
-    likePhoto: (photo) => dispatch(likePhoto(photo))
+		likePhoto: (photo) => dispatch(likePhoto(photo)),
+		requestPhotos: (query, id) => dispatch(requestPhotos(query, id))
   }; // here we're mapping actions to props	
 }
 

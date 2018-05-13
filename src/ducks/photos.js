@@ -18,12 +18,12 @@ export const LIKE_PHOTO_SUCCESS = action('LIKE_PHOTO_SUCCESS');
 
 // Action creators
 
-export const requestPhotos = (query) => ({ type: REQUEST_PHOTOS, query});
+export const requestPhotos = (query, id) => ({ type: REQUEST_PHOTOS, query, id});
 export const receivePhotos = (photos) => ({ type: RECEIVE_PHOTOS, photos });
 export const createPhoto = (photo) => ({ type: CREATE_PHOTO, photo});
 export const createPhotoSuccess = (photo) => ({ type: CREATE_PHOTO_SUCCESS, photo});
-export const deletePhoto = public_id => ({ type: DELETE_PHOTO, public_id});
-export const deletePhotoSuccess = public_id => ({ type: DELETE_PHOTO_SUCCESS, public_id});
+export const deletePhoto = (_id) => ({ type: DELETE_PHOTO, _id});
+export const deletePhotoSuccess = (_id) => ({ type: DELETE_PHOTO_SUCCESS, _id});
 export const sortNewest = () => ({ type: SORT_NEWEST});
 export const sortOldest = () => ({ type: SORT_OLDEST});
 export const sortPopular = () => ({ type: SORT_POPULAR});
@@ -67,7 +67,7 @@ const photos = (state = initialState, action) => {
     case SORT_POPULAR:
 		return state.sort( (a, b) => a.get('likes').size - b.get('likes').size).reverse();
 	case DELETE_PHOTO_SUCCESS:
-		return state.update((photoList) => photoList.filter(photoObj => photoObj.get('public_id') !== action.public_id));
+		return state.update((photoList) => photoList.filter(photoObj => photoObj.get('_id') !== action._id));
 	case LIKE_PHOTO_SUCCESS:
 		return state.update((photoList) => photoList
 			.map(photoObj => (photoObj.get('_id') === action.photo.get('_id')) ? photoObj.set('likes', action.photo.get('likes')) : photoObj ))	

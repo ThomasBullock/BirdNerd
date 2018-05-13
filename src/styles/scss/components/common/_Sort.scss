@@ -1,0 +1,42 @@
+
+.sort-tabs {
+	// width: 100%;
+    margin-top: $base-spacing;
+    margin-left: $base-spacing;
+	display: flex;
+    flex-wrap: wrap;
+	justify-content: center;
+	
+	
+	
+	@include elem('link') {
+        margin: $base-spacing;
+        border-top: 1px solid $base;
+        border-left: 1px solid $base;
+        border-right: 1px solid $base;        
+        border-radius: $base-border-radius;
+        color: $oil;
+        display: block;
+        padding: 0;
+        text-decoration: none;
+	}
+
+    @include elem('button') {
+        @include small-btn();
+        
+        &:hover,
+        &:focus {
+          background: $pagination-hover-background;
+          color: $lorikeet-blue;
+        }
+  
+        &:active {
+          // background: $pagination-background;
+        }
+  
+        @include mod('active') {
+          background: $lorikeet-blue;
+        }
+    }
+} 
+

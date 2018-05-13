@@ -25,7 +25,7 @@
 @import './components/FeatureCard';
 @import './components/Footer';
 @import './components/Forms';
-@import './components/Home'; //Clean this up it's redundant!!
+@import './components/Home'; //Clean this up it's redundant!!  contains nav-tabs!!
 @import './components/Hero';
 @import './components/Landing';
 @import './components/Loader';
@@ -38,3 +38,5 @@
 
 @import './components/common/GoogleMap';
 @import './components/common/ListItem';
+@import './components/common/PaginationMenu';
+@import './components/common/Sort';

@@ -36,6 +36,7 @@ const initialState = fromJS([
     species: null,
     order: null,
     family: null,
+    wingspan: null, 
     location: null,
     conservationStatus: null,
     comments: null,
@@ -43,7 +44,7 @@ const initialState = fromJS([
     bytes: null,
     imageAspect: null,    
     imageUrl: null,
-    public_id: null,    
+    public_id: null, 
   }
 ]);
 

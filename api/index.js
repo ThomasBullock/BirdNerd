@@ -24,6 +24,20 @@ const router = express.Router();
 
 ///// Birds /////
 
+// Return the total number of photos in DB
+router.get('/birds/photos', (req, res) => { // tried to do this in photos/ with query but wouldn't work!!!
+    Photo.find({})
+    .then(data => {
+        console.log(data.length);
+        res.status(200).json(data.length).end();
+    }).catch(error => {
+        console.log(error);
+        res.status(500).json(error).end();                 
+    })
+
+})
+
+
 // Return all birds from db
 router.get('/birds', (req, res) => { // removed requireAuth,
     Bird.find({})
@@ -149,7 +163,7 @@ router.delete('/birds/:id', requireAuth, (req, res) => {
 
 // Get all photos of bird of :id
 router.get('/birds/:id/photos', (req, res) => { // removed requireAuth
-    console.log(req.body);
+    console.log(req.params.id);
     const id = req.params.id;     
     Photo.find({ birdId: id })
     .then(data => {
@@ -163,8 +177,12 @@ router.get('/birds/:id/photos', (req, res) => { // removed requireAuth
 // Get photos with assorted sorting queries
 router.get('/photos', (req, res) => { // removed requireAuth
     // sort newest
+    const page = req.query.page || 1;
+    const limit = 6 // make this settable in future
+    const skip = (limit * page) - limit;
     const sort = req.query.sort;
     const popular = req.query.popular;
+    // const getPhotosTotal = req.query.total;
     if(sort) {
         let field, order;
         console.log('in switch!')
@@ -189,7 +207,8 @@ router.get('/photos', (req, res) => { // removed requireAuth
 
         Photo.find({})
         .sort( { [field]: parseInt(order) } )
-        .limit(12)
+        .skip(skip)
+        .limit(limit)
         .then(data => {
             res.status(200).json(data)
         }).catch(error => {
@@ -219,6 +238,7 @@ router.get('/photos', (req, res) => { // removed requireAuth
 
 })
 
+// Create new photo in DB
 router.post('/photo', requireAuth, (req, res) => { 
     // console.log(req.body);
     const photo = new Photo(req.body);
@@ -233,33 +253,17 @@ router.post('/photo', requireAuth, (req, res) => {
         })          
 });
 
-
-
-// Users //
-
-router.get('/users', requireAuth, (req, res) =>{
-    console.log('api users')
-    User.find({}).select({ profile: 1 })
-    .exec()
-    .then( data => {
-        res.status(200).json(data);
-    })
-    .catch(error => {
-        console.log(error);
-        res.status(500).json(error);
-    })
-})
-
+// delete photo from DB (by id) and cloudinary (public_id) if moderator or users own photo
 router.delete('/photos/:id', requireAuth, (req, res) => {
-    // console.log(req.user)
-    const publicId = req.params.id;
+    console.log(req.user)
     if(req.user.profile.role === 'moderator') {
-        Photo.findOneAndRemove({'public_id' : publicId }, function (error, photo) {
+        Photo.findOneAndRemove({'_id': req.params.id }, function (error, photo) {
             if(error){
                 throw error;
             }
             if(photo){
-                cloudinary.v2.uploader.destroy(req.body.public_id, function(error, result){
+                console.log(photo);
+                cloudinary.v2.uploader.destroy(photo.public_id, function(error, result){
                     if(error) {
                         console.log('Cloudinary Error:====', error);
                     }
@@ -272,13 +276,13 @@ router.delete('/photos/:id', requireAuth, (req, res) => {
         });
     } else {
         console.log('we aint a mod')
-        Photo.findOneAndRemove({'public_id': req.body.public_id, 'user._id': req.user._id}, function (error, photo) {
+        Photo.findOneAndRemove({'_id': req.params.id, 'user._id': req.user._id}, function (error, photo) {
             console.log(photo)
             if(error){
                 throw error;
             }
             if(photo){
-                cloudinary.v2.uploader.destroy(req.body.public_id, function(error, result){
+                cloudinary.v2.uploader.destroy(photo.public_id, function(error, result){
                     if(error) {
                         console.log(error);
                     }
@@ -309,6 +313,7 @@ router.put('/birds/:Id/photos/:field', requireAuth, (req, res) => {
     }
 })
 
+// increment or decrement photo of :id's likes
 router.put('/photos/:id/like', requireAuth, (req, res) => {
     console.log(req.body)
     const photoId = req.params.id;
@@ -329,6 +334,21 @@ router.put('/photos/:id/like', requireAuth, (req, res) => {
     })
 
 });
+
+// Users //
+
+// return all user profiles
+router.get('/users', requireAuth, (req, res) =>{
+    User.find({}).select({ profile: 1 })
+    .exec()
+    .then( data => {
+        res.status(200).json(data);
+    })
+    .catch(error => {
+        console.log(error);
+        res.status(500).json(error);
+    })
+})
 
 ///////////////////////////////////////////////////
 /////////////         NEW API      ////////////////

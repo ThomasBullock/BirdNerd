@@ -31,9 +31,6 @@ const deleteAlert = (birdInfo, deleteBird) => {
 	})
 	.then((willDelete) => {
 	  if (willDelete) {
-	    // swal("Poof! Your imaginary file has been deleted!", {
-	    //   icon: "success",
-	    // });
 	    console.log(' will delete')
 			deleteBird(birdInfo.get('_id'));	 
 	  } else {
@@ -42,8 +39,26 @@ const deleteAlert = (birdInfo, deleteBird) => {
 	});
 }
 
+const renderWingspan = (wingspan) => {
+	console.log(wingspan)
+	let min = wingspan.get(0);
+	let max = wingspan.get(1);
+	const measurement = (min > 100 && max > 100) ? 'm' : 'cm';
+	if (measurement === 'm') {
+		min = min / 100;
+		max = max / 100;
+	}
+ 	return(
+		<p className="birdinfo__entry--third">
+			<strong>Wingspan: </strong>
+			{min}-{max}{measurement}
+		</p>		
+	)
+}
+
 const BirdProfile = ({birdSlug, birdInfo, photos, user, likeHandler, deleteBird}) => {
-		// console.log(aspectRatioClass(birdInfo.get('imageAspect')));
+
+		console.log(birdInfo.get('wingspan'));
 		const aspect = ( birdInfo.get('imageAspect') ) ? aspectRatioClass(birdInfo.get('imageAspect')) : 'other';
 		const userRole = (user) ? user.get('role') : null;
 		const photoCards = photos && photos.map( (item, i) => {
@@ -107,17 +122,22 @@ const BirdProfile = ({birdSlug, birdInfo, photos, user, likeHandler, deleteBird}
 						
 						</div>
 
-						<p><strong>Species: </strong>{birdInfo.get('species')}</p>
-						{birdInfo.get('order') !== 'false' &&
-							
-						<p><strong>Order: </strong>{birdInfo.get('order')}</p>
-						}						
-						<p>
+						<p className="birdinfo__entry--full"><strong>Species: </strong>{birdInfo.get('species')}</p>
+						{birdInfo.get('family') &&					
+							<p className="birdinfo__entry--half"><strong>Family: </strong>{birdInfo.get('family')}</p>
+						}							
+						{birdInfo.get('order') &&
+							<p className="birdinfo__entry--half"><strong>Order: </strong>{birdInfo.get('order')}</p>
+						}
+						{birdInfo.get('wingspan').get(1) &&
+							renderWingspan(birdInfo.get('wingspan'))
+						}							
+						<p className="birdinfo__entry--half"><strong>Conservation Status: </strong>{birdInfo.get('conservationStatus')}</p>
+						<p className="birdinfo__entry--full">
 							<strong>Locations: </strong>
 							{locations}
 						</p>
-						<p><strong>Conservation Status: </strong>{birdInfo.get('conservationStatus')}</p>
-						<p>{birdInfo.get('comments')}</p>
+						<p className="birdinfo__entry--full">{birdInfo.get('comments')}</p>
 					</div>
 				</div>				
 				<div className="birdinfo__body">

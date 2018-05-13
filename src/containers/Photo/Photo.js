@@ -78,7 +78,7 @@ class Photo extends Component {
 							photoUser={this.props.birdNerds.get(this.props.photo.getIn(['user', '_id'])) || tempProfile}
 							birdName={this.props.photo.get('birdName')}						
 							uploadDate={this.props.photo.get('created_at')}
-							id={this.props.photo.get('public_id')}
+							id={this.props.photo.get('_id')}
 							slug={this.props.photo.get('birdSlug')}
 							owner={userPermission(this.props.user, this.props.photo)}						
 							deleteHandler={this.props.deletePhoto}			

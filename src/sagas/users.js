@@ -9,17 +9,11 @@ import { indexBy } from '../clientHelpers';
 
 function* fetchUsers(action) {
   try {
-    console.log('in users saga')
-    // yield put(load('fetching list of users'));  
     const userList = yield call(api.GET, `users`)
     const usersAsMap = keyBy(userList, '_id');
-    console.log(usersAsMap);    
     yield put(actions.receiveUsers(usersAsMap));
-    // yield put(loaded());
   } catch(error) {
     console.log(error)
-    // need to push somewhere
-    // history.push(`/bird`);
   }
 }
 

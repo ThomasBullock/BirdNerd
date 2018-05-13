@@ -20,10 +20,12 @@ const getUserSurname = (state) => state.getIn(['auth', 'user', 'lastName']); // 
 
 const getPhoto = (state, photoID ) => state.get('photos').filter(photo => photo.get('_id') === photoID).get(0);
 
+
 function* fetchPhotos(action) {
     try {
-        yield put(load('Loading Photos'));            
-        const myPhotos = yield call(api.GET, `photos/`);
+        yield put(load('Loading Photos'));
+        const query = (action.id) ? `birds/${action.id}/photos` : `photos/?${action.query}`;        
+        const myPhotos = yield call(api.GET, query);
         yield put(loaded());                  
         yield put(actions.receivePhotos(myPhotos));
     } catch(error) {
@@ -112,12 +114,13 @@ function* deletePhoto(action) {
     // get router info if on photo:id then history push to my photos
     console.log(action)
     try {
-        const public_id = { public_id: action.public_id}
-        const res = yield call(api.DELETE, 'photo', public_id);
+        const public_id = { public_id: action._id}
+        const res = yield call(api.DELETE, `photos/${action._id}`);
         if(!res.error) {
-            yield put(actions.deletePhotoSuccess(action.public_id))
+            history.push('/bird/feed');  
+            yield put(actions.deletePhotoSuccess(action._id));
         } 
-        history.push('/bird/feed');             
+           
     } catch(error) {
         console.log(error);
     }
