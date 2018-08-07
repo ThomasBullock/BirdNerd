@@ -20,7 +20,7 @@ const app = express();
 const port = process.env.API_PORT || 3001;
 
 // Connect to our Database 
-mongoose.connect(process.env.DATABASE, { useMongoClient: true, });
+mongoose.connect(process.env.DATABASE);
 
 
 // converts raw requests into usaxsble properties on req.body
